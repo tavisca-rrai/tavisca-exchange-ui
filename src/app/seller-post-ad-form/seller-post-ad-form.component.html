@@ -1,1 +1,88 @@
-<p>seller-post-ad-form works!</p>
+<div id="post-ad-container">
+    <form>
+
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input id="title" minlength="2" maxlength="10" ngModel name="title" #title="ngModel" class="form-control" type="text" placeholder="Product name.." required >
+        <div class="alert alert-danger" *ngIf="title.touched && !title.valid">
+            <div *ngIf="title.errors.required">Title is required</div>
+            <div *ngIf="title.errors.minlength">Title should be minimum 2 Characters.</div>
+        </div>    
+    </div>
+
+    <div class="form-group">
+        <label for="category" >Category</label>
+        <select id="category" class="form-control">
+            <option>Mobiles</option>
+            <option>Home</option>
+            <option>Electronics</option>
+            <option>Cars</option>
+            <option>Bikes</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="price">Price</label>
+        <div class="input-group">
+            <span class="input-group-text">$</span>
+            <input id="price" ngModel  name="price" #price="ngModel" class="form-control" type="number"  placeholder="Product price.." required [min]="0">
+        </div>
+        <div class="alert alert-danger" *ngIf="price.touched && !price.valid">
+            <div *ngIf="price.errors.required"> Price is required.</div>
+            <div *ngIf="price.errors.min"> Price should be 0 or more.</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="discription ">Description</label>
+        <textarea id="discription" minlength="4" ngModel name="discription" #discription="ngModel" class="form-control" type="text" placeholder="Product name.." required ></textarea>
+        <div class="alert alert-danger" *ngIf="discription.touched && !discription.valid">
+            <div *ngIf="discription.errors.required">Description is required</div>
+            <div *ngIf="discription.errors.minlength">Description should be minimum 4 Characters.</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="date-of-purchese">Date of purchese</label>
+        <input class="form-control" type="date" id="date" placeholder="Enter Product Date of purchese.." required>
+    </div>
+
+    <div class="form-group">
+        <label for="negotiable">Negotiable</label>
+        <div class="radio">
+            <label><input type="radio" name="negotiable">Yes</label>
+        </div>
+        <div class="radio">
+            <label><input type="radio" name="negotiable" checked>No</label>
+        </div>
+    </div>
+
+     <div class="form-group">
+        <label for="show-phone-number">Show Phone Number</label>
+        <div class="radio">
+            <label><input type="radio" name="show-phone-number" >Yes</label>
+        </div>
+        <div class="radio">
+            <label><input type="radio" name="show-phone-number" checked>No</label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="address ">Address</label>
+        <textarea class="form-control" type="text" id="discription" placeholder="Enter complete address.." required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="title">Image</label>
+        <div class="picture-container">
+            <div class="picture">
+                <img  src="#" alt="your image" style="display: none"/>
+                <button class="btn"  onclick="document.getElementById('file').click();return false;"><i class="fa fa-plus"></i>Add</button>
+                <input type="file" id="file"  accept=".png, .jpg, .jpeg" style="display: none" >
+            </div>
+        </div>
+    </div>
+  
+    <button class="btn btn-primary ">Post</button>
+    </form>
+</div>

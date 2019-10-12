@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { SellerPostAdFormComponent } from './seller-post-ad-form/seller-post-ad-form.component';
+import { FormsModule } from '@angular/forms';
+import { CustomFormsModule} from 'ng2-validation'
 
 @NgModule({
   declarations: [
@@ -10,7 +12,9 @@ import { SellerPostAdFormComponent } from './seller-post-ad-form/seller-post-ad-
     SellerPostAdFormComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    CustomFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

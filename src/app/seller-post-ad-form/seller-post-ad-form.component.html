@@ -2,11 +2,11 @@
     <form>
 
     <div class="form-group">
-        <label for="title">Title</label>
-        <input id="title" minlength="2" maxlength="10" ngModel name="title" #title="ngModel" class="form-control" type="text" placeholder="Product name.." required >
-        <div class="alert alert-danger" *ngIf="title.touched && !title.valid">
-            <div *ngIf="title.errors.required">Title is required</div>
-            <div *ngIf="title.errors.minlength">Title should be minimum 2 Characters.</div>
+        <label for="name">Name</label>
+        <input id="name" minlength="2" maxlength="10" ngModel name="name" #name="ngModel" class="form-control" type="text" placeholder="Product name.." required >
+        <div class="alert alert-danger" *ngIf="name.touched && !name.valid">
+            <div *ngIf="name.errors.required">Title is required</div>
+            <div *ngIf="name.errors.minlength">Title should be minimum 2 Characters.</div>
         </div>    
     </div>
 
@@ -73,14 +73,48 @@
     </div>
 
     <div class="form-group">
-        <label for="title">Image</label>
-        <div class="picture-container">
-            <div class="picture">
-                <img  src="#" alt="your image" style="display: none"/>
-                <button class="btn"  onclick="document.getElementById('file').click();return false;"><i class="fa fa-plus"></i>Add</button>
-                <input type="file" id="file"  accept=".png, .jpg, .jpeg" style="display: none" >
-            </div>
+
+        <label for="image">Image</label>
+
+        <div id="picture-container">
+            <button [style.display]="CrossBtnValue[0]" (click)="removeImage(0)"><i class="fa fa-close"></i></button>
+            <img (click)="selectHeroImg(0)" src="{{ imageUrl[0] }}" [style.display]="imageValue[0]"/>
+            <button  class="btn"  onclick="document.getElementById('file0').click();return false;"><i class="fa fa-{{ iconOfButton[0] }}"></i>{{ buttonName[0] }}</button>
+            <input type="file" id="file0" (change)="addImage(0,$event);" accept=".png, .jpg, .jpeg" style="display: none" >
         </div>
+
+        <div id="picture-container">
+            <button [style.display]="CrossBtnValue[1]" (click)="removeImage(1)"><i class="fa fa-close"></i></button>
+            <img (click)="selectHeroImg(1)" src="{{ imageUrl[1] }}" [style.display]="imageValue[1]"/>
+            <button  class="btn"  onclick="document.getElementById('file1').click();return false;"><i class="fa fa-{{ iconOfButton[1] }}"></i>{{ buttonName[1] }}</button>
+            <input type="file" id="file1" (change)="addImage(1,$event);" accept=".png, .jpg, .jpeg" style="display: none" >
+        </div>
+
+        <div id="picture-container">
+            <button [style.display]="CrossBtnValue[2]" (click)="removeImage(2)"><i class="fa fa-close"></i></button>
+            <img (click)="selectHeroImg(2)" src="{{ imageUrl[2] }}" [style.display]="imageValue[2]"/>
+            <button  class="btn"  onclick="document.getElementById('file2').click();return false;"><i class="fa fa-{{ iconOfButton[2] }}"></i>{{ buttonName[2] }}</button>
+            <input type="file" id="file2" (change)="addImage(2,$event);" accept=".png, .jpg, .jpeg" style="display: none" >
+        </div>
+
+        <div id="picture-container">
+            <button [style.display]="CrossBtnValue[3]" (click)="removeImage(3)"><i class="fa fa-close"></i></button>
+            <img (click)="selectHeroImg(3)" src="{{ imageUrl[3] }}" [style.display]="imageValue[3]"/>
+            <button  class="btn"  onclick="document.getElementById('file3').click();return false;"><i class="fa fa-{{ iconOfButton[3] }}"></i>{{ buttonName[3] }}</button>
+            <input type="file" id="file3" (change)="addImage(3,$event);" accept=".png, .jpg, .jpeg" style="display: none" >
+        </div>
+
+        <div id="picture-container">
+            <button [style.display]="CrossBtnValue[4]" (click)="removeImage(4)"><i class="fa fa-close"></i></button>
+            <img (click)="selectHeroImg(4)" src="{{ imageUrl[4] }}" [style.display]="imageValue[4]"/>
+            <button  class="btn"  onclick="document.getElementById('file4').click();return false;"><i class="fa fa-{{ iconOfButton[4] }}"></i>{{ buttonName[4] }}</button>
+            <input type="file" id="file4" (change)="addImage(4,$event);" accept=".png, .jpg, .jpeg" style="display: none" >
+        </div>
+        
+        <div class="alert alert-danger" >
+            Image 1 id HeroImage
+        </div>
+        
     </div>
   
     <button class="btn btn-primary ">Post</button>

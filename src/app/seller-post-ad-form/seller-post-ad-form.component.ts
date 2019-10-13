@@ -13,6 +13,7 @@ export class SellerPostAdFormComponent  {
   CrossBtnValue = ["none","none","none","none","none"];
   buttonName = ["Add","Add","Add","Add","Add"];
   iconOfButton = ["plus" ,"plus","plus","plus","plus"]; 
+  pictureContainerStyle =["","","","","",""];
 
   addImage(id,event){
     console.log(id+"  "+event.target.value);
@@ -34,7 +35,13 @@ export class SellerPostAdFormComponent  {
 
   selectHeroImg(id)
   {
-    console.log(id+" is hero image");
+    for (let index = 0; index < 5; index++) {
+      if(index!=id)
+      {
+        this.pictureContainerStyle[index]="";
+      }      
+    }
+    this.pictureContainerStyle[id]="2px solid red";
   }
 
 }

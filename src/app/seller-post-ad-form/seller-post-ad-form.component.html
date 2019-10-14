@@ -1,5 +1,5 @@
 <div id="post-ad-container">
-    <form>
+    <form novalidate name="form" ng-submit="submit()">
 
     <div class="form-group">
         <label for="name">Name</label>
@@ -153,7 +153,13 @@
             
         </div>
     </div>
+    <div class="alert alert-danger" *ngIf="name.touched && !name.valid">
+        <div *ngIf="name.errors.required">Title is required</div>
+        <div *ngIf="name.errors.minlength">Title should be minimum 2 Characters.</div>
+    </div> 
   
-    <button class="btn btn-primary ">Post</button>
+    <input class="btn btn-primary " type="submit" value="Post">
     </form>
 </div>
+
+

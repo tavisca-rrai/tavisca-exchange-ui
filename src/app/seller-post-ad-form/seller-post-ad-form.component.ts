@@ -14,6 +14,7 @@ export class SellerPostAdFormComponent implements OnInit {
   categories = ["Home","Electronics","Car","Bike"];
   imageCounter = 1;
   addressDisplayValue = "none";
+  purcheseDate = "none";
 
   states = [
   "Andra Pradesh",
@@ -61,8 +62,6 @@ export class SellerPostAdFormComponent implements OnInit {
   }
 
    public message: string;
-   public imagePath;
-   imgURL: any;
 
    preview(files,id) {
     console.log(id+" asdf");
@@ -113,6 +112,17 @@ export class SellerPostAdFormComponent implements OnInit {
   imageClick(id){
     document.getElementById(id).click();
     return false;
+  }
+
+
+  checkDate(id)
+  {
+    var CurrentDate = new Date();
+    if(id.target.value > CurrentDate.getFullYear()+"-"+CurrentDate.getMonth()+"-"+CurrentDate.getDate()){
+      this.purcheseDate="block";
+    }else{
+      this.purcheseDate="none";
+    }
   }
 
 }

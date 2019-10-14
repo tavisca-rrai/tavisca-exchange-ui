@@ -14,7 +14,7 @@
             <label>Category</label>
             <select id="category" class="form-control" ngModel name="category">
             <option *ngFor="let category of categories">{{ category }}</option>
-        </select>
+            </select>
         </div>
 
         <div class="form-group">
@@ -40,7 +40,10 @@
 
         <div class="form-group">
             <label for="dateOfPurchese">Date of purchese</label>
-            <input id="dateOfPurchese" class="form-control" type="date" name="dateOfPurchese" required>
+            <input (change)="checkDate($event)" class="form-control" type="date" name="dateOfPurchese" required>
+            <div class="alert alert-danger" [style.display]="purcheseDate">
+                Date must not be greater than todays date.
+            </div>
         </div>
 
         <div class="form-group">

@@ -134,22 +134,16 @@
                     <button  class="btn"  onclick="document.getElementById('file3').click();return false;"><i class="fa fa-{{ iconOfButton[3] }}"></i>{{ buttonName[3] }}</button>
                     <input type="file" id="file3" (change)="addImage(3,$event);" accept=".png, .jpg, .jpeg" style="display: none" >
                 </div>
-            </div>
+            </div>       
 
-            <div class="picture-container" [style.border]="pictureContainerStyle[4]">
-                <div class="uploadImage">
+            <div class="p" [style.border]="pictureContainerStyle[4]">
+                <div class="uploadImage1">
                     <img (click)="selectHeroImg(4)" src="https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" [style.display]="imageValue[4]"/>
                 </div>
-
-                <div class="closeButton">
-                    <button [style.display]="CrossBtnValue[4]" (click)="removeImage(4)"><i  class="fa fa-close"></i></button>
-                </div>
-
-                <div class="addEditButton">
-                    <button  class="btn"  onclick="document.getElementById('file4').click();return false;"><i class="fa fa-{{ iconOfButton[4] }}"></i>{{ buttonName[4] }}</button>
+                    <button class="button" onclick="document.getElementById('file4').click();return false;">{{ buttonName[4] }}</button>
                     <input type="file" id="file4" (change)="addImage(4,$event);" accept=".png, .jpg, .jpeg" style="display: none" >
-                </div>
-            </div>
+                    <button class="button button3" [style.display]="CrossBtnValue[4]" (click)="removeImage(4)">Remove</button>
+             </div>
         </div>
     </div>
   

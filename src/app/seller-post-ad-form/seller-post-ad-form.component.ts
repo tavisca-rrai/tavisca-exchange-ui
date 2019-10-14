@@ -20,7 +20,7 @@ export class SellerPostAdFormComponent  {
     this.imageUrl[id] = event.target.value;
     this.CrossBtnValue[id] ="";
     this.imageValue[id] ="";
-    this.buttonName[id] ="Edit";
+    this.buttonName[id] ="Change";
     this.iconOfButton[id] ="edit";
   }
 
@@ -31,6 +31,7 @@ export class SellerPostAdFormComponent  {
     this.CrossBtnValue[id] = "none";
     this.buttonName[id] = "Add";
     this.iconOfButton[id] = "plus";
+    this.pictureContainerStyle[id]="";
   }
 
   selectHeroImg(id)

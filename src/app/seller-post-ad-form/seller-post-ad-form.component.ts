@@ -17,7 +17,7 @@ export class SellerPostAdFormComponent  {
 
   addImage(id,event){
     console.log(id+"  "+event.target.value);
-    this.imageUrl[id] = event.target.value;
+    this.imageUrl[id] = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
     this.CrossBtnValue[id] ="";
     this.imageValue[id] ="";
     this.buttonName[id] ="Change";

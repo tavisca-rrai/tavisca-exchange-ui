@@ -1,4 +1,6 @@
-import { Component} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { ImageProperty } from './imageProperty';
+
 
 @Component({
   selector: 'seller-post-ad-form',
@@ -6,43 +8,111 @@ import { Component} from '@angular/core';
   styleUrls: ['./seller-post-ad-form.component.css']
 })
 
-export class SellerPostAdFormComponent  {  
+export class SellerPostAdFormComponent implements OnInit {
+ 
+  imageArray:ImageProperty[] =[];
+  categories = ["Home","Electronics","Car","Bike"];
+  imageCounter = 1;
+  addressDisplayValue = "none";
 
-  imageUrl = ["","","","",""];
-  imageValue = ["none","none","none","none","none"];
-  CrossBtnValue = ["none","none","none","none","none"];
-  buttonName = ["Add","Add","Add","Add","Add"];
-  iconOfButton = ["plus" ,"plus","plus","plus","plus"]; 
-  pictureContainerStyle =["","","","","",""];
+  states = [
+  "Andra Pradesh",
+  "Go",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jammu and Kashmir",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Madya Pradesh",
+  "Maharashtra",
+  "Punjab",
+  "Rajasthan"
+  ]
+ ngOnInit(): void {
+   let image =new ImageProperty();
+   this.imageArray.push(image);
+  } 
 
-  addImage(id,event){
-    console.log(id+"  "+event.target.value);
-    this.imageUrl[id] = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
-    this.CrossBtnValue[id] ="";
-    this.imageValue[id] ="";
-    this.buttonName[id] ="Change";
-    this.iconOfButton[id] ="edit";
+  addressDisplay(event)
+  {
+    if(event.target.checked)
+    {
+      this.addressDisplayValue="block";
+    }
+    else{
+      this.addressDisplayValue="none"
+    }
+  }
+  
+  addImage(id){
+    console.log(id+" hdjs");
+    this.imageArray[id].CrossBtnValue="";
+    this.imageArray[id].imageDisplayValue="";
+    this.imageArray[id].buttonName ="Change";
+    this.imageArray[id].iconOfButton = "edit";
+    this.imageCounter += 1;
+    if(this.imageCounter <= 5)
+    {
+    let image =new ImageProperty();
+    this.imageArray.push(image);
+    }
+  }
+
+   public message: string;
+   public imagePath;
+   imgURL: any;
+
+   preview(files,id) {
+    console.log(id+" asdf");
+    if (files.length === 0)
+      return;
+ 
+    var mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.message = "Only images are supported.";
+      return;
+    }
+    var reader = new FileReader();
+    this.imageArray[id].imagePath = files;
+    reader.readAsDataURL(files[0]); 
+    reader.onload = (_event) => { 
+    this.imageArray[id].imgURL = reader.result;
+    }
   }
 
   removeImage(id)
   {
-    this.iconOfButton[id] = "plus";
-    this.imageValue[id] = "none";
-    this.CrossBtnValue[id] = "none";
-    this.buttonName[id] = "Add";
-    this.iconOfButton[id] = "plus";
-    this.pictureContainerStyle[id]="";
+    this.imageArray[id].iconOfButton = "plus";
+    this.imageArray[id].imageDisplayValue = "none";
+    this.imageArray[id].CrossBtnValue = "none";
+    this.imageArray[id].buttonName = "Add";
+    this.imageArray[id].iconOfButton = "plus";
+    this.imageArray[id].pictureContainerStyle = "";
+    if(this.imageCounter>1)
+    {
+    this.imageArray.splice(id,1);
+    this.imageCounter -= 1;
+    }
   }
 
   selectHeroImg(id)
   {
-    for (let index = 0; index < 5; index++) {
+    for (let index = 0; index < this.imageArray.length; index++) 
+    {
       if(index!=id)
       {
-        this.pictureContainerStyle[index]="";
+        this.imageArray[index].pictureContainerStyle = "";
       }      
     }
-    this.pictureContainerStyle[id]="2px solid red";
+    this.imageArray[id].pictureContainerStyle = "3px solid red";
+  }
+
+
+  imageClick(id){
+    document.getElementById(id).click();
+    return false;
   }
 
 }

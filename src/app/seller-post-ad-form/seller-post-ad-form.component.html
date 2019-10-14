@@ -1,165 +1,119 @@
 <div id="post-ad-container">
-    <form novalidate name="form" ng-submit="submit()">
+    <form #postAdForm="ngForm">
 
-    <div class="form-group">
-        <label for="name">Name</label>
-        <input id="name" minlength="2" maxlength="10" ngModel name="name" #name="ngModel" class="form-control" type="text" placeholder="Product name.." required >
-        <div class="alert alert-danger" *ngIf="name.touched && !name.valid">
-            <div *ngIf="name.errors.required">Title is required</div>
-            <div *ngIf="name.errors.minlength">Title should be minimum 2 Characters.</div>
-        </div>    
-    </div>
+        <div class="form-group">
+            <label>Name</label>
+            <input id="name" minlength="2" maxlength="10" ngModel name="name" #name="ngModel" class="form-control" type="text" placeholder="Product name.." required>
+            <div class="alert alert-danger" *ngIf="name.touched && !name.valid">
+                <div *ngIf="name.errors.required">Title is required</div>
+                <div *ngIf="name.errors.minlength">Title should be minimum 2 Characters.</div>
+            </div>
+        </div>
 
-    <div class="form-group">
-        <label for="category" >Category</label>
-        <select id="category" class="form-control">
-            <option>Mobiles</option>
-            <option>Home</option>
-            <option>Electronics</option>
-            <option>Cars</option>
-            <option>Bikes</option>
+        <div class="form-group">
+            <label>Category</label>
+            <select id="category" class="form-control" ngModel name="category">
+            <option *ngFor="let category of categories">{{ category }}</option>
         </select>
-    </div>
-
-    <div class="form-group">
-        <label for="price">Price</label>
-        <div class="input-group">
-            <span class="input-group-text">$</span>
-            <input id="price" ngModel  name="price" #price="ngModel" class="form-control" type="number"  placeholder="Product price.." required [min]="0">
         </div>
-        <div class="alert alert-danger" *ngIf="price.touched && !price.valid">
-            <div *ngIf="price.errors.required"> Price is required.</div>
-            <div *ngIf="price.errors.min"> Price should be 0 or more.</div>
-        </div>
-    </div>
 
-    <div class="form-group">
-        <label for="discription ">Description</label>
-        <textarea id="discription" minlength="4" ngModel name="discription" #discription="ngModel" class="form-control" type="text" placeholder="Product name.." required ></textarea>
-        <div class="alert alert-danger" *ngIf="discription.touched && !discription.valid">
-            <div *ngIf="discription.errors.required">Description is required</div>
-            <div *ngIf="discription.errors.minlength">Description should be minimum 4 Characters.</div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="date-of-purchese">Date of purchese</label>
-        <input class="form-control" type="date" id="date" placeholder="Enter Product Date of purchese.." required>
-    </div>
-
-    <div class="form-group">
-        <label for="negotiable">Negotiable</label>
-        <div class="radio">
-            <label><input type="radio" name="negotiable">Yes</label>
-        </div>
-        <div class="radio">
-            <label><input type="radio" name="negotiable" checked>No</label>
-        </div>
-    </div>
-
-     <div class="form-group">
-        <label for="show-phone-number">Show Phone Number</label>
-        <div class="radio">
-            <label><input type="radio" name="show-phone-number" >Yes</label>
-        </div>
-        <div class="radio">
-            <label><input type="radio" name="show-phone-number" checked>No</label>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="address ">Address</label>
-        <textarea class="form-control" type="text" id="discription" placeholder="Enter complete address.." required></textarea>
-    </div>
-
-    <div class="form-group">
-        <label for="image">Image</label>
-        <div id="upload-images">
-
-            <div class="picture-container" [style.border]="pictureContainerStyle[0]">
-                <div class="productImage">
-                    <img (click)="selectHeroImg(0)" src="https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" [style.display]="imageValue[0]"/>
-                </div>
-
-                <div class="closeButton">
-                    <button [style.display]="CrossBtnValue[0]" (click)="removeImage(0)"><i  class="fa fa-close"></i></button>
-                </div>
-
-                <div class="addEditButton">
-                    <button  class="btn"  onclick="document.getElementById('file0').click();return false;"><i class="fa fa-{{ iconOfButton[0] }}"></i>{{ buttonName[0] }}</button>
-                    <input type="file" id="file0" (change)="addImage(0,$event);" accept=".png, .jpg, .jpeg" style="display: none" >
-                </div>
+        <div class="form-group">
+            <label for="price">Price</label>
+            <div class="input-group">
+                <span class="input-group-text">₹</span>
+                <input id="price" ngModel name="price" #price="ngModel" class="form-control" type="number" placeholder="Product price.." required [min]="0">
             </div>
-
-            <div class="picture-container" [style.border]="pictureContainerStyle[1]">
-                <div class="uploadImage">
-                    <img (click)="selectHeroImg(1)" src="https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" [style.display]="imageValue[1]"/>
-                </div>
-
-                <div class="closeButton">
-                    <button [style.display]="CrossBtnValue[1]" (click)="removeImage(1)"><i  class="fa fa-close"></i></button>
-                </div>
-
-                <div class="addEditButton">
-                    <button  class="btn"  onclick="document.getElementById('file1').click();return false;"><i class="fa fa-{{ iconOfButton[1] }}"></i>{{ buttonName[1] }}</button>
-                    <input type="file" id="file1" (change)="addImage(1,$event);" accept=".png, .jpg, .jpeg" style="display: none" >
-                </div>
+            <div class="alert alert-danger" *ngIf="price.touched && !price.valid">
+                <div *ngIf="price.errors.required"> Price is required.</div>
+                <div *ngIf="price.errors.min"> Price should be 0 or more.</div>
             </div>
-
-            <div class="picture-container" [style.border]="pictureContainerStyle[2]">
-                <div class="uploadImage">
-                    <img (click)="selectHeroImg(2)" src="https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" [style.display]="imageValue[2]"/>
-                </div>
-
-                <div class="closeButton">
-                    <button [style.display]="CrossBtnValue[2]" (click)="removeImage(2)"><i  class="fa fa-close"></i></button>
-                </div>
-
-                <div class="addEditButton">
-                    <button  class="btn"  onclick="document.getElementById('file2').click();return false;"><i class="fa fa-{{ iconOfButton[2] }}"></i>{{ buttonName[2] }}</button>
-                    <input type="file" id="file2" (change)="addImage(2,$event);" accept=".png, .jpg, .jpeg" style="display: none" >
-                </div>
-            </div>
-
-            <div class="picture-container" [style.border]="pictureContainerStyle[3]">
-                <div class="uploadImage">
-                    <img (click)="selectHeroImg(3)" src="https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" [style.display]="imageValue[3]"/>
-                </div>
-
-                <div class="closeButton">
-                    <button [style.display]="CrossBtnValue[3]" (click)="removeImage(3)"><i  class="fa fa-close"></i></button>
-                </div>
-
-                <div class="addEditButton">
-                    <button  class="btn"  onclick="document.getElementById('file3').click();return false;"><i class="fa fa-{{ iconOfButton[3] }}"></i>{{ buttonName[3] }}</button>
-                    <input type="file" id="file3" (change)="addImage(3,$event);" accept=".png, .jpg, .jpeg" style="display: none" >
-                </div>
-            </div>       
-
-            <div class="picture-container" [style.border]="pictureContainerStyle[4]">
-                <div class="uploadImage">
-                    <img (click)="selectHeroImg(4)" src="https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" [style.display]="imageValue[4]"/>
-                </div>
-
-                <div class="closeButton">
-                    <button [style.display]="CrossBtnValue[4]" (click)="removeImage(4)"><i  class="fa fa-close"></i></button>
-                </div>
-
-                <div class="addEditButton">
-                    <button  class="btn"  onclick="document.getElementById('file4').click();return false;"><i class="fa fa-{{ iconOfButton[4] }}"></i>{{ buttonName[4] }}</button>
-                    <input type="file" id="file4" (change)="addImage(4,$event);" accept=".png, .jpg, .jpeg" style="display: none" >
-                </div>
-            </div>
-            
         </div>
-    </div>
-    <div class="alert alert-danger" *ngIf="name.touched && !name.valid">
-        <div *ngIf="name.errors.required">Title is required</div>
-        <div *ngIf="name.errors.minlength">Title should be minimum 2 Characters.</div>
-    </div> 
-  
-    <input class="btn btn-primary " type="submit" value="Post">
+
+        <div class="form-group">
+            <label for="discription ">Description</label>
+            <textarea id="discription" minlength="4" ngModel name="discription" #discription="ngModel" class="form-control" type="text" placeholder="Product name.." required></textarea>
+            <div class="alert alert-danger" *ngIf="discription.touched && !discription.valid">
+                <div *ngIf="discription.errors.required">Description is required</div>
+                <div *ngIf="discription.errors.minlength">Description should be minimum 4 Characters.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="dateOfPurchese">Date of purchese</label>
+            <input id="dateOfPurchese" class="form-control" type="date" name="dateOfPurchese" required>
+        </div>
+
+        <div class="form-group">
+            <label for="negotiable">Negotiable</label>
+            <div class="radio">
+                <label><input type="radio"  name="negotiable" value="Yes">Yes</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio"  name="negotiable" value="No" checked>No</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="show-phone-number">Show Phone Number</label>
+            <div class="radio">
+                <label><input type="radio" ngModel name="showPhoneNumber" value="Yes" >Yes</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio"  name="showPhoneNumber" value="No" checked>No</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label style="margin-right: 20px;"> Address </label>
+            <input type="checkbox" id="addressCheck" (click)="addressDisplay($event)">
+            <div class="address" [style.display]="addressDisplayValue">
+                <label>Line 1</label>
+                <input class="form-control" type="text" required>
+
+                <label>Line 2</label>
+                <input class="form-control" type="text" required>
+
+                <label>City</label>
+                <input class="form-control" type="text" required>
+
+                <label>Pincode</label>
+                <input class="form-control" type="number" required>
+
+                <label>State</label>
+                <select class="form-control" ngModel name="state">
+                <option *ngFor="let state of states">{{ state }}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="image">Image</label>
+            <div id="uploadImage">
+                <ng-container *ngFor='let image of imageArray;index as i'>
+                    <div class="picture-container" [style.border]="image.pictureContainerStyle">
+                        <img (click)="selectHeroImg(i)" [src]="image.imgURL" [style.display]="image.imageDisplayValue" *ngIf="image.imgURL" />
+
+                        <div class="closeButton">
+                            <button [style.display]="image.CrossBtnValue" (click)="removeImage(i)"><i  class="fa fa-close"></i></button>
+                        </div>
+
+                        <div class="addEditButton">
+                            <button class="btn" (click)="imageClick(i);"><i class="fa fa-{{ image.iconOfButton }}"></i>{{ image.buttonName }}</button>
+                            <input #file type="file" id="{{i}}" (change)="addImage(i);" (change)="preview(file.files,i)" accept='image/*' style="display: none">
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+            <div class="alert alert-danger" *ngIf="name.touched && !name.valid">
+                <div *ngIf="imageFlag">Title is required</div>
+                <div *ngIf="name.errors.minlength">Title should be minimum 2 Characters.</div>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <input class="btn btn-primary " type="submit" value="Post">
+        </div>
     </form>
+
+
 </div>
-
-

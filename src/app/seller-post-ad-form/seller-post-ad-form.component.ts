@@ -9,25 +9,8 @@ import { DatePipe } from '@angular/common';
 })
 
 export class SellerPostAdFormComponent implements OnInit {
- 
-  constructor(public datepipe: DatePipe){}
-  date =  new Date();
-  checkDate(id)
-  {
-    this.date=new Date();
-    let latest_date =this.datepipe.transform(this.date, 'yyyy-MM-dd');
-    var userDate = id.target.value;
-    console.log(userDate);
-    console.log(latest_date); 
-
-    if(userDate > latest_date
-      ){
-      this.purcheseDate="block";
-    }else{
-      this.purcheseDate="none";
-    }
-  }
-
+  minNoOfImage=1;
+  maxNoOfImage=5;
 
   imageArray:ImageProperty[] =[];
   categories = ["Home","Electronics","Car","Bike"];
@@ -51,6 +34,22 @@ export class SellerPostAdFormComponent implements OnInit {
   "Rajasthan"
   ]
 
+  constructor(public datepipe: DatePipe){}
+  date =  new Date();
+  checkDate(id)
+  {
+    this.date=new Date();
+    let latest_date =this.datepipe.transform(this.date, 'yyyy-MM-dd');
+    var userDate = id.target.value;
+    if(userDate > latest_date
+      ){
+      this.purcheseDate="block";
+    }else{
+      this.purcheseDate="none";
+    }
+  }
+
+
  ngOnInit(): void {
    let image =new ImageProperty();
    this.imageArray.push(image);
@@ -68,13 +67,12 @@ export class SellerPostAdFormComponent implements OnInit {
   }
   
   addImage(id){
-    console.log(id+" hdjs");
     this.imageArray[id].CrossBtnValue="";
     this.imageArray[id].imageDisplayValue="";
     this.imageArray[id].buttonName ="Change";
     this.imageArray[id].iconOfButton = "edit";
     this.imageCounter += 1;
-    if(this.imageCounter <= 5)
+    if(this.imageCounter <= this.maxNoOfImage)
     {
       let image =new ImageProperty();
       this.imageArray.push(image);
@@ -107,10 +105,15 @@ export class SellerPostAdFormComponent implements OnInit {
     this.imageArray[id].buttonName = "Add";
     this.imageArray[id].iconOfButton = "plus";
     this.imageArray[id].pictureContainerStyle = "";
-    if(this.imageCounter>1)
+    if(this.imageCounter>this.minNoOfImage)
     {
-    this.imageArray.splice(id,1);
-    this.imageCounter -= 1;
+      this.imageArray.splice(id,1);
+      this.imageCounter -= 1;
+    }
+    if(this.imageCounter==this.maxNoOfImage)
+    {
+      let image =new ImageProperty();
+      this.imageArray.push(image);
     }
   }
 
@@ -130,6 +133,5 @@ export class SellerPostAdFormComponent implements OnInit {
     document.getElementById(id).click();
     return false;
   }
-
 
 }

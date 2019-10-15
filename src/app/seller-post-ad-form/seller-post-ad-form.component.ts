@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { ImageProperty } from './imageProperty';
-
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'seller-post-ad-form',
@@ -10,6 +10,25 @@ import { ImageProperty } from './imageProperty';
 
 export class SellerPostAdFormComponent implements OnInit {
  
+  constructor(public datepipe: DatePipe){}
+  date =  new Date();
+  checkDate(id)
+  {
+    this.date=new Date();
+    let latest_date =this.datepipe.transform(this.date, 'yyyy-MM-dd');
+    var userDate = id.target.value;
+    console.log(userDate);
+    console.log(latest_date); 
+
+    if(userDate > latest_date
+      ){
+      this.purcheseDate="block";
+    }else{
+      this.purcheseDate="none";
+    }
+  }
+
+
   imageArray:ImageProperty[] =[];
   categories = ["Home","Electronics","Car","Bike"];
   imageCounter = 1;
@@ -31,6 +50,7 @@ export class SellerPostAdFormComponent implements OnInit {
   "Punjab",
   "Rajasthan"
   ]
+
  ngOnInit(): void {
    let image =new ImageProperty();
    this.imageArray.push(image);
@@ -56,15 +76,13 @@ export class SellerPostAdFormComponent implements OnInit {
     this.imageCounter += 1;
     if(this.imageCounter <= 5)
     {
-    let image =new ImageProperty();
-    this.imageArray.push(image);
+      let image =new ImageProperty();
+      this.imageArray.push(image);
     }
   }
 
    public message: string;
-
    preview(files,id) {
-    console.log(id+" asdf");
     if (files.length === 0)
       return;
  
@@ -108,21 +126,10 @@ export class SellerPostAdFormComponent implements OnInit {
     this.imageArray[id].pictureContainerStyle = "3px solid red";
   }
 
-
   imageClick(id){
     document.getElementById(id).click();
     return false;
   }
 
-
-  checkDate(id)
-  {
-    var CurrentDate = new Date();
-    if(id.target.value > CurrentDate.getFullYear()+"-"+CurrentDate.getMonth()+"-"+CurrentDate.getDate()){
-      this.purcheseDate="block";
-    }else{
-      this.purcheseDate="none";
-    }
-  }
 
 }

@@ -84,16 +84,17 @@
             <div id="uploadImage">
                 <ng-container *ngFor='let image of imageArray;index as i'>
                     <div class="picture-container" [style.border]="image.pictureContainerStyle">
-                        <img style="height: 20%; width: 30%; margin: 25% 0 25% 25%;" src="http://smallenvelop.com/wp-content/uploads/2014/08/Preloader_11.gif" />
-                        <img (click)="selectHeroImg(i)" src="https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" [style.display]="image.imageDisplayValue" *ngIf="image.imgURL" />
-                        <button [style.display]="image.heroImage">Thumbnail</button>
+                        <div class="spinner-border text-primary" role="status" [style.display]="image.imageLoaderProperty">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <img (click)="selectHeroImg(i)" [src]="image.imageURL" [style.display]="image.imageDisplayValue" />
 
                         <div class="closeButton">
                             <button [style.display]="image.CrossBtnValue" (click)="removeImage(i)"><i  class="fa fa-close"></i></button>
                         </div>
 
                         <div class="addEditButton">
-                            <button class="btn" (click)="imageClick(i);"><i class="fa fa-{{ image.iconOfButton }}"></i>{{ image.buttonName }}</button>
+                            <button class="btn" (click)="imageClick(i);" [style.display]="image.addEditProperty"><i class="fa fa-{{ image.iconOfButton }}"></i>{{ image.buttonName }}</button>
                             <input type="file" id="{{i}}" (change)="addImage(i,$event);" accept='image/*' style="display: none">
                         </div>
                     </div>
@@ -105,9 +106,6 @@
             </div>
         </div>
 
-        <div class="spinner-border" role="status">
-            <span class="sr-only">Loading......</span>
-        </div>
 
         <div class="spinner-grow text-primary" role="status">
             <span class="sr-only">Loading......</span>

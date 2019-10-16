@@ -54,29 +54,54 @@ export class SellerPostAdFormComponent implements OnInit {
       this.addressDisplayValue="none"
     }
   }
+
+  imageLoader(id)
+  {
+    this.imageArray[id].CrossBtnValue="none";
+    this.imageArray[id].imageDisplayValue="none";
+    this.imageArray[id].addEditProperty="none";
+    this.imageArray[id].pictureContainerStyle = "1px solid";
+    this.imageArray[id].heroImage = "none";
+    this.imageArray[id].imageLoaderProperty="";
+  }
+
+  async delay(ms: number,id) {
+    await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("image Loading"));
+    this.imageArray[id].addEditProperty="";
+    this.imageArray[id].CrossBtnValue="";
+    this.imageArray[id].imageDisplayValue="";
+    this.imageArray[id].imageURL = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
+    this.imageArray[id].buttonName ="Change";
+    this.imageArray[id].iconOfButton = "edit";
+    this.imageArray[id].imageLoaderProperty="none";
+    if(id==0)
+    {
+      this.selectHeroImg(id);
+      this.imageArray[0].heroImage="";
+    }
+  }
   
-  // loadImage()
-  // {
-  //   src = this.imageArray[id].imageURL;
-  // }
-
-
   addImage(id,event){
     if(id==0)
     {
       this.selectHeroImg(id);
       this.imageArray[0].heroImage="";
     }
-
+    
+    this.imageLoader(id);
+    this.delay(3000,id);
     console.log(event.target.value);  // calls upload image api it will return url of image after uploading image
     //this.imageArray[id].imageURL = funcUploadImage(event.target.value);
-    this.imageArray[id].imageURL = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
+    //this.imageArray[id].imageURL = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
     //Mock image URL
 
-    this.imageArray[id].CrossBtnValue="";
-    this.imageArray[id].imageDisplayValue="";
-    this.imageArray[id].buttonName ="Change";
-    this.imageArray[id].iconOfButton = "edit";
+    //this.imageArray[id].addEditProperty="";
+    // this.imageArray[id].CrossBtnValue="";
+    // this.imageArray[id].imageDisplayValue="";
+    // this.imageArray[id].buttonName ="Change";
+    // this.imageArray[id].iconOfButton = "edit";
+    // this.imageArray[id].imageLoaderProperty="none";
+
     this.imageCounter += 1;
     if(this.imageCounter <= this.maxNoOfImage)
     {
@@ -87,12 +112,19 @@ export class SellerPostAdFormComponent implements OnInit {
  
   removeImage(id)
   {
+    if(this.imageCounter!=0 && this.imageArray[id].pictureContainerStyle =="4px solid red")
+    {
+      this.selectHeroImg(0);
+      this.imageArray[0].heroImage="";
+    }
+
     this.imageArray[id].iconOfButton = "plus";
     this.imageArray[id].imageDisplayValue = "none";
     this.imageArray[id].CrossBtnValue = "none";
     this.imageArray[id].buttonName = "Add";
     this.imageArray[id].iconOfButton = "plus";
-    this.imageArray[id].pictureContainerStyle = "";
+    this.imageArray[id].pictureContainerStyle = "1px solid";
+
     if(this.imageCounter>this.minNoOfImage)
     {
       this.imageArray.splice(id,1);
@@ -103,11 +135,7 @@ export class SellerPostAdFormComponent implements OnInit {
       let image =new ImageProperty();
       this.imageArray.push(image);
     }
-    if(this.imageCounter==2)
-    {
-      this.selectHeroImg(0);
-      this.imageArray[0].heroImage="";
-    }
+   
   }
 
   selectHeroImg(id)
@@ -116,7 +144,7 @@ export class SellerPostAdFormComponent implements OnInit {
     {
       if(index!=id)
       {
-        this.imageArray[index].pictureContainerStyle = "";
+        this.imageArray[index].pictureContainerStyle = "1px solid";
         this.imageArray[index].heroImage="none";
       }      
     }

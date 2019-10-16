@@ -12,50 +12,39 @@ export class SellerPostAdFormComponent implements OnInit {
   minNoOfImage=1;
   maxNoOfImage=5;
 
+  heroImageUrl = ""; // store url of hero image
   imageArray:ImageProperty[] =[];
-  categories = ["Home","Electronics","Car","Bike"];
-  imageCounter = 1;
+  
+  categories = ["Home","Electronics","Car","Bike"]; // this is provided by categories api
+  states = ["Andra Pradesh","Go","Gujarat","Haryana","Himachal Pradesh","Jammu and Kashmir","Jharkhand","Karnataka",
+  "Kerala","Madya Pradesh","Maharashtra","Punjab","Rajasthan"]
+  
+  //properties of html element 
   addressDisplayValue = "none";
-  purcheseDate = "none";
+  purchaseDate = "none";
+  imageCounter = 1;
 
-  states = [
-  "Andra Pradesh",
-  "Go",
-  "Gujarat",
-  "Haryana",
-  "Himachal Pradesh",
-  "Jammu and Kashmir",
-  "Jharkhand",
-  "Karnataka",
-  "Kerala",
-  "Madya Pradesh",
-  "Maharashtra",
-  "Punjab",
-  "Rajasthan"
-  ]
+  constructor(public datepipe: DatePipe){} //use for validation of date 
 
-  constructor(public datepipe: DatePipe){}
+  ngOnInit() {
+    let image =new ImageProperty();
+    this.imageArray.push(image);
+  } 
+
   date =  new Date();
-  checkDate(id)
+  validateDate(id)
   {
     this.date=new Date();
     let latest_date =this.datepipe.transform(this.date, 'yyyy-MM-dd');
     var userDate = id.target.value;
-    if(userDate > latest_date
-      ){
-      this.purcheseDate="block";
+    if(userDate > latest_date){
+      this.purchaseDate="block";
     }else{
-      this.purcheseDate="none";
+      this.purchaseDate="none";
     }
   }
 
-
- ngOnInit(): void {
-   let image =new ImageProperty();
-   this.imageArray.push(image);
-  } 
-
-  addressDisplay(event)
+  validateAddress(event)
   {
     if(event.target.checked)
     {
@@ -66,7 +55,24 @@ export class SellerPostAdFormComponent implements OnInit {
     }
   }
   
-  addImage(id){
+  // loadImage()
+  // {
+  //   src = this.imageArray[id].imageURL;
+  // }
+
+
+  addImage(id,event){
+    if(id==0)
+    {
+      this.selectHeroImg(id);
+      this.imageArray[0].heroImage="";
+    }
+
+    console.log(event.target.value);  // calls upload image api it will return url of image after uploading image
+    //this.imageArray[id].imageURL = funcUploadImage(event.target.value);
+    this.imageArray[id].imageURL = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
+    //Mock image URL
+
     this.imageArray[id].CrossBtnValue="";
     this.imageArray[id].imageDisplayValue="";
     this.imageArray[id].buttonName ="Change";
@@ -78,25 +84,7 @@ export class SellerPostAdFormComponent implements OnInit {
       this.imageArray.push(image);
     }
   }
-
-   public message: string;
-   preview(files,id) {
-    if (files.length === 0)
-      return;
  
-    var mimeType = files[0].type;
-    if (mimeType.match(/image\/*/) == null) {
-      this.message = "Only images are supported.";
-      return;
-    }
-    var reader = new FileReader();
-    this.imageArray[id].imagePath = files;
-    reader.readAsDataURL(files[0]); 
-    reader.onload = (_event) => { 
-    this.imageArray[id].imgURL = reader.result;
-    }
-  }
-
   removeImage(id)
   {
     this.imageArray[id].iconOfButton = "plus";
@@ -115,6 +103,11 @@ export class SellerPostAdFormComponent implements OnInit {
       let image =new ImageProperty();
       this.imageArray.push(image);
     }
+    if(this.imageCounter==2)
+    {
+      this.selectHeroImg(0);
+      this.imageArray[0].heroImage="";
+    }
   }
 
   selectHeroImg(id)
@@ -124,9 +117,12 @@ export class SellerPostAdFormComponent implements OnInit {
       if(index!=id)
       {
         this.imageArray[index].pictureContainerStyle = "";
+        this.imageArray[index].heroImage="none";
       }      
     }
-    this.imageArray[id].pictureContainerStyle = "3px solid red";
+    this.imageArray[id].pictureContainerStyle = "4px solid red";
+    this.imageArray[id].heroImage="";
+    this.heroImageUrl=this.imageArray[id].imageURL;
   }
 
   imageClick(id){

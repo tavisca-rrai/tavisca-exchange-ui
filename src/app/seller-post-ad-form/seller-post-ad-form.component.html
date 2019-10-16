@@ -2,7 +2,7 @@
     <form #postAdForm="ngForm">
 
         <div class="form-group">
-            <label>Name</label>
+            <label>Title*</label>
             <input id="name" minlength="2" maxlength="10" ngModel name="name" #name="ngModel" class="form-control" type="text" placeholder="Product name.." required>
             <div class="alert alert-danger" *ngIf="name.touched && !name.valid">
                 <div *ngIf="name.errors.required">Title is required</div>
@@ -11,14 +11,14 @@
         </div>
 
         <div class="form-group">
-            <label>Category</label>
-            <select id="category" class="form-control" ngModel name="category">
+            <label>Category*</label>
+            <select id="category" class="form-control" name="category">
             <option *ngFor="let category of categories">{{ category }}</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="price">Price</label>
+            <label for="price">Price*</label>
             <div class="input-group">
                 <span class="input-group-text">₹</span>
                 <input id="price" ngModel name="price" #price="ngModel" class="form-control" type="number" placeholder="Product price.." required [min]="0">
@@ -30,7 +30,7 @@
         </div>
 
         <div class="form-group">
-            <label for="discription ">Description</label>
+            <label for="discription ">Description*</label>
             <textarea id="discription" minlength="4" ngModel name="discription" #discription="ngModel" class="form-control" type="text" placeholder="Product name.." required></textarea>
             <div class="alert alert-danger" *ngIf="discription.touched && !discription.valid">
                 <div *ngIf="discription.errors.required">Description is required</div>
@@ -39,9 +39,9 @@
         </div>
 
         <div class="form-group">
-            <label for="dateOfPurchese">Date of purchese</label>
-            <input (change)="checkDate($event)" class="form-control" type="date" name="dateOfPurchese" required>
-            <div class="alert alert-danger" [style.display]="purcheseDate">
+            <label for="dateOfPurchase">Date of purchase</label>
+            <input (change)="validateDate($event)" class="form-control" type="date" name="dateOfPurchase" required>
+            <div class="alert alert-danger" [style.display]="purchaseDate">
                 Date must not be greater than todays date.
             </div>
         </div>
@@ -56,23 +56,13 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label for="show-phone-number">Show Phone Number</label>
-            <div class="radio">
-                <label><input type="radio" ngModel name="showPhoneNumber" value="Yes" >Yes</label>
-            </div>
-            <div class="radio">
-                <label><input type="radio"  name="showPhoneNumber" value="No" checked>No</label>
-            </div>
-        </div>
 
         <div class="form-group">
             <label style="margin-right: 20px;"> Address </label>
-            <input type="checkbox" id="addressCheck" (click)="addressDisplay($event)">
+            <input type="checkbox" (click)="validateAddress($event)">
             <div class="address" [style.display]="addressDisplayValue">
                 <label>Line 1</label>
                 <input class="form-control" type="text" required>
-
 
                 <label>Line 2</label>
                 <input class="form-control" type="text">
@@ -84,7 +74,7 @@
                 <input class="form-control" type="number" required>
 
                 <label>State</label>
-                <select class="form-control" ngModel name="state">
+                <select class="form-control" name="state">
                 <option *ngFor="let state of states">{{ state }}</option>
                 </select>
             </div>
@@ -95,7 +85,8 @@
             <div id="uploadImage">
                 <ng-container *ngFor='let image of imageArray;index as i'>
                     <div class="picture-container" [style.border]="image.pictureContainerStyle">
-                        <img (click)="selectHeroImg(i)" [src]="image.imgURL" [style.display]="image.imageDisplayValue" *ngIf="image.imgURL" />
+                        <img (click)="selectHeroImg(i)" [src]="image.imageURL==''?'':image.imageURL" [style.display]="image.imageDisplayValue" *ngIf="image.imgURL" />
+                        <button [style.display]="image.heroImage">Thumbnail</button>
 
                         <div class="closeButton">
                             <button [style.display]="image.CrossBtnValue" (click)="removeImage(i)"><i  class="fa fa-close"></i></button>
@@ -103,7 +94,7 @@
 
                         <div class="addEditButton">
                             <button class="btn" (click)="imageClick(i);"><i class="fa fa-{{ image.iconOfButton }}"></i>{{ image.buttonName }}</button>
-                            <input #file type="file" id="{{i}}" (change)="addImage(i);" (change)="preview(file.files,i)" accept='image/*' style="display: none">
+                            <input type="file" id="{{i}}" (change)="addImage(i,$event);" accept='image/*' style="display: none">
                         </div>
                     </div>
                 </ng-container>
@@ -114,10 +105,16 @@
             </div>
         </div>
 
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading......</span>
+        </div>
+
+        <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading......</span>
+        </div>
+
         <div class="button-container">
             <input class="btn btn-primary " type="submit" value="Post">
         </div>
     </form>
-
-
 </div>

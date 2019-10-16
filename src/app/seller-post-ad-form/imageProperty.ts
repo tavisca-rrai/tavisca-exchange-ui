@@ -6,7 +6,7 @@ export class ImageProperty
   CrossBtnValue = "none";
   buttonName = "Add";
   iconOfButton = "plus"; 
-  pictureContainerStyle = "1px solid";
+  pictureContainerStyle = "1px solid lightgrey";
   heroImage="none";
   imageLoaderProperty = "none";
 

@@ -60,7 +60,7 @@ export class SellerPostAdFormComponent implements OnInit {
     this.imageArray[id].CrossBtnValue="none";
     this.imageArray[id].imageDisplayValue="none";
     this.imageArray[id].addEditProperty="none";
-    this.imageArray[id].pictureContainerStyle = "1px solid";
+    this.imageArray[id].pictureContainerStyle = "1px solid lightgrey";
     this.imageArray[id].heroImage = "none";
     this.imageArray[id].imageLoaderProperty="";
   }
@@ -123,7 +123,7 @@ export class SellerPostAdFormComponent implements OnInit {
     this.imageArray[id].CrossBtnValue = "none";
     this.imageArray[id].buttonName = "Add";
     this.imageArray[id].iconOfButton = "plus";
-    this.imageArray[id].pictureContainerStyle = "1px solid";
+    this.imageArray[id].pictureContainerStyle = "1px solid lightgrey";
 
     if(this.imageCounter>this.minNoOfImage)
     {
@@ -144,7 +144,7 @@ export class SellerPostAdFormComponent implements OnInit {
     {
       if(index!=id)
       {
-        this.imageArray[index].pictureContainerStyle = "1px solid";
+        this.imageArray[index].pictureContainerStyle = "1px solid lightgrey";
         this.imageArray[index].heroImage="none";
       }      
     }

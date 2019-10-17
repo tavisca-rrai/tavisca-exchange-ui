@@ -1,0 +1,25 @@
+<div class='login-body'>
+    <div class='login-card'>
+        <div class="image-area">
+            <img src="assets/tavisca-logo.png" class="" alt="Tavisca">
+        </div>
+
+        <div class="container">
+            <div class='card-message'>
+                <p>Sign In</p>
+            </div>
+            <!-- Default input -->
+            <div class="inputs">
+                <input type="text" class="form-control" placeholder="Enter Username" [(ngModel)]="userDetails.Username">
+                <input type="password" class="form-control" placeholder="Enter Password"
+                    [(ngModel)]="userDetails.Password">
+
+                <input type="checkbox" [(ngModel)]="userDetails.RememberMe" id='remberMe'>
+                <label class="checkbox" for="remberMe">
+                    Remember me
+                </label>
+            </div>
+            <button class='login-button' (click)='tryLogin()'><span>CONTINUE</span></button>
+        </div>
+    </div>
+</div>

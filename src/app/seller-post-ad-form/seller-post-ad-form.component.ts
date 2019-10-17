@@ -1,6 +1,7 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ɵConsole} from '@angular/core';
 import { ImageProperty } from './imageProperty';
 import { DatePipe } from '@angular/common';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'seller-post-ad-form',
@@ -11,8 +12,9 @@ import { DatePipe } from '@angular/common';
 export class SellerPostAdFormComponent implements OnInit {
   minNoOfImage=1;
   maxNoOfImage=5;
-
+  isAddressSelected:boolean=false;
   heroImageUrl = ""; // store url of hero image
+  imageUrlArray = []; // store url of images
   imageArray:ImageProperty[] =[];
   
   categories = ["Home","Electronics","Car","Bike"]; // this is provided by categories api
@@ -30,6 +32,23 @@ export class SellerPostAdFormComponent implements OnInit {
     let image =new ImageProperty();
     this.imageArray.push(image);
   } 
+
+  getImageUrlArray() 
+  {
+    for (let index = 0; index < this.imageArray.length-1; index++) {
+      this.imageUrlArray.push(this.imageArray[index].imageURL);
+    }
+    return this.imageUrlArray;
+  }
+  
+  onPost(postAdForm : NgForm)
+  {
+    for (let index = 0; index < this.imageArray.length-1; index++) {
+      this.imageUrlArray.push(this.imageArray[index].imageURL);
+    }
+    console.log(postAdForm.value);
+    console.log(JSON.stringify(postAdForm.value));
+  }
 
   date =  new Date();
   validateDate(id)
@@ -49,9 +68,11 @@ export class SellerPostAdFormComponent implements OnInit {
     if(event.target.checked)
     {
       this.addressDisplayValue="block";
+      this.isAddressSelected=true;
     }
     else{
       this.addressDisplayValue="none"
+      this.isAddressSelected=false;
     }
   }
 
@@ -112,7 +133,7 @@ export class SellerPostAdFormComponent implements OnInit {
  
   removeImage(id)
   {
-    if(this.imageCounter!=0 && this.imageArray[id].pictureContainerStyle =="4px solid red")
+    if(this.imageCounter!=0 && this.imageArray[id].pictureContainerStyle =="4px solid blue")
     {
       this.selectHeroImg(0);
       this.imageArray[0].heroImage="";
@@ -148,7 +169,7 @@ export class SellerPostAdFormComponent implements OnInit {
         this.imageArray[index].heroImage="none";
       }      
     }
-    this.imageArray[id].pictureContainerStyle = "4px solid red";
+    this.imageArray[id].pictureContainerStyle = "4px solid blue";
     this.imageArray[id].heroImage="";
     this.heroImageUrl=this.imageArray[id].imageURL;
   }
@@ -157,5 +178,4 @@ export class SellerPostAdFormComponent implements OnInit {
     document.getElementById(id).click();
     return false;
   }
-
 }

@@ -9,7 +9,13 @@ import { UserLoginDetails } from "../models/userLoginDetails";
 })
 export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService) {}
-
+  steps: [
+    { path: "basic"; name: "Basic" },
+    { path: "qualification"; name: "Qualification" },
+    { path: "pricing"; name: "Pricing" },
+    { path: "review"; name: "Review" },
+    { path: ""; name: "Test & Confirm" }
+  ];
   userDetails: UserLoginDetails;
   ngOnInit() {
     this.userDetails = new UserLoginDetails();

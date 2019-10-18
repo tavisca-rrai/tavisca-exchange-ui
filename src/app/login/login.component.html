@@ -1,7 +1,7 @@
 <div class='login-body'>
     <div class='login-card'>
         <div class="image-area">
-            <img src="assets/tavisca-logo.png" class="" alt="Tavisca">
+            <img src="assets/tavisca-logo.png" class="app-img" alt="Tavisca">
         </div>
 
         <div class="container">
@@ -10,8 +10,9 @@
             </div>
             <!-- Default input -->
             <div class="inputs">
-                <input type="text" class="form-control" placeholder="Enter Username" [(ngModel)]="userDetails.Username">
-                <input type="password" class="form-control" placeholder="Enter Password"
+                <input type="text" class="form-control credential-input" placeholder="Enter Username"
+                    [(ngModel)]="userDetails.Username">
+                <input type="password" class="form-control credential-input" placeholder="Enter Password"
                     [(ngModel)]="userDetails.Password">
 
                 <input type="checkbox" [(ngModel)]="userDetails.RememberMe" id='remberMe'>

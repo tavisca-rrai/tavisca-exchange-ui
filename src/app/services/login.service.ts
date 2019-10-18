@@ -1,3 +1,4 @@
+import { Api } from "./../api/api";
 import { Injectable } from "@angular/core";
 import {
   HttpClient,
@@ -7,7 +8,6 @@ import {
 import { Observable, of } from "rxjs";
 import { map, catchError, tap } from "rxjs/operators";
 
-const endpoint = "https://localhost:44339/api/";
 const httpOptions = {
   headers: new HttpHeaders({
     "Content-Type": "application/json"
@@ -18,11 +18,15 @@ const httpOptions = {
   providedIn: "root"
 })
 export class LoginService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private api: Api) {}
 
   verifyUserCredentials(userDetails): Observable<any> {
     return this.http
-      .post<any>(endpoint + "Signin", JSON.stringify(userDetails), httpOptions)
+      .post<any>(
+        this.api.getApiUrl("signin"),
+        JSON.stringify(userDetails),
+        httpOptions
+      )
       .pipe(
         tap(userDetails => console.log(userDetails)),
         catchError(this.handleError<any>("Credential Verification"))

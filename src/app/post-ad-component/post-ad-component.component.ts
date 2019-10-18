@@ -85,8 +85,9 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray[id].imageLoaderProperty="";
   }
 
-  async delay(ms: number,id) {
-    await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("image Loading"));
+  addImage(id,event){
+
+    this.imageLoader(id);
     this.imageArray[id].addEditProperty="";
     this.imageArray[id].crossBtnValue="";
     this.imageArray[id].imageDisplayValue="";
@@ -99,30 +100,6 @@ export class PostAdComponentComponent implements OnInit {
       this.selectHeroImg(id);
       this.imageArray[0].heroImage="";
     }
-  }
-  
-  addImage(id,event){
-    if(id==0)
-    {
-      this.selectHeroImg(id);
-      this.imageArray[0].heroImage="";
-    }
-    
-    this.imageLoader(id);
-    this.delay(3000,id);
-
-    // this.imageArray[id].addEditProperty="";
-    // this.imageArray[id].crossBtnValue="";
-    // this.imageArray[id].imageDisplayValue="";
-    // this.imageArray[id].imageURL = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
-    // this.imageArray[id].buttonName ="Change";
-    // this.imageArray[id].iconOfButton = "edit";
-    // this.imageArray[id].imageLoaderProperty="none";
-    // if(id==0)
-    // {
-    //   this.selectHeroImg(id);
-    //   this.imageArray[0].heroImage="";
-    // }
 
     this.imageCounter += 1;
     if(this.imageCounter <= this.maxNoOfImage)

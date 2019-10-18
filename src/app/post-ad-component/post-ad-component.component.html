@@ -24,7 +24,7 @@
             </div>
             <div class="alert alert-danger" *ngIf="price.touched && !price.valid">
                 <div *ngIf="price.errors.required"> Price is required.</div>
-                <div *ngIf="price.errors.min"> Price should be greater than .</div>
+                <div *ngIf="price.errors.min"> Price should be greater than 0.</div>
             </div>
         </div>
 

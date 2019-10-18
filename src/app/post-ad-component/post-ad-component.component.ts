@@ -1,15 +1,14 @@
-import { Component, OnInit, ɵConsole} from '@angular/core';
-import { ImageProperty } from './imageProperty';
+import { Component, OnInit } from '@angular/core';
+import { ImageProperty } from '../models/imageProperty';
 import { DatePipe } from '@angular/common';
 import {NgForm} from '@angular/forms';
 
 @Component({
-  selector: 'seller-post-ad-form',
-  templateUrl: './seller-post-ad-form.component.html',
-  styleUrls: ['./seller-post-ad-form.component.css']
+  selector: 'app-post-ad-component',
+  templateUrl: './post-ad-component.component.html',
+  styleUrls: ['./post-ad-component.component.css']
 })
-
-export class SellerPostAdFormComponent implements OnInit {
+export class PostAdComponentComponent implements OnInit {
   minNoOfImage=1;
   maxNoOfImage=5;
   isAddressSelected:boolean=false;

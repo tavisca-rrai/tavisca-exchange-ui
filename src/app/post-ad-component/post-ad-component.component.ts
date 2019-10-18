@@ -77,7 +77,7 @@ export class PostAdComponentComponent implements OnInit {
 
   imageLoader(id)
   {
-    this.imageArray[id].CrossBtnValue="none";
+    this.imageArray[id].crossBtnValue="none";
     this.imageArray[id].imageDisplayValue="none";
     this.imageArray[id].addEditProperty="none";
     this.imageArray[id].pictureContainerStyle = "1px solid lightgrey";
@@ -88,7 +88,7 @@ export class PostAdComponentComponent implements OnInit {
   async delay(ms: number,id) {
     await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("image Loading"));
     this.imageArray[id].addEditProperty="";
-    this.imageArray[id].CrossBtnValue="";
+    this.imageArray[id].crossBtnValue="";
     this.imageArray[id].imageDisplayValue="";
     this.imageArray[id].imageURL = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
     this.imageArray[id].buttonName ="Change";
@@ -110,17 +110,19 @@ export class PostAdComponentComponent implements OnInit {
     
     this.imageLoader(id);
     this.delay(3000,id);
-    console.log(event.target.value);  // calls upload image api it will return url of image after uploading image
-    //this.imageArray[id].imageURL = funcUploadImage(event.target.value);
-    //this.imageArray[id].imageURL = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
-    //Mock image URL
 
-    //this.imageArray[id].addEditProperty="";
-    // this.imageArray[id].CrossBtnValue="";
+    // this.imageArray[id].addEditProperty="";
+    // this.imageArray[id].crossBtnValue="";
     // this.imageArray[id].imageDisplayValue="";
+    // this.imageArray[id].imageURL = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
     // this.imageArray[id].buttonName ="Change";
     // this.imageArray[id].iconOfButton = "edit";
     // this.imageArray[id].imageLoaderProperty="none";
+    // if(id==0)
+    // {
+    //   this.selectHeroImg(id);
+    //   this.imageArray[0].heroImage="";
+    // }
 
     this.imageCounter += 1;
     if(this.imageCounter <= this.maxNoOfImage)
@@ -140,7 +142,7 @@ export class PostAdComponentComponent implements OnInit {
 
     this.imageArray[id].iconOfButton = "plus";
     this.imageArray[id].imageDisplayValue = "none";
-    this.imageArray[id].CrossBtnValue = "none";
+    this.imageArray[id].crossBtnValue = "none";
     this.imageArray[id].buttonName = "Add";
     this.imageArray[id].iconOfButton = "plus";
     this.imageArray[id].pictureContainerStyle = "1px solid lightgrey";

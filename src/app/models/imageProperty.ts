@@ -3,7 +3,7 @@ export class ImageProperty
   //properties of html element 
   addEditProperty = "";
   imageDisplayValue =  "none";
-  CrossBtnValue = "none";
+  crossBtnValue = "none";
   buttonName = "Add";
   iconOfButton = "plus"; 
   pictureContainerStyle = "1px solid lightgrey";

@@ -1,0 +1,63 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="product">
+    <div class="left-sidepanel">
+        <div class="product-carousel">
+            <!-- <mdb-carousel class="carousel slide carousel-fade" [type]="'carousel-thumbnails'" [animation]="'fade'">
+                <mdb-carousel-item>
+                    <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(88).jpg"
+                        alt="First slide">
+                </mdb-carousel-item>
+                <mdb-carousel-item>
+                    <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(121).jpg"
+                        alt="Second slide">
+                </mdb-carousel-item>
+                <mdb-carousel-item>
+                    <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(31).jpg"
+                        alt="Third slide">
+                </mdb-carousel-item>
+            </mdb-carousel> -->
+        </div>
+        <div class="product-description">
+            <span class="desc-header">Description</span>
+            <span>{{description}}</span>
+        </div>
+    </div>
+    <div class="right-sidepanel">
+        <div class="product-details">
+            <span style="font-weight: bold; font-size: 34px; font-family: Arial, Helvetica, sans-serif;">
+                {{itemprice}}
+                <button class="right-corner"><i class="fa fa-share"></i></button>
+                <button class="right-corner"><i class="fa fa-heart"></i></button>
+            </span>
+            <div class="other-info">
+                <span>
+                    2013 - 55,000 km
+                </span>
+                <span style="color: grey;  font-size: 16px;">{{itemtitle}}</span>
+            </div>
+
+            <div class="item-add-details" style="border: none;">
+                <div>
+                    <span style="float: left;">{{location}}</span>
+                </div>
+                <div>
+                    <span style="float: right;">{{postdate}}</span>
+                </div>
+            </div>
+
+        </div>
+        <div class="seller-details">
+            <div style="font-size: 20px;">Seller description</div>
+            <div class="sdetails" style="border: none">
+                <span style="font-size: 16px;">{{sellername}}</span>
+                <span style="font-size: 12px; color:rgb(190, 187, 187);">Member since {{sellerduartion}}</span>
+            </div>
+            <button>Chat with Seller</button>
+            <div class="seller-contact" style="border: none;">
+                <span style="display: inline;"><i class="fa fa-phone"></i></span>
+                <div style="display: inline;">** *** ****</div>
+                <div class="shownub" style="display: inline;">Show number</div>
+            </div>
+        </div>
+    </div>
+</div>

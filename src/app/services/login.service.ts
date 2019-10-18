@@ -21,6 +21,8 @@ export class LoginService {
   constructor(private http: HttpClient, private api: Api) {}
 
   verifyUserCredentials(userDetails): Observable<any> {
+    console.log(this.api.getApiUrl("signin"));
+
     return this.http
       .post<any>(
         this.api.getApiUrl("signin"),

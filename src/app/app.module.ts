@@ -9,6 +9,7 @@ import { DatePipe } from '@angular/common';
 
 import { SharedTestComponentComponent } from './shared-component/shared-test-component/shared-test-component.component';
 import { AdvertismentsListComponent } from './home-module/advertisments-list/advertisments-list.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { AdvertismentsListComponent } from './home-module/advertisments-list/adv
     BrowserModule,
     FormsModule,
     CustomFormsModule,
+    AppRoutingModule
     
   ],
   providers: [DatePipe],

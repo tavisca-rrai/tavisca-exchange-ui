@@ -8,6 +8,7 @@ import {NgForm} from '@angular/forms';
   templateUrl: './post-ad-component.component.html',
   styleUrls: ['./post-ad-component.component.css']
 })
+
 export class PostAdComponentComponent implements OnInit {
   minNoOfImage=1;
   maxNoOfImage=5;
@@ -31,14 +32,6 @@ export class PostAdComponentComponent implements OnInit {
     let image =new ImageProperty();
     this.imageArray.push(image);
   } 
-
-  getImageUrlArray() 
-  {
-    for (let index = 0; index < this.imageArray.length-1; index++) {
-      this.imageUrlArray.push(this.imageArray[index].imageURL);
-    }
-    return this.imageUrlArray;
-  }
   
   onPost(postAdForm : NgForm)
   {
@@ -49,11 +42,11 @@ export class PostAdComponentComponent implements OnInit {
     console.log(JSON.stringify(postAdForm.value));
   }
 
-  date =  new Date();
+  
   validateDate(id)
   {
-    this.date=new Date();
-    let latest_date =this.datepipe.transform(this.date, 'yyyy-MM-dd');
+    let date =  new Date();
+    let latest_date = this.datepipe.transform(date, 'yyyy-MM-dd');
     var userDate = id.target.value;
     if(userDate > latest_date){
       this.purchaseDate="block";
@@ -134,7 +127,6 @@ export class PostAdComponentComponent implements OnInit {
       let image =new ImageProperty();
       this.imageArray.push(image);
     }
-   
   }
 
   selectHeroImg(id)

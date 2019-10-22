@@ -1,4 +1,6 @@
-import { Api } from "./../api/api";
+import { environment } from "src/environments/environment";
+import { loginEnviroment } from "../../../environments/loginSettings";
+
 import { Injectable } from "@angular/core";
 import {
   HttpClient,
@@ -18,14 +20,15 @@ const httpOptions = {
   providedIn: "root"
 })
 export class LoginService {
-  constructor(private http: HttpClient, private api: Api) {}
+  constructor(private http: HttpClient) {}
 
   verifyUserCredentials(userDetails): Observable<any> {
-    console.log(this.api.getApiUrl("signin"));
-
     return this.http
       .post<any>(
-        this.api.getApiUrl("signin"),
+        loginEnviroment.loginBaseUrl +
+          environment.version +
+          environment.applicationName +
+          loginEnviroment.signInPath,
         JSON.stringify(userDetails),
         httpOptions
       )

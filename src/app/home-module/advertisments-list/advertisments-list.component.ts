@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GetAdvertismentsListService } from '../../services/GetAdvertismentsList/get-advertisments-list.service';
+import { GetAdvertismentsListService } from '@services/index';
 
 @Component({
   selector: 'app-advertisments-list',

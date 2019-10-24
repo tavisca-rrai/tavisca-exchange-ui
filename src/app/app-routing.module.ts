@@ -3,10 +3,15 @@ import { CommonModule } from '@angular/common';
 import { Routes , RouterModule } from '@angular/router';
 import { PostAdComponentComponent } from './post-ad-component/post-ad-component.component';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from "./login-module/login-component/login.component";
+import { HomeComponent } from './home-module/home/home.component';
 
 const routes: Routes = [
+  { path: "", component: LoginComponent },
+  { path: "products", component: HomeComponent },
   { path: 'post', component: PostAdComponentComponent},
 ]
+
 
 @NgModule({
   declarations: [],

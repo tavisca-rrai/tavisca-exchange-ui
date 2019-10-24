@@ -8,6 +8,7 @@ import { HeaderComponent } from './shared-component/header/header.component';
 import { FooterComponent } from './shared-component/footer/footer.component';
 import { LeftNavBarComponent } from './shared-component/left-nav-bar/left-nav-bar.component';
 import { MobileLeftNavBarComponent } from './shared-component/mobile-left-nav-bar/mobile-left-nav-bar.component';
+import { HomeComponent } from './home-module/home/home.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { MobileLeftNavBarComponent } from './shared-component/mobile-left-nav-ba
     HeaderComponent,
     FooterComponent,
     LeftNavBarComponent,
-    MobileLeftNavBarComponent
+    MobileLeftNavBarComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule

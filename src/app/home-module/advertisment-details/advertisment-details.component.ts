@@ -1,22 +1,26 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductDetails } from '../../home-module/product-details';
 @Component({
   selector: 'app-advertisment-details',
   templateUrl: './advertisment-details.component.html',
   styleUrls: ['./advertisment-details.component.css']
 })
-export class AdvertismentDetailsComponent implements OnInit {
-  public itemtitle = "Maruti Suzuki Alto 800 Lxi, 2012, Petrol";
-  public itemprice = "₹ 1,65,000";
-  public location = "Thane , Maharashtra";
-  public postdate = "24 July";
-  public description = "Make - Maruti Suzuki Ertiga zxi +Hybrid petrol";
-
-  public sellername = "M S Motors";
-  public sellerduartion = "May 2017";
+export class AdvertismentDetailsComponent implements OnInit 
+{
+  productdetails: ProductDetails;
 
   constructor() { }
 
   ngOnInit() {
+    this.productdetails = new ProductDetails();
   }
 
+  //price = this.productdetails.price;
+  // title =this.productdetails.title;
+  // location =this.productdetails.location;
+  // postdate =this.productdetails.postdate;
+  // description = this.productdetails.description;
+
+  // sellername = this.productdetails.sellername;
+  // sellerduartion = this.productdetails.sellerduartion;
 }

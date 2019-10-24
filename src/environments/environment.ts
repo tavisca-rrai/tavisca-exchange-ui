@@ -10,6 +10,10 @@ export const environment = {
   loginSetting: {
     BaseUrl: "https://localhost:44340/api",
     signInPath: "/signin"
+  },
+  productSetting: {
+    BaseUrl: "https://localhost:44340/api",
+    addProductPath: "/product"
   }
 };
 

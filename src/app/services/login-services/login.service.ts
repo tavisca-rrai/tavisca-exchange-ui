@@ -1,8 +1,7 @@
-import { environment } from "src/environments/environment";
-import { loginEnviroment } from "../../../environments/loginSettings";
+import { environment, loginsetting } from "src/environments/environment";
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable, of } from "rxjs";
+import { Observable } from "rxjs";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -18,10 +17,10 @@ export class LoginService {
 
   verifyUserCredentials(userDetails): Observable<any> {
     var url =
-      loginEnviroment.loginBaseUrl +
+      loginsetting.loginBaseUrl +
       environment.version +
       environment.applicationName +
-      loginEnviroment.signInPath;
+      loginsetting.signInPath;
     return this.http.post<any>(url, JSON.stringify(userDetails), httpOptions);
   }
 }

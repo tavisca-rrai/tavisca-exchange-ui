@@ -5,7 +5,10 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { FormsModule } from "@angular/forms";
 
-const routes: Routes = [{ path: "login", component: LoginComponent }];
+const routes: Routes = [
+  { path: "", component: LoginComponent },
+  { path: "login", component: LoginComponent }
+];
 
 @NgModule({
   declarations: [],

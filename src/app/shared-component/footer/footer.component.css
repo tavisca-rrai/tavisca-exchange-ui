@@ -1,0 +1,33 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+footer {
+    margin: 0px;
+    display: flex;
+    color: white;
+    align-items: center;
+    background-color: #1976d2;
+    position: relative;
+    height: 100%;
+}
+.brand{
+    width: 100%;
+    flex: 1;
+}
+.about{
+    flex: 1;
+}
+.about h3{
+    font-size: 20px;
+    padding: 10px;
+}
+.logo{
+    flex: 1;
+    text-align: right;
+}
+.brand h1{
+    margin: 0px;
+    padding: 10px;
+    font-size: 24px;
+}
+.logo img{
+    height: 90px;
+}

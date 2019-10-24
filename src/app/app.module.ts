@@ -7,15 +7,13 @@ import { AppComponent } from "./app.component";
 import { SharedTestComponentComponent } from "./shared-component/shared-test-component/shared-test-component.component";
 import { AdvertismentsListComponent } from "./home-module/advertisments-list/advertisments-list.component";
 import { HttpClientModule } from "@angular/common/http";
-import { TestComponentComponent } from "./test-module/test-component/test-component.component";
 import { AppRoutingModule } from "./app-routing.module";
-import { RouterModule } from "@angular/router";
+
 
 @NgModule({
   declarations: [
     AppComponent,
     SharedTestComponentComponent,
-    TestComponentComponent,
     AdvertismentsListComponent
   ],
   imports: [
@@ -23,8 +21,7 @@ import { RouterModule } from "@angular/router";
     HttpClientModule,
     FormsModule,
     LoginModule,
-    AppRoutingModule,
-    RouterModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -30,14 +30,14 @@ export class LoginService implements ILoginService {
     if (environment.isMockingEnabled) {
       return this.loginMockService.verifyUserCredentials(userDetails);
     } else {
-      var url = this.getUrl(environment.loginsetting.signInPath);
+      var url = this.getUrl(environment.loginSetting.signInPath);
       return this.http.post<any>(url, JSON.stringify(userDetails), httpOptions);
     }
   }
 
   private getUrl(path: string): string {
     return
-    environment.loginsetting.BaseUrl +
+    environment.loginSetting.BaseUrl +
       environment.version +
       environment.applicationName +
       path;

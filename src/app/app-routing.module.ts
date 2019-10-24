@@ -6,8 +6,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 
 const routes: Routes = [
-  { path: "", component: LoginComponent },
-  { path: "login", component: LoginComponent }
+  { path: "", component: LoginComponent }
 ];
 
 @NgModule({
@@ -15,4 +14,4 @@ const routes: Routes = [
   imports: [CommonModule, RouterModule.forRoot(routes), FormsModule],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -36,8 +36,7 @@ export class LoginService implements ILoginService {
   }
 
   private getUrl(path: string): string {
-    return
-    environment.loginSetting.BaseUrl +
+    return environment.loginSetting.BaseUrl +
       environment.version +
       environment.applicationName +
       path;

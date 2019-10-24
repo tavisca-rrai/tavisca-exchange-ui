@@ -17,22 +17,29 @@ export class ProductService implements IproductService {
     "Content-Type": "application/json"
   });
 
-  constructor(private http: HttpClient)
-  {
+  constructor(private http: HttpClient) {
     if (environment.isMockingEnabled) {
       this.productMockService = new ProductMockService();
     }
-  
+
   }
-  
+
 
   AddProduct(product: Product): Observable<Product> {
     if (environment.isMockingEnabled) {
       return this.productMockService.AddProduct(product);
     } else {
-      return this.http.post<Product>(environment.productServiceUrl, product, {
+      return this.http.post<Product>(this.getUrl(environment.productSetting.addProductPath), product, {
         headers: this.headers
       });
     }
+  }
+
+  private getUrl(path: string): string {
+    return
+    environment.productSetting.BaseUrl +
+      environment.version +
+      environment.applicationName +
+      path;
   }
 }

@@ -11,6 +11,14 @@ export class ProductMockService implements IproductService {
   constructor() { }
 
   AddProduct(product: Product): Observable<Product> {
+    product.id = "P123";
+    product.status = "Active";
+
+    product.postDate = "2019-09-01";
+    product.expirationDate = "2019-09-01";
+    product.purchaseDate = "2019-09-01";
+    
+    // set other details coming from web
     return of(product);
   }
 }

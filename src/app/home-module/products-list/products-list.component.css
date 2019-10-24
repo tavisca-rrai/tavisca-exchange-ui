@@ -1,3 +1,23 @@
+.adv-list-container {
+    display: grid;
+    grid-row-gap: 20px;
+    grid-template-columns: 100%;
+    justify-items: center;
+    margin: 15px 5px;
+}
+
+@media only screen and (min-width: 768px) {
+    .adv-list-container {
+        grid-template-columns: 50% 50%;
+    }
+}
+
+@media only screen and (min-width: 1280px) {
+    .adv-list-container {
+        grid-template-columns: 33.33% 33.33% 33.33%;
+    }
+}
+
 .adv-card {
     width: 95%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);

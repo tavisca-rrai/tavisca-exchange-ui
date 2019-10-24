@@ -4,13 +4,13 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { SharedTestComponentComponent } from './shared-component/shared-test-component/shared-test-component.component';
-import { AdvertismentsListComponent } from './home-module/advertisments-list/advertisments-list.component';
+import { ProductsListComponent } from './home-module/products-list/products-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SharedTestComponentComponent,
-    AdvertismentsListComponent
+    ProductsListComponent
   ],
   imports: [
     BrowserModule,

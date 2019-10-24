@@ -2,6 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PostAdComponentComponent } from './post-ad-component.component';
 
+
+
+
 describe('PostAdComponentComponent', () => {
   let component: PostAdComponentComponent;
   let fixture: ComponentFixture<PostAdComponentComponent>;

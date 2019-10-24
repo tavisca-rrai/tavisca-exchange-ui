@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ImageProperty } from '../models/imageProperty';
 import { DatePipe } from '@angular/common';
 import {NgForm} from '@angular/forms';
+import { Product } from './product';
 
 @Component({
   selector: 'app-post-ad-component',
@@ -27,28 +28,25 @@ export class PostAdComponentComponent implements OnInit {
   imageCounter = 1;
 
   constructor(public datepipe: DatePipe){} //use for validation of date 
-
+  productModel : Product;
+  
   ngOnInit() {
     let image =new ImageProperty();
     this.imageArray.push(image);
+    this.productModel=new Product();
   } 
-  
-  onPost(postAdForm : NgForm)
-  {
-    for (let index = 0; index < this.imageArray.length-1; index++) {
-      this.imageUrlArray.push(this.imageArray[index].imageURL);
-    }
-    console.log(postAdForm.value);
-    console.log(JSON.stringify(postAdForm.value));
+
+  submitted = false;
+  onSubmit() { this.submitted = true;
+  console.log(this.productModel);
   }
 
-  
+  date =  new Date();
+  latest_date = this.datepipe.transform(this.date, 'yyyy-MM-dd');
   validateDate(id)
   {
-    let date =  new Date();
-    let latest_date = this.datepipe.transform(date, 'yyyy-MM-dd');
     var userDate = id.target.value;
-    if(userDate > latest_date){
+    if(userDate > this.latest_date){
       this.purchaseDate="block";
     }else{
       this.purchaseDate="none";
@@ -88,6 +86,9 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray[id].buttonName ="Change";
     this.imageArray[id].iconOfButton = "edit";
     this.imageArray[id].imageLoaderProperty="none";
+
+    this.productModel.imageUrl.push(this.imageArray[id].imageURL);
+
     if(id==0)
     {
       this.selectHeroImg(id);
@@ -116,6 +117,7 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray[id].buttonName = "Add";
     this.imageArray[id].iconOfButton = "plus";
     this.imageArray[id].pictureContainerStyle = "1px solid lightgrey";
+    this.productModel.imageUrl.splice(id,1);
 
     if(this.imageCounter>this.minNoOfImage)
     {
@@ -140,8 +142,7 @@ export class PostAdComponentComponent implements OnInit {
       }      
     }
     this.imageArray[id].pictureContainerStyle = "4px solid blue";
-    this.imageArray[id].heroImage="";
-    this.heroImageUrl=this.imageArray[id].imageURL;
+    this.productModel.heroImageUrl=this.productModel.imageUrl[id];
   }
 
   imageClick(id){

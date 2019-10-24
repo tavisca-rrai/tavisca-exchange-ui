@@ -2,10 +2,10 @@ import { LoginMockService } from "./login.mock.service";
 import { ILoginService } from "./i-login-service";
 import { UserSignInDetails } from "../../login-module/models/user-signin-details";
 import { SignInResponse } from "../../login-module/models/sign-in-response";
-import { environment } from "src/environments/environment";
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, of } from "rxjs";
+import { environment } from 'src/environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({

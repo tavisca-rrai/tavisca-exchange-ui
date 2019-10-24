@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ImageProperty } from '../models/imageProperty';
 import { DatePipe } from '@angular/common';
-import {NgForm} from '@angular/forms';
 import { Product } from './product';
 
 @Component({
@@ -37,8 +36,9 @@ export class PostAdComponentComponent implements OnInit {
   } 
 
   submitted = false;
-  onSubmit() { this.submitted = true;
-  console.log(this.productModel);
+  onSubmit() { 
+    this.submitted = true;
+    console.log(this.productModel);
   }
 
   date =  new Date();
@@ -77,7 +77,6 @@ export class PostAdComponentComponent implements OnInit {
   }
 
   addImage(id,event){
-
     this.imageLoader(id);
     this.imageArray[id].addEditProperty="";
     this.imageArray[id].crossBtnValue="";
@@ -86,7 +85,6 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray[id].buttonName ="Change";
     this.imageArray[id].iconOfButton = "edit";
     this.imageArray[id].imageLoaderProperty="none";
-
     this.productModel.imageUrl.push(this.imageArray[id].imageURL);
 
     if(id==0)

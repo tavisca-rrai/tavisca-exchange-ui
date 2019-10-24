@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { FormsModule } from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
+import { AppRoutingModule } from "./app-routing.module";
+import { LoginModule } from "./login-module/login.module"; 
 import { AppComponent } from './app.component';
 import { SharedTestComponentComponent } from './shared-component/shared-test-component/shared-test-component.component';
 import { AdvertismentsListComponent } from './home-module/advertisments-list/advertisments-list.component';
@@ -22,7 +25,11 @@ import { HomeComponent } from './home-module/home/home.component';
     HomeComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    LoginModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

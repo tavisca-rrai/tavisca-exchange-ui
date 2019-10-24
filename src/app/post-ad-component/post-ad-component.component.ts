@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ImageProperty } from '../models/imageProperty';
 import { DatePipe } from '@angular/common';
-import { Product } from './product';
+import { Product } from '../models/product';
 
 @Component({
   selector: 'app-post-ad-component',
@@ -13,8 +13,6 @@ export class PostAdComponentComponent implements OnInit {
   minNoOfImage=1;
   maxNoOfImage=5;
   isAddressSelected:boolean=false;
-  heroImageUrl = ""; // store url of hero image
-  imageUrlArray = []; // store url of images
   imageArray:ImageProperty[] =[];
   
   categories = ["Home","Electronics","Car","Bike"]; // this is provided by categories api
@@ -145,6 +143,5 @@ export class PostAdComponentComponent implements OnInit {
 
   imageClick(id){
     document.getElementById(id).click();
-    return false;
   }
 }

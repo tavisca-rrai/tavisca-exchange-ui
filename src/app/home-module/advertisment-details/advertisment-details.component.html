@@ -37,7 +37,7 @@
     </div>
     <div class="right-sidepanel">
         <div class="product-details">
-            <span style="font-weight: bold; font-size: 34px; font-family: Arial, Helvetica, sans-serif;">
+            <span class="price">
                 {{ productdetails.price }}
                 <button class="right-corner"><i class="fa fa-share"></i></button>
                 <button class="right-corner"><i class="fa fa-heart"></i></button>
@@ -46,30 +46,30 @@
                 <span>
                     2013 - 55,000 km
                 </span>
-                <span style="color: grey;  font-size: 16px;">{{productdetails.title}}</span>
+                <span class="product-title" >{{productdetails.title}}</span>
             </div>
 
             <div class="item-add-details" style="border: none;">
                 <div>
-                    <span style="float: left;">{{productdetails.location}}</span>
+                    <span class="product-location">{{productdetails.location}}</span>
                 </div>
                 <div>
-                    <span style="float: right;">{{productdetails.postdate}}</span>
+                    <span class="product-postdate">{{productdetails.postdate}}</span>
                 </div>
             </div>
 
         </div>
         <div class="seller-details">
-            <div style="font-size: 20px;">Seller description</div>
-            <div class="sdetails" style="border: none">
-                <span style="font-size: 16px;">{{productdetails.sellername}}</span>
-                <span style="font-size: 12px; color:rgb(190, 187, 187);">Member since {{productdetails.sellerduartion}}</span>
+            <div class="seller-description">Seller description</div>
+            <div class="sdetails">
+                <span class ="seller-name">{{productdetails.sellername}}</span>
+                <span class="seller-duration">Member since {{productdetails.sellerduartion}}</span>
             </div>
             <button>Chat with Seller</button>
-            <div class="seller-contact" style="border: none;">
-                <span style="display: inline;"><i class="fa fa-phone"></i></span>
-                <div style="display: inline;">** *** ****</div>
-                <div class="shownub" style="display: inline;">Show number</div>
+            <div class="seller-contact">
+                <span><i class="fa fa-phone"></i></span>
+                <div>** *** ****</div>
+                <div class="shownub">Show number</div>
             </div>
         </div>
     </div>

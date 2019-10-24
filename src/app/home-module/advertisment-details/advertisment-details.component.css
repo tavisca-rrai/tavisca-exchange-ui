@@ -84,7 +84,18 @@ div {
     width: 24px;
     height: 24px;
 }
-
+.product-title
+{
+    color: grey;  
+    font-size: 16px;
+}
+.product-location{
+    float: left;
+}
+.product-postdate
+{
+    float:right;
+}
 .seller-details {
     height: 100%;
     width: 100%;
@@ -118,10 +129,32 @@ div {
 
 .seller-contact div {
     border: none;
+    display: inline;
 }
-
+.seller-contact span
+{
+    display: inline;
+}
+.seller-description
+{
+    font-size: 20px;
+}
+.sdetails
+{
+    border: none;
+}
+.seller-name
+{
+    font-size: 16px;
+}
+.seller-duration
+{
+    font-size: 12px; 
+    color:rgb(190, 187, 187);
+}
 .seller-contact {
     text-align: center;
+    border: none;
 }
 
 .shownub {
@@ -131,7 +164,11 @@ div {
     {
         border: none;
     }
-    
+.price {
+    font-weight: bold; 
+    font-size: 34px; 
+    font-family: Arial, Helvetica, sans-serif;
+} 
 @media only screen and (min-width: 768px) 
 {
     .product
@@ -176,6 +213,15 @@ div {
         margin-top: 3px;
         margin-bottom: 3px;
     }  
+    .product-carousel {
+        height:100%;
+        position: relative;
+    }
+    
+    .product-carousel, .product-description {
+        /* width: 95%; */
+        margin: 0 auto;
+    }
     .product-carousel div
     {
         border: none;

@@ -8,7 +8,7 @@ import { UserSignInDetails } from "../models/user-signin-details";
   styleUrls: ["./login.component.css"]
 })
 export class LoginComponent implements OnInit {
-  constructor(private loginService: LoginService) {}
+  constructor(private loginService: LoginService) { }
   userDetails: UserSignInDetails;
   isInvalid = false;
   ngOnInit() {
@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
       response => {
         //temporary, after completeion we will redirect to home page
         console.log(response);
+        alert("You are successfully logged in!");
       },
       err => {
         console.log(err.error);

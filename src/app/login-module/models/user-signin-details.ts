@@ -1,4 +1,4 @@
-export class UserLoginDetails {
+export class UserSignInDetails {
   Username: string;
   Password: string;
   RememberMe: boolean;

@@ -5,12 +5,11 @@
 export const environment = {
   production: false,
   version: "/v1.0",
-  applicationName: "/ORP"
-};
-
-export const loginsetting = {
-  loginBaseUrl: "https://localhost:44339/api",
-  signInPath: "/Signin"
+  applicationName: "/ORP",
+  loginsetting: {
+    BaseUrl: "https://localhost:44340/api",
+    signInPath: "/signin"
+  }
 };
 
 /*

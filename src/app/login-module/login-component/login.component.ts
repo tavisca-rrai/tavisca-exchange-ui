@@ -1,6 +1,6 @@
 import { LoginService } from "../../services/login-services/login.service";
 import { Component, OnInit } from "@angular/core";
-import { UserLoginDetails } from "../models/userLoginDetails";
+import { UserSignInDetails } from "../models/user-signin-details";
 
 @Component({
   selector: "app-login",
@@ -9,23 +9,24 @@ import { UserLoginDetails } from "../models/userLoginDetails";
 })
 export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService) {}
-  userDetails: UserLoginDetails;
+  userDetails: UserSignInDetails;
   isInvalid = false;
   ngOnInit() {
-    this.userDetails = new UserLoginDetails();
+    this.userDetails = new UserSignInDetails();
   }
   tryLogin() {
     this.loginService.verifyUserCredentials(this.userDetails).subscribe(
       response => {
         //temporary, after completeion we will redirect to home page
-        alert("Successful");
+        console.log(response);
       },
       err => {
+        console.log(err.error);
         this.isInvalid = true;
       }
     );
   }
-  onFormClick() {
+  loginClick() {
     this.isInvalid = false;
   }
 }

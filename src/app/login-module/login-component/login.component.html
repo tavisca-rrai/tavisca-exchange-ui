@@ -10,7 +10,7 @@
             <div class="alert alert-danger" *ngIf="isInvalid">
                 Invalid Username/Password
             </div>
-            <form name='login-form' (click)="onFormClick()">
+            <form name='login-form' (click)="loginClick()">
                 <div class="inputs">
                     <input type="text" class="form-control credential-input" name="username" #username="ngModel"
                         placeholder="Enter Username" required [(ngModel)]="userDetails.Username" autocomplete="off">

@@ -9,21 +9,23 @@ import { UserLoginDetails } from "../login-models/userLoginDetails";
 })
 export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService) {}
-
   userDetails: UserLoginDetails;
-
+  isInvalid = false;
   ngOnInit() {
     this.userDetails = new UserLoginDetails();
   }
-
   tryLogin() {
     this.loginService.verifyUserCredentials(this.userDetails).subscribe(
       response => {
-        console.log(response);
+        //temporary, after completeion we will redirect to home page
+        alert("Successful");
       },
       err => {
-        console.log(err);
+        this.isInvalid = true;
       }
     );
+  }
+  onFormClick() {
+    this.isInvalid = false;
   }
 }

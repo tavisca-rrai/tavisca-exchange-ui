@@ -17,7 +17,6 @@
   display: flex;
   flex-wrap: wrap;
 }
-
 .app-img {
   margin: 5%;
   width: 50%;
@@ -27,20 +26,17 @@
   padding: 2px 16px;
   width: 80%;
 }
-
 .credential-input {
   margin-top: 5%;
   margin-bottom: 5%;
   border-radius: 30px;
 }
-
 .card-message {
   margin-top: 5%;
   margin-bottom: 5%;
   font-weight: lighter;
   letter-spacing: 1px;
 }
-
 .login-button {
   background-color: #1d3355;
   border: none;
@@ -59,14 +55,12 @@
   letter-spacing: 7px;
   border-radius: 30px;
 }
-
 .login-button span {
   cursor: pointer;
   display: inline-block;
   position: relative;
   transition: 0.5s;
 }
-
 .login-button span:after {
   content: "\00bb";
   position: absolute;
@@ -75,16 +69,13 @@
   right: -20px;
   transition: 0.5s;
 }
-
 .login-button:hover span {
   padding-right: 25px;
 }
-
 .login-button:hover span:after {
   opacity: 1;
   right: 0;
 }
-
 input[type="checkbox"] {
   display: none;
 }
@@ -97,7 +88,6 @@ input[type="checkbox"] + label {
   -moz-user-select: none;
   -ms-user-select: none;
 }
-
 input[type="checkbox"] + label:before {
   content: "";
   display: block;
@@ -111,7 +101,6 @@ input[type="checkbox"] + label:before {
   -webkit-transition: all 0.12s, border-color 0.08s;
   transition: all 0.12s, border-color 0.08s;
 }
-
 input[type="checkbox"]:checked + label:before {
   width: 10px;
   top: -5px;

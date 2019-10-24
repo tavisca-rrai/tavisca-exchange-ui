@@ -3,20 +3,19 @@
         <div class="image-area">
             <img src="assets/tavisca-logo.png" class="app-img" alt="Tavisca">
         </div>
-
         <div class="container">
             <div class='card-message'>
                 <p>Sign In</p>
             </div>
-            <!-- Default input -->
-            <form name='login-form'>
+            <div class="alert alert-danger" *ngIf="isInvalid">
+                Invalid Username/Password
+            </div>
+            <form name='login-form' (click)="onFormClick()">
                 <div class="inputs">
-
                     <input type="text" class="form-control credential-input" name="username" #username="ngModel"
                         placeholder="Enter Username" required [(ngModel)]="userDetails.Username" autocomplete="off">
                     <div class="alert alert-danger" *ngIf="username.touched && !username.valid">
                         <div *ngIf="username.errors.required">Username is required</div>
-
                     </div>
                     <input type="password" class="form-control credential-input" minlength="6" name="password"
                         #password="ngModel" required placeholder="Enter Password" [(ngModel)]="userDetails.Password">
@@ -24,12 +23,10 @@
                         <div *ngIf="password.errors.required">Password is required</div>
                         <div *ngIf="password.errors.minlength">Password should be minimum 6 Characters.</div>
                     </div>
-
-                    <input type="checkbox" [(ngModel)]="userDetails.RememberMe" id='remberMe'>
+                    <input type="checkbox" [(ngModel)]="userDetails.RememberMe" name='remberMe' id='remberMe'>
                     <label class="checkbox" for="remberMe">
                         Remember me
                     </label>
-
                 </div>
                 <button class='login-button' (click)='tryLogin()'><span>CONTINUE</span></button>
             </form>

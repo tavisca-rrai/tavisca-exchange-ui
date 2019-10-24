@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
+import { AdvertismentsListComponent } from 'app/home-module/advertisments-list/advertisments-list.component';
 
-
+const routes: Routes = [
+  { path: 'advertisments-list', component: AdvertismentsListComponent }
+];
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -7,12 +7,9 @@ export class Product {
     public description: string;
     public dateOfPurchase: Date;
     public heroImageUrl: string;
-    public imageUrl: string[];
-    public price : Price;
-    public address : Address;
+    public imageUrl:string[]=[];
+    public price = new Price();
+    public address = new Address();
     constructor() {
-        this.price = new Price();  
-        this.address = new Address();
     }
-    
 }

@@ -37,7 +37,9 @@ export class PostAdComponentComponent implements OnInit {
   onSubmit() { 
     this.submitted = true;
     console.log(this.productModel);
+    console.log(this.productModel.imageUrl);
   }
+
 
   date =  new Date();
   latest_date = this.datepipe.transform(this.date, 'yyyy-MM-dd');
@@ -83,7 +85,7 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray[id].buttonName ="Change";
     this.imageArray[id].iconOfButton = "edit";
     this.imageArray[id].imageLoaderProperty="none";
-    this.productModel.imageUrl.push(this.imageArray[id].imageURL);
+    this.productModel.imageUrl.push("https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
 
     if(id==0)
     {

@@ -9,7 +9,7 @@ import { HomeComponent } from './home-module/home/home.component';
 const routes: Routes = [
   { path: "", component: LoginComponent },
   { path: "products", component: HomeComponent, children:[
-    { path: 'postad', component: PostAdComponentComponent},
+    { path: 'add', component: PostAdComponentComponent},
   ] },
   
 ]

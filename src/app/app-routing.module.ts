@@ -8,7 +8,7 @@ import { FormsModule } from "@angular/forms";
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
-  { path: 'products-list', component: ProductsListComponent }
+  { path: 'products', component: ProductsListComponent }
 ];
 
 @NgModule({

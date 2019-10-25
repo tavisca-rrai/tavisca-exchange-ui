@@ -1,20 +1,39 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import { IProductsService } from "../../models/i-products-service";
+import { Observable, of } from "rxjs";
+import { GetProductDetailsResponse } from "src/app/models/get-product-details-response";
+import { GetProductsListResponse } from "src/app/models/get-products-list-response";
+import { environment } from "src/environments/environment";
+import { ProductsMockService } from './products-mock.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductsService {
+
+export class ProductsService implements IProductsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getProductsList() {
-    return this.httpClient.get(environment.adsListApiUrl);
+  getProductsList(
+    pageNumber: number,
+    pageSize: number
+  ): Observable<GetProductsListResponse> {
+    if (environment.isMockingEnabled) {
+      return new ProductsMockService().getProductsList(pageNumber, pageSize);
+    } else {
+      return of(new GetProductsListResponse());
+    }
   }
 
-  public getProductsDetails() {
-    return this.httpClient.get(environment.adDetailsApiUrl);
+  getProductDetails(
+    productId: string
+  ): Observable<GetProductDetailsResponse> {
+    if (environment.isMockingEnabled) {
+      return new ProductsMockService().getProductDetails(productId);
+    } else {
+      return of(new GetProductDetailsResponse());
+    }
   }
 
 }

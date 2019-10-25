@@ -10,7 +10,7 @@ import { CustomFormsModule} from 'ng2-validation';
 import { DatePipe } from '@angular/common';
 
 import { SharedTestComponentComponent } from './shared-component/shared-test-component/shared-test-component.component';
-import { AdvertismentsListComponent } from './home-module/advertisments-list/advertisments-list.component';
+import { ProductsListComponent } from './home-module/products-list/products-list.component';
 import { HeaderComponent } from './shared-component/header/header.component';
 import { FooterComponent } from './shared-component/footer/footer.component';
 import { LeftNavBarComponent } from './shared-component/left-nav-bar/left-nav-bar.component';
@@ -22,7 +22,7 @@ import { HomeComponent } from './home-module/home/home.component';
     AppComponent,
     PostAdComponentComponent,
     SharedTestComponentComponent,
-    AdvertismentsListComponent,
+    ProductsListComponent,
     HeaderComponent,
     FooterComponent,
     LeftNavBarComponent,

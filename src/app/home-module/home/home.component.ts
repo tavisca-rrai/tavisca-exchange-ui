@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  hideMenu:boolean;
   constructor() { }
 
   ngOnInit() {
+    
   }
-
+  toggleMenuEvent(hideMenu:boolean){
+    this.hideMenu = hideMenu;
+  }
 }

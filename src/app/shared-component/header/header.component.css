@@ -1,14 +1,17 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
-.user-profile a{
+.user-profile a {
     color: #fff;
 }
-.header-icon{
+
+.header-icon {
     margin-right: 20px;
 }
-.search-box input{
+
+.search-box input {
     border-radius: 25px;
 }
+
 .header {
     top: 0px;
     width: 100%;
@@ -20,53 +23,66 @@
     font-weight: 600;
     align-items: center;
     background-color: #1976d2;
+    z-index: 9999;
 }
-.brand{
+
+.brand {
     width: 100%;
 }
-.brand h1{
+
+.brand h1 {
     margin: 0px;
     padding: 10px;
     font-size: 24px;
 }
-.brand a{
+
+.brand a {
     text-decoration: none;
     color: #fff;
 }
-.link-box{
+
+.link-box {
     width: 100%;
     padding: 12px;
     text-align: right;
 }
-.link{
+
+.link {
     padding: 10px;
     color: white;
     text-decoration-line: none;
 }
-.link:hover{
+
+.link:hover {
     color: #dad8d8;
     text-decoration-line: none;
 }
-app-mobile-left-nav-bar{
+
+app-mobile-left-nav-bar {
     display: none;
 }
-.search-box{
+
+.search-box {
     width: 100%;
 }
+
 @media (min-width: 768px) {
-    .menu{
+    .mobile-menu{
         display: none;
     }
 }
 
 @media (max-width: 768px) {
-    .brand h1{
+    .brand h1 {
         font-size: 20px;
     }
-    .header-icon{
+    .header-icon {
         display: none;
     }
-    app-mobile-left-nav-bar{
+    app-mobile-left-nav-bar {
         display: block;
+    }
+    .menu{
+        display: none;
     }
 }

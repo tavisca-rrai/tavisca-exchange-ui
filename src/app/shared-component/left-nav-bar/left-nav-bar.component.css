@@ -1,23 +1,26 @@
-.left-nav{
-    width: 200px;
-    padding-top: 20px;
-    background-color: #fff;
-    height: 75%;
-    box-sizing: border-box;
-    position: fixed;
-    overflow-y: scroll;
+.left-nav {
+    width: inherit;
+    padding-top: inherit;
+    background-color: inherit;
+    height: inherit;
+    box-sizing: inherit;
+    overflow-y: inherit;
 }
-.navbar-items{
+
+.navbar-items {
     padding: 5px 11px 5px 25px;
+    width: inherit;
 }
-.left-nav h3{
+
+.left-nav h3 {
     color: #1976d2;
     text-align: center;
     font-size: 19px;
     text-decoration: underline;
 }
+
 @media (max-width: 768px) {
-    .left-nav{
+    .left-nav {
         display: none;
     }
 }

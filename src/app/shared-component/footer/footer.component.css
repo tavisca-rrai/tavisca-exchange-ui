@@ -1,12 +1,11 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 footer {
-    margin: 0px;
+    background-color: #1976d2;
+}
+footer .contents{
     display: flex;
     color: white;
     align-items: center;
-    background-color: #1976d2;
-    position: relative;
-    height: 100%;
 }
 .brand{
     width: 100%;

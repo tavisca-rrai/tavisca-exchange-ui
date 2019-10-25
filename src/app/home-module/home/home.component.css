@@ -1,16 +1,24 @@
-app-advertisments-list {
-    display: grid;
-    grid-row-gap: 20px;
-    grid-template-columns: 100%;
-    justify-items: center;
-    margin: 15px 5px 15px 200px;
-}
-.flex-container{
+.flex-container {
     display: flex;
+    width: 100%;
 }
-app-left-nav-bar{
-    flex: 1;
+
+.left-side-bar {
+    width: 20%;
+    padding-top: 20px;
+    background-color: #fff;
+    height: 74%;
+    box-sizing: border-box;
+    position: fixed;
+    overflow-y: scroll;
 }
+
+.content {
+    width: 100%;
+    padding: 2%;
+    min-height: 474px;
+}
+
 @media only screen and (min-width: 768px) {
     app-advertisments-list {
         grid-template-columns: 50% 50%;
@@ -20,6 +28,14 @@ app-left-nav-bar{
 @media only screen and (max-width: 768px) {
     app-advertisments-list {
         margin: 15px 5px;
+    }
+    .content {
+        width: 100%;
+        padding: 2%;
+        margin-left: 0%!important;
+    }
+    .left-side-bar{
+        display: none;
     }
 }
 

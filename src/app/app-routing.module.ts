@@ -9,8 +9,10 @@ import { ProductsListComponent } from 'src/app/home-module/products-list/product
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
-  { path: "products", component: HomeComponent },
-  { path: 'postad', component: PostAdComponentComponent},
+  { path: "products", component: HomeComponent, children:[
+    { path: 'postad', component: PostAdComponentComponent},
+  ] },
+  
 ]
 
 

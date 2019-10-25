@@ -67,7 +67,7 @@ app-mobile-left-nav-bar {
 }
 
 @media (min-width: 768px) {
-    .menu {
+    .mobile-menu{
         display: none;
     }
 }
@@ -81,5 +81,8 @@ app-mobile-left-nav-bar {
     }
     app-mobile-left-nav-bar {
         display: block;
+    }
+    .menu{
+        display: none;
     }
 }

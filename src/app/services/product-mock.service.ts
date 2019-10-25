@@ -1,5 +1,7 @@
 import { IproductService } from '../models/iproduct-service';
-import { Product } from './../models/product'
+import { Product } from './../models/product';
+import { ProductDetails } from './../models/product-details';
+import { PagingInfo } from './../models/paging-info';
 import { Observable, of } from 'rxjs';
 import { GetProductDetailsResponse } from '../models/get-product-details-response';
 import { GetProductsListResponse } from '../models/get-products-list-response';
@@ -198,10 +200,39 @@ export class ProductMockService implements IproductService {
     return itemList;
   }
 
+  getDummyProductDetails(): ProductDetails {
+    let productObj = new Product();
+    productObj.address.line1 = "Nagpur";
+    productObj.address.city = "Nagpur";
+    productObj.address.state = "Maharashtra";
+    productObj.title = "BMW 5 Series 530i Sedan, 2008, Petrol";
+    productObj.category = "cars";
+    productObj.description = "lorem ipsum";
+    productObj.dateOfPurchase = new Date();
+    productObj.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
+    productObj.price.amount = 3200000;
+    productObj.price.isNegotiable = false;
+    productObj.imageUrl.push('www.facebook.com');
+
+    let productObjPagingInfo = new PagingInfo();
+    productObjPagingInfo.pageNumber = 2;
+    productObjPagingInfo.pageSize = 10;
+    productObjPagingInfo.totalPages = 18;
+
+    let productDetailsObj = new ProductDetails();
+    productDetailsObj.productDetails = productObj;
+    productDetailsObj.pagingInfo = productObjPagingInfo;
+
+    return productDetailsObj;
+
+  }
+
   getProductDetails(
     productId: string
   ): Observable<GetProductDetailsResponse> {
-    return of(new GetProductDetailsResponse());
+    var getProductDetailsResponse = new GetProductDetailsResponse();
+    getProductDetailsResponse.productDetails = this.getDummyProductDetails();
+    return of(getProductDetailsResponse);
   }
   getProductsList(
     pageNumber: number,

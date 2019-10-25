@@ -1,16 +1,17 @@
-app-advertisments-list {
-    display: grid;
-    grid-row-gap: 20px;
-    grid-template-columns: 100%;
-    justify-items: center;
-    margin: 15px 5px 15px 200px;
-}
-.flex-container{
+.flex-container {
     display: flex;
+    width: 100%;
 }
-app-left-nav-bar{
-    flex: 1;
+
+.left-side-bar {
+    width: 20%;
 }
+
+.content {
+    width: 80%;
+    padding: 2%;
+}
+
 @media only screen and (min-width: 768px) {
     app-advertisments-list {
         grid-template-columns: 50% 50%;

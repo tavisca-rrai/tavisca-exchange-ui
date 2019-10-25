@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsService } from '../../services/products/products.service';
+import { ProductService } from '../../services/product.service';
 import { GetProductsListResponse } from 'src/app/models/get-products-list-response';
 import { Product } from 'src/app/models/product';
 
@@ -17,10 +17,10 @@ export class ProductsListComponent implements OnInit {
     "July", "August", "September", "October", "November", "December"
   ];
 
-  constructor(private productsService: ProductsService) { }
+  constructor(private productService: ProductService) { }
 
   ngOnInit() {
-    this.productsService.getProductsList(3, 15).subscribe(
+    this.productService.getProductsList(3, 15).subscribe(
       (response: GetProductsListResponse) => {
         this.adsList = response.products;
       },

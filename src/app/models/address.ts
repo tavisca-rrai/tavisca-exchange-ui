@@ -4,5 +4,6 @@ export class Address {
     public city: string;
     public pincode: number;
     public state: string;
-    constructor() { }
+    constructor()
+    {}
 }

@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ProductsMockService } from './products-mock.service';
+import { ProductMockService } from './product-mockable.service';
 
-describe('ProductsMockService', () => {
+describe('ProductMockableService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ProductsMockService = TestBed.get(ProductsMockService);
+    const service: ProductMockService = TestBed.get(ProductMockService);
     expect(service).toBeTruthy();
   });
 });

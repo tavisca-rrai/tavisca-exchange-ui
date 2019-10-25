@@ -1,12 +1,24 @@
-import { IProductsService } from "src/app/models/i-products-service";
-import { GetProductDetailsResponse } from "src/app/models/get-product-details-response";
-import { GetProductsListResponse } from "src/app/models/get-products-list-response";
-import { Observable, of } from "rxjs";
-import { Product } from 'src/app/models/product';
+import { IproductService } from '../models/iproduct-service';
+import { Product } from './../models/product'
+import { Observable, of } from 'rxjs';
+import { GetProductDetailsResponse } from '../models/get-product-details-response';
+import { GetProductsListResponse } from '../models/get-products-list-response';
 
+export class ProductMockService implements IproductService {
 
-export class ProductsMockService implements IProductsService {
   constructor() { }
+
+  AddProduct(product: Product): Observable<Product> {
+    product.id = "P123";
+    product.status = "Active";
+
+    product.postDate = "2019-09-01";
+    product.expirationDate = "2019-09-01";
+    product.purchaseDate = "2019-09-01";
+
+    // set other details coming from web
+    return of(product);
+  }
 
   getDummyProductList(): Product[] {
     let product1 = new Product();
@@ -199,5 +211,4 @@ export class ProductsMockService implements IProductsService {
     getProductsListResponse.products = this.getDummyProductList();
     return of(getProductsListResponse);
   }
-
 }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Routes , RouterModule } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { PostAdComponentComponent } from './post-ad-component/post-ad-component.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from "./login-module/login-component/login.component";
@@ -9,10 +9,13 @@ import { ProductsListComponent } from 'src/app/home-module/products-list/product
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
-  { path: "products", component: HomeComponent, children:[
-    { path: 'postad', component: PostAdComponentComponent},
-  ] },
-  
+  {
+    path: "products", component: HomeComponent, children: [
+      { path: '', component: ProductsListComponent },
+      { path: 'postad', component: PostAdComponentComponent },
+    ]
+  },
+
 ]
 
 
@@ -20,8 +23,8 @@ const routes: Routes = [
   declarations: [],
   imports: [
     CommonModule,
-    RouterModule.forRoot(routes) ,
-    FormsModule     
+    RouterModule.forRoot(routes),
+    FormsModule
   ],
   exports: [
     RouterModule

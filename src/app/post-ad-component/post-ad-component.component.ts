@@ -3,7 +3,9 @@ import { ImageProperty } from '../models/imageProperty';
 import { DatePipe } from '@angular/common';
 import { Product } from '../models/product';
 import { ProductService } from '../services/product.service';
-
+import { HttpClient, HttpRequest, HttpEventType, HttpResponse, } from '@angular/common/http';
+import { DomSanitizer } from '@angular/platform-browser';
+import { environment } from '../../environments/environment'
 @Component({
   selector: 'app-post-ad-component',
   templateUrl: './post-ad-component.component.html',
@@ -11,11 +13,14 @@ import { ProductService } from '../services/product.service';
 })
 
 export class PostAdComponentComponent implements OnInit {
+  IsMOCK= environment.isMockingEnabled;
   minNoOfImage=1;
   maxNoOfImage=5;
   isAddressSelected:boolean=false;
   imageArray:ImageProperty[] =[];
-  
+  serverUrl="https://localhost:44357/"; //the root url of the server
+  // uploadedPercent=0;
+
   categories = ["Home","Electronics","Car","Bike"]; // this is provided by categories api
   states = ["Andra Pradesh","Go","Gujarat","Haryana","Himachal Pradesh","Jammu and Kashmir","Jharkhand","Karnataka",
   "Kerala","Madya Pradesh","Maharashtra","Punjab","Rajasthan"]
@@ -24,8 +29,7 @@ export class PostAdComponentComponent implements OnInit {
   addressDisplayValue = "none";
   purchaseDate = "none";
   imageCounter = 1;
-
-  constructor(public datepipe: DatePipe,private productService:ProductService){} //use for validation of date 
+  constructor(public datepipe: DatePipe,private productService:ProductService, public http:HttpClient,public sanatizer : DomSanitizer){} //use for validation of date 
   productModel : Product;
   
   ngOnInit() {
@@ -40,6 +44,7 @@ export class PostAdComponentComponent implements OnInit {
     // console.log(this.productModel);
     // console.log(this.productModel.imageUrl);
   }
+
 
   PostProduct()
   {
@@ -102,11 +107,20 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray[id].addEditProperty="";
     this.imageArray[id].crossBtnValue="";
     this.imageArray[id].imageDisplayValue="";
-    this.imageArray[id].imageURL = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
     this.imageArray[id].buttonName ="Change";
     this.imageArray[id].iconOfButton = "edit";
     this.imageArray[id].imageLoaderProperty="none";
-    this.productModel.imageUrl.push("https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
+
+    if(this.IsMOCK)
+    {
+      this.imageArray[id].imageURL = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
+      this.productModel.imageUrl.push("https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
+    }
+    else{
+
+     
+    }
+
 
     if(id==0)
     {
@@ -124,6 +138,11 @@ export class PostAdComponentComponent implements OnInit {
  
   removeImage(id)
   {
+    //send the DELETE request and then remove from local
+    this.http.delete(this.serverUrl+'api/v1.0/images/'+this.productModel.imageUrl[id]);
+    console.log(this.serverUrl+'api/v1.0/images/'+this.productModel.imageUrl[id]);
+
+
     if(this.imageCounter!=0 && this.imageArray[id].pictureContainerStyle =="4px solid blue")
     {
       this.selectHeroImg(0);
@@ -169,4 +188,9 @@ export class PostAdComponentComponent implements OnInit {
   }
 
 
+}
+interface ImgResponse {
+  Code: number;
+  Message:string;
+  info:string[];
 }

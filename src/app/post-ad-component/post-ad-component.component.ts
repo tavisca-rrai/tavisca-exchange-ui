@@ -117,7 +117,48 @@ export class PostAdComponentComponent implements OnInit {
       this.productModel.imageUrl.push("https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
     }
     else{
-
+      let imageUrl = "";
+      let safeUrl;
+      //the  image upload part
+      let input = new FormData();
+      input.append("file", event.target.files[0]);
+      const req = new HttpRequest('POST', this.serverUrl+'api/v1.0/images', input, {
+        reportProgress: true,
+      });
+      this.http.request<ImgResponse>(req).subscribe(event => {
+        // Via this API, you get access to the raw event stream.
+        // Look for upload progress events.
+        if (event.type === HttpEventType.UploadProgress) 
+        {
+          // This is an upload progress event. Compute and show the % done:
+          const percentDone = Math.round(100 * event.loaded / event.total);
+          this.imageArray[id].ProgressBarDispProp="";
+  
+          console.log(`File is ${percentDone}% uploaded.`);
+          this.imageArray[id].uploadedPercent=percentDone;
+        } 
+        else if (event instanceof HttpResponse)
+        {
+          if(event.body.Code===200)
+          {
+            console.log('File is completely uploaded!');
+            this.imageArray[id].ProgressBarDispProp="none";
+            imageUrl = this.serverUrl+event.body.Message;
+            console.log(imageUrl);
+            safeUrl = this.sanatizer.bypassSecurityTrustUrl(imageUrl);  // to bypass sanatization of local url
+  
+            this.imageArray[id].imageURL = safeUrl;
+            this.productModel.imageUrl.push(event.body.Message.split("/")[1]); //storing only the name of the file not the url as it may change on the server side
+            this.imageArray[id].ProgressBarDispProp="none";
+          }
+          else
+          {
+            console.log("Upload Failed\n Error: "+ event.body.Message);
+            this.removeImage(id);
+          }
+          
+        }
+      });
      
     }
 

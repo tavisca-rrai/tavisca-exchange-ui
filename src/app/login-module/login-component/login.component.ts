@@ -8,7 +8,7 @@ import { Router } from "@angular/router";
   styleUrls: ["./login.component.css"]
 })
 export class LoginComponent implements OnInit {
-  constructor(private loginService: LoginService,private router: Router) { }
+  constructor(private loginService: LoginService, private router: Router) { }
   userDetails: UserSignInDetails;
   isInvalid = false;
   ngOnInit() {
@@ -20,8 +20,12 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl("/products");
       },
       err => {
-        console.log(err.error);
-        this.isInvalid = true;
+        if (err.status == 0) {
+          alert("Could not connect to server, please try after some time");
+        }
+        else {
+          this.isInvalid = true;
+        }
       }
     );
   }

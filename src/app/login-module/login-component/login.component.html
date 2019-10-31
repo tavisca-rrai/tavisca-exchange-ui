@@ -10,7 +10,7 @@
             <div class="alert alert-danger" *ngIf="isInvalid">
                 Invalid Username/Password
             </div>
-            <form name='login-form' (click)="loginClick()">
+            <form name='login-form' (click)="loginClick()" #loginForm='ngForm'>
                 <div class="inputs">
                     <input type="text" class="form-control credential-input" name="username" #username="ngModel"
                         placeholder="Enter Username" required [(ngModel)]="userDetails.Username" autocomplete="off">
@@ -28,7 +28,8 @@
                         Remember me
                     </label>
                 </div>
-                <button class='login-button' (click)='tryLogin()'><span>CONTINUE</span></button>
+                <button [ngClass]="loginForm.form.valid?'login-button':'login-button-disabled'" (click)='tryLogin()'
+                    [disabled]="!loginForm.form.valid"><span>CONTINUE</span></button>
             </form>
         </div>
     </div>

@@ -24,6 +24,7 @@ export class ProductMockService implements IproductService {
 
   getDummyProductList(): Product[] {
     let product1 = new Product();
+    product1.id="1";
     product1.address.line1 = "Nagpur";
     product1.address.city = "Nagpur";
     product1.address.state = "Maharashtra";
@@ -34,9 +35,10 @@ export class ProductMockService implements IproductService {
     product1.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product1.price.amount = 3200000;
     product1.price.isNegotiable = false;
-    product1.imageUrl.push('www.facebook.com');
+    product1.imageUrl.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
     let product2 = new Product();
+    product1.id="2";
     product2.address.line1 = "Satara";
     product2.address.city = "USA";
     product2.address.state = "Dubai";
@@ -50,6 +52,7 @@ export class ProductMockService implements IproductService {
     product2.imageUrl.push('www.google.com');
 
     let product3 = new Product();
+    product1.id="3";
     product3.address.line1 = "Satara";
     product3.address.city = "USA";
     product3.address.state = "Dubai";
@@ -214,14 +217,14 @@ export class ProductMockService implements IproductService {
     productObj.price.isNegotiable = false;
     productObj.imageUrl.push('www.facebook.com');
 
-    let productObjPagingInfo = new PagingInfo();
-    productObjPagingInfo.pageNumber = 2;
-    productObjPagingInfo.pageSize = 10;
-    productObjPagingInfo.totalPages = 18;
+    // let productObjPagingInfo = new PagingInfo();
+    // productObjPagingInfo.pageNumber = 2;
+    // productObjPagingInfo.pageSize = 10;
+    // productObjPagingInfo.totalPages = 18;
 
     let productDetailsObj = new ProductDetails();
-    productDetailsObj.productDetails = productObj;
-    productDetailsObj.pagingInfo = productObjPagingInfo;
+    // productDetailsObj.productDetails = productObj;
+    // productDetailsObj.pagingInfo = productObjPagingInfo;
 
     return productDetailsObj;
 

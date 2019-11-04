@@ -12,26 +12,26 @@ export class LoginComponent implements OnInit {
   userDetails: UserSignInDetails;
   isInvalid = false;
   isServerDead = false;
+  errorMessage: string = "";
   ngOnInit() {
     this.userDetails = new UserSignInDetails();
   }
   tryLogin() {
     this.loginService.verifyUserCredentials(this.userDetails).subscribe(
-      response => {
+      () => {
         this.router.navigateByUrl("/products");
       },
       err => {
         if (err.status == 0) {
-          this.isServerDead = true;
+          this.errorMessage = "Could not connect to server, please try after some time";
         }
         else {
-          this.isInvalid = true;
+          this.errorMessage = "Invalid Username or Password";
         }
       }
     );
   }
   loginClick() {
-    this.isInvalid = false;
-    this.isServerDead = false;
+    this.errorMessage = "";
   }
 }

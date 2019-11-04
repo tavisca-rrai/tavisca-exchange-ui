@@ -10,8 +10,6 @@
             <label class="alert alert-danger" [hidden]='errorMessage==""'>
                 {{errorMessage}}
             </label>
-
-
             <form name='login-form' (click)="clearErrorMessages()" #loginForm='ngForm'>
                 <div class="inputs">
                     <input type="text" class="form-control credential-input" name="username" #username="ngModel"

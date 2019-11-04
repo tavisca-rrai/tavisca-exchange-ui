@@ -10,8 +10,6 @@ import { Router } from "@angular/router";
 export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService, private router: Router) { }
   userDetails: UserSignInDetails;
-  isInvalid = false;
-  isServerDead = false;
   errorMessage: string = "";
   ngOnInit() {
     this.userDetails = new UserSignInDetails();

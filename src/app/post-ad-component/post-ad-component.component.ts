@@ -3,7 +3,9 @@ import { ImageProperty } from '../models/imageProperty';
 import { DatePipe } from '@angular/common';
 import { Product } from '../models/product';
 import { ProductService } from '../services/product.service';
-
+import { HttpClient, HttpRequest, HttpEventType, HttpResponse, } from '@angular/common/http';
+import { DomSanitizer } from '@angular/platform-browser';
+import { environment } from '../../environments/environment'
 @Component({
   selector: 'app-post-ad-component',
   templateUrl: './post-ad-component.component.html',
@@ -11,11 +13,14 @@ import { ProductService } from '../services/product.service';
 })
 
 export class PostAdComponentComponent implements OnInit {
+  IsMOCK= environment.isMockingEnabled;
   minNoOfImage=1;
   maxNoOfImage=5;
   isAddressSelected:boolean=false;
   imageArray:ImageProperty[] =[];
-  
+  serverUrl="https://localhost:44357/"; //the root url of the server
+  // uploadedPercent=0;
+
   categories = ["Home","Electronics","Car","Bike"]; // this is provided by categories api
   states = ["Andra Pradesh","Go","Gujarat","Haryana","Himachal Pradesh","Jammu and Kashmir","Jharkhand","Karnataka",
   "Kerala","Madya Pradesh","Maharashtra","Punjab","Rajasthan"]
@@ -24,8 +29,7 @@ export class PostAdComponentComponent implements OnInit {
   addressDisplayValue = "none";
   purchaseDate = "none";
   imageCounter = 1;
-
-  constructor(public datepipe: DatePipe,private productService:ProductService){} //use for validation of date 
+  constructor(public datepipe: DatePipe,private productService:ProductService, public http:HttpClient,public sanatizer : DomSanitizer){} //use for validation of date 
   productModel : Product;
   
   ngOnInit() {
@@ -40,6 +44,7 @@ export class PostAdComponentComponent implements OnInit {
     // console.log(this.productModel);
     // console.log(this.productModel.imageUrl);
   }
+
 
   PostProduct()
   {
@@ -102,11 +107,62 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray[id].addEditProperty="";
     this.imageArray[id].crossBtnValue="";
     this.imageArray[id].imageDisplayValue="";
-    this.imageArray[id].imageURL = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
     this.imageArray[id].buttonName ="Change";
     this.imageArray[id].iconOfButton = "edit";
     this.imageArray[id].imageLoaderProperty="none";
-    this.productModel.imageUrl.push("https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
+
+    if(this.IsMOCK)
+    {
+      this.imageArray[id].imageURL = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
+      this.productModel.imageUrl.push("https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
+    }
+    else{
+      let imageUrl = "";
+      let safeUrl;
+      //the  image upload part
+      let input = new FormData();
+      input.append("file", event.target.files[0]);
+
+      const req = new HttpRequest('POST', this.serverUrl+'api/v1.0/OnlineRetailPortal/images', input, {
+        reportProgress: true,
+      });
+      this.http.request<ImgResponse>(req).subscribe(event => {
+        // Via this API, you get access to the raw event stream.
+        // Look for upload progress events.
+        if (event.type === HttpEventType.UploadProgress) 
+        {
+          // This is an upload progress event. Compute and show the % done:
+          const percentDone = Math.round(100 * event.loaded / event.total);
+          this.imageArray[id].ProgressBarDispProp="";
+  
+          console.log(`File is ${percentDone}% uploaded.`);
+          this.imageArray[id].uploadedPercent=percentDone;
+        } 
+        else if (event instanceof HttpResponse)
+        {
+          if(event.body.Code===200)
+          {
+            console.log('File is completely uploaded!');
+            this.imageArray[id].ProgressBarDispProp="none";
+            imageUrl = this.serverUrl+event.body.Message;
+            console.log(imageUrl);
+            safeUrl = this.sanatizer.bypassSecurityTrustUrl(imageUrl);  // to bypass sanatization of local url
+  
+            this.imageArray[id].imageURL = safeUrl;
+            this.productModel.imageUrl.push(event.body.Message.split("/")[1]); //storing only the name of the file not the url as it may change on the server side
+            this.imageArray[id].ProgressBarDispProp="none";
+          }
+          else
+          {
+            console.log("Upload Failed\n Error: "+ event.body.Message);
+            this.removeImage(id);
+          }
+          
+        }
+      });
+     
+    }
+
 
     if(id==0)
     {
@@ -124,6 +180,12 @@ export class PostAdComponentComponent implements OnInit {
  
   removeImage(id)
   {
+    //send the DELETE request and then remove from local
+    let url = this.serverUrl+'api/v1.0/OnlineRetailPortal/images/'+this.productModel.imageUrl[id];
+    this.http.delete(url).subscribe();
+    console.log(url);
+
+
     if(this.imageCounter!=0 && this.imageArray[id].pictureContainerStyle =="4px solid blue")
     {
       this.selectHeroImg(0);
@@ -169,4 +231,9 @@ export class PostAdComponentComponent implements OnInit {
   }
 
 
+}
+interface ImgResponse {
+  Code: number;
+  Message:string;
+  info:string[];
 }

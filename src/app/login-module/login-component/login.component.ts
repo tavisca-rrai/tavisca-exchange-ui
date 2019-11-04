@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService, private router: Router) { }
   userDetails: UserSignInDetails;
   isInvalid = false;
+  isServerDead = false;
   ngOnInit() {
     this.userDetails = new UserSignInDetails();
   }
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
       },
       err => {
         if (err.status == 0) {
-          alert("Could not connect to server, please try after some time");
+          this.isServerDead = true;
         }
         else {
           this.isInvalid = true;
@@ -31,5 +32,6 @@ export class LoginComponent implements OnInit {
   }
   loginClick() {
     this.isInvalid = false;
+    this.isServerDead = false;
   }
 }

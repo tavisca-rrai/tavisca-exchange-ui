@@ -31,7 +31,6 @@ export class LoginService implements ILoginService {
       return this.loginMockService.verifyUserCredentials(userDetails);
     } else {
       var url = this.getUrl(environment.loginSetting.signInPath);
-      console.log(url);
       return this.http.post<any>(url, JSON.stringify(userDetails), httpOptions);
     }
   }

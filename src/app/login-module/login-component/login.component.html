@@ -7,9 +7,12 @@
             <div class='card-message'>
                 <p>Sign In</p>
             </div>
-            <div class="alert alert-danger" *ngIf="isInvalid">
+            <label class="alert alert-danger" *ngIf='isInvalid'>
                 Invalid Username/Password
-            </div>
+            </label>
+            <label class="alert alert-danger" *ngIf='isServerDead'>
+                Could not connect to server, please try after some time
+            </label>
             <form name='login-form' (click)="loginClick()" #loginForm='ngForm'>
                 <div class="inputs">
                     <input type="text" class="form-control credential-input" name="username" #username="ngModel"

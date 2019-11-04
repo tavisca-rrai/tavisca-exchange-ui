@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-  loginClick() {
+  clearErrorMessages() {
     this.errorMessage = "";
   }
 }

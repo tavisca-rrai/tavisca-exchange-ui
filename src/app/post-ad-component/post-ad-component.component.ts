@@ -122,7 +122,8 @@ export class PostAdComponentComponent implements OnInit {
       //the  image upload part
       let input = new FormData();
       input.append("file", event.target.files[0]);
-      const req = new HttpRequest('POST', this.serverUrl+'api/v1.0/images', input, {
+
+      const req = new HttpRequest('POST', this.serverUrl+'api/v1.0/OnlineRetailPortal/images', input, {
         reportProgress: true,
       });
       this.http.request<ImgResponse>(req).subscribe(event => {
@@ -180,8 +181,9 @@ export class PostAdComponentComponent implements OnInit {
   removeImage(id)
   {
     //send the DELETE request and then remove from local
-    this.http.delete(this.serverUrl+'api/v1.0/images/'+this.productModel.imageUrl[id]);
-    console.log(this.serverUrl+'api/v1.0/images/'+this.productModel.imageUrl[id]);
+    let url = this.serverUrl+'api/v1.0/OnlineRetailPortal/images/'+this.productModel.imageUrl[id];
+    this.http.delete(url).subscribe();
+    console.log(url);
 
 
     if(this.imageCounter!=0 && this.imageArray[id].pictureContainerStyle =="4px solid blue")

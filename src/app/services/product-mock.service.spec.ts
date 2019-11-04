@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
+import { ProductMockService } from './product-mock.service';
 
-import { ProductMockService } from './product-mockable.service';
+//import { ProductMockService } from './product-mockable.service';
 
 describe('ProductMockableService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

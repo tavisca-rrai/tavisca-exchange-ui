@@ -8,24 +8,28 @@ import { Router } from "@angular/router";
   styleUrls: ["./login.component.css"]
 })
 export class LoginComponent implements OnInit {
-  constructor(private loginService: LoginService,private router: Router) { }
+  constructor(private loginService: LoginService, private router: Router) { }
   userDetails: UserSignInDetails;
-  isInvalid = false;
+  errorMessage: string = "";
   ngOnInit() {
     this.userDetails = new UserSignInDetails();
   }
   tryLogin() {
     this.loginService.verifyUserCredentials(this.userDetails).subscribe(
-      response => {
+      () => {
         this.router.navigateByUrl("/products");
       },
       err => {
-        console.log(err.error);
-        this.isInvalid = true;
+        if (err.status == 0) {
+          this.errorMessage = "Could not connect to server, please try after some time";
+        }
+        else {
+          this.errorMessage = "Invalid Username or Password";
+        }
       }
     );
   }
-  loginClick() {
-    this.isInvalid = false;
+  clearErrorMessages() {
+    this.errorMessage = "";
   }
 }

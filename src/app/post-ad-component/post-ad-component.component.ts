@@ -153,8 +153,6 @@ export class PostAdComponentComponent implements OnInit {
         } 
         else if (event instanceof HttpResponse)
         {
-          // if(event.body.Code===200)
-          // {
             console.log('File is completely uploaded!');
             this.imageArray[id].ProgressBarDispProp="none";
             imageUrl = this.serverUrl+event.body.message;
@@ -164,43 +162,41 @@ export class PostAdComponentComponent implements OnInit {
             this.imageArray[id].imageURL = safeUrl;
             this.productModel.imageUrl.push(event.body.message.split("/")[1]); //storing only the name of the file not the url as it may change on the server side
             this.imageArray[id].ProgressBarDispProp="none";
-          //}
-          // else
-          // {
-          //   console.log("Upload Failed\n Error: "+ event.body.Message);
-          //   this.removeImage(id);
-          // }
-          
+         
         }
       },
+      
       
       error=>{
         this.removeImage(id);
         console.log("Upload Failed\n Error: "+ error.message);
         alert("Error: Wrong format of file. \n Please Upload Images Only. ");
-      }
-      );
+      });
      
     }
+
+    // if UI stops a non-image file upload
     else
     {
       alert("Error: Wrong format of file.\nPlease Upload Images(jpg, jpeg, png) Only. ");
       err = true;
     }
 
-       
-      if(id==0)
-      {
-        this.selectHeroImg(id);
-        this.imageArray[0].heroImage="";
-      }
-  
-      this.imageCounter += 1;
-      if(this.imageCounter <= this.maxNoOfImage)
-      {
-        let image =new ImageProperty();
-        this.imageArray.push(image);
-      }
+        
+    if(id==0)
+    {
+      this.selectHeroImg(id);
+      this.imageArray[0].heroImage="";
+    }
+
+    this.imageCounter += 1;
+    if(this.imageCounter <= this.maxNoOfImage)
+    {
+      let image =new ImageProperty();
+      this.imageArray.push(image);
+    }
+
+    // If the file enterd was invalid delete the extra image holder created
     if(err)
       this.removeImage(id);
 

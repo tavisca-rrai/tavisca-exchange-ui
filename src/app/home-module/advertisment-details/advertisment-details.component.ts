@@ -13,28 +13,20 @@ import { ProductMockService } from "src/app/services/product-mock.service";
 })
 export class AdvertismentDetailsComponent implements OnInit {
   productdetails: ProductDetails;
-  id: string;
+
   imageArray: String[];
 
   constructor(private productService: ProductService, private router: ActivatedRoute) {
   }
   ngOnInit() {
+    let id: string;
     this.router.params.subscribe((params: Params) => {
-      this.id = params['id'];
-      // let productMockServiceObj = new ProductMockService();
-      // productMockServiceObj.getDummyProductList().forEach((p:Product) =>{
-      //   if(p.id == params.id)
-      //   {
-      //     console.log(p);
-      //     // this.productdetails.product = p;
-      //   }
-      // })
+      id = params['id'];
     });
 
-    this.productService.getProductDetails(this.id).subscribe(
+    this.productService.getProductDetails(id).subscribe(
       (response: GetProductDetailsResponse) => {
-        this.productdetails= response.productDetails;
-        console.log(response);
+        this.productdetails = response.productDetails;
       },
       err => {
         console.log(err.error);

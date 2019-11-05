@@ -1,7 +1,6 @@
-import { IproductService } from '../models/iproduct-service';
 import { Product } from './../models/product';
+import { IproductService } from '../models/iproduct-service';
 import { ProductDetails } from './../models/product-details';
-import { PagingInfo } from './../models/paging-info';
 import { Observable, of } from 'rxjs';
 import { GetProductDetailsResponse } from '../models/get-product-details-response';
 import { GetProductsListResponse } from '../models/get-products-list-response';
@@ -24,7 +23,7 @@ export class ProductMockService implements IproductService {
 
   getDummyProductList(): Product[] {
     let product1 = new Product();
-    product1.id="1";
+    product1.id = "1";
     product1.address.line1 = "Nagpur";
     product1.address.city = "Nagpur";
     product1.address.state = "Maharashtra";
@@ -38,7 +37,7 @@ export class ProductMockService implements IproductService {
     product1.imageUrl.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
     let product2 = new Product();
-    product1.id="2";
+    product2.id = "2";
     product2.address.line1 = "Satara";
     product2.address.city = "USA";
     product2.address.state = "Dubai";
@@ -52,7 +51,7 @@ export class ProductMockService implements IproductService {
     product2.imageUrl.push('www.google.com');
 
     let product3 = new Product();
-    product1.id="3";
+    product3.id = "3";
     product3.address.line1 = "Satara";
     product3.address.city = "USA";
     product3.address.state = "Dubai";
@@ -63,9 +62,10 @@ export class ProductMockService implements IproductService {
     product3.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product3.price.amount = 6800000;
     product3.price.isNegotiable = true;
-    product3.imageUrl.push('www.google.com');
+    product3.imageUrl.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
     let product4 = new Product();
+    product4.id = "4";
     product4.address.line1 = "Satara";
     product4.address.city = "USA";
     product4.address.state = "Dubai";
@@ -79,6 +79,7 @@ export class ProductMockService implements IproductService {
     product4.imageUrl.push('www.google.com');
 
     let product5 = new Product();
+    product5.id = "5";
     product5.address.line1 = "Satara";
     product5.address.city = "USA";
     product5.address.state = "Dubai";
@@ -203,40 +204,45 @@ export class ProductMockService implements IproductService {
     return itemList;
   }
 
-  getDummyProductDetails(): ProductDetails {
+  getDummyProductDetails(productId): ProductDetails {
     let productObj = new Product();
-    productObj.address.line1 = "Nagpur";
-    productObj.address.city = "Nagpur";
-    productObj.address.state = "Maharashtra";
-    productObj.title = "BMW 5 Series 530i Sedan, 2008, Petrol";
-    productObj.category = "cars";
-    productObj.description = "lorem ipsum";
-    productObj.dateOfPurchase = new Date();
-    productObj.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
-    productObj.price.amount = 3200000;
-    productObj.price.isNegotiable = false;
-    productObj.imageUrl.push('www.facebook.com');
+    productObj = this.searchProduct(productId);
 
-    // let productObjPagingInfo = new PagingInfo();
-    // productObjPagingInfo.pageNumber = 2;
-    // productObjPagingInfo.pageSize = 10;
-    // productObjPagingInfo.totalPages = 18;
+    console.log(productObj);
+
+    if (!productObj) {
+      return null;
+    }
 
     let productDetailsObj = new ProductDetails();
-    // productDetailsObj.productDetails = productObj;
-    // productDetailsObj.pagingInfo = productObjPagingInfo;
+    productDetailsObj.product = productObj;
+    productDetailsObj.location = "Nagpur";
+    productDetailsObj.postdate = "Nov 2019";
+    productDetailsObj.sellername = "Nikita N.";
+    productDetailsObj.sellerduartion = "8 Months";
 
     return productDetailsObj;
+  }
 
+  searchProduct(productId: string): Product {
+    let productList = this.getDummyProductList();
+
+    for (let product of productList) {
+      if (product.id == productId) {
+        return product;
+      }
+    }
+    return null;
   }
 
   getProductDetails(
     productId: string
   ): Observable<GetProductDetailsResponse> {
     var getProductDetailsResponse = new GetProductDetailsResponse();
-    getProductDetailsResponse.productDetails = this.getDummyProductDetails();
+    getProductDetailsResponse.productDetails = this.getDummyProductDetails(productId);
     return of(getProductDetailsResponse);
   }
+
   getProductsList(
     pageNumber: number,
     pageSize: number

@@ -10,7 +10,7 @@ export const environment = {
   productSetting: {
     BaseUrl: "https://localhost:44340/api",
     addProductPath: "/product",
-    adDetailsPath: "",
+    adDetailsPath: "/details",
     adsListPath: "/products"
   }
 };

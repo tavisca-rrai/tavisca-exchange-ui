@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from "./login-module/login-component/login.component";
 import { HomeComponent } from './home-module/home/home.component';
 import { ProductsListComponent } from 'src/app/home-module/products-list/products-list.component';
+import { AdvertismentDetailsComponent } from './home-module/advertisment-details/advertisment-details.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -14,12 +15,11 @@ const routes: Routes = [
     children: [
       { path: '', component: ProductsListComponent },
       { path: 'postad', component: PostAdComponentComponent },
+      { path: "details/:id", component: AdvertismentDetailsComponent }
     ]
   },
 
 ]
-
-
 @NgModule({
   declarations: [],
   imports: [

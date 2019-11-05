@@ -14,8 +14,6 @@ import { ProductMockService } from "src/app/services/product-mock.service";
 export class AdvertismentDetailsComponent implements OnInit {
   productdetails: ProductDetails;
 
-  imageArray: String[];
-
   constructor(private productService: ProductService, private router: ActivatedRoute) {
   }
   ngOnInit() {

@@ -2,7 +2,6 @@ import { Price } from './price';
 import { Address } from './address';
 
 export class Product {
-
   public id: string;
   public title: string;
   public category: string;
@@ -16,5 +15,4 @@ export class Product {
   public postDate: string;
   public expirationDate: string;
   public purchaseDate: string;
-
 }

@@ -1,4 +1,5 @@
 import { Product } from './../models/product';
+import { Seller } from './../models/seller';
 import { IproductService } from '../models/iproduct-service';
 import { ProductDetails } from './../models/product-details';
 import { Observable, of } from 'rxjs';
@@ -219,7 +220,7 @@ export class ProductMockService implements IproductService {
     product13.price.isNegotiable = true;
     product13.postDate="5 Nov 2019";
     product13.imageUrl.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
-
+    
 
     let itemList: Product[] = [
       product1, product2, product3, product4, product5, product6, product7,
@@ -231,19 +232,19 @@ export class ProductMockService implements IproductService {
   getDummyProductDetails(productId): ProductDetails {
     let productObj = new Product();
     productObj = this.searchProduct(productId);
-
+    let sellerObj = new Seller();
+    sellerObj.id="1";
+    sellerObj.name="Nikita Narkhede";
     console.log(productObj);
+    console.log(sellerObj);
 
     if (!productObj) {
       return null;
     }
 
     let productDetailsObj = new ProductDetails();
+    productDetailsObj.seller =sellerObj;
     productDetailsObj.product = productObj;
-    productDetailsObj.location = "Nagpur";
-    // productDetailsObj.postdate = "Nov 2019";
-    productDetailsObj.sellername = "Nikita N.";
-    // productDetailsObj.sellerduartion = "8 Months";
 
     return productDetailsObj;
   }

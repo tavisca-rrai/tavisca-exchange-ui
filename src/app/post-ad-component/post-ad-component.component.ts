@@ -102,6 +102,18 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray[id].imageLoaderProperty="";
   }
 
+  isValidImage(file):boolean{
+    var validFormats = ['jpg','jpeg','png'];
+    let  fName = file.name;
+    var ext = fName.substr(fName.lastIndexOf('.')+1);
+    if(ext=='') 
+      return false;
+    if(validFormats.indexOf(ext) == -1){
+        return false;
+    }
+    return true;
+  }
+
   addImage(id,event){
     this.imageLoader(id);
     this.imageArray[id].addEditProperty="";
@@ -110,13 +122,14 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray[id].buttonName ="Change";
     this.imageArray[id].iconOfButton = "edit";
     this.imageArray[id].imageLoaderProperty="none";
-
+    var err =false;
     if(this.IsMOCK)
     {
       this.imageArray[id].imageURL = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
       this.productModel.imageUrl.push("https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
     }
-    else{
+    else if(this.isValidImage(event.target.files[0]))
+    {    
       let imageUrl = "";
       let safeUrl;
       //the  image upload part
@@ -169,20 +182,28 @@ export class PostAdComponentComponent implements OnInit {
       );
      
     }
-
-
-    if(id==0)
+    else
     {
-      this.selectHeroImg(id);
-      this.imageArray[0].heroImage="";
+      alert("Error: Wrong format of file.\nPlease Upload Images(jpg, jpeg, png) Only. ");
+      err = true;
     }
 
-    this.imageCounter += 1;
-    if(this.imageCounter <= this.maxNoOfImage)
-    {
-      let image =new ImageProperty();
-      this.imageArray.push(image);
-    }
+       
+      if(id==0)
+      {
+        this.selectHeroImg(id);
+        this.imageArray[0].heroImage="";
+      }
+  
+      this.imageCounter += 1;
+      if(this.imageCounter <= this.maxNoOfImage)
+      {
+        let image =new ImageProperty();
+        this.imageArray.push(image);
+      }
+    if(err)
+      this.removeImage(id);
+
   }
  
   removeImage(id)

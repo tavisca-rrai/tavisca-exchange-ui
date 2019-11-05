@@ -178,6 +178,17 @@ div {
         border: none;
         margin: O auto;
     }
+    .go-back-div
+    {
+        width: 100%;
+        height: 30px;
+        border: none;
+        padding-right:1%;
+    }
+    .go-back-div a
+    {
+        float: right;
+    }
     .left-sidepanel {
         width: 60%;
         height: 100%;
@@ -217,11 +228,11 @@ div {
         height:100%;
         position: relative;
     }
-    .carousel-inner
+    /* .carousel-inner
     {
         height:280px;
     }
-    
+     */
     .product-carousel, .product-description {
         /* width: 95%; */
         margin: 0 auto;

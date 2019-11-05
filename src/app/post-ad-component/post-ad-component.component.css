@@ -73,10 +73,16 @@
     transform: translate(-50%, -50%);
 }
 .progressBar {
-    background: white;
+    background: blue;
     border-radius: 15px;
+    height:18px; width: 90%;position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1; 
+    /* border-radius: 15px;
     align-self: auto;
-    margin: 10%;
+    margin: 10%; */
     /* transform: translate(-50%, -50%); */
 }
 

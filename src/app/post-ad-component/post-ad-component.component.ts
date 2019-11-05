@@ -140,26 +140,33 @@ export class PostAdComponentComponent implements OnInit {
         } 
         else if (event instanceof HttpResponse)
         {
-          if(event.body.Code===200)
-          {
+          // if(event.body.Code===200)
+          // {
             console.log('File is completely uploaded!');
             this.imageArray[id].ProgressBarDispProp="none";
-            imageUrl = this.serverUrl+event.body.Message;
+            imageUrl = this.serverUrl+event.body.message;
             console.log(imageUrl);
             safeUrl = this.sanatizer.bypassSecurityTrustUrl(imageUrl);  // to bypass sanatization of local url
   
             this.imageArray[id].imageURL = safeUrl;
-            this.productModel.imageUrl.push(event.body.Message.split("/")[1]); //storing only the name of the file not the url as it may change on the server side
+            this.productModel.imageUrl.push(event.body.message.split("/")[1]); //storing only the name of the file not the url as it may change on the server side
             this.imageArray[id].ProgressBarDispProp="none";
-          }
-          else
-          {
-            console.log("Upload Failed\n Error: "+ event.body.Message);
-            this.removeImage(id);
-          }
+          //}
+          // else
+          // {
+          //   console.log("Upload Failed\n Error: "+ event.body.Message);
+          //   this.removeImage(id);
+          // }
           
         }
-      });
+      },
+      
+      error=>{
+        this.removeImage(id);
+        console.log("Upload Failed\n Error: "+ error.message);
+        alert("Error: Wrong format of file. \n Please Upload Images Only. ");
+      }
+      );
      
     }
 
@@ -233,7 +240,5 @@ export class PostAdComponentComponent implements OnInit {
 
 }
 interface ImgResponse {
-  Code: number;
-  Message:string;
-  info:string[];
+  message:string;
 }

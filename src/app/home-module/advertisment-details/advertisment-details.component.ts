@@ -26,9 +26,9 @@ export class AdvertismentDetailsComponent implements OnInit {
       (response: GetProductDetailsResponse) => {
         this.productdetails = response.productDetails;
         this.images.push(this.productdetails.product.heroImageUrl);
-        for(let j=0;j<this.productdetails.product.imageUrls.length;j++)
+        for (let productImage in this.productdetails.product.imageUrls)
         {
-          this.images.push(this.productdetails.product.imageUrls[j]);
+          this.images.push(this.productdetails.product.imageUrls[productImage]);
         }
       },
       err => {

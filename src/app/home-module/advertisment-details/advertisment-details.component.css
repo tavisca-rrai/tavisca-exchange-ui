@@ -60,6 +60,7 @@ div {
 
 .product-description {
     border: 1px solid grey;
+    padding: 2%;
 }
 
 .product-description span {
@@ -74,6 +75,7 @@ div {
 {
     border: 1px solid rgb(190, 187, 187);
     margin-bottom: 5px;
+    padding: 2%;
 }
 
 .product-details span 
@@ -231,13 +233,14 @@ div {
     {
         margin-bottom: 5px;
         margin-top: 5px;
-        padding: 2px;
+        padding: 2%;
     }
     .product-details div 
     {
         border: none;
         height: 100%;
         width: 100%;
+        padding: 5px;
     }
     .other-info span 
     {
@@ -257,6 +260,10 @@ div {
         /* width: 95%; */
         margin: 0 auto;
     }
+    .product-description {
+        border: 1px solid grey;
+        padding: 2%;
+    }
     .product-carousel div
     {
         border: none;
@@ -269,7 +276,7 @@ div {
     }
     .picsum-img-wrapper{
         height: 350px;
-        background-color:#FFFFFF;
+        background-color:#e6e4e4;
     /* background-color: rgb(190, 187, 187); */
     }
     .carousel-control-next-icon{

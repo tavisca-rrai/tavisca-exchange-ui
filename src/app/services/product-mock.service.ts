@@ -14,9 +14,9 @@ export class ProductMockService implements IproductService {
     product.id = "P123";
     product.status = "Active";
 
-    product.postDate = "2019-09-01";
-    product.expirationDate = "2019-09-01";
-    product.purchaseDate = "2019-09-01";
+    product.postDate = new Date("2019-09-01");
+    product.expirationDate = new Date("2019-09-01");
+    product.purchaseDate = new Date("2019-09-01");
 
     // set other details coming from web
     return of(product);
@@ -30,7 +30,7 @@ export class ProductMockService implements IproductService {
     product1.title = "BMW 5 Series 530i Sedan, 2008, Petrol";
     product1.category = "cars";
     product1.description = "lorem ipsum";
-    product1.dateOfPurchase = new Date();
+    product1.postDate = new Date();
     product1.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product1.price.amount = 3200000;
     product1.price.isNegotiable = false;
@@ -43,7 +43,7 @@ export class ProductMockService implements IproductService {
     product2.title = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
     product2.category = "cars";
     product2.description = "lorem ipsum";
-    product2.dateOfPurchase = new Date();
+    product2.postDate = new Date();
     product2.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product2.price.amount = 6800000;
     product2.price.isNegotiable = true;
@@ -56,7 +56,7 @@ export class ProductMockService implements IproductService {
     product3.title = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
     product3.category = "cars";
     product3.description = "lorem ipsum";
-    product3.dateOfPurchase = new Date();
+    product3.postDate = new Date();
     product3.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product3.price.amount = 6800000;
     product3.price.isNegotiable = true;
@@ -69,7 +69,7 @@ export class ProductMockService implements IproductService {
     product4.title = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
     product4.category = "cars";
     product4.description = "lorem ipsum";
-    product4.dateOfPurchase = new Date();
+    product4.postDate = new Date();
     product4.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product4.price.amount = 6800000;
     product4.price.isNegotiable = true;
@@ -82,7 +82,7 @@ export class ProductMockService implements IproductService {
     product5.title = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
     product5.category = "cars";
     product5.description = "lorem ipsum";
-    product5.dateOfPurchase = new Date();
+    product5.postDate = new Date();
     product5.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product5.price.amount = 6800000;
     product5.price.isNegotiable = true;
@@ -95,7 +95,7 @@ export class ProductMockService implements IproductService {
     product6.title = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
     product6.category = "cars";
     product6.description = "lorem ipsum";
-    product6.dateOfPurchase = new Date();
+    product6.postDate = new Date();
     product6.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product6.price.amount = 6800000;
     product6.price.isNegotiable = true;
@@ -108,7 +108,7 @@ export class ProductMockService implements IproductService {
     product7.title = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
     product7.category = "cars";
     product7.description = "lorem ipsum";
-    product7.dateOfPurchase = new Date();
+    product7.postDate = new Date();
     product7.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product7.price.amount = 6800000;
     product7.price.isNegotiable = true;
@@ -121,7 +121,7 @@ export class ProductMockService implements IproductService {
     product8.title = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
     product8.category = "cars";
     product8.description = "lorem ipsum";
-    product8.dateOfPurchase = new Date();
+    product8.postDate = new Date();
     product8.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product8.price.amount = 6800000;
     product8.price.isNegotiable = true;
@@ -134,7 +134,7 @@ export class ProductMockService implements IproductService {
     product9.title = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
     product9.category = "cars";
     product9.description = "lorem ipsum";
-    product9.dateOfPurchase = new Date();
+    product9.postDate = new Date();
     product9.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product9.price.amount = 6800000;
     product9.price.isNegotiable = true;
@@ -147,7 +147,7 @@ export class ProductMockService implements IproductService {
     product10.title = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
     product10.category = "cars";
     product10.description = "lorem ipsum";
-    product10.dateOfPurchase = new Date();
+    product10.postDate = new Date();
     product10.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product10.price.amount = 6800000;
     product10.price.isNegotiable = true;
@@ -160,7 +160,7 @@ export class ProductMockService implements IproductService {
     product11.title = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
     product11.category = "cars";
     product11.description = "lorem ipsum";
-    product11.dateOfPurchase = new Date();
+    product11.postDate = new Date();
     product11.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product11.price.amount = 6800000;
     product11.price.isNegotiable = true;
@@ -173,7 +173,7 @@ export class ProductMockService implements IproductService {
     product12.title = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
     product12.category = "cars";
     product12.description = "lorem ipsum";
-    product12.dateOfPurchase = new Date();
+    product12.postDate = new Date();
     product12.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product12.price.amount = 6800000;
     product12.price.isNegotiable = true;
@@ -186,7 +186,7 @@ export class ProductMockService implements IproductService {
     product13.title = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
     product13.category = "cars";
     product13.description = "lorem ipsum";
-    product13.dateOfPurchase = new Date();
+    product13.postDate = new Date();
     product13.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product13.price.amount = 6800000;
     product13.price.isNegotiable = true;
@@ -208,7 +208,7 @@ export class ProductMockService implements IproductService {
     productObj.title = "BMW 5 Series 530i Sedan, 2008, Petrol";
     productObj.category = "cars";
     productObj.description = "lorem ipsum";
-    productObj.dateOfPurchase = new Date();
+    productObj.postDate = new Date();
     productObj.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     productObj.price.amount = 3200000;
     productObj.price.isNegotiable = false;

@@ -9,9 +9,8 @@
             <div class="adv-bottom-section">
                 <p class="adv-posting-area">{{ad.address.city}}, {{ad.address.state}}</p>
                 <p class="adv-posting-date">
-                    {{ad.dateOfPurchase.getDate()}}/
-                    {{ad.dateOfPurchase.getMonth()}}/
-                    {{ad.dateOfPurchase.getYear()}}
+                    {{ad.postDate.getDate()}} {{monthNames[ad.postDate.getMonth()]}}
+                    {{ad.postDate.getFullYear().toString().substr(-2)}}
                 </p>
             </div>
         </div>

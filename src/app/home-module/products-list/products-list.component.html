@@ -1,15 +1,16 @@
 <div class="adv-list-container">
-    <div *ngFor="let ad of adsList" class="adv-card" [routerLink]="['details',ad.id]" >
-        <img src="{{ad.heroImageUrl}}" alt="Advertisment Image for {{ad.title}}">
+    <div *ngFor="let ad of adsList" class="adv-card" [routerLink]="['details',ad.id]">
+        <div class="img-container">
+            <img src="{{ad.heroImageUrl}}" alt="Advertisment Image for {{ad.title}}">
+        </div>
         <div class="adv-details">
-            <p class="adv-price"> ₹ {{ad.price.amount}}</p>
+            <p class="adv-price">₹ {{ad.price.amount}}</p>
             <p class="adv-title">{{ad.title}}</p>
             <div class="adv-bottom-section">
                 <p class="adv-posting-area">{{ad.address.city}}, {{ad.address.state}}</p>
                 <p class="adv-posting-date">
-                    {{ad.dateOfPurchase.getDate()}}/
-                    {{ad.dateOfPurchase.getMonth()}}/
-                    {{ad.dateOfPurchase.getYear()}}
+                    {{ad.postDate.getDate()}} {{monthNames[ad.postDate.getMonth()]}}
+                    {{ad.postDate.getFullYear().toString().substr(-2)}}
                 </p>
             </div>
         </div>

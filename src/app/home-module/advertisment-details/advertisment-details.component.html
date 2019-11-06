@@ -2,17 +2,17 @@
 
 <div class="product">
   <div class="go-back-div">
-    <a href=""[routerLink]="['/products']">Go Back</a>
+    <a href="" [routerLink]="['/products']">Go Back</a>
   </div>
   <div class="left-sidepanel">
     <div class="product-carousel">
-        <ngb-carousel *ngIf="images">
-              <ng-template ngbSlide *ngFor="let item of images; index as i">
-                  <div class="picsum-img-wrapper"  >
-                      <img class="product-images" [src]="images[i]" alt="Product Image">
-                  </div>
-              </ng-template>
-          </ngb-carousel>
+      <ngb-carousel *ngIf="images">
+        <ng-template ngbSlide *ngFor="let item of images; index as i">
+          <div class="picsum-img-wrapper">
+            <img class="product-images" [src]="images[i]" alt="Product Image">
+          </div>
+        </ng-template>
+      </ngb-carousel>
     </div>
     <div class="product-description">
       <span class="desc-header">Description</span>
@@ -22,7 +22,7 @@
   <div class="right-sidepanel">
     <div class="product-details">
       <span class="price">
-          ₹ {{ productdetails.product.price.amount }}
+        ₹ {{ productdetails.product.price.amount }}
         <!-- <button class="right-corner"><i class="fa fa-share"></i></button>
         <button class="right-corner"><i class="fa fa-heart"></i></button> -->
       </span>
@@ -35,7 +35,10 @@
           <span class="product-location">{{productdetails.product.address.city}}</span>
         </div>
         <div>
-          <span class="product-postdate">{{productdetails.product.postDate}}</span>
+          <span class="product-postdate">
+            {{productdetails.product.postDate.getDate()}}/{{productdetails.product.postDate.getMonth()}}/
+            {{productdetails.product.postDate.getFullYear().toString().substr(-2)}}
+          </span>
         </div>
       </div>
 

@@ -13,7 +13,7 @@ import { ProductMockService } from "src/app/services/product-mock.service";
 })
 export class AdvertismentDetailsComponent implements OnInit {
   productdetails: ProductDetails;
-
+  images:string[]=[];
   constructor(private productService: ProductService, private router: ActivatedRoute) {
   }
   ngOnInit() {
@@ -25,6 +25,11 @@ export class AdvertismentDetailsComponent implements OnInit {
     this.productService.getProductDetails(id).subscribe(
       (response: GetProductDetailsResponse) => {
         this.productdetails = response.productDetails;
+        this.images.push(this.productdetails.product.heroImageUrl);
+        for (let productImage in this.productdetails.product.imageUrls)
+        {
+          this.images.push(this.productdetails.product.imageUrls[productImage]);
+        }
       },
       err => {
         console.log(err.error);

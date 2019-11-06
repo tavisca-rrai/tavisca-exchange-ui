@@ -7,8 +7,8 @@ export class Product {
   public category: string;
   public description: string;
   public heroImageUrl: string;
-  public imageUrl: string[] = [];
-  public price = new Price();
+  public imageUrls:string[]=[];
+  public price=new Price();
   public address = new Address();
   public status: string;
   public postDate: Date;

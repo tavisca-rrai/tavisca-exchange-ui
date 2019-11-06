@@ -35,7 +35,8 @@ export class ProductMockService implements IproductService {
     product1.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product1.price.amount = 3200000;
     product1.price.isNegotiable = false;
-    product1.imageUrl.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+    product1.imageUrls.push('https://cmsimages-alt.kbb.com/content/dam/kbb-editorial/make/rolls-royce/cullinan/2019-rolls-royce-cullinan-side.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg');
+    product1.imageUrls.push('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTMt-5WaWAB5O048K8MS92uXbFpNmUvro38bH1lgoDmsRmo0hEJ');
 
     let product2 = new Product();
     product2.id = "2";
@@ -49,7 +50,7 @@ export class ProductMockService implements IproductService {
     product2.heroImageUrl = "https://cmsimages-alt.kbb.com/content/dam/kbb-editorial/make/rolls-royce/cullinan/2019-rolls-royce-cullinan-side.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg";
     product2.price.amount = 6800000;
     product2.price.isNegotiable = true;
-    product2.imageUrl.push('https://cmsimages-alt.kbb.com/content/dam/kbb-editorial/make/rolls-royce/cullinan/2019-rolls-royce-cullinan-side.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg');
+    product2.imageUrls.push('https://cmsimages-alt.kbb.com/content/dam/kbb-editorial/make/rolls-royce/cullinan/2019-rolls-royce-cullinan-side.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg');
 
     let product3 = new Product();
     product3.id = "3";
@@ -63,7 +64,7 @@ export class ProductMockService implements IproductService {
     product3.heroImageUrl = "http://i.imgur.com/REM4kQUg.jpg";
     product3.price.amount = 730000;
     product3.price.isNegotiable = true;
-    product3.imageUrl.push('http://i.imgur.com/REM4kQUg.jpg');
+    product3.imageUrls.push('http://i.imgur.com/REM4kQUg.jpg');
 
     let product4 = new Product();
     product4.id = "4";
@@ -77,7 +78,7 @@ export class ProductMockService implements IproductService {
     product4.heroImageUrl = "https://i.ytimg.com/vi/dsWxMoh3_50/maxresdefault.jpg";
     product4.price.amount = 6800000;
     product4.price.isNegotiable = true;
-    product4.imageUrl.push('https://i.ytimg.com/vi/dsWxMoh3_50/maxresdefault.jpg');
+    product4.imageUrls.push('https://i.ytimg.com/vi/dsWxMoh3_50/maxresdefault.jpg');
 
     let product5 = new Product();
     product5.id = "5";
@@ -91,7 +92,7 @@ export class ProductMockService implements IproductService {
     product5.heroImageUrl = "https://image.shutterstock.com/image-photo/big-small-ripe-red-strawberry-260nw-642144988.jpg";
     product5.price.amount = 460000;
     product5.price.isNegotiable = true;
-    product5.imageUrl.push('https://image.shutterstock.com/image-photo/big-small-ripe-red-strawberry-260nw-642144988.jpg');
+    product5.imageUrls.push('https://image.shutterstock.com/image-photo/big-small-ripe-red-strawberry-260nw-642144988.jpg');
 
     let product6 = new Product();
     product6.id = "6";
@@ -105,7 +106,7 @@ export class ProductMockService implements IproductService {
     product6.heroImageUrl = "https://cdn.vox-cdn.com/thumbor/qW3lRejqR7xJAG_FTdRyxjfbalA=/0x0:2040x1360/1200x800/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/65408496/tesla_model_3_0638.0.jpg";
     product6.price.amount = 8600000;
     product6.price.isNegotiable = true;
-    product6.imageUrl.push('https://cdn.vox-cdn.com/thumbor/qW3lRejqR7xJAG_FTdRyxjfbalA=/0x0:2040x1360/1200x800/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/65408496/tesla_model_3_0638.0.jpg');
+    product6.imageUrls.push('https://cdn.vox-cdn.com/thumbor/qW3lRejqR7xJAG_FTdRyxjfbalA=/0x0:2040x1360/1200x800/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/65408496/tesla_model_3_0638.0.jpg');
 
     let product7 = new Product();
     product7.id = "7";
@@ -119,7 +120,7 @@ export class ProductMockService implements IproductService {
     product7.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product7.price.amount = 6800000;
     product7.price.isNegotiable = true;
-    product7.imageUrl.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+    product7.imageUrls.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
     let product8 = new Product();
     product8.id = "8";
@@ -133,7 +134,7 @@ export class ProductMockService implements IproductService {
     product8.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product8.price.amount = 6800000;
     product8.price.isNegotiable = true;
-    product8.imageUrl.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+    product8.imageUrls.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
     let product9 = new Product();
     product9.id = "9";
@@ -147,7 +148,7 @@ export class ProductMockService implements IproductService {
     product9.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product9.price.amount = 6800000;
     product9.price.isNegotiable = true;
-    product9.imageUrl.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+    product9.imageUrls.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
     let product10 = new Product();
     product10.id = "10";
@@ -161,7 +162,7 @@ export class ProductMockService implements IproductService {
     product10.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product10.price.amount = 6800000;
     product10.price.isNegotiable = true;
-    product10.imageUrl.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+    product10.imageUrls.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
     let product11 = new Product();
     product11.id = "11";
@@ -175,7 +176,7 @@ export class ProductMockService implements IproductService {
     product11.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product11.price.amount = 6800000;
     product11.price.isNegotiable = true;
-    product11.imageUrl.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+    product11.imageUrls.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
     let product12 = new Product();
     product12.id = "12";
@@ -189,7 +190,7 @@ export class ProductMockService implements IproductService {
     product12.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product12.price.amount = 6800000;
     product12.price.isNegotiable = true;
-    product12.imageUrl.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+    product12.imageUrls.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
     let product13 = new Product();
     product13.address.line1 = "Satara";
@@ -202,7 +203,7 @@ export class ProductMockService implements IproductService {
     product13.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product13.price.amount = 6800000;
     product13.price.isNegotiable = true;
-    product13.imageUrl.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+    product13.imageUrls.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
     let itemList: Product[] = [
       product1, product2, product3, product4, product5, product6, product7,
@@ -217,8 +218,6 @@ export class ProductMockService implements IproductService {
     let sellerObj = new Seller();
     sellerObj.id = "1";
     sellerObj.name = "Nikita Narkhede";
-    console.log(productObj);
-    console.log(sellerObj);
 
     if (!productObj) {
       return null;

@@ -36,11 +36,11 @@ export class ProductMockService implements IproductService {
     product1.price.amount = 3200000;
     product1.price.isNegotiable = false;
     product1.postDate="5 Nov 2019";
-    product1.imageUrl.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
-    //product1.imageUrl.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
-    // product1.imageUrl.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
-    // product1.imageUrl.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
-    // product1.imageUrl.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+    product1.imageUrls.push('https://cmsimages-alt.kbb.com/content/dam/kbb-editorial/make/rolls-royce/cullinan/2019-rolls-royce-cullinan-side.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg');
+    product1.imageUrls.push('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTMt-5WaWAB5O048K8MS92uXbFpNmUvro38bH1lgoDmsRmo0hEJ');
+    // product1.imageUrls.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+    // product1.imageUrls.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+    // product1.imageUrls.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
     let product2 = new Product();
     product2.id = "2";
@@ -55,7 +55,7 @@ export class ProductMockService implements IproductService {
     product2.price.amount = 6800000;
     product2.price.isNegotiable = true;
     product2.postDate="4 Nov 2019";
-    product2.imageUrl.push('https://cmsimages-alt.kbb.com/content/dam/kbb-editorial/make/rolls-royce/cullinan/2019-rolls-royce-cullinan-side.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg');
+    product2.imageUrls.push('https://cmsimages-alt.kbb.com/content/dam/kbb-editorial/make/rolls-royce/cullinan/2019-rolls-royce-cullinan-side.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg');
 
     let product3 = new Product();
     product3.id = "3";
@@ -70,7 +70,7 @@ export class ProductMockService implements IproductService {
     product3.price.amount = 730000;
     product3.price.isNegotiable = true;
     product3.postDate="3 Nov 2019";
-    product3.imageUrl.push('https://i.ytimg.com/vi/2PDK3a7tYbs/maxresdefault.jpg');
+    product3.imageUrls.push('https://i.ytimg.com/vi/2PDK3a7tYbs/maxresdefault.jpg');
 
     let product4 = new Product();
     product4.id = "4";
@@ -85,7 +85,7 @@ export class ProductMockService implements IproductService {
     product4.price.amount = 6800000;
     product4.price.isNegotiable = true;
     product4.postDate="2 Nov 2019";
-    product4.imageUrl.push('https://i.ytimg.com/vi/dsWxMoh3_50/maxresdefault.jpg');
+    product4.imageUrls.push('https://i.ytimg.com/vi/dsWxMoh3_50/maxresdefault.jpg');
 
     let product5 = new Product();
     product5.id = "5";
@@ -100,7 +100,7 @@ export class ProductMockService implements IproductService {
     product5.price.amount = 460000;
     product5.price.isNegotiable = true;
     product5.postDate="1 Nov 2019";
-    product5.imageUrl.push('https://cdn.vox-cdn.com/thumbor/V_crj7t4Thyp2yJ2V3EEEXvYgv0=/0x0:2400x1600/1200x800/filters:focal(1008x608:1392x992)/cdn.vox-cdn.com/uploads/chorus_image/image/59423887/ChevyShellMarketplace58__1_.0.jpg');
+    product5.imageUrls.push('https://cdn.vox-cdn.com/thumbor/V_crj7t4Thyp2yJ2V3EEEXvYgv0=/0x0:2400x1600/1200x800/filters:focal(1008x608:1392x992)/cdn.vox-cdn.com/uploads/chorus_image/image/59423887/ChevyShellMarketplace58__1_.0.jpg');
 
     let product6 = new Product();
     product6.id = "6";
@@ -115,7 +115,7 @@ export class ProductMockService implements IproductService {
     product6.heroImageUrl = "https://cdn.vox-cdn.com/thumbor/qW3lRejqR7xJAG_FTdRyxjfbalA=/0x0:2040x1360/1200x800/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/65408496/tesla_model_3_0638.0.jpg";
     product6.price.amount = 8600000;
     product6.price.isNegotiable = true;
-    product6.imageUrl.push('https://cdn.vox-cdn.com/thumbor/qW3lRejqR7xJAG_FTdRyxjfbalA=/0x0:2040x1360/1200x800/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/65408496/tesla_model_3_0638.0.jpg');
+    product6.imageUrls.push('https://cdn.vox-cdn.com/thumbor/qW3lRejqR7xJAG_FTdRyxjfbalA=/0x0:2040x1360/1200x800/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/65408496/tesla_model_3_0638.0.jpg');
 
     let product7 = new Product();
     product7.id = "7";
@@ -130,7 +130,7 @@ export class ProductMockService implements IproductService {
     product7.price.amount = 6800000;
     product7.price.isNegotiable = true;
     product7.postDate="5 Nov 2019";
-    product7.imageUrl.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+    product7.imageUrls.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
     let product8 = new Product();
     product8.id = "8";
@@ -145,7 +145,7 @@ export class ProductMockService implements IproductService {
     product8.price.amount = 6800000;
     product8.price.isNegotiable = true;
     product8.postDate="5 Nov 2019";
-    product8.imageUrl.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+    product8.imageUrls.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
     let product9 = new Product();
     product9.id = "9";
@@ -160,7 +160,7 @@ export class ProductMockService implements IproductService {
     product9.price.amount = 6800000;
     product9.price.isNegotiable = true;
     product9.postDate="5 Nov 2019";
-    product9.imageUrl.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+    product9.imageUrls.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
     let product10 = new Product();
     product10.id = "10";
@@ -175,7 +175,7 @@ export class ProductMockService implements IproductService {
     product10.price.amount = 6800000;
     product10.price.isNegotiable = true;
     product10.postDate="5 Nov 2019";
-    product10.imageUrl.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+    product10.imageUrls.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
     let product11 = new Product();
     product11.id = "11";
@@ -190,7 +190,7 @@ export class ProductMockService implements IproductService {
     product11.price.amount = 6800000;
     product11.price.isNegotiable = true;
     product11.postDate="5 Nov 2019";
-    product11.imageUrl.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+    product11.imageUrls.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
     let product12 = new Product();
     product12.id = "12";
@@ -205,7 +205,7 @@ export class ProductMockService implements IproductService {
     product12.price.amount = 6800000;
     product12.price.isNegotiable = true;
     product12.postDate="5 Nov 2019";
-    product12.imageUrl.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+    product12.imageUrls.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
     let product13 = new Product();
     product13.address.line1 = "Satara";
@@ -219,7 +219,7 @@ export class ProductMockService implements IproductService {
     product13.price.amount = 6800000;
     product13.price.isNegotiable = true;
     product13.postDate="5 Nov 2019";
-    product13.imageUrl.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+    product13.imageUrls.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
     
 
     let itemList: Product[] = [

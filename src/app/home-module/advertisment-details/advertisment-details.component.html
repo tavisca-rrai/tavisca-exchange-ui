@@ -6,39 +6,13 @@
   </div>
   <div class="left-sidepanel">
     <div class="product-carousel">
-      <!-- Indicators -->
-      <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li data-target="#carouselIndicators"
-            *ngFor="let productImageUrl of productdetails.product.imageUrl;let i = index" [attr.data-slide-to]="i"
-            [ngClass]="i == 0 ? 'active' : ''"></li>
-        </ol>
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
-          <div *ngFor="let productImageUrl of productdetails.product.imageUrl; let k = index"
-            [ngClass]="k == 0 ? 'item active' : 'item'">
-            <img class="d-block w-100" src={{productImageUrl}} alt="Product Image">
-          </div>
-        </div>
-
-        <!-- Previous and Next controls -->
-        <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-        <span class="carousel-control-prev" data-target="#carouselIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </span>
-          <span class="carousel-control-next" data-target="#carouselIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </span>
-      </div>
+        <ngb-carousel *ngIf="images">
+              <ng-template ngbSlide *ngFor="let item of images; index as i">
+                  <div class="picsum-img-wrapper"  >
+                      <img class="product-images" [src]="images[i]" alt="Product Image">
+                  </div>
+              </ng-template>
+          </ngb-carousel>
     </div>
     <div class="product-description">
       <span class="desc-header">Description</span>

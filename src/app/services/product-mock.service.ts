@@ -60,10 +60,10 @@ export class ProductMockService implements IproductService {
     product3.category = "cars";
     product3.description = "Just A Photo";
     product3.postDate = new Date();
-    product3.heroImageUrl = "https://i.ytimg.com/vi/2PDK3a7tYbs/maxresdefault.jpg";
+    product3.heroImageUrl = "http://i.imgur.com/REM4kQUg.jpg";
     product3.price.amount = 730000;
     product3.price.isNegotiable = true;
-    product3.imageUrl.push('https://i.ytimg.com/vi/2PDK3a7tYbs/maxresdefault.jpg');
+    product3.imageUrl.push('http://i.imgur.com/REM4kQUg.jpg');
 
     let product4 = new Product();
     product4.id = "4";
@@ -88,10 +88,10 @@ export class ProductMockService implements IproductService {
     product5.category = "cars";
     product5.description = "Most Beautiful Car in The World";
     product5.postDate = new Date();
-    product5.heroImageUrl = "https://cdn.vox-cdn.com/thumbor/V_crj7t4Thyp2yJ2V3EEEXvYgv0=/0x0:2400x1600/1200x800/filters:focal(1008x608:1392x992)/cdn.vox-cdn.com/uploads/chorus_image/image/59423887/ChevyShellMarketplace58__1_.0.jpg";
+    product5.heroImageUrl = "https://image.shutterstock.com/image-photo/big-small-ripe-red-strawberry-260nw-642144988.jpg";
     product5.price.amount = 460000;
     product5.price.isNegotiable = true;
-    product5.imageUrl.push('https://cdn.vox-cdn.com/thumbor/V_crj7t4Thyp2yJ2V3EEEXvYgv0=/0x0:2400x1600/1200x800/filters:focal(1008x608:1392x992)/cdn.vox-cdn.com/uploads/chorus_image/image/59423887/ChevyShellMarketplace58__1_.0.jpg');
+    product5.imageUrl.push('https://image.shutterstock.com/image-photo/big-small-ripe-red-strawberry-260nw-642144988.jpg');
 
     let product6 = new Product();
     product6.id = "6";
@@ -215,8 +215,8 @@ export class ProductMockService implements IproductService {
     let productObj = new Product();
     productObj = this.searchProduct(productId);
     let sellerObj = new Seller();
-    sellerObj.id="1";
-    sellerObj.name="Nikita Narkhede";
+    sellerObj.id = "1";
+    sellerObj.name = "Nikita Narkhede";
     console.log(productObj);
     console.log(sellerObj);
 
@@ -225,7 +225,7 @@ export class ProductMockService implements IproductService {
     }
 
     let productDetailsObj = new ProductDetails();
-    productDetailsObj.seller =sellerObj;
+    productDetailsObj.seller = sellerObj;
     productDetailsObj.product = productObj;
 
     return productDetailsObj;

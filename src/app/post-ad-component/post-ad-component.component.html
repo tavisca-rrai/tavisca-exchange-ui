@@ -16,6 +16,16 @@
             </select>
         </div>
 
+        
+        <div class="form-group">
+            <label for="discription ">Description*</label>
+            <textarea [(ngModel)]="productModel.discription" id="discription" minlength="4" name="discription" #discription="ngModel" class="form-control" type="text" placeholder="Product name.." required></textarea>
+            <div class="alert alert-danger" *ngIf="discription.touched && !discription.valid">
+                <div *ngIf="discription.errors.required">Description is required</div>
+                <div *ngIf="discription.errors.minlength">Description should be minimum 4 Characters.</div>
+            </div>
+        </div>
+        
         <div class="form-group">
             <label for="price">Price*</label>
             <div class="input-group">
@@ -27,24 +37,7 @@
                 <div *ngIf="price.errors.min"> Price should be greater than 0.</div>
             </div>
         </div>
-
-        <div class="form-group">
-            <label for="discription ">Description*</label>
-            <textarea [(ngModel)]="productModel.discription" id="discription" minlength="4" name="discription" #discription="ngModel" class="form-control" type="text" placeholder="Product name.." required></textarea>
-            <div class="alert alert-danger" *ngIf="discription.touched && !discription.valid">
-                <div *ngIf="discription.errors.required">Description is required</div>
-                <div *ngIf="discription.errors.minlength">Description should be minimum 4 Characters.</div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="dateOfPurchase">Date of purchase</label>
-            <input [(ngModel)]="productModel.dateOfPurchase" (change)="validateDate($event)" class="form-control" type="date" name="dateOfPurchase" required>
-            <div class="alert alert-danger" [style.display]="purchaseDate">
-                Date must not be greater than todays date.
-            </div>
-        </div>
-
+        
         <div class="form-group">
             <label for="negotiable">Negotiable</label>
             <div class="radio">
@@ -52,6 +45,14 @@
             </div>
             <div class="radio">
                 <label><input type="radio"  [(ngModel)]="productModel.price.isNegotiable"  name="isNegotiable" value=false>No</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="dateOfPurchase">Date of purchase</label>
+            <input [(ngModel)]="productModel.dateOfPurchase" (change)="validateDate($event)" class="form-control" type="date" name="dateOfPurchase" >
+            <div class="alert alert-danger" [style.display]="purchaseDate">
+                Date must not be greater than todays date.
             </div>
         </div>
 

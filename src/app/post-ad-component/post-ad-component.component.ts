@@ -41,10 +41,7 @@ export class PostAdComponentComponent implements OnInit {
   submitted = false;
   onSubmit() { 
     this.submitted = true;
-    // console.log(this.productModel);
-    // console.log(this.productModel.imageUrl);
   }
-
 
   PostProduct()
   {
@@ -114,15 +111,52 @@ export class PostAdComponentComponent implements OnInit {
     return true;
   }
 
+  incrementProgressBar(id,event):void{
+    const percentDone = Math.round(100 * event.loaded / event.total);
+    this.imageArray[id].ProgressBarDispProp="";
+
+    console.log(`File is ${percentDone}% uploaded.`);
+    this.imageArray[id].uploadedPercent=percentDone;
+  }
+
+  getImageUrl(event):string
+  {
+    let imageUrl = "";
+    let safeUrl;    
+    console.log('File is completely uploaded!');
+    imageUrl = this.serverUrl+event.body.message;
+    console.log(imageUrl);
+    safeUrl = this.sanatizer.bypassSecurityTrustUrl(imageUrl);  // to bypass sanatization of local url
+    return safeUrl;
+  }
+
+  uploadImage(req,id)
+  {
+    this.http.request<ImgResponse>(req)
+      .subscribe(
+        event => {
+            if (event.type === HttpEventType.UploadProgress) 
+            {
+              this.incrementProgressBar(id,event);
+            } 
+            else if (event instanceof HttpResponse)
+            {
+              this.imageArray[id].imageURL = this.getImageUrl(event);
+              this.productModel.imageUrl.push(event.body.message.split("/")[1]); //storing only the name of the file not the url as it may change on the server side
+              this.imageArray[id].ProgressBarDispProp="none";
+            }
+        },   
+        error=>{
+          this.removeImage(id);
+          console.log("Upload Failed\n Error: "+error.error.Message);
+          alert("Upload Failed\n Error: "+ error.error.Message);
+        }
+      );
+  }
+
+  
   addImage(id,event){
     this.imageLoader(id);
-    this.imageArray[id].addEditProperty="";
-    this.imageArray[id].crossBtnValue="";
-    this.imageArray[id].imageDisplayValue="";
-    this.imageArray[id].buttonName ="Change";
-    this.imageArray[id].iconOfButton = "edit";
-    this.imageArray[id].imageLoaderProperty="none";
-    var err =false;
     if(this.IsMOCK)
     {
       this.imageArray[id].imageURL = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
@@ -130,59 +164,29 @@ export class PostAdComponentComponent implements OnInit {
     }
     else if(this.isValidImage(event.target.files[0]))
     {    
-      let imageUrl = "";
-      let safeUrl;
-      //the  image upload part
       let input = new FormData();
       input.append("file", event.target.files[0]);
 
       const req = new HttpRequest('POST', this.serverUrl+'api/v1.0/OnlineRetailPortal/images', input, {
         reportProgress: true,
       });
-      this.http.request<ImgResponse>(req).subscribe(event => {
-        // Via this API, you get access to the raw event stream.
-        // Look for upload progress events.
-        if (event.type === HttpEventType.UploadProgress) 
-        {
-          // This is an upload progress event. Compute and show the % done:
-          const percentDone = Math.round(100 * event.loaded / event.total);
-          this.imageArray[id].ProgressBarDispProp="";
-  
-          console.log(`File is ${percentDone}% uploaded.`);
-          this.imageArray[id].uploadedPercent=percentDone;
-        } 
-        else if (event instanceof HttpResponse)
-        {
-            console.log('File is completely uploaded!');
-            this.imageArray[id].ProgressBarDispProp="none";
-            imageUrl = this.serverUrl+event.body.message;
-            console.log(imageUrl);
-            safeUrl = this.sanatizer.bypassSecurityTrustUrl(imageUrl);  // to bypass sanatization of local url
-  
-            this.imageArray[id].imageURL = safeUrl;
-            this.productModel.imageUrl.push(event.body.message.split("/")[1]); //storing only the name of the file not the url as it may change on the server side
-            this.imageArray[id].ProgressBarDispProp="none";
-         
-        }
-      },
-      
-      
-      error=>{
-        this.removeImage(id);
-        console.log("Upload Failed\n Error: "+ error.message);
-        alert("Error: Wrong format of file. \n Please Upload Images Only. ");
-      });
-     
-    }
 
-    // if UI stops a non-image file upload
-    else
+      this.uploadImage(req,id);
+
+    } 
+    else // if UI stops a non-image file upload
     {
       alert("Error: Wrong format of file.\nPlease Upload Images(jpg, jpeg, png) Only. ");
       err = true;
     }
 
-        
+    this.imageArray[id].addEditProperty="";
+    this.imageArray[id].crossBtnValue="";
+    this.imageArray[id].imageDisplayValue="";
+    this.imageArray[id].buttonName ="Change";
+    this.imageArray[id].iconOfButton = "edit";
+    this.imageArray[id].imageLoaderProperty="none";
+    var err =false;    
     if(id==0)
     {
       this.selectHeroImg(id);
@@ -195,11 +199,9 @@ export class PostAdComponentComponent implements OnInit {
       let image =new ImageProperty();
       this.imageArray.push(image);
     }
-
     // If the file enterd was invalid delete the extra image holder created
     if(err)
       this.removeImage(id);
-
   }
  
   removeImage(id)
@@ -208,7 +210,6 @@ export class PostAdComponentComponent implements OnInit {
     let url = this.serverUrl+'api/v1.0/OnlineRetailPortal/images/'+this.productModel.imageUrl[id];
     this.http.delete(url).subscribe();
     console.log(url);
-
 
     if(this.imageCounter!=0 && this.imageArray[id].pictureContainerStyle =="4px solid blue")
     {

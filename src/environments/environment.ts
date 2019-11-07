@@ -2,7 +2,7 @@ export const environment = {
   production: false,
   version: "/v1.0",
   applicationName: "/ORP",
-  isMockingEnabled: true,
+  isMockingEnabled: false,
   loginSetting: {
     BaseUrl: "https://localhost:44340/api",
     signInPath: "/signin"
@@ -11,6 +11,7 @@ export const environment = {
     BaseUrl: "https://localhost:44340/api",
     addProductPath: "/product",
     adDetailsPath: "",
-    adsListPath: "/products"
+    adsListPath: "/products",
+    uploadImagePath:"/images"
   }
 };

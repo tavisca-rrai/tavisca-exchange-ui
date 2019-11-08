@@ -99,7 +99,7 @@
                         <div class="spinner-border text-primary" role="status" [style.display]="image.imageLoaderProperty">
                             <span class="sr-only">Loading...</span>
                         </div>
-                        <img (click)="selectHeroImg(i)" [src]="image.imageURL" [style.display]="image.imageDisplayValue" />
+                        <img class = "zoom" (click)="selectHeroImg(i)" [src]="image.imageURL" [style.display]="image.imageDisplayValue" />
 
                         <div class="closeButton">
                             <button [style.display]="image.crossBtnValue" (click)="removeImage(i)"><i  class="fa fa-close"></i></button>
@@ -110,7 +110,7 @@
                             <input type="file" id="{{i}}" (change)="addImage(i,$event)" accept='image/*' style="display: none">
                         </div>
                         <div>
-                                <progress class="progressBar" [value]="image.uploadedPercent" max = 100 [style.display]="image.ProgressBarDispProp"></progress>
+                            <progress class="progressBar" [value]="image.uploadedPercent" max = 100 [style.display]="image.ProgressBarDispProp"></progress>
                         </div>
                     </div>
                 </ng-container>

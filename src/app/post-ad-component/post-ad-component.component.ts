@@ -124,7 +124,7 @@ export class PostAdComponentComponent implements OnInit {
     let imageUrl = "";
     let safeUrl;    
     console.log('File is completely uploaded!');
-    imageUrl = this.serverUrl+event.body.message;
+    imageUrl = this.serverUrl+event.body.imageUrl;
     console.log(imageUrl);
     safeUrl = this.sanatizer.bypassSecurityTrustUrl(imageUrl);  // to bypass sanatization of local url
     return safeUrl;
@@ -142,7 +142,7 @@ export class PostAdComponentComponent implements OnInit {
             else if (event instanceof HttpResponse)
             {
               this.imageArray[id].imageURL = this.getImageUrl(event);
-              this.productModel.imageUrl.push(event.body.message.split("/")[1]); //storing only the name of the file not the url as it may change on the server side
+              this.productModel.imageUrl.push(event.body.imageUrl.split("/")[1]); //storing only the name of the file not the url as it may change on the server side
               this.imageArray[id].ProgressBarDispProp="none";
             }
         },   
@@ -183,7 +183,7 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray[id].addEditProperty="";
     this.imageArray[id].crossBtnValue="";
     this.imageArray[id].imageDisplayValue="";
-    this.imageArray[id].buttonName ="Change";
+    this.imageArray[id].buttonName ="";
     this.imageArray[id].iconOfButton = "edit";
     this.imageArray[id].imageLoaderProperty="none";
     var err =false;    
@@ -258,5 +258,5 @@ export class PostAdComponentComponent implements OnInit {
 
 }
 interface ImgResponse {
-  message:string;
+  imageUrl:string;
 }

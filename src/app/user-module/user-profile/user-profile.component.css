@@ -1,0 +1,43 @@
+.user-profile-container {
+    margin: auto;
+}
+
+.profile-section {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    width: 100%;
+}
+
+.img-container {
+    width: 100%;
+    text-align: center;
+}
+
+.user-info {
+    width: 100%;
+}
+
+.img-container>img {
+    border-radius: 50%;
+    max-width: 150px;
+    max-height: 150px;
+}
+
+.ad-list-section {
+    width: 100%;
+}
+
+.user-info>h1 {
+    font-weight: 300;
+}
+
+.user-info>.user-contact-details {
+    padding: 0px;
+}
+
+.user-info>.user-contact-details>li {
+    display: inline;
+    padding-right: 12px;
+    color: grey;
+    font-size: 16px;
+}

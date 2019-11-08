@@ -12,5 +12,8 @@ export const environment = {
     addProductPath: "/product",
     adDetailsPath: "/details",
     adsListPath: "/products"
-  }
+  },
+  userSetting: {
+    userId: "777888666",
+  },
 };

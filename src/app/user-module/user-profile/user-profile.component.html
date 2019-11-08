@@ -1,0 +1,18 @@
+<div class="user-profile-container">
+    <div class="profile-section">
+        <div class="img-container">
+            <img src="{{profileImageUrl}}">
+        </div>
+        <div class="user-info">
+            <h1>{{userName}}</h1>
+            <ul class="user-contact-details">
+                <li>{{userEmailId}}</li>
+                <li>{{userContactNumber}}</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="ad-list-section">
+        <router-outlet></router-outlet>
+    </div>
+</div>

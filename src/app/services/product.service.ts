@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IproductService } from '../models/iproduct-service';
+import { IProductService } from '../models/i-product-service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Product } from './../models/product'
@@ -12,7 +12,7 @@ import { GetProductDetailsResponse } from '../models/get-product-details-respons
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService implements IproductService {
+export class ProductService implements IProductService {
   productMockService: ProductMockService;
   public headers = new HttpHeaders({
     "Content-Type": "application/json"
@@ -62,6 +62,18 @@ export class ProductService implements IproductService {
     }
   }
 
+  getUserProducts(
+    userId: string
+  ): Observable<GetProductsListResponse> {
+    if (environment.isMockingEnabled) {
+      return this.productMockService.getUserProducts(userId);
+    } else {
+      let getUserProductsUrl: string = "profile/" + userId;
+      return this.http.get<GetProductsListResponse>(getUserProductsUrl, {
+        headers: this.headers
+      });
+    }
+  }
   private getUrl(path: string): string {
     return
     environment.productSetting.BaseUrl +

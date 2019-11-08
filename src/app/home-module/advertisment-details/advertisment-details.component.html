@@ -46,7 +46,9 @@
     <div class="seller-details">
       <div class="seller-description">Seller description</div>
       <div class="sdetails">
-        <span class="seller-name">{{productdetails.seller.name}}</span>
+        <span class="seller-name" [routerLink]="['/profile',productdetails.seller.id]">
+          {{productdetails.seller.name}}
+        </span>
         <!-- <span class="seller-duration">Member since {{productdetails.sellerduartion}}</span> -->
       </div>
       <!-- <button>Chat with Seller</button> -->

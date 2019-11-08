@@ -2,7 +2,7 @@ import { Product } from './product';
 import { Observable } from 'rxjs';
 
 
-export interface IproductService
+export interface IProductService
 {
   AddProduct(product: Product): Observable<Product>;
 }

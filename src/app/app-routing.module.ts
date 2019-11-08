@@ -7,18 +7,25 @@ import { LoginComponent } from "./login-module/login-component/login.component";
 import { HomeComponent } from './home-module/home/home.component';
 import { ProductsListComponent } from 'src/app/home-module/products-list/products-list.component';
 import { AdvertismentDetailsComponent } from './home-module/advertisment-details/advertisment-details.component';
+import { UserProfileComponent } from './user-module/user-profile/user-profile.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
   {
     path: "products", component: HomeComponent,
     children: [
-      { path: '', component: ProductsListComponent },
-      { path: 'postad', component: PostAdComponentComponent },
-      { path: "details/:id", component: AdvertismentDetailsComponent }
+      { path: "", component: ProductsListComponent },
+      { path: "postad", component: PostAdComponentComponent },
+      { path: "details/:id", component: AdvertismentDetailsComponent },
     ]
   },
-
+  {
+    path: "profile/:id", component: UserProfileComponent,
+    children: [
+      { path: "", component: ProductsListComponent }
+    ]
+  },
+  { path: '404', component: AdvertismentDetailsComponent },
 ]
 @NgModule({
   declarations: [],

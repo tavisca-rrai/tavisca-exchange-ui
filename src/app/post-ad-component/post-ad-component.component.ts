@@ -223,7 +223,7 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray[id].buttonName = "Add";
     this.imageArray[id].iconOfButton = "plus";
     this.imageArray[id].pictureContainerStyle = "1px solid lightgrey";
-    this.productModel.imageUrl.splice(id,1);
+    this.productModel.imageUrls.splice(id,1);
 
     if(this.imageCounter>this.minNoOfImage)
     {
@@ -248,7 +248,7 @@ export class PostAdComponentComponent implements OnInit {
       }      
     }
     this.imageArray[id].pictureContainerStyle = "4px solid blue";
-    this.productModel.heroImageUrl=this.productModel.imageUrl[id];
+    this.productModel.heroImageUrl=this.productModel.imageUrls[id];
   }
 
   imageClick(id){

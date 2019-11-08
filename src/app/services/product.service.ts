@@ -25,11 +25,12 @@ export class ProductService implements IproductService {
 
   }
 
-
   AddProduct(product: Product): Observable<Product> {
     if (environment.isMockingEnabled) {
       return this.productMockService.AddProduct(product);
     } else {
+      //this is dummy. This will be removed after login service integration
+      product.sellerId = "1";
       return this.http.post<Product>(this.getUrl(environment.productSetting.addProductPath), product, {
         headers: this.headers
       });
@@ -64,8 +65,7 @@ export class ProductService implements IproductService {
   }
 
   private getUrl(path: string): string {
-    return
-    environment.productSetting.BaseUrl +
+    return environment.productSetting.BaseUrl +
       environment.version +
       environment.applicationName +
       path;

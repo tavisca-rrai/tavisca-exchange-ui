@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { AppRoutingModule } from "./app-routing.module";
@@ -16,6 +17,7 @@ import { FooterComponent } from './shared-component/footer/footer.component';
 import { LeftNavBarComponent } from './shared-component/left-nav-bar/left-nav-bar.component';
 import { MobileLeftNavBarComponent } from './shared-component/mobile-left-nav-bar/mobile-left-nav-bar.component';
 import { HomeComponent } from './home-module/home/home.component';
+import { AdvertismentDetailsComponent } from './home-module/advertisment-details/advertisment-details.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { HomeComponent } from './home-module/home/home.component';
     FooterComponent,
     LeftNavBarComponent,
     MobileLeftNavBarComponent,
-    HomeComponent
+    HomeComponent,
+    AdvertismentDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +40,7 @@ import { HomeComponent } from './home-module/home/home.component';
     HttpClientModule,
     FormsModule,
     LoginModule,
+    NgbModule,
     AppRoutingModule
   ],
   providers: [DatePipe],

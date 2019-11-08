@@ -13,8 +13,8 @@ export class ProductsListComponent implements OnInit {
 
   adsList: Product[];
 
-  static monthNames = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
+  monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
   ];
 
   constructor(private productService: ProductService) { }

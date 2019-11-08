@@ -29,10 +29,9 @@ export class ProductService implements IproductService {
     if (environment.isMockingEnabled) {
       return this.productMockService.AddProduct(product);
     } else {
-      let x = product;
       //this is dummy. This will be removed after login service integration
-      x.sellerId = "1";
-      return this.http.post<Product>(this.getUrl(environment.productSetting.addProductPath), x, {
+      product.sellerId = "1";
+      return this.http.post<Product>(this.getUrl(environment.productSetting.addProductPath), product, {
         headers: this.headers
       });
     }

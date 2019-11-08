@@ -4,7 +4,7 @@ import { Address } from './address';
 export class Product {
   public sellerId : string;
   public id: string;
-  public Name: string;
+  public name: string;
   public category: string;
   public description: string;
   public heroImageUrl: string;

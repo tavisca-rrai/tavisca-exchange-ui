@@ -28,7 +28,7 @@ export class ProductMockService implements IproductService {
     product1.pickupAddress.line1 = "Satara";
     product1.pickupAddress.city = "USA";
     product1.pickupAddress.state = "Dubai";
-    product1.Name = "BMW 5 Series 530i Sedan, 2008, Petrol";
+    product1.name = "BMW 5 Series 530i Sedan, 2008, Petrol";
     product1.category = "cars";
     product1.description = "lorem ipsum";
     product1.postDate = new Date();
@@ -44,7 +44,7 @@ export class ProductMockService implements IproductService {
     product2.pickupAddress.line1 = "Satara";
     product2.pickupAddress.city = "USA";
     product2.pickupAddress.state = "Dubai";
-    product2.Name = "Maruti Suzuki Baleno Alpha Diesel, 2016, Diesel";
+    product2.name = "Maruti Suzuki Baleno Alpha Diesel, 2016, Diesel";
     product2.category = "cars";
     product2.description = "one of the best options in its segmant with all safety features like airbags abs steering control adjustable steering keyless entry push button start company provided music system with navigation and bluetooth conectivity";
     product2.postDate = new Date();
@@ -59,7 +59,7 @@ export class ProductMockService implements IproductService {
     product3.pickupAddress.line1 = "Satara";
     product3.pickupAddress.city = "USA";
     product3.pickupAddress.state = "Dubai";
-    product3.Name = "Fun stories about car and kids";
+    product3.name = "Fun stories about car and kids";
     product3.category = "cars";
     product3.description = "Just A Photo";
     product3.postDate = new Date();
@@ -74,7 +74,7 @@ export class ProductMockService implements IproductService {
     product4.pickupAddress.line1 = "Satara";
     product4.pickupAddress.city = "USA";
     product4.pickupAddress.state = "Dubai";
-    product4.Name = "Hyundai I20 i20 Asta 1.2, 2014, Petrol";
+    product4.name = "Hyundai I20 i20 Asta 1.2, 2014, Petrol";
     product4.category = "cars";
     product4.description = "Maruti Suzuki India Limited, formerly known as Maruti Udyog Limited, is an automobile manufacturer in India. It is a 56.21% owned subsidiary of the Japanese car and motorcycle manufacturer Suzuki Motor Corporation. As of July 2018, it had a market share of 53% of the Indian passenger car market.";
     product4.postDate = new Date();
@@ -89,7 +89,7 @@ export class ProductMockService implements IproductService {
     product5.pickupAddress.line1 = "Satara";
     product5.pickupAddress.city = "USA";
     product5.pickupAddress.state = "Dubai";
-    product5.Name = "Maruti Suzuki Wagon R LXI, 2016, CNG & Hybrids";
+    product5.name = "Maruti Suzuki Wagon R LXI, 2016, CNG & Hybrids";
     product5.category = "cars";
     product5.description = "Most Beautiful Car in The World";
     product5.postDate = new Date();
@@ -104,7 +104,7 @@ export class ProductMockService implements IproductService {
     product6.pickupAddress.line1 = "Satara";
     product6.pickupAddress.city = "USA";
     product6.pickupAddress.state = "Dubai";
-    product6.Name = "Volkswagen Vento Highline Diesel AT, 2016, Diesel";
+    product6.name = "Volkswagen Vento Highline Diesel AT, 2016, Diesel";
     product6.category = "cars";
     product6.description = "New Car";
     product6.postDate = new Date();
@@ -119,7 +119,7 @@ export class ProductMockService implements IproductService {
     product7.pickupAddress.line1 = "Satara";
     product7.pickupAddress.city = "USA";
     product7.pickupAddress.state = "Dubai";
-    product7.Name = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
+    product7.name = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
     product7.category = "cars";
     product7.description = "lorem ipsum";
     product7.postDate = new Date();
@@ -134,7 +134,7 @@ export class ProductMockService implements IproductService {
     product8.pickupAddress.line1 = "Satara";
     product8.pickupAddress.city = "USA";
     product8.pickupAddress.state = "Dubai";
-    product8.Name = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
+    product8.name = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
     product8.category = "cars";
     product8.description = "lorem ipsum";
     product8.postDate = new Date();
@@ -149,7 +149,7 @@ export class ProductMockService implements IproductService {
     product9.pickupAddress.line1 = "Satara";
     product9.pickupAddress.city = "USA";
     product9.pickupAddress.state = "Dubai";
-    product9.Name = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
+    product9.name = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
     product9.category = "cars";
     product9.description = "lorem ipsum";
     product9.postDate = new Date();
@@ -164,7 +164,7 @@ export class ProductMockService implements IproductService {
     product10.pickupAddress.line1 = "Satara";
     product10.pickupAddress.city = "USA";
     product10.pickupAddress.state = "Dubai";
-    product10.Name = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
+    product10.name = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
     product10.category = "cars";
     product10.description = "lorem ipsum";
     product10.postDate = new Date();
@@ -179,7 +179,7 @@ export class ProductMockService implements IproductService {
     product11.pickupAddress.line1 = "Satara";
     product11.pickupAddress.city = "USA";
     product11.pickupAddress.state = "Dubai";
-    product11.Name = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
+    product11.name = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
     product11.category = "cars";
     product11.description = "lorem ipsum";
     product11.postDate = new Date();
@@ -194,7 +194,7 @@ export class ProductMockService implements IproductService {
     product12.pickupAddress.line1 = "Satara";
     product12.pickupAddress.city = "USA";
     product12.pickupAddress.state = "Dubai";
-    product12.Name = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
+    product12.name = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
     product12.category = "cars";
     product12.description = "lorem ipsum";
     product12.postDate = new Date();
@@ -208,7 +208,7 @@ export class ProductMockService implements IproductService {
     product13.pickupAddress.line1 = "Satara";
     product13.pickupAddress.city = "USA";
     product13.pickupAddress.state = "Dubai";
-    product13.Name = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
+    product13.name = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
     product13.category = "cars";
     product13.description = "lorem ipsum";
     product13.postDate = new Date();

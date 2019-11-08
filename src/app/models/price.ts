@@ -1,4 +1,6 @@
+import { Money } from './money';
+
 export class Price {
-    public amount : number;
+    public money = new Money();
     public isNegotiable : boolean;
 }

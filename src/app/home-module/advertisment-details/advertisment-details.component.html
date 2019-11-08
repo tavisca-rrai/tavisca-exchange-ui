@@ -22,17 +22,17 @@
   <div class="right-sidepanel">
     <div class="product-details">
       <span class="price">
-        ₹ {{ productdetails.product.price.amount }}
+        ₹ {{ productdetails.product.price.money.amount }}
         <!-- <button class="right-corner"><i class="fa fa-share"></i></button>
         <button class="right-corner"><i class="fa fa-heart"></i></button> -->
       </span>
       <div class="other-info">
-        <span class="product-title">{{productdetails.product.title}}</span>
+        <span class="product-title">{{productdetails.product.name}}</span>
       </div>
 
       <div class="item-add-details" style="border: none;">
         <div>
-          <span class="product-location">{{productdetails.product.address.city}}</span>
+          <span class="product-location">{{productdetails.product.pickupAddress.city}}</span>
         </div>
         <div>
           <span class="product-postdate">

@@ -6,6 +6,8 @@ import { ProductService } from '../services/product.service';
 import { HttpClient, HttpRequest, HttpEventType, HttpResponse, } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from '../../environments/environment'
+import { UploadImageService } from '../services/upload-image.service';
+
 @Component({
   selector: 'app-post-ad-component',
   templateUrl: './post-ad-component.component.html',
@@ -29,7 +31,7 @@ export class PostAdComponentComponent implements OnInit {
   addressDisplayValue = "none";
   purchaseDate = "none";
   imageCounter = 1;
-  constructor(public datepipe: DatePipe,private productService:ProductService, public http:HttpClient,public sanatizer : DomSanitizer){} //use for validation of date 
+  constructor(private UploadImageService:UploadImageService, public datepipe: DatePipe,private productService:ProductService, public http:HttpClient,public sanatizer : DomSanitizer){} //use for validation of date 
   productModel : Product;
   
   ngOnInit() {
@@ -130,9 +132,9 @@ export class PostAdComponentComponent implements OnInit {
     return safeUrl;
   }
 
-  uploadImage(req,id)
+  uploadImage(event,id)
   {
-    this.http.request<ImgResponse>(req)
+    this.UploadImageService.uploadImage(event.target.files[0])
       .subscribe(
         event => {
             if (event.type === HttpEventType.UploadProgress) 
@@ -142,7 +144,7 @@ export class PostAdComponentComponent implements OnInit {
             else if (event instanceof HttpResponse)
             {
               this.imageArray[id].imageURL = this.getImageUrl(event);
-              this.productModel.imageUrl.push(event.body.imageUrl.split("/")[1]); //storing only the name of the file not the url as it may change on the server side
+              this.productModel.imageUrls.push(event.body.imageUrl.split("/")[1]); //storing only the name of the file not the url as it may change on the server side
               this.imageArray[id].ProgressBarDispProp="none";
             }
         },   
@@ -156,22 +158,18 @@ export class PostAdComponentComponent implements OnInit {
 
   
   addImage(id,event){
+
     this.imageLoader(id);
     if(this.IsMOCK)
     {
       this.imageArray[id].imageURL = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
-      this.productModel.imageUrl.push("https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
+      this.productModel.imageUrls.push("https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
     }
+    
     else if(this.isValidImage(event.target.files[0]))
-    {    
-      let input = new FormData();
-      input.append("file", event.target.files[0]);
+    { 
 
-      const req = new HttpRequest('POST', this.serverUrl+'api/v1.0/OnlineRetailPortal/images', input, {
-        reportProgress: true,
-      });
-
-      this.uploadImage(req,id);
+      this.uploadImage(event,id);
 
     } 
     else // if UI stops a non-image file upload
@@ -207,7 +205,7 @@ export class PostAdComponentComponent implements OnInit {
   removeImage(id)
   {
     //send the DELETE request and then remove from local
-    let url = this.serverUrl+'api/v1.0/OnlineRetailPortal/images/'+this.productModel.imageUrl[id];
+    let url = this.serverUrl+'api/v1.0/OnlineRetailPortal/images/'+this.productModel.imageUrls[id];
     this.http.delete(url).subscribe();
     console.log(url);
 

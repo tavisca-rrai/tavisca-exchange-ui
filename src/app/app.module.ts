@@ -18,7 +18,7 @@ import { LeftNavBarComponent } from './shared-component/left-nav-bar/left-nav-ba
 import { MobileLeftNavBarComponent } from './shared-component/mobile-left-nav-bar/mobile-left-nav-bar.component';
 import { HomeComponent } from './home-module/home/home.component';
 import { AdvertismentDetailsComponent } from './home-module/advertisment-details/advertisment-details.component';
-
+import {UploadImageService} from './services/upload-image.service'
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +43,7 @@ import { AdvertismentDetailsComponent } from './home-module/advertisment-details
     NgbModule,
     AppRoutingModule
   ],
-  providers: [DatePipe],
+  providers: [DatePipe,UploadImageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

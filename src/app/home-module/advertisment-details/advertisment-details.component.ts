@@ -5,6 +5,7 @@ import { ProductDetails } from '../../models/product-details';
 import { Product } from '../../models/product';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ProductMockService } from "src/app/services/product-mock.service";
+import { Seller } from 'src/app/models/seller';
 
 @Component({
   selector: 'app-advertisment-details',
@@ -12,8 +13,13 @@ import { ProductMockService } from "src/app/services/product-mock.service";
   styleUrls: ['./advertisment-details.component.css']
 })
 export class AdvertismentDetailsComponent implements OnInit {
-  productdetails: ProductDetails;
+  productdetails: Product;
+  sellerdetails : Seller;
   images:string[]=[];
+  monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
+  ];
+  
   constructor(private productService: ProductService, private router: ActivatedRoute) {
   }
   ngOnInit() {
@@ -24,11 +30,12 @@ export class AdvertismentDetailsComponent implements OnInit {
 
     this.productService.getProductDetails(id).subscribe(
       (response: GetProductDetailsResponse) => {
-        this.productdetails = response.productDetails;
-        this.images.push(this.productdetails.product.heroImage);
-        for (let productImage in this.productdetails.product.imageUrls)
+        this.productdetails = response.product;
+        this.sellerdetails = response.seller;
+        this.images.push(this.productdetails.heroImage);
+        for (let productImage in this.productdetails.imageUrls)
         {
-          this.images.push(this.productdetails.product.imageUrls[productImage]);
+          this.images.push(this.productdetails.imageUrls[productImage]);
         }
       },
       err => {
@@ -40,6 +47,6 @@ export class AdvertismentDetailsComponent implements OnInit {
   public getFormatedDate(strDate:string):string {
   
     var date = new Date(strDate);
-    return date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear().toString().substr(-2);
+    return date.getDate() + " " + this.monthNames[date.getMonth()] + " " + date.getFullYear().toString().substr(-2);
   }
 }

@@ -225,7 +225,7 @@ export class ProductMockService implements IproductService {
     return itemList;
   }
 
-  getDummyProductDetails(productId): ProductDetails {
+  getDummyProductDetails(productId): Product {
     let productObj = new Product();
     productObj = this.searchProduct(productId);
     let sellerObj = new Seller();
@@ -240,7 +240,15 @@ export class ProductMockService implements IproductService {
     productDetailsObj.seller = sellerObj;
     productDetailsObj.product = productObj;
 
-    return productDetailsObj;
+    return productObj;
+  }
+
+  getDummySellerDetails(): Seller {
+    let sellerObj = new Seller();
+    sellerObj.id = "1";
+    sellerObj.name = "Nikita Narkhede";
+
+    return sellerObj;
   }
 
   searchProduct(productId: string): Product {
@@ -258,7 +266,8 @@ export class ProductMockService implements IproductService {
     productId: string
   ): Observable<GetProductDetailsResponse> {
     var getProductDetailsResponse = new GetProductDetailsResponse();
-    getProductDetailsResponse.productDetails = this.getDummyProductDetails(productId);
+    getProductDetailsResponse.product = this.getDummyProductDetails(productId);
+    getProductDetailsResponse.seller = this.getDummySellerDetails();
     return of(getProductDetailsResponse);
   }
 

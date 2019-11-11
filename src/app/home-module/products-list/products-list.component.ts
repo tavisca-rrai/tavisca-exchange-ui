@@ -37,7 +37,7 @@ export class ProductsListComponent implements OnInit {
   public getFormatedDate(strDate:string):string {
   
     var date = new Date(strDate);
-    return date.getDate() + this.monthNames[date.getMonth()] + date.getFullYear().toString().substr(-2);
+    return date.getDate() + " " + this.monthNames[date.getMonth()] + " " + date.getFullYear().toString().substr(-2);
   }
 
 }

@@ -16,27 +16,27 @@
     </div>
     <div class="product-description">
       <span class="desc-header">Description</span>
-      <span>{{productdetails.product.description}}</span>
+      <span>{{productdetails.description}}</span>
     </div>
   </div>
   <div class="right-sidepanel">
     <div class="product-details">
       <span class="price">
-        ₹ {{ productdetails.product.price.money.amount }}
+        ₹ {{ productdetails.price.money.amount }}
         <!-- <button class="right-corner"><i class="fa fa-share"></i></button>
         <button class="right-corner"><i class="fa fa-heart"></i></button> -->
       </span>
       <div class="other-info">
-        <span class="product-title">{{productdetails.product.name}}</span>
+        <span class="product-title">{{productdetails.name}}</span>
       </div>
 
       <div class="item-add-details" style="border: none;">
         <div>
-          <span class="product-location">{{productdetails.product.pickupAddress.city}}</span>
+          <span class="product-location">{{productdetails.pickupAddress.city}}</span>
         </div>
         <div>
           <span class="product-postdate">
-            {{getFormatedDate(productdetails.product.postDateTime)}}
+            {{getFormatedDate(productdetails.postDateTime)}}
           </span>
         </div>
       </div>
@@ -45,7 +45,7 @@
     <div class="seller-details">
       <div class="seller-description">Seller description</div>
       <div class="sdetails">
-        <span class="seller-name">{{productdetails.seller.name}}</span>
+        <span class="seller-name">{{sellerdetails.name}}</span>
         <!-- <span class="seller-duration">Member since {{productdetails.sellerduartion}}</span> -->
       </div>
       <!-- <button>Chat with Seller</button> -->

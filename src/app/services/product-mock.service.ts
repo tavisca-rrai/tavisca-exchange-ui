@@ -36,8 +36,8 @@ export class ProductMockService implements IproductService {
     product1.price.money.amount = 3200000;
     product1.price.money.currency = "INR";
     product1.price.isNegotiable = false;
-    product1.imageUrls.push('https://cmsimages-alt.kbb.com/content/dam/kbb-editorial/make/rolls-royce/cullinan/2019-rolls-royce-cullinan-side.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg');
-    product1.imageUrls.push('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTMt-5WaWAB5O048K8MS92uXbFpNmUvro38bH1lgoDmsRmo0hEJ');
+    product1.images.push('https://cmsimages-alt.kbb.com/content/dam/kbb-editorial/make/rolls-royce/cullinan/2019-rolls-royce-cullinan-side.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg');
+    product1.images.push('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTMt-5WaWAB5O048K8MS92uXbFpNmUvro38bH1lgoDmsRmo0hEJ');
 
     let product2 = new Product();
     product2.id = "2";
@@ -52,7 +52,7 @@ export class ProductMockService implements IproductService {
     product2.price.money.amount = 3200000;
     product2.price.money.currency = "INR";
     product2.price.isNegotiable = true;
-    product2.imageUrls.push('https://cmsimages-alt.kbb.com/content/dam/kbb-editorial/make/rolls-royce/cullinan/2019-rolls-royce-cullinan-side.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg');
+    product2.images.push('https://cmsimages-alt.kbb.com/content/dam/kbb-editorial/make/rolls-royce/cullinan/2019-rolls-royce-cullinan-side.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg');
 
     let product3 = new Product();
     product3.id = "3";
@@ -67,7 +67,7 @@ export class ProductMockService implements IproductService {
     product3.price.money.amount = 3200000;
     product3.price.money.currency = "INR";
     product3.price.isNegotiable = true;
-    product3.imageUrls.push('http://i.imgur.com/REM4kQUg.jpg');
+    product3.images.push('http://i.imgur.com/REM4kQUg.jpg');
 
     let product4 = new Product();
     product4.id = "4";
@@ -82,7 +82,7 @@ export class ProductMockService implements IproductService {
     product4.price.money.amount = 3200000;
     product4.price.money.currency = "INR";
     product4.price.isNegotiable = true;
-    product4.imageUrls.push('https://i.ytimg.com/vi/dsWxMoh3_50/maxresdefault.jpg');
+    product4.images.push('https://i.ytimg.com/vi/dsWxMoh3_50/maxresdefault.jpg');
 
     let product5 = new Product();
     product5.id = "5";
@@ -97,7 +97,7 @@ export class ProductMockService implements IproductService {
     product5.price.money.amount = 3200000;
     product5.price.money.currency = "INR";
     product5.price.isNegotiable = true;
-    product5.imageUrls.push('https://image.shutterstock.com/image-photo/big-small-ripe-red-strawberry-260nw-642144988.jpg');
+    product5.images.push('https://image.shutterstock.com/image-photo/big-small-ripe-red-strawberry-260nw-642144988.jpg');
 
     let product6 = new Product();
     product6.id = "6";
@@ -112,7 +112,7 @@ export class ProductMockService implements IproductService {
     product6.price.money.amount = 3200000;
     product6.price.money.currency = "INR";
     product6.price.isNegotiable = true;
-    product6.imageUrls.push('https://cdn.vox-cdn.com/thumbor/qW3lRejqR7xJAG_FTdRyxjfbalA=/0x0:2040x1360/1200x800/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/65408496/tesla_model_3_0638.0.jpg');
+    product6.images.push('https://cdn.vox-cdn.com/thumbor/qW3lRejqR7xJAG_FTdRyxjfbalA=/0x0:2040x1360/1200x800/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/65408496/tesla_model_3_0638.0.jpg');
 
     let product7 = new Product();
     product7.id = "7";
@@ -127,7 +127,7 @@ export class ProductMockService implements IproductService {
     product7.price.money.amount = 3200000;
     product7.price.money.currency = "INR";
     product7.price.isNegotiable = true;
-    product7.imageUrls.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+    product7.images.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
     let product8 = new Product();
     product8.id = "8";
@@ -142,7 +142,7 @@ export class ProductMockService implements IproductService {
     product8.price.money.amount = 3200000;
     product8.price.money.currency = "INR";
     product8.price.isNegotiable = true;
-    product8.imageUrls.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+    product8.images.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
     let product9 = new Product();
     product9.id = "9";
@@ -157,7 +157,7 @@ export class ProductMockService implements IproductService {
     product9.price.money.amount = 3200000;
     product9.price.money.currency = "INR";
     product9.price.isNegotiable = true;
-    product9.imageUrls.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+    product9.images.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
     let product10 = new Product();
     product10.id = "10";
@@ -172,7 +172,7 @@ export class ProductMockService implements IproductService {
     product10.price.money.amount = 3200000;
     product10.price.money.currency = "INR";
     product10.price.isNegotiable = true;
-    product10.imageUrls.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+    product10.images.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
     let product11 = new Product();
     product11.id = "11";
@@ -187,7 +187,7 @@ export class ProductMockService implements IproductService {
     product11.price.money.amount = 3200000;
     product11.price.money.currency = "INR";
     product11.price.isNegotiable = true;
-    product11.imageUrls.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+    product11.images.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
     let product12 = new Product();
     product12.id = "12";
@@ -202,9 +202,10 @@ export class ProductMockService implements IproductService {
     product12.price.money.amount = 3200000;
     product12.price.money.currency = "INR";
     product12.price.isNegotiable = true;
-    product12.imageUrls.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+    product12.images.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
     let product13 = new Product();
+    product13.id = "13";
     product13.pickupAddress.line1 = "Satara";
     product13.pickupAddress.city = "USA";
     product13.pickupAddress.state = "Dubai";
@@ -216,7 +217,7 @@ export class ProductMockService implements IproductService {
     product13.price.money.amount = 3200000;
     product13.price.money.currency = "INR";
     product13.price.isNegotiable = true;
-    product13.imageUrls.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+    product13.images.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
     let itemList: Product[] = [
       product1, product2, product3, product4, product5, product6, product7,

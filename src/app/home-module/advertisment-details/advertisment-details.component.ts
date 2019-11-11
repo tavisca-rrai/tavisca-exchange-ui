@@ -33,9 +33,9 @@ export class AdvertismentDetailsComponent implements OnInit {
         this.productdetails = response.product;
         this.sellerdetails = response.seller;
         this.images.push(this.productdetails.heroImage);
-        for (let productImage in this.productdetails.imageUrls)
+        for (let productImage in this.productdetails.images)
         {
-          this.images.push(this.productdetails.imageUrls[productImage]);
+          this.images.push(this.productdetails.images[productImage]);
         }
       },
       err => {

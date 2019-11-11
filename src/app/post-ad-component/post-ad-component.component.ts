@@ -106,7 +106,7 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray[id].buttonName ="Change";
     this.imageArray[id].iconOfButton = "edit";
     this.imageArray[id].imageLoaderProperty="none";
-    this.productModel.imageUrls.push("https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
+    this.productModel.images.push("https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
 
     if(id==0)
     {
@@ -136,7 +136,7 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray[id].buttonName = "Add";
     this.imageArray[id].iconOfButton = "plus";
     this.imageArray[id].pictureContainerStyle = "1px solid lightgrey";
-    this.productModel.imageUrls.splice(id,1);
+    this.productModel.images.splice(id,1);
 
     if(this.imageCounter>this.minNoOfImage)
     {
@@ -161,7 +161,7 @@ export class PostAdComponentComponent implements OnInit {
       }      
     }
     this.imageArray[id].pictureContainerStyle = "4px solid blue";
-    this.productModel.heroImage=this.productModel.imageUrls[id];
+    this.productModel.heroImage=this.productModel.images[id];
   }
 
   imageClick(id){

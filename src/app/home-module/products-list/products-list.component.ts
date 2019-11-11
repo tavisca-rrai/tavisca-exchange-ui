@@ -13,6 +13,9 @@ export class ProductsListComponent implements OnInit {
 
   adsList: Product[];
 
+  pageNumber : number = 1;
+  pageSize : number = 100;
+
   monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
   ];
@@ -20,7 +23,7 @@ export class ProductsListComponent implements OnInit {
   constructor(private productService: ProductService) { }
 
   ngOnInit() {
-    this.productService.getProductsList(3, 15).subscribe(
+    this.productService.getProductsList(this.pageNumber, this.pageSize).subscribe(
       (response: GetProductsListResponse) => {
         this.adsList = response.products;
       },
@@ -29,6 +32,12 @@ export class ProductsListComponent implements OnInit {
         console.log(err.error);
       }
     );
+  }
+
+  public getFormatedDate(strDate:string):string {
+  
+    var date = new Date(strDate);
+    return date.getDate() + this.monthNames[date.getMonth()] + date.getFullYear().toString().substr(-2);
   }
 
 }

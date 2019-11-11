@@ -14,7 +14,7 @@ export class ProductMockService implements IproductService {
     product.id = "P123";
     product.status = "Active";
 
-    product.postDate = new Date("2019-09-01");
+    product.postDateTime = "2018-06-06T00:00:00";
     product.expirationDate = new Date("2019-09-01");
     product.purchasedDate = new Date("2019-09-01");
 
@@ -31,8 +31,8 @@ export class ProductMockService implements IproductService {
     product1.name = "BMW 5 Series 530i Sedan, 2008, Petrol";
     product1.category = "cars";
     product1.description = "lorem ipsum";
-    product1.postDate = new Date();
-    product1.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
+    product1.postDateTime = "2027-11-08T18:57:53.5594401+05:30";
+    product1.heroImage = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product1.price.money.amount = 3200000;
     product1.price.money.currency = "INR";
     product1.price.isNegotiable = false;
@@ -47,8 +47,8 @@ export class ProductMockService implements IproductService {
     product2.name = "Maruti Suzuki Baleno Alpha Diesel, 2016, Diesel";
     product2.category = "cars";
     product2.description = "one of the best options in its segmant with all safety features like airbags abs steering control adjustable steering keyless entry push button start company provided music system with navigation and bluetooth conectivity";
-    product2.postDate = new Date();
-    product2.heroImageUrl = "https://cmsimages-alt.kbb.com/content/dam/kbb-editorial/make/rolls-royce/cullinan/2019-rolls-royce-cullinan-side.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg";
+    product2.postDateTime = "2018-06-06T00:00:00";
+    product2.heroImage = "https://cmsimages-alt.kbb.com/content/dam/kbb-editorial/make/rolls-royce/cullinan/2019-rolls-royce-cullinan-side.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg";
     product2.price.money.amount = 3200000;
     product2.price.money.currency = "INR";
     product2.price.isNegotiable = true;
@@ -62,8 +62,8 @@ export class ProductMockService implements IproductService {
     product3.name = "Fun stories about car and kids";
     product3.category = "cars";
     product3.description = "Just A Photo";
-    product3.postDate = new Date();
-    product3.heroImageUrl = "http://i.imgur.com/REM4kQUg.jpg";
+    product3.postDateTime = "2018-06-06T00:00:00";
+    product3.heroImage = "http://i.imgur.com/REM4kQUg.jpg";
     product3.price.money.amount = 3200000;
     product3.price.money.currency = "INR";
     product3.price.isNegotiable = true;
@@ -77,8 +77,8 @@ export class ProductMockService implements IproductService {
     product4.name = "Hyundai I20 i20 Asta 1.2, 2014, Petrol";
     product4.category = "cars";
     product4.description = "Maruti Suzuki India Limited, formerly known as Maruti Udyog Limited, is an automobile manufacturer in India. It is a 56.21% owned subsidiary of the Japanese car and motorcycle manufacturer Suzuki Motor Corporation. As of July 2018, it had a market share of 53% of the Indian passenger car market.";
-    product4.postDate = new Date();
-    product4.heroImageUrl = "https://i.ytimg.com/vi/dsWxMoh3_50/maxresdefault.jpg";
+    product4.postDateTime = "2018-06-06T00:00:00";
+    product4.heroImage = "https://i.ytimg.com/vi/dsWxMoh3_50/maxresdefault.jpg";
     product4.price.money.amount = 3200000;
     product4.price.money.currency = "INR";
     product4.price.isNegotiable = true;
@@ -92,8 +92,8 @@ export class ProductMockService implements IproductService {
     product5.name = "Maruti Suzuki Wagon R LXI, 2016, CNG & Hybrids";
     product5.category = "cars";
     product5.description = "Most Beautiful Car in The World";
-    product5.postDate = new Date();
-    product5.heroImageUrl = "https://image.shutterstock.com/image-photo/big-small-ripe-red-strawberry-260nw-642144988.jpg";
+    product5.postDateTime = "2018-06-06T00:00:00";
+    product5.heroImage = "https://image.shutterstock.com/image-photo/big-small-ripe-red-strawberry-260nw-642144988.jpg";
     product5.price.money.amount = 3200000;
     product5.price.money.currency = "INR";
     product5.price.isNegotiable = true;
@@ -107,8 +107,8 @@ export class ProductMockService implements IproductService {
     product6.name = "Volkswagen Vento Highline Diesel AT, 2016, Diesel";
     product6.category = "cars";
     product6.description = "New Car";
-    product6.postDate = new Date();
-    product6.heroImageUrl = "https://cdn.vox-cdn.com/thumbor/qW3lRejqR7xJAG_FTdRyxjfbalA=/0x0:2040x1360/1200x800/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/65408496/tesla_model_3_0638.0.jpg";
+    product6.postDateTime = "2018-06-06T00:00:00";
+    product6.heroImage = "https://cdn.vox-cdn.com/thumbor/qW3lRejqR7xJAG_FTdRyxjfbalA=/0x0:2040x1360/1200x800/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/65408496/tesla_model_3_0638.0.jpg";
     product6.price.money.amount = 3200000;
     product6.price.money.currency = "INR";
     product6.price.isNegotiable = true;
@@ -122,8 +122,8 @@ export class ProductMockService implements IproductService {
     product7.name = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
     product7.category = "cars";
     product7.description = "lorem ipsum";
-    product7.postDate = new Date();
-    product7.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
+    product7.postDateTime = "2018-06-06T00:00:00";
+    product7.heroImage = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product7.price.money.amount = 3200000;
     product7.price.money.currency = "INR";
     product7.price.isNegotiable = true;
@@ -137,8 +137,8 @@ export class ProductMockService implements IproductService {
     product8.name = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
     product8.category = "cars";
     product8.description = "lorem ipsum";
-    product8.postDate = new Date();
-    product8.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
+    product8.postDateTime = "2018-06-06T00:00:00";
+    product8.heroImage = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product8.price.money.amount = 3200000;
     product8.price.money.currency = "INR";
     product8.price.isNegotiable = true;
@@ -152,8 +152,8 @@ export class ProductMockService implements IproductService {
     product9.name = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
     product9.category = "cars";
     product9.description = "lorem ipsum";
-    product9.postDate = new Date();
-    product9.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
+    product9.postDateTime = "2018-06-06T00:00:00";
+    product9.heroImage = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product9.price.money.amount = 3200000;
     product9.price.money.currency = "INR";
     product9.price.isNegotiable = true;
@@ -167,8 +167,8 @@ export class ProductMockService implements IproductService {
     product10.name = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
     product10.category = "cars";
     product10.description = "lorem ipsum";
-    product10.postDate = new Date();
-    product10.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
+    product10.postDateTime = "2018-06-06T00:00:00";
+    product10.heroImage = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product10.price.money.amount = 3200000;
     product10.price.money.currency = "INR";
     product10.price.isNegotiable = true;
@@ -182,8 +182,8 @@ export class ProductMockService implements IproductService {
     product11.name = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
     product11.category = "cars";
     product11.description = "lorem ipsum";
-    product11.postDate = new Date();
-    product11.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
+    product11.postDateTime = "2018-06-06T00:00:00";
+    product11.heroImage = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product11.price.money.amount = 3200000;
     product11.price.money.currency = "INR";
     product11.price.isNegotiable = true;
@@ -197,8 +197,8 @@ export class ProductMockService implements IproductService {
     product12.name = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
     product12.category = "cars";
     product12.description = "lorem ipsum";
-    product12.postDate = new Date();
-    product12.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
+    product12.postDateTime = "2018-06-06T00:00:00";
+    product12.heroImage = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product12.price.money.amount = 3200000;
     product12.price.money.currency = "INR";
     product12.price.isNegotiable = true;
@@ -211,8 +211,8 @@ export class ProductMockService implements IproductService {
     product13.name = "Mercedes-Benz 2018 AMG GT C Roadster Convertible";
     product13.category = "cars";
     product13.description = "lorem ipsum";
-    product13.postDate = new Date();
-    product13.heroImageUrl = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
+    product13.postDateTime = "2018-06-06T00:00:00";
+    product13.heroImage = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
     product13.price.money.amount = 3200000;
     product13.price.money.currency = "INR";
     product13.price.isNegotiable = true;

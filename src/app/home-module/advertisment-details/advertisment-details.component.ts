@@ -25,7 +25,7 @@ export class AdvertismentDetailsComponent implements OnInit {
     this.productService.getProductDetails(id).subscribe(
       (response: GetProductDetailsResponse) => {
         this.productdetails = response.productDetails;
-        this.images.push(this.productdetails.product.heroImageUrl);
+        this.images.push(this.productdetails.product.heroImage);
         for (let productImage in this.productdetails.product.imageUrls)
         {
           this.images.push(this.productdetails.product.imageUrls[productImage]);
@@ -35,5 +35,11 @@ export class AdvertismentDetailsComponent implements OnInit {
         console.log(err.error);
       }
     );
+  }
+
+  public getFormatedDate(strDate:string):string {
+  
+    var date = new Date(strDate);
+    return date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear().toString().substr(-2);
   }
 }

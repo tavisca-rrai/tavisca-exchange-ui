@@ -36,8 +36,7 @@
         </div>
         <div>
           <span class="product-postdate">
-            {{productdetails.product.postDate.getDate()}}/{{productdetails.product.postDate.getMonth()}}/
-            {{productdetails.product.postDate.getFullYear().toString().substr(-2)}}
+            {{getFormatedDate(productdetails.product.postDateTime)}}
           </span>
         </div>
       </div>

@@ -161,7 +161,7 @@ export class PostAdComponentComponent implements OnInit {
       }      
     }
     this.imageArray[id].pictureContainerStyle = "4px solid blue";
-    this.productModel.heroImageUrl=this.productModel.imageUrls[id];
+    this.productModel.heroImage=this.productModel.imageUrls[id];
   }
 
   imageClick(id){

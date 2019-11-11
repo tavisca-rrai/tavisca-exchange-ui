@@ -2,7 +2,7 @@ export const environment = {
   production: false,
   version: "/v1.0",
   applicationName: "/OnlineRetailPortal",
-  isMockingEnabled: false,
+  isMockingEnabled: true,
   loginSetting: {
     BaseUrl: "https://localhost:44357/api",
     signInPath: "/signin"
@@ -12,5 +12,9 @@ export const environment = {
     addProductPath: "/products/add",
     adDetailsPath: "/details",
     adsListPath: "/products"
+  },
+  imageApiSettings:{
+    BaseUrl: "https://localhost:44357/",
+    uploadImagePath: "api/v1.0/OnlineRetailPortal/images/",
   }
 };

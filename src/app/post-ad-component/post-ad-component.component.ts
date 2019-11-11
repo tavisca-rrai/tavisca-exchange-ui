@@ -5,7 +5,7 @@ import { Product } from '../models/product';
 import { ProductService } from '../services/product.service';
 import { HttpClient, HttpRequest, HttpEventType, HttpResponse, } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
-import { environment } from '../../environments/environment'
+import { environment } from '../../environments/environment';
 import { UploadImageService } from '../services/upload-image.service';
 
 @Component({
@@ -20,8 +20,7 @@ export class PostAdComponentComponent implements OnInit {
   maxNoOfImage=5;
   isAddressSelected:boolean=false;
   imageArray:ImageProperty[] =[];
-  serverUrl="https://localhost:44357/"; //the root url of the server
-  // uploadedPercent=0;
+  serverUrl=environment.imageApiSettings.BaseUrl; //the root url of the server
 
   categories = ["Home","Electronics","Car","Bike"]; // this is provided by categories api
   states = ["Andra Pradesh","Go","Gujarat","Haryana","Himachal Pradesh","Jammu and Kashmir","Jharkhand","Karnataka",
@@ -31,7 +30,7 @@ export class PostAdComponentComponent implements OnInit {
   addressDisplayValue = "none";
   purchaseDate = "none";
   imageCounter = 1;
-  constructor(private UploadImageService:UploadImageService, public datepipe: DatePipe,private productService:ProductService, public http:HttpClient,public sanatizer : DomSanitizer){} //use for validation of date 
+  constructor(private uploadImageService:UploadImageService, public datepipe: DatePipe,private productService:ProductService, public http:HttpClient,public sanatizer : DomSanitizer){} //use for validation of date 
   productModel : Product;
   
   ngOnInit() {
@@ -116,7 +115,6 @@ export class PostAdComponentComponent implements OnInit {
   incrementProgressBar(id,event):void{
     const percentDone = Math.round(100 * event.loaded / event.total);
     this.imageArray[id].ProgressBarDispProp="";
-
     console.log(`File is ${percentDone}% uploaded.`);
     this.imageArray[id].uploadedPercent=percentDone;
   }
@@ -134,7 +132,7 @@ export class PostAdComponentComponent implements OnInit {
 
   uploadImage(event,id)
   {
-    this.UploadImageService.uploadImage(event.target.files[0])
+    this.uploadImageService.uploadImage(event.target.files[0])
       .subscribe(
         event => {
             if (event.type === HttpEventType.UploadProgress) 
@@ -150,16 +148,21 @@ export class PostAdComponentComponent implements OnInit {
         },   
         error=>{
           this.removeImage(id);
-          console.log("Upload Failed\n Error: "+error.error.Message);
-          alert("Upload Failed\n Error: "+ error.error.Message);
+          let errMsg = "Unknown Server Error or Server Unreachable";
+          if(error.error !=null && error.error.Message != undefined)
+            errMsg = error.error.Message;
+            
+          console.log("Upload Failed\n Error: "+ errMsg);
+          alert("Upload Failed\n Error: "+ errMsg);
         }
       );
   }
 
   
   addImage(id,event){
-
+    var err =false;    
     this.imageLoader(id);
+
     if(this.IsMOCK)
     {
       this.imageArray[id].imageURL = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
@@ -168,9 +171,7 @@ export class PostAdComponentComponent implements OnInit {
     
     else if(this.isValidImage(event.target.files[0]))
     { 
-
       this.uploadImage(event,id);
-
     } 
     else // if UI stops a non-image file upload
     {
@@ -184,7 +185,6 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray[id].buttonName ="";
     this.imageArray[id].iconOfButton = "edit";
     this.imageArray[id].imageLoaderProperty="none";
-    var err =false;    
     if(id==0)
     {
       this.selectHeroImg(id);
@@ -205,9 +205,7 @@ export class PostAdComponentComponent implements OnInit {
   removeImage(id)
   {
     //send the DELETE request and then remove from local
-    let url = this.serverUrl+'api/v1.0/OnlineRetailPortal/images/'+this.productModel.imageUrls[id];
-    this.http.delete(url).subscribe();
-    console.log(url);
+    this.uploadImageService.deleteImage(this.productModel.imageUrls[id]).subscribe();
 
     if(this.imageCounter!=0 && this.imageArray[id].pictureContainerStyle =="4px solid blue")
     {
@@ -253,8 +251,4 @@ export class PostAdComponentComponent implements OnInit {
     document.getElementById(id).click();
   }
 
-
-}
-interface ImgResponse {
-  imageUrl:string;
 }

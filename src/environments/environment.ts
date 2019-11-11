@@ -8,9 +8,11 @@ export const environment = {
     signInPath: "/signin"
   },
   productSetting: {
-    BaseUrl: "https://localhost:44340/api",
+    //BaseUrl: "https://localhost:44340/api",
+    BaseUrl: "http://localhost:62281/api",
     addProductPath: "/product",
     adDetailsPath: "",
-    adsListPath: "/products"
+    adsListPath: "/products",
+    getCategoriesPath: "/category"
   }
 };

@@ -5,6 +5,7 @@ import { ProductDetails } from './../models/product-details';
 import { Observable, of } from 'rxjs';
 import { GetProductDetailsResponse } from '../models/get-product-details-response';
 import { GetProductsListResponse } from '../models/get-products-list-response';
+import { Preview } from '../models/preview';
 
 export class ProductMockService implements IproductService {
 
@@ -12,7 +13,7 @@ export class ProductMockService implements IproductService {
 
   AddProduct(product: Product): Observable<Product> {
     product.id = "P123";
-    product.status = "Active";
+    product.status = "Active"; 
 
     product.postDate = new Date("2019-09-01");
     product.expirationDate = new Date("2019-09-01");
@@ -20,6 +21,25 @@ export class ProductMockService implements IproductService {
 
     // set other details coming from web
     return of(product);
+  }
+  GetPreview(product: Product): Preview 
+  {
+    let sellerObj = new Seller();
+    sellerObj.id = "1";
+    sellerObj.name = "Nikita Narkhede";
+    if (!product) 
+    {
+      return null;
+    }
+
+    let productpreviewObj = new Preview();
+    productpreviewObj.seller = sellerObj;
+    productpreviewObj.product = product;
+    for (let productImage in product.imageUrls) 
+    {
+      productpreviewObj.product.imageUrls.push(product.imageUrls[productImage]);
+    }
+    return productpreviewObj;
   }
 
   getDummyProductList(): Product[] {

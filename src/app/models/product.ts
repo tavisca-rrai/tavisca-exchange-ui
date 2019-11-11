@@ -11,7 +11,7 @@ export class Product {
   public price=new Price();
   public address = new Address();
   public status: string;
-  public postDate: Date;
-  public expirationDate: Date;
-  public purchaseDate: Date;
+  public postDate: Date = new Date();
+  public expirationDate: Date = new Date();
+  public purchaseDate: Date = new Date();
 }

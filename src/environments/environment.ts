@@ -3,6 +3,7 @@ export const environment = {
   version: "/v1.0",
   applicationName: "/ORP",
   isMockingEnabled: true,
+  isPreviewEnabled:false,
   loginSetting: {
     BaseUrl: "https://localhost:44340/api",
     signInPath: "/signin"

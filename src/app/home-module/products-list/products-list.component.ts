@@ -22,7 +22,16 @@ export class ProductsListComponent implements OnInit {
   ngOnInit() {
     this.productService.getProductsList(3, 15).subscribe(
       (response: GetProductsListResponse) => {
-        this.adsList = response.products;
+        let noProductResponse : boolean = false;
+        if(response == null)
+        {
+            noProductResponse = true;
+        }
+        else
+        {
+          this.adsList = response.products;
+        }
+       
       },
       err => {
         // TBA - error msg on ui

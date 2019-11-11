@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ImageProperty } from '../models/imageProperty';
 import { DatePipe } from '@angular/common';
 import { Product } from '../models/product';
+import { environment } from 'src/environments/environment';
 import { ProductService } from '../services/product.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-ad-component',
@@ -25,7 +27,7 @@ export class PostAdComponentComponent implements OnInit {
   purchaseDate = "none";
   imageCounter = 1;
 
-  constructor(public datepipe: DatePipe,private productService:ProductService){} //use for validation of date 
+  constructor(public datepipe: DatePipe,private productService:ProductService, private router: Router){} //use for validation of date 
   productModel : Product;
   
   ngOnInit() {
@@ -43,13 +45,15 @@ export class PostAdComponentComponent implements OnInit {
 
   PostProduct()
   {
+    environment.isPreviewEnabled=true;
     this.productService.AddProduct(this.productModel).subscribe(
       response => {
-        console.log(response);
-        
+        this.productService.sendProductObj(response);
         if(response.id!=null && response.id.trim()!=""){
+          console.log(response);
         alert("Product Added Successfully!!");
-        }
+        this.router.navigate(['products/details',response.id]);
+      }
         else
         {
           alert("Something went wrong");
@@ -61,7 +65,6 @@ export class PostAdComponentComponent implements OnInit {
       }
     );
   }
-
   date =  new Date();
   latest_date = this.datepipe.transform(this.date, 'yyyy-MM-dd');
   validateDate(id)

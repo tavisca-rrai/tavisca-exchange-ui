@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class UploadImageService {
+export class ImageService {
 
   constructor(private http:HttpClient) { }
   serverUrl= environment.imageApiSettings.BaseUrl;   //"https://localhost:44357/"; //the root url of the server

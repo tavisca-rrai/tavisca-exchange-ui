@@ -6,7 +6,7 @@ import { ProductService } from '../services/product.service';
 import { HttpClient, HttpRequest, HttpEventType, HttpResponse, } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
-import { UploadImageService } from '../services/upload-image.service';
+import { ImageService } from '../services/ad-image.service';
 
 @Component({
   selector: 'app-post-ad-component',
@@ -15,7 +15,7 @@ import { UploadImageService } from '../services/upload-image.service';
 })
 
 export class PostAdComponentComponent implements OnInit {
-  IsMOCK= environment.isMockingEnabled;
+  isMock= environment.isMockingEnabled;
   minNoOfImage=1;
   maxNoOfImage=5;
   isAddressSelected:boolean=false;
@@ -30,7 +30,7 @@ export class PostAdComponentComponent implements OnInit {
   addressDisplayValue = "none";
   purchaseDate = "none";
   imageCounter = 1;
-  constructor(private uploadImageService:UploadImageService, public datepipe: DatePipe,private productService:ProductService, public http:HttpClient,public sanatizer : DomSanitizer){} //use for validation of date 
+  constructor(private imageService:ImageService, public datepipe: DatePipe,private productService:ProductService, public http:HttpClient,public sanatizer : DomSanitizer){} //use for validation of date 
   productModel : Product;
   
   ngOnInit() {
@@ -132,7 +132,7 @@ export class PostAdComponentComponent implements OnInit {
 
   uploadImage(event,id)
   {
-    this.uploadImageService.uploadImage(event.target.files[0])
+    this.imageService.uploadImage(event.target.files[0])
       .subscribe(
         event => {
             if (event.type === HttpEventType.UploadProgress) 
@@ -163,10 +163,10 @@ export class PostAdComponentComponent implements OnInit {
     var err =false;    
     this.imageLoader(id);
 
-    if(this.IsMOCK)
+    if(this.isMock)
     {
-      this.imageArray[id].imageURL = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
-      this.productModel.imageUrls.push("https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
+      this.imageArray[id].imageURL = environment.imageApiSettings.mockImageUrl;
+      this.productModel.imageUrls.push(environment.imageApiSettings.mockImageUrl);
     }
     
     else if(this.isValidImage(event.target.files[0]))
@@ -205,7 +205,7 @@ export class PostAdComponentComponent implements OnInit {
   removeImage(id)
   {
     //send the DELETE request and then remove from local
-    this.uploadImageService.deleteImage(this.productModel.imageUrls[id]).subscribe();
+    this.imageService.deleteImage(this.productModel.imageUrls[id]).subscribe();
 
     if(this.imageCounter!=0 && this.imageArray[id].pictureContainerStyle =="4px solid blue")
     {

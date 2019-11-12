@@ -22,6 +22,11 @@ export class PostAdComponentComponent implements OnInit {
   imageArray:ImageProperty[] =[];
   serverUrl=environment.imageApiSettings.BaseUrl; //the root url of the server
 
+  atleastOneImage = true;
+  invalidImage = false;
+  connectionError = false;
+  errMsg="";
+
   categories = ["Home","Electronics","Car","Bike"]; // this is provided by categories api
   states = ["Andra Pradesh","Go","Gujarat","Haryana","Himachal Pradesh","Jammu and Kashmir","Jharkhand","Karnataka",
   "Kerala","Madya Pradesh","Maharashtra","Punjab","Rajasthan"]
@@ -148,12 +153,20 @@ export class PostAdComponentComponent implements OnInit {
         },   
         error=>{
           this.removeImage(id);
-          let errMsg = "Unknown Server Error or Server Unreachable";
-          if(error.error !=null && error.error.Message != undefined)
-            errMsg = error.error.Message;
+          this.errMsg = "Server Unreachable or Encountered an Error, Please try later.";
+          this.connectionError = true;
+          if(error.error !=null && error.error.Message != undefined && error.error.Message != undefined)
+            {
+              this.errMsg = error.error.Message;
+              this.connectionError = false;
+              if(error.error.Code==415)
+              {
+                this.invalidImage = true;
+                this.errMsg= "Invalid File Format. Please Upload Images(jpg, jpeg, png) only.";
+              }
+            }
             
-          console.log("Upload Failed\n Error: "+ errMsg);
-          alert("Upload Failed\n Error: "+ errMsg);
+          console.log("Upload Failed\n Error: "+ this.errMsg);
         }
       );
   }
@@ -162,6 +175,8 @@ export class PostAdComponentComponent implements OnInit {
   addImage(id,event){
     var err =false;    
     this.imageLoader(id);
+    this.invalidImage = false;
+    this.connectionError = false;
 
     if(this.isMock)
     {
@@ -175,8 +190,9 @@ export class PostAdComponentComponent implements OnInit {
     } 
     else // if UI stops a non-image file upload
     {
-      alert("Error: Wrong format of file.\nPlease Upload Images(jpg, jpeg, png) Only. ");
       err = true;
+      this.invalidImage=true;
+      this.errMsg="Invalid File Format. Please Upload Images(jpg, jpeg, png) only.";
     }
 
     this.imageArray[id].addEditProperty="";
@@ -197,6 +213,9 @@ export class PostAdComponentComponent implements OnInit {
       let image =new ImageProperty();
       this.imageArray.push(image);
     }
+    if(this.imageCounter>1)
+      this.atleastOneImage=true;
+    
     // If the file enterd was invalid delete the extra image holder created
     if(err)
       this.removeImage(id);
@@ -231,6 +250,9 @@ export class PostAdComponentComponent implements OnInit {
       let image =new ImageProperty();
       this.imageArray.push(image);
     }
+
+    if(this.imageCounter<=1)
+      this.atleastOneImage=false;
   }
 
   selectHeroImg(id)

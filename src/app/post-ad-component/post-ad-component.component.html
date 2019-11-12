@@ -114,14 +114,15 @@
                     </div>
                 </ng-container>
             </div>
-
-            <div class="alert alert-danger" *ngIf="imageArray.touched">
-                <div *ngIf="imageArray.length">Title is required</div>
+            <div class="alert alert-danger" *ngIf="!atleastOneImage || invalidImage || connectionError">
+                <div class="img-error" *ngIf="!atleastOneImage">Please select atleast one image..!</div>
+                <div class="img-error" *ngIf="invalidImage">{{errMsg}}</div>
+                <div class="img-error" *ngIf="connectionError">{{errMsg}}</div>
             </div>
         </div>
 
         <div class="button-container">
-            <button type="submit" class="btn btn-primary" (click)="PostProduct()" [disabled]="!postAdForm.valid">Submit</button>
+            <button type="submit" class="btn btn-primary" (click)="PostProduct()"  [disabled]="!atleastOneImage || !postAdForm.valid">Submit</button>
         </div>
     </form>
 </div>

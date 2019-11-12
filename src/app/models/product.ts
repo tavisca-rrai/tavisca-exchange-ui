@@ -12,7 +12,7 @@ export class Product {
   public price=new Price();
   public pickupAddress = new Address();
   public status: string;
-  public postDateTime: string;
+  public postDateTime: Date;
   public expirationDate: Date;
   public purchasedDate: Date;
 }

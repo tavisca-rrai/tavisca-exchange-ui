@@ -44,11 +44,14 @@ export class AdvertismentDetailsComponent implements OnInit,OnDestroy {
           if(product!=null)
           {
             this.productdetails = this.productService.GetPreview(product);
-            this.images.push(this.productdetails.product.heroImageUrl);
-            for (let productImage in this.productdetails.product.imageUrls)
+            this.images.push(this.productdetails.product.heroImage);
+            if(this.productdetails.product.images != null)
             {
-              this.images.push(this.productdetails.product.imageUrls[productImage]);
-            }
+              for (let productImage in this.productdetails.product.images)
+              {
+                this.images.push(this.productdetails.product.images[productImage]);
+              }
+            }   
           }
         },
         error => 
@@ -77,11 +80,14 @@ export class AdvertismentDetailsComponent implements OnInit,OnDestroy {
           { 
             this.productdetails.product = response.product;
             this.productdetails.seller = response.seller;
-            this.images.push(this.productdetails.product.heroImageUrl);
-            for (let productImage in this.productdetails.product.imageUrls)
+            this.images.push(this.productdetails.product.heroImage);
+            if(this.productdetails.product.images != null)
             {
-              this.images.push(this.productdetails.product.imageUrls[productImage]);
-            }
+              for (let productImage in this.productdetails.product.images)
+              {
+                this.images.push(this.productdetails.product.images[productImage]);
+              }
+            }          
           } 
         },
         error => 
@@ -92,3 +98,4 @@ export class AdvertismentDetailsComponent implements OnInit,OnDestroy {
     }
   }
 }
+

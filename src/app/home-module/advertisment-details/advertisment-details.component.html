@@ -33,6 +33,7 @@
       <div class="product-details">
         <span class="price">
           {{ productdetails.product.price.money.amount | currency: 'INR' : 'symbol' : '1.0-0'  }}
+          <!-- (Negotiable) -->
           <!-- <button class="right-corner"><i class="fa fa-share"></i></button>
               <button class="right-corner"><i class="fa fa-heart"></i></button> -->
         </span>
@@ -46,7 +47,7 @@
           </div>
           <div>
             <span class="product-postdate">
-              {{productdetails.product.postDate | date:'longDate'}} 
+              {{productdetails.product.postDate | date:'dd MMMM yy'}} 
             </span>
           </div>
         </div>
@@ -59,7 +60,7 @@
           <!-- <span class="seller-duration">Member since {{productdetails.sellerduartion}}</span> -->
           <div class="if-preview-is-on" *ngIf='isPreviewOn'>
               <span class="seller-duration">Your ad expires on
-                {{productdetails.product.expirationDate | date:'longDate'}} 
+                {{productdetails.product.expirationDate | date:'dd MMM yy'}} 
               </span>
               <div> 
                 <button>edit</button>
@@ -67,9 +68,9 @@
               </div>
           </div>
         </div>
-        <div *ngIf='!isPreviewOn'>
+        <!-- <div *ngIf='!isPreviewOn'>
             <button>Chat with Seller</button> 
-        </div>
+        </div> -->
         
         
         <div class="seller-contact">

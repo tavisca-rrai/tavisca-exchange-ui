@@ -74,7 +74,7 @@ export class ProductService implements IproductService {
     if (environment.isMockingEnabled) {
       return this.productMockService.getProductsList(pageNumber, pageSize);
     } else {
-      let getProductListUrl: string = this.getUrl(environment.productSetting.adsListPath) + "pageNumber=" + pageNumber + "&pagesize=" + pageSize;
+      let getProductListUrl: string = this.getUrl(environment.productSetting.adsListPath) + "?pageNumber=" + pageNumber + "&pagesize=" + pageSize;
       return this.http.get<GetProductsListResponse>(getProductListUrl, {
         headers: this.headers
       }).pipe(
@@ -90,7 +90,7 @@ export class ProductService implements IproductService {
     if (environment.isMockingEnabled) {
       return this.productMockService.getProductDetails(productId);
     } else {
-      let getProductListUrl: string = this.getUrl(environment.productSetting.adDetailsPath) + "products/" + productId;
+      let getProductListUrl: string = this.getUrl("/") + "products/" + productId;
       return this.http.get<GetProductDetailsResponse>(getProductListUrl, {
         headers: this.headers
       }).pipe(retry(1),catchError(this.errorHandler));
@@ -104,7 +104,7 @@ export class ProductService implements IproductService {
     } else {
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    window.alert(errorMessage);
+    
     return throwError(errorMessage);
   }
   private getUrl(path: string): string {

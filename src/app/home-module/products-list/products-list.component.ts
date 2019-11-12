@@ -13,14 +13,13 @@ export class ProductsListComponent implements OnInit {
 
   adsList: Product[];
 
-  monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
-  ];
+  pageNumber : number = 1;
+  pageSize : number = 100;
 
   constructor(private productService: ProductService) { }
 
   ngOnInit() {
-    this.productService.getProductsList(3, 15).subscribe(
+    this.productService.getProductsList(this.pageNumber, this.pageSize).subscribe(
       (response: GetProductsListResponse) => {
         let noProductResponse : boolean = false;
         if(response == null)
@@ -39,5 +38,4 @@ export class ProductsListComponent implements OnInit {
       }
     );
   }
-
 }

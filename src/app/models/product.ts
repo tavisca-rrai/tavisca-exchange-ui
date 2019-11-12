@@ -7,12 +7,12 @@ export class Product {
   public name: string;
   public category: string;
   public description: string;
-  public heroImageUrl: string;
-  public imageUrls:string[]=[];
+  public heroImage: string;
+  public images:string[]=[];
   public price=new Price();
   public pickupAddress = new Address();
   public status: string;
-  public postDate: Date = new Date();
-  public expirationDate: Date = new Date();
-  public purchaseDate: Date = new Date();
+  public postDateTime: Date;
+  public expirationDate: Date;
+  public purchasedDate: Date;
 }

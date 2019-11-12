@@ -1,5 +1,5 @@
 <div class="adv-list-container">
-    <div *ngFor="let ad of adsList" class="adv-card" [routerLink]="['/products/details',ad.id]">
+    <div *ngFor="let ad of adsList" class="adv-card" [routerLink]="['details',ad.id]">
         <div class="img-container">
             <img src="{{ad.heroImageUrl}}" alt="Advertisment Image for {{ad.title}}">
         </div>

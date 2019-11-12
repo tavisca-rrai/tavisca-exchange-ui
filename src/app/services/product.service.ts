@@ -3,11 +3,10 @@ import { IProductService } from '../models/i-product-service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Product } from './../models/product'
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ProductMockService } from './product-mock.service';
 import { GetProductsListResponse } from '../models/get-products-list-response';
 import { GetProductDetailsResponse } from '../models/get-product-details-response';
-
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +21,6 @@ export class ProductService implements IProductService {
     if (environment.isMockingEnabled) {
       this.productMockService = new ProductMockService();
     }
-
   }
 
   AddProduct(product: Product): Observable<Product> {
@@ -62,18 +60,6 @@ export class ProductService implements IProductService {
     }
   }
 
-  getUserProducts(
-    userId: string
-  ): Observable<GetProductsListResponse> {
-    if (environment.isMockingEnabled) {
-      return this.productMockService.getUserProducts(userId);
-    } else {
-      let getUserProductsUrl: string = "profile/" + userId;
-      return this.http.get<GetProductsListResponse>(getUserProductsUrl, {
-        headers: this.headers
-      });
-    }
-  }
   private getUrl(path: string): string {
     return
     environment.productSetting.BaseUrl +

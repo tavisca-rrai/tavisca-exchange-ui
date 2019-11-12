@@ -1,6 +1,6 @@
-import { User } from './user';
+import { GetUserProfileResponse } from './user/get-user-profile-response';
 import { Observable } from 'rxjs';
 
 export interface IUserService {
-    GetUserProfile(id: string): Observable<User>;
+    getUserProfile(id: string): Observable<GetUserProfileResponse>;
 }

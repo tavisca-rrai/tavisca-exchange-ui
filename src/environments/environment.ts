@@ -14,6 +14,10 @@ export const environment = {
     adsListPath: "/products"
   },
   userSetting: {
+    baseUrl: "https://localhost:44340/api",
+    profile: "/profile",
+    activeAds: "/active",
+    inactiveAds: "/inactive",
     userId: "777888666",
   },
 };

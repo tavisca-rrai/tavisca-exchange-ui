@@ -5,7 +5,6 @@ import { ProductDetails } from './../models/product-details';
 import { Observable, of } from 'rxjs';
 import { GetProductDetailsResponse } from '../models/get-product-details-response';
 import { GetProductsListResponse } from '../models/get-products-list-response';
-import { environment } from 'src/environments/environment';
 
 export class ProductMockService implements IProductService {
 
@@ -231,40 +230,6 @@ export class ProductMockService implements IProductService {
     return productDetailsObj;
   }
 
-
-  getDummyUserProducts(): Product[] {
-    let product1 = new Product();
-    product1.id = "3";
-    product1.address.line1 = "Nashik Road";
-    product1.address.city = "Nashik ";
-    product1.address.state = "Maharshtra";
-    product1.title = "Fun stories about car and kids";
-    product1.category = "cars";
-    product1.description = "Just A Photo";
-    product1.postDate = new Date();
-    product1.heroImageUrl = "http://i.imgur.com/REM4kQUg.jpg";
-    product1.price.amount = 730000;
-    product1.price.isNegotiable = true;
-    product1.imageUrls.push('http://i.imgur.com/REM4kQUg.jpg');
-
-    let product2 = new Product();
-    product2.id = "4";
-    product2.address.line1 = "Kothrud Paschima Nagri";
-    product2.address.city = "Pune";
-    product2.address.state = "Maharshtra";
-    product2.title = "Hyundai I20 i20 Asta 1.2, 2014, Petrol";
-    product2.category = "cars";
-    product2.description = "Maruti Suzuki India Limited, formerly known as Maruti Udyog Limited, is an automobile manufacturer in India. It is a 56.21% owned subsidiary of the Japanese car and motorcycle manufacturer Suzuki Motor Corporation. As of July 2018, it had a market share of 53% of the Indian passenger car market.";
-    product2.postDate = new Date();
-    product2.heroImageUrl = "https://i.ytimg.com/vi/dsWxMoh3_50/maxresdefault.jpg";
-    product2.price.amount = 6800000;
-    product2.price.isNegotiable = true;
-    product2.imageUrls.push('https://i.ytimg.com/vi/dsWxMoh3_50/maxresdefault.jpg');
-
-    let itemList: Product[] = [product1, product2];
-    return itemList;
-  }
-
   searchProduct(productId: string): Product {
     let productList = this.getDummyProductList();
 
@@ -293,14 +258,4 @@ export class ProductMockService implements IProductService {
     return of(getProductsListResponse);
   }
 
-  getUserProducts(
-    userId: string
-  ): Observable<GetProductsListResponse> {
-    if (userId != environment.userSetting.userId) {
-      return null;
-    }
-    var getProductsListResponse = new GetProductsListResponse();
-    getProductsListResponse.products = this.getDummyUserProducts();
-    return of(getProductsListResponse);
-  }
 }

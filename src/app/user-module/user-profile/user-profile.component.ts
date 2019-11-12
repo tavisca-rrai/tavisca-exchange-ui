@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/services/user/user.service';
+import { ActivatedRoute, Params } from '@angular/router';
+import { GetUserProfileResponse } from 'src/app/models/user/get-user-profile-response';
+import { UserProfile } from 'src/app/models/user/user-profile';
+import { GetProductsListResponse } from 'src/app/models/get-products-list-response';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-profile-component',
@@ -6,17 +12,59 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-
+  userProfile: UserProfile;
   hideMenu: boolean;
-  userId: "1234";
-  userName = "Nikita Narkhede";
-  userContactNumber = "8485733995";
-  userEmailId = "demo@something.com";
-  profileImageUrl = "https://scontent-frx5-1.cdninstagram.com/vp/b8ce57551b48edfec3b1e644e9a47f9b/5E4F1F60/t51.2885-19/11821175_1046879962002756_496959586_a.jpg?_nc_ht=scontent-frx5-1.cdninstagram.com";
+  showActiveAds: boolean;
 
-  constructor() { }
+  constructor(
+    private userService: UserService,
+    private activatedRouter: ActivatedRoute
+  ) { }
 
   ngOnInit() {
+    this.showActiveAds = true;
+    let userId: string;
+    this.activatedRouter.params.subscribe((params: Params) => {
+      userId = params['id'];
+    });
+
+    this.userService.getUserProfile(userId).subscribe(
+      (response: GetUserProfileResponse) => {
+        this.userProfile = response.userProfile;
+      },
+      err => {
+        // TBA - error msg on ui
+        console.log(err.error);
+      }
+    );
+
+    this.getActiveAds();
+  }
+
+  getActiveAds() {
+    this.showActiveAds = true;
+    this.userService.getActiveUserProducts(environment.userSetting.userId).subscribe(
+      (response: GetProductsListResponse) => {
+        this.userService.userAdsList.next(response.products);
+      },
+      err => {
+        // TBA - error msg on ui
+        console.log(err.error);
+      }
+    );
+  }
+
+  getInactiveAds() {
+    this.showActiveAds = false;
+    this.userService.getInactiveUserProducts(environment.userSetting.userId).subscribe(
+      (response: GetProductsListResponse) => {
+        this.userService.userAdsList.next(response.products);
+      },
+      err => {
+        // TBA - error msg on ui
+        console.log(err.error);
+      }
+    );
   }
 
 }

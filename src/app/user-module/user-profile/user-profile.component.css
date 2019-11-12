@@ -3,6 +3,7 @@
 }
 
 .profile-section {
+    margin: 40px 0px;
     display: grid;
     grid-template-columns: 40% 60%;
     width: 100%;
@@ -40,4 +41,19 @@
     padding-right: 12px;
     color: grey;
     font-size: 16px;
+}
+
+.btn-separator {
+    text-align: center;
+}
+
+.btn-separator>button {
+    border: none;
+    padding: 10px;
+    margin: 15px 0px 15px;
+}
+
+.btn-separator>.button-active {
+    background-color: #1976d2;
+    color: #fff;
 }

@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { GetProductDetailsResponse } from 'src/app/models/get-product-details-response';
-import { ProductDetails } from '../../models/product-details';
 import { Product } from '../../models/product';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ProductMockService } from "src/app/services/product-mock.service";
 import { Seller } from 'src/app/models/seller';
 
 @Component({
@@ -14,12 +12,9 @@ import { Seller } from 'src/app/models/seller';
 })
 export class AdvertismentDetailsComponent implements OnInit {
   productdetails: Product;
-  sellerdetails : Seller;
-  images:string[]=[];
-  monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
-  ];
-  
+  sellerdetails: Seller;
+  images: string[] = [];
+
   constructor(private productService: ProductService, private router: ActivatedRoute) {
   }
   ngOnInit() {
@@ -33,8 +28,7 @@ export class AdvertismentDetailsComponent implements OnInit {
         this.productdetails = response.product;
         this.sellerdetails = response.seller;
         this.images.push(this.productdetails.heroImage);
-        for (let productImage in this.productdetails.images)
-        {
+        for (let productImage in this.productdetails.images) {
           this.images.push(this.productdetails.images[productImage]);
         }
       },
@@ -43,10 +37,5 @@ export class AdvertismentDetailsComponent implements OnInit {
       }
     );
   }
-
-  public getFormatedDate(strDate:string):string {
-  
-    var date = new Date(strDate);
-    return date.getDate() + " " + this.monthNames[date.getMonth()] + " " + date.getFullYear().toString().substr(-2);
-  }
 }
+

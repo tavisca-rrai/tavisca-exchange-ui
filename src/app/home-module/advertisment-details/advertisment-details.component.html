@@ -36,7 +36,7 @@
         </div>
         <div>
           <span class="product-postdate">
-            {{getFormatedDate(productdetails.postDateTime)}}
+            {{productdetails.postDateTime | date :'dd MMM yy'}}
           </span>
         </div>
       </div>

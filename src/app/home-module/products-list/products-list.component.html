@@ -9,7 +9,7 @@
             <div class="adv-bottom-section">
                 <p class="adv-posting-area" *ngIf="ad.pickupAddress != null">{{ad.pickupAddress.city}}, {{ad.pickupAddress.state}}</p>
                 <p class="adv-posting-date">
-                    {{getFormatedDate(ad.postDateTime)}}
+                    {{ad.postDateTime | date :'dd MMM yy'}}
                 </p>
             </div>
         </div>

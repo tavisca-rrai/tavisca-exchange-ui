@@ -11,8 +11,8 @@ import { Seller } from 'src/app/models/seller';
   styleUrls: ['./advertisment-details.component.css']
 })
 export class AdvertismentDetailsComponent implements OnInit {
-  productdetails: Product;
-  sellerdetails: Seller;
+  productDetails: Product;
+  sellerDetails: Seller;
   images: string[] = [];
 
   constructor(private productService: ProductService, private router: ActivatedRoute) {
@@ -25,11 +25,11 @@ export class AdvertismentDetailsComponent implements OnInit {
 
     this.productService.getProductDetails(id).subscribe(
       (response: GetProductDetailsResponse) => {
-        this.productdetails = response.product;
-        this.sellerdetails = response.seller;
-        this.images.push(this.productdetails.heroImage);
-        for (let productImage in this.productdetails.images) {
-          this.images.push(this.productdetails.images[productImage]);
+        this.productDetails = response.product;
+        this.sellerDetails = response.seller;
+        this.images.push(this.productDetails.heroImage);
+        for (let productImage in this.productDetails.images) {
+          this.images.push(this.productDetails.images[productImage]);
         }
       },
       err => {

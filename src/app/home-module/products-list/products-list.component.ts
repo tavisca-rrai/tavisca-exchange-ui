@@ -14,9 +14,9 @@ import { GetProductsListResponse } from 'src/app/models/get-products-list-respon
 export class ProductsListComponent implements OnInit {
   @Input() adsList: Product[];
 
-  monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
-  ];
+  noProductResponse: boolean = false;
+  pageNumber: number = 1;
+  pageSize: number = 100;
 
   constructor(
     private productService: ProductService,
@@ -28,7 +28,7 @@ export class ProductsListComponent implements OnInit {
     if (this.router.url.includes("/products")) {
       this.productService.getProductsList(3, 15).subscribe(
         (response: GetProductsListResponse) => {
-          this.adsList = response.products;
+          !response ? this.noProductResponse = true : this.adsList = response.products;
         },
         err => {
           // TBA - error msg on ui

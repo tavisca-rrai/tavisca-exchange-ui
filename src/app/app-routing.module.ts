@@ -8,6 +8,7 @@ import { HomeComponent } from './home-module/home/home.component';
 import { ProductsListComponent } from 'src/app/home-module/products-list/products-list.component';
 import { AdvertismentDetailsComponent } from './home-module/advertisment-details/advertisment-details.component';
 import { UserProfileComponent } from './user-module/user-profile/user-profile.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
 
 const routes: Routes = [
   {
@@ -50,7 +51,12 @@ const routes: Routes = [
     path: '404',
     component: AdvertismentDetailsComponent
   },
+  {
+    path: '**',
+    component: PageNotFoundComponent
+  }
 ]
+
 @NgModule({
   declarations: [],
   imports: [

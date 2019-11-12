@@ -5,6 +5,7 @@
     justify-items: center;
     margin: 15px 5px;
 }
+
 @media only screen and (min-width: 768px) {
     .adv-list-container {
         grid-template-columns: 50% 50%;

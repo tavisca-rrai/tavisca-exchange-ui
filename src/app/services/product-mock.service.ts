@@ -1,6 +1,7 @@
 import { Product } from './../models/product';
 import { Seller } from './../models/seller';
 import { IproductService } from '../models/iproduct-service';
+import { ProductDetails } from './../models/product-details';
 import { Observable, of } from 'rxjs';
 import { GetProductDetailsResponse } from '../models/get-product-details-response';
 import { GetProductsListResponse } from '../models/get-products-list-response';
@@ -11,7 +12,7 @@ export class ProductMockService implements IproductService {
 
   AddProduct(product: Product): Observable<Product> {
     product.id = "P123";
-    product.status = "Active"; 
+    product.status = "Active";
 
     product.postDateTime = new Date("2018-06-06T00:00:00");
     product.expirationDate = new Date("2019-09-01");
@@ -19,23 +20,6 @@ export class ProductMockService implements IproductService {
 
     // set other details coming from web
     return of(product);
-  }
-  GetPreview(product: Product): GetProductDetailsResponse 
-  {   
-    if (!product) 
-    {
-      return null;
-    }
-    else
-    {
-      let sellerObj = new Seller();
-      sellerObj.id = "1";
-      sellerObj.name = "Nikita Narkhede";
-      let productpreviewObj = new GetProductDetailsResponse();
-      productpreviewObj.seller = sellerObj;
-      productpreviewObj.product = product;
-      return productpreviewObj;
-    }
   }
 
   getDummyProductList(): Product[] {
@@ -52,7 +36,6 @@ export class ProductMockService implements IproductService {
     product1.price.money.amount = 3200000;
     product1.price.money.currency = "INR";
     product1.price.isNegotiable = false;
-    product1.images.push('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTMt-5WaWAB5O048K8MS92uXbFpNmUvro38bH1lgoDmsRmo0hEJ');
     product1.images.push('https://cmsimages-alt.kbb.com/content/dam/kbb-editorial/make/rolls-royce/cullinan/2019-rolls-royce-cullinan-side.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg');
     product1.images.push('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTMt-5WaWAB5O048K8MS92uXbFpNmUvro38bH1lgoDmsRmo0hEJ');
 
@@ -243,25 +226,30 @@ export class ProductMockService implements IproductService {
     return itemList;
   }
 
-  getDummyProductDetails(productId): GetProductDetailsResponse {
+  getDummyProductDetails(productId): Product {
     let productObj = new Product();
     productObj = this.searchProduct(productId);
-  
-    if (!productObj) 
-    {
+    let sellerObj = new Seller();
+    sellerObj.id = "1";
+    sellerObj.name = "Nikita Narkhede";
+
+    if (!productObj) {
       return null;
     }
-    else
-    {
-      let sellerObj = new Seller();
-      sellerObj.id = "1";
-      sellerObj.name = "Nikita Narkhede";
-      let productDetailsObj = new GetProductDetailsResponse();
-      productDetailsObj.seller = sellerObj;
-      productDetailsObj.product = productObj;
-      return productDetailsObj;
-    }
-    
+
+    let productDetailsObj = new ProductDetails();
+    productDetailsObj.seller = sellerObj;
+    productDetailsObj.product = productObj;
+
+    return productObj;
+  }
+
+  getDummySellerDetails(): Seller {
+    let sellerObj = new Seller();
+    sellerObj.id = "1";
+    sellerObj.name = "Nikita Narkhede";
+
+    return sellerObj;
   }
 
   searchProduct(productId: string): Product {
@@ -279,7 +267,8 @@ export class ProductMockService implements IproductService {
     productId: string
   ): Observable<GetProductDetailsResponse> {
     var getProductDetailsResponse = new GetProductDetailsResponse();
-    getProductDetailsResponse = this.getDummyProductDetails(productId);
+    getProductDetailsResponse.product = this.getDummyProductDetails(productId);
+    getProductDetailsResponse.seller = this.getDummySellerDetails();
     return of(getProductDetailsResponse);
   }
 

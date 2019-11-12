@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { GetProductDetailsResponse } from 'src/app/models/get-product-details-response';
-import { ProductDetails } from '../../models/product-details';
 import { Product } from '../../models/product';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ProductMockService } from "src/app/services/product-mock.service";
+import { Seller } from 'src/app/models/seller';
 
 @Component({
   selector: 'app-advertisment-details',
@@ -12,8 +11,10 @@ import { ProductMockService } from "src/app/services/product-mock.service";
   styleUrls: ['./advertisment-details.component.css']
 })
 export class AdvertismentDetailsComponent implements OnInit {
-  productdetails: ProductDetails;
-  images:string[]=[];
+  productDetails: Product;
+  sellerDetails: Seller;
+  images: string[] = [];
+
   constructor(private productService: ProductService, private router: ActivatedRoute) {
   }
   ngOnInit() {
@@ -24,11 +25,13 @@ export class AdvertismentDetailsComponent implements OnInit {
 
     this.productService.getProductDetails(id).subscribe(
       (response: GetProductDetailsResponse) => {
-        this.productdetails = response.productDetails;
-        this.images.push(this.productdetails.product.heroImageUrl);
-        for (let productImage in this.productdetails.product.imageUrls)
-        {
-          this.images.push(this.productdetails.product.imageUrls[productImage]);
+        this.productDetails = response.product;
+        this.sellerDetails = response.seller;
+        this.images.push(this.productDetails.heroImage);
+        if(this.productDetails.images != null){
+          for (let productImage in this.productDetails.images) {
+            this.images.push(this.productDetails.images[productImage]);
+          }
         }
       },
       err => {
@@ -37,3 +40,4 @@ export class AdvertismentDetailsComponent implements OnInit {
     );
   }
 }
+

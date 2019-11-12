@@ -16,28 +16,27 @@
     </div>
     <div class="product-description">
       <span class="desc-header">Description</span>
-      <span>{{productdetails.product.description}}</span>
+      <span>{{productDetails.description}}</span>
     </div>
   </div>
   <div class="right-sidepanel">
     <div class="product-details">
       <span class="price">
-        ₹ {{ productdetails.product.price.money.amount }}
+        ₹ {{ productDetails.price.money.amount }}
         <!-- <button class="right-corner"><i class="fa fa-share"></i></button>
         <button class="right-corner"><i class="fa fa-heart"></i></button> -->
       </span>
       <div class="other-info">
-        <span class="product-title">{{productdetails.product.name}}</span>
+        <span class="product-title">{{productDetails.name}}</span>
       </div>
 
       <div class="item-add-details" style="border: none;">
         <div>
-          <span class="product-location">{{productdetails.product.pickupAddress.city}}</span>
+          <span class="product-location">{{productDetails.pickupAddress.city}}</span>
         </div>
         <div>
           <span class="product-postdate">
-            {{productdetails.product.postDate.getDate()}}/{{productdetails.product.postDate.getMonth()}}/
-            {{productdetails.product.postDate.getFullYear().toString().substr(-2)}}
+            {{productDetails.postDateTime | date :'dd MMM yy'}}
           </span>
         </div>
       </div>
@@ -46,8 +45,8 @@
     <div class="seller-details">
       <div class="seller-description">Seller description</div>
       <div class="sdetails">
-        <span class="seller-name">{{productdetails.seller.name}}</span>
-        <!-- <span class="seller-duration">Member since {{productdetails.sellerduartion}}</span> -->
+        <span class="seller-name">{{sellerDetails.name}}</span>
+        <!-- <span class="seller-duration">Member since {{productDetails.sellerduartion}}</span> -->
       </div>
       <!-- <button>Chat with Seller</button> -->
       <div class="seller-contact">

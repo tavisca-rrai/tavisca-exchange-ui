@@ -7,17 +7,15 @@ import { Observable, of ,throwError} from 'rxjs';
 import { ProductMockService } from './product-mock.service';
 import { GetProductsListResponse } from '../models/get-products-list-response';
 import { GetProductDetailsResponse } from '../models/get-product-details-response';
-import { Preview } from '../models/preview';
 import {catchError,retry} from 'rxjs/operators';
+import {ErrorResponse} from '../models/error-response'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService implements IproductService {
-  //_productSource = new Subject();
   _productSource : Product;
- // product$ = this._productSource.asObservable(); 
-
+  _error : ErrorResponse;
   productMockService: ProductMockService;
   public headers = new HttpHeaders({
     "Content-Type": "application/json"
@@ -37,18 +35,27 @@ export class ProductService implements IproductService {
   {
      this._productSource = product;
   }
-
+  sendErrorObj(errorresponse: ErrorResponse)
+  {
+    this._error = errorresponse;
+  }
+  getErrorObj():Observable<ErrorResponse>
+  {
+    return of(this._error);
+  }
   AddProduct(product: Product): Observable<Product> {
     if (environment.isMockingEnabled) {
       return this.productMockService.AddProduct(product);
     } else {
+      //this is dummy. This will be removed after login service integration
+      product.sellerId = "1";
       return this.http.post<Product>(this.getUrl(environment.productSetting.addProductPath), product, {
         headers: this.headers
       });
     }
   }
 
-  GetPreview(product:Product):Preview
+  GetPreview(product:Product):GetProductDetailsResponse
   {
     if(environment.isPreviewEnabled)
     {
@@ -70,7 +77,10 @@ export class ProductService implements IproductService {
       let getProductListUrl: string = this.getUrl(environment.productSetting.adsListPath) + "pageNumber=" + pageNumber + "&pagesize=" + pageSize;
       return this.http.get<GetProductsListResponse>(getProductListUrl, {
         headers: this.headers
-      }).pipe(retry(1),catchError(this.errorHandler));;
+      }).pipe(
+        retry(1),
+        catchError(this.errorHandler)
+      );
     }
   }
 
@@ -88,11 +98,17 @@ export class ProductService implements IproductService {
   }
   errorHandler(error : HttpErrorResponse)
   {
-    return Observable.throw(error.message || "Server  Error");
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    window.alert(errorMessage);
+    return throwError(errorMessage);
   }
   private getUrl(path: string): string {
-    return
-    environment.productSetting.BaseUrl +
+    return environment.productSetting.BaseUrl +
       environment.version +
       environment.applicationName +
       path;

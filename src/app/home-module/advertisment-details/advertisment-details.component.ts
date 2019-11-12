@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,OnDestroy} from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { GetProductDetailsResponse } from 'src/app/models/get-product-details-response';
-import { ProductDetails } from '../../models/product-details';
-import { Preview } from '../../models/preview';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Product } from '../../models/product';
@@ -13,15 +11,14 @@ import {ErrorResponse} from '../../models/error-response';
   templateUrl: './advertisment-details.component.html',
   styleUrls: ['./advertisment-details.component.css']
 })
-export class AdvertismentDetailsComponent implements OnInit {
+export class AdvertismentDetailsComponent implements OnInit,OnDestroy {
   noProductResponse : boolean = false;
   isServiceWorking : boolean = true;
-  productdetails: ProductDetails = new ProductDetails();
-  preview:Preview = new Preview();
+  productdetails: GetProductDetailsResponse = new GetProductDetailsResponse();
   productModel : Product = new Product();
   error = new ErrorResponse;
+  isPreviewOn:boolean;
   images:string[]=[];
-
   constructor(private productService: ProductService, private router: ActivatedRoute,private routerToProducts: Router) {
   }
 
@@ -29,34 +26,35 @@ export class AdvertismentDetailsComponent implements OnInit {
   {
     this.routerToProducts.navigate(['/products']);
   }
+  ngOnDestroy()
+  {
+    environment.isPreviewEnabled=false;
+    this.isPreviewOn=false;
+  }
   ngOnInit() 
   {
     this.productModel=new Product();
     if(environment.isPreviewEnabled)
     {
+      this.isPreviewOn =true;
       this.productService.getProductObj()
       .subscribe(
         product =>
         {
           if(product!=null)
           {
-            this.preview = this.productService.GetPreview(product);
-            this.images.push(this.preview.product.heroImageUrl);
-            for (let productImage in this.preview.product.imageUrls)
+            this.productdetails = this.productService.GetPreview(product);
+            this.images.push(this.productdetails.product.heroImageUrl);
+            for (let productImage in this.productdetails.product.imageUrls)
             {
-              this.images.push(this.preview.product.imageUrls[productImage]);
+              this.images.push(this.productdetails.product.imageUrls[productImage]);
             }
-            console.log('product Object');
-            console.log(this.preview); 
           }
-          else
-          {
-            this.noProductResponse = true;
-            this.error.code=404;
-            this.error.message="Page Not Found";
-            console.log(this.error);
-          }
-        }
+        },
+        error => 
+        {
+          console.error('Oops:', error.message);
+        },
       );
     }
     else
@@ -68,17 +66,17 @@ export class AdvertismentDetailsComponent implements OnInit {
       this.productService.getProductDetails(id).subscribe(
         (response: GetProductDetailsResponse) => 
         {
-          if(response.productDetails == null)
+          if(response ==null || response.product == null || response.seller == null)
           {
               this.noProductResponse = true;
               this.error.code=404;
               this.error.message="Page Not Found";
-              console.log(this.error);
+              this.productService.sendErrorObj(this.error);
           }
           else
           { 
-            this.productdetails = response.productDetails;
-            console.log(this.productdetails);
+            this.productdetails.product = response.product;
+            this.productdetails.seller = response.seller;
             this.images.push(this.productdetails.product.heroImageUrl);
             for (let productImage in this.productdetails.product.imageUrls)
             {
@@ -86,12 +84,11 @@ export class AdvertismentDetailsComponent implements OnInit {
             }
           } 
         },
-        err => {
-          this.isServiceWorking= false;
-          console.log(err.error);
-        }
+        error => 
+        {
+          console.error('Oops:', error.message);
+        },
       );
     }
-    
   }
 }

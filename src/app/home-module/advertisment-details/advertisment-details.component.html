@@ -1,58 +1,83 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="null-response" *ngIf='noProductResponse'>
+  <app-page-not-found></app-page-not-found>
+</div>
+<div class="parent" *ngIf='!noProductResponse'>
+  <div class="product" >
+    <div class="go-back-div">
+      <a href="" [routerLink]="['../../']">Go Back</a>
+    </div>
+    <div class="left-sidepanel">
+      <div class="product-carousel">
+        <ngb-carousel *ngIf="images">
+          <ng-template ngbSlide *ngFor="let item of images; index as i">
+            <div class="picsum-img-wrapper">
+              <img class="product-images" [src]="images[i]" alt="Product Image">
+            </div>
+          </ng-template>
+        </ngb-carousel>
+      </div>
+      <div class="product-description">
+        <span class="desc-header">Description</span>ce
+        <span>{{productdetails.product.description}}</span>
+        <span>Is Negotiable : {{productdetails.product.price.isNegotiable}}</span>
+        <span>Pickup Address: {{ productdetails.product.pickupAddress.line1 }},
+                              {{ productdetails.product.pickupAddress.line2 }},
+                              {{ productdetails.product.pickupAddress.city }},
+                              {{ productdetails.product.pickupAddress.state }}
+        </span>
+        <span>Pincode: {{ productdetails.product.pickupAddress.pincode }}</span>
+      </div>
+    </div>
+    <div class="right-sidepanel">
+      <div class="product-details">
+        <span class="price">
+          {{ productdetails.product.price.money.amount | currency: 'INR' : 'symbol' : '1.0-0'  }}
+          <!-- (Negotiable) -->
+          <!-- <button class="right-corner"><i class="fa fa-share"></i></button>
+              <button class="right-corner"><i class="fa fa-heart"></i></button> -->
+        </span>
+        <div class="other-info">
+          <span class="product-title">{{ productdetails.product.name }}</span>
+        </div>
 
-<div class="product">
-  <div class="go-back-div">
-    <a href="" [routerLink]="['/products']">Go Back</a>
-  </div>
-  <div class="left-sidepanel">
-    <div class="product-carousel">
-      <ngb-carousel *ngIf="images">
-        <ng-template ngbSlide *ngFor="let item of images; index as i">
-          <div class="picsum-img-wrapper">
-            <img class="product-images" [src]="images[i]" alt="Product Image">
+        <div class="item-add-details" style="border: none;">
+          <div>
+            <span class="product-location">{{ productdetails.product.pickupAddress.city }}</span>
           </div>
-        </ng-template>
-      </ngb-carousel>
-    </div>
-    <div class="product-description">
-      <span class="desc-header">Description</span>
-      <span>{{productDetails.description}}</span>
-    </div>
-  </div>
-  <div class="right-sidepanel">
-    <div class="product-details">
-      <span class="price">
-        ₹ {{ productDetails.price.money.amount }}
-        <!-- <button class="right-corner"><i class="fa fa-share"></i></button>
-        <button class="right-corner"><i class="fa fa-heart"></i></button> -->
-      </span>
-      <div class="other-info">
-        <span class="product-title">{{productDetails.name}}</span>
-      </div>
-
-      <div class="item-add-details" style="border: none;">
-        <div>
-          <span class="product-location">{{productDetails.pickupAddress.city}}</span>
+          <div>
+            <span class="product-postdate">
+              {{productdetails.product.postDate | date:'dd MMMM yy'}} 
+            </span>
+          </div>
         </div>
-        <div>
-          <span class="product-postdate">
-            {{productDetails.postDateTime | date :'dd MMM yy'}}
-          </span>
-        </div>
-      </div>
 
-    </div>
-    <div class="seller-details">
-      <div class="seller-description">Seller description</div>
-      <div class="sdetails">
-        <span class="seller-name">{{sellerDetails.name}}</span>
-        <!-- <span class="seller-duration">Member since {{productDetails.sellerduartion}}</span> -->
       </div>
-      <!-- <button>Chat with Seller</button> -->
-      <div class="seller-contact">
-        <!-- <span><i class="fa fa-phone"></i></span>
-        <div>** *** ****</div>
-        <div class="shownub">Show number</div> -->
+      <div class="seller-details">
+        <div class="seller-description">Seller description</div>
+        <div class="sdetails">
+          <span class="seller-name">{{ productdetails.seller.name }}</span>
+          <!-- <span class="seller-duration">Member since {{productdetails.sellerduartion}}</span> -->
+          <div class="if-preview-is-on" *ngIf='isPreviewOn'>
+              <span class="seller-duration">Your ad expires on
+                {{productdetails.product.expirationDate | date:'dd MMM yy'}} 
+              </span>
+              <div> 
+                <button>edit</button>
+                <button>delete</button>
+              </div>
+          </div>
+        </div>
+        <!-- <div *ngIf='!isPreviewOn'>
+            <button>Chat with Seller</button> 
+        </div> -->
+        
+        
+        <div class="seller-contact">
+          <!-- <span><i class="fa fa-phone"></i></span>
+              <div>** *** ****</div>
+              <div class="shownub">Show number</div> -->
+        </div>
       </div>
     </div>
   </div>

@@ -14,6 +14,14 @@ export const environment = {
     adDetailsPath: "/details",
     adsListPath: "/products"
   },
+  userSetting: {
+    baseUrl: "https://localhost:44340/api",
+    profile: "/profile",
+    activeAds: "/active",
+    inactiveAds: "/inactive",
+    userId: "777888666",
+  },
+  },
   imageApiSettings:{
     BaseUrl: "https://localhost:44357/",
     uploadImagePath: "api/v1.0/OnlineRetailPortal/image/",

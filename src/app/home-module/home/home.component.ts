@@ -5,15 +5,17 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
 
-  hideMenu:boolean;
+export class HomeComponent implements OnInit {
+  hideMenu: boolean;
+  userId: string;
+
   constructor() { }
 
   ngOnInit() {
-    
   }
-  toggleMenuEvent(hideMenu:boolean){
+
+  toggleMenuEvent(hideMenu: boolean) {
     this.hideMenu = hideMenu;
   }
 }

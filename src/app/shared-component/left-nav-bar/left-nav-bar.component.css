@@ -14,10 +14,19 @@
     display: none;
 }
 .custom-slider{
-    padding: 0px 20px 5px 20px;
+    padding: 0px 20px 5px 10px;
+}
+.custom-slider .ng5-slider .ng5-slider-selection {
+    background: #5383d3 !important;
+}
+
+.applyBtn
+{
+    margin: 5%;
 }
 .sort-by{
-    padding: 5px 20px 5px 20px;
+    padding: 5px 20px 5px 10px;
+    text-align: center;
 }
 .sort-by label{
     padding: 0px 15px 0px 0px;
@@ -32,7 +41,7 @@
 }
 
 .navbar-items {
-    padding: 5px 11px 5px 25px;
+    padding: 5px 11px 5px 10px;
     width: inherit;
 }
 
@@ -46,6 +55,7 @@
 
 @media (max-width: 768px) {
     .left-nav {
-        display: none;
+        display: block;
     }
 }
+

@@ -3,17 +3,19 @@ import { IproductService } from '../models/iproduct-service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Product } from './../models/product'
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { ProductMockService } from './product-mock.service';
 import { GetProductsListResponse } from '../models/get-products-list-response';
 import { GetProductDetailsResponse } from '../models/get-product-details-response';
-
+import { ProductSort } from '../models/product-sort';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService implements IproductService {
   productMockService: ProductMockService;
+  private _productSortOptions:ProductSort;
+  private _productSortOptionsObservable = new BehaviorSubject(null);
   public headers = new HttpHeaders({
     "Content-Type": "application/json"
   });
@@ -64,6 +66,13 @@ export class ProductService implements IproductService {
     }
   }
 
+  setProductSortOptions(productSortOptions:ProductSort){
+    this._productSortOptions = productSortOptions;
+    this._productSortOptionsObservable.next(this._productSortOptions);
+  }
+  getProductSortOptions():Observable<ProductSort>{
+    return this._productSortOptionsObservable;
+  }
   private getUrl(path: string): string {
     return environment.productSetting.BaseUrl +
       environment.version +

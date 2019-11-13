@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { IProductService } from '../models/i-product-service';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Product } from './../models/product'
-import { Observable, of, throwError } from 'rxjs';
+import { Product } from './../models/product';
+import { Seller } from './../models/seller';
+import { Observable, of, throwError, BehaviorSubject } from 'rxjs';
 import { ProductMockService } from './product-mock.service';
 import { GetProductsListResponse } from '../models/get-products-list-response';
 import { GetProductDetailsResponse } from '../models/get-product-details-response';
@@ -14,7 +15,7 @@ import { ErrorResponse } from '../models/error-response'
   providedIn: 'root'
 })
 export class ProductService implements IProductService {
-  _productSource: Product;
+  private _productSource: Product;
   _error: ErrorResponse;
   productMockService: ProductMockService;
   public headers = new HttpHeaders({
@@ -26,8 +27,8 @@ export class ProductService implements IProductService {
       this.productMockService = new ProductMockService();
     }
   }
-  getProductObj(): Observable<Product> {
-    return of(this._productSource);
+  getProductObj() {
+    return this._productSource;
   }
   sendProductObj(product: Product) {
     this._productSource = product;
@@ -41,7 +42,8 @@ export class ProductService implements IProductService {
   AddProduct(product: Product): Observable<Product> {
     if (environment.isMockingEnabled) {
       return this.productMockService.AddProduct(product);
-    } else {
+    }
+    else {
       //this is dummy. This will be removed after login service integration
       product.sellerId = "1";
       return this.http.post<Product>(this.getUrl(environment.productSetting.addProductPath), product, {
@@ -51,12 +53,24 @@ export class ProductService implements IProductService {
   }
 
   GetPreview(product: Product): GetProductDetailsResponse {
-    if (environment.isPreviewEnabled) {
-      return this.productMockService.GetPreview(product);
+    if (product != null) {
+      if (environment.isMockingEnabled) {
+        return this.productMockService.GetMockPreview(product);
+      }
+      else {
+        return this.GetApiPreview(product);
+      }
     }
-    else {
+    else
+      return null;
+  }
 
-    }
+  GetApiPreview(product: Product): GetProductDetailsResponse {
+    let sellerObj = new Seller();
+    let productpreviewObj = new GetProductDetailsResponse();
+    productpreviewObj.seller = sellerObj;
+    productpreviewObj.product = product;
+    return productpreviewObj;
   }
 
   getProductsList(
@@ -95,7 +109,6 @@ export class ProductService implements IProductService {
     } else {
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-
     return throwError(errorMessage);
   }
   private getUrl(path: string): string {

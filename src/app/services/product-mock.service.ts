@@ -20,19 +20,14 @@ export class ProductMockService implements IProductService {
     // set other details coming from web
     return of(product);
   }
-  GetPreview(product: Product): GetProductDetailsResponse {
-    if (!product) {
-      return null;
-    }
-    else {
-      let sellerObj = new Seller();
-      sellerObj.id = "1";
-      sellerObj.name = "Nikita Narkhede";
-      let productpreviewObj = new GetProductDetailsResponse();
-      productpreviewObj.seller = sellerObj;
-      productpreviewObj.product = product;
-      return productpreviewObj;
-    }
+  GetMockPreview(product: Product): GetProductDetailsResponse {
+    let sellerObj = new Seller();
+    sellerObj.id = "1";
+    sellerObj.name = "Nikita Narkhede";
+    let productpreviewObj = new GetProductDetailsResponse();
+    productpreviewObj.seller = sellerObj;
+    productpreviewObj.product = product;
+    return productpreviewObj;
   }
 
   getDummyProductList(): Product[] {

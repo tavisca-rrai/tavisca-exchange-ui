@@ -39,17 +39,15 @@ export class PostAdComponentComponent implements OnInit {
   submitted = false;
   onSubmit() {
     this.submitted = true;
-    // console.log(this.productModel);
-    // console.log(this.productModel.imageUrl);
   }
 
   PostProduct() {
-    environment.isPreviewEnabled = true;
+    let isPreviewEnabled = true;
     this.productService.AddProduct(this.productModel).subscribe(
       response => {
         this.productService.sendProductObj(response);
         if (response.id != null && response.id.trim() != "") {
-          this.router.navigate(['products/details', response.id]);
+          this.router.navigate(['products/details', response.id],{queryParams:{preview:'true'}});
         }
         else {
           alert("Something went wrong");

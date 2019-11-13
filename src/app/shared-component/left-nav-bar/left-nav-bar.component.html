@@ -1,6 +1,19 @@
 <div class="left-nav hidden-xs hidden-sm" [class.fixed]="fixed">
+    <h3>Price</h3>
+    <div class="custom-slider">
+        <ng5-slider class="navbar-items" [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ng5-slider>
+    </div>
+    <h3> Sort By</h3>
+    <div class="sort-by">
+        <select name="sort">
+            <option value="latest">Latest</option>
+            <option value="oldest">Oldest</option>
+            <option value="priceLowToHigh">Price : Low to High </option>
+            <option value="priceHighToLow">Price : High to Low </option>
+        </select>
+    </div>
     <h3>Categories</h3>
-    <p class="navbar-items" *ngFor="let category of content">
+    <p class="navbar-items" *ngFor="let category of categories">
         <input type="checkbox" name="{{category}}" > {{category}}
     </p>
 </div>

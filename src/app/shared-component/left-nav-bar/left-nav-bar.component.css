@@ -1,3 +1,27 @@
+.custom-slider .ng5-slider .ng5-slider-pointer:focus {
+    outline: none;
+}
+.custom-slider .ng5-slider .ng5-slider-pointer {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    border: 1px solid #bababa;
+    position: absolute;
+    background-color: #fff;
+    top: 0px;
+}
+.custom-slider .ng5-slider .ng5-slider-pointer:after {
+    display: none;
+}
+.custom-slider{
+    padding: 0px 20px 5px 20px;
+}
+.sort-by{
+    padding: 5px 20px 5px 20px;
+}
+.sort-by label{
+    padding: 0px 15px 0px 0px;
+}
 .left-nav {
     width: inherit;
     padding-top: inherit;
@@ -16,6 +40,7 @@
     color: #1976d2;
     text-align: center;
     font-size: 19px;
+    padding-top: 10px;
     text-decoration: underline;
 }
 

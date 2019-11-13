@@ -29,7 +29,7 @@ export class PostAdComponentComponent implements OnInit {
   connectionError = false;
   errMsg="";
 
-  categories = ["Home","Electronics","Car","Bike"]; // this is provided by categories api
+  categories = ["Property","Car","Furniture","Mobile","Bike","Book","Fashion","Electronic","Other"]; // this is provided by categories api
   states = ["Andra Pradesh","Go","Gujarat","Haryana","Himachal Pradesh","Jammu and Kashmir","Jharkhand","Karnataka",
   "Kerala","Madya Pradesh","Maharashtra","Punjab","Rajasthan"]
   
@@ -42,6 +42,7 @@ export class PostAdComponentComponent implements OnInit {
   productImages: ProductImages;
 
   ngOnInit() {
+    window.scroll(0,0);
     let image =new ImageProperty();
     this.imageArray.push(image);
     this.productModel=new Product();
@@ -50,8 +51,8 @@ export class PostAdComponentComponent implements OnInit {
 
   PostProduct()
   {
-    this.productImages.HeroImageUrl = this.productModel.HeroImage;
-    this.productImages.ImageUrls = this.productModel.Images;
+    this.productImages.HeroImageUrl = this.productModel.heroImage;
+    this.productImages.ImageUrls = this.productModel.images;
     this.imageService.storeImages(this.productImages).subscribe();
     this.productService.AddProduct(this.productModel).subscribe(
       response => {
@@ -142,7 +143,7 @@ export class PostAdComponentComponent implements OnInit {
             else if (event instanceof HttpResponse)
             {
               this.imageArray[id].imageURL = this.getImageUrl(event);
-              this.productModel.Images.push(event.body.imageUrl); //storing only the name of the file not the url as it may change on the server side
+              this.productModel.images.push(event.body.imageUrl); //storing only the name of the file not the url as it may change on the server side
               this.imageArray[id].ProgressBarDispProp="none";
               if(id==0)
               {
@@ -181,7 +182,7 @@ export class PostAdComponentComponent implements OnInit {
     if(this.isMock)
     {
       this.imageArray[id].imageURL = environment.imageApiSettings.mockImageUrl;
-      this.productModel.Images.push(environment.imageApiSettings.mockImageUrl);
+      this.productModel.images.push(environment.imageApiSettings.mockImageUrl);
     }
     
     else if(this.isValidImage(event.target.files[0]))
@@ -219,7 +220,7 @@ export class PostAdComponentComponent implements OnInit {
   removeImage(id)
   {
     //send the DELETE request and then remove from local
-    this.imageService.deleteImage(this.productModel.Images[id]).subscribe();
+    this.imageService.deleteImage(this.productModel.images[id]).subscribe();
 
     if(this.imageCounter!=0 && this.imageArray[id].pictureContainerStyle =="4px solid blue")
     {
@@ -233,7 +234,7 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray[id].buttonName = "Add";
     this.imageArray[id].iconOfButton = "plus";
     this.imageArray[id].pictureContainerStyle = "1px solid lightgrey";
-    this.productModel.Images.splice(id,1);
+    this.productModel.images.splice(id,1);
 
     if (this.imageCounter > this.minNoOfImage) {
       this.imageArray.splice(id, 1);
@@ -256,7 +257,7 @@ export class PostAdComponentComponent implements OnInit {
       }
     }
     this.imageArray[id].pictureContainerStyle = "4px solid blue";
-    this.productModel.HeroImage=this.productModel.Images.pop();
+    this.productModel.heroImage=this.productModel.images.pop();
   }
 
   imageClick(id) {

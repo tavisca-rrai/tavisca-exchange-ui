@@ -1,6 +1,7 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 footer {
-    background-color: #1976d2;
+    background-color: #292c2f;
+    box-shadow: 0 1px 1px #ccc;
 }
 footer .contents{
     display: flex;
@@ -11,13 +12,11 @@ footer .contents{
     width: 100%;
     flex: 1;
 }
-.about{
-    flex: 1;
+.brand h1 span
+{
+    color: #5383d3;
 }
-.about h3{
-    font-size: 20px;
-    padding: 10px;
-}
+
 .logo{
     flex: 1;
     text-align: right;
@@ -28,5 +27,5 @@ footer .contents{
     font-size: 24px;
 }
 .logo img{
-    height: 90px;
+    height: 100px;
 }

@@ -53,9 +53,10 @@
     position: relative;
 }
 
-.product-carousel, .product-description {
+.product-carousel, .product-description, .seller-details, .product-details, .pick-up-address{
     /* width: 95%; */
     margin: 0 auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .product-description {
@@ -190,7 +191,7 @@
 {
     font-weight: bold; 
     font-size: 34px; 
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:sans-serif;
 } 
 .null-response
 {
@@ -204,6 +205,28 @@
 {
     margin: 0;
     padding: 0;
+}
+
+.negotiable-property
+{
+    color: gray;
+    padding-top: 15px;
+    font-size: 12px;
+    float: right;
+}
+.pick-up-address div
+{
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+.address 
+{
+    font-weight: bold;
+}
+.seller-description
+{
+    font-weight: bold;
 }
 @media only screen and (min-width: 768px) 
 {
@@ -265,14 +288,9 @@
         height:100%;
         position: relative;
     }
-    /* .carousel-inner
-    {
-        height:280px;
-    }
-     */
-    .product-carousel, .product-description {
-        /* width: 95%; */
+     .product-carousel, .product-description, .seller-details, .product-details, .pick-up-address{
         margin: 0 auto;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     }
     .product-description {
         border: 1px solid grey;
@@ -301,9 +319,43 @@
     {
         border: none;
     }
+ 
+    .negotiable-property
+    {
+        padding-top:10px;
+        color: gray;
+        font-size: 17px;
+        float: right;
+    }
     .if-preview-is-on 
     {
         margin: 0;
         padding: 0;
+    }
+    .pick-up-address
+    {
+        width: 100%;
+    }
+    .pick-up-address div
+    {
+        border: none;
+        margin: 0;
+        padding: 0;
+        
+    }
+    .address 
+    {
+        font-weight: bold;
+    }
+    .seller-description
+    {
+        font-weight: bold;
+    }
+    .post-ad-message
+    {
+        text-align: center;
+        justify-content: center;
+        font-weight: bold;
+        color:lightgreen;
     }
 }

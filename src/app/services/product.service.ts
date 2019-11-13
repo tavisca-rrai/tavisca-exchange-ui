@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { IproductService } from '../models/iproduct-service';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Product } from './../models/product'
-import { Observable, of ,throwError} from 'rxjs';
+import { Product } from './../models/product';
+import { Seller } from './../models/seller';
+import { Observable, of ,throwError,BehaviorSubject} from 'rxjs';
 import { ProductMockService } from './product-mock.service';
 import { GetProductsListResponse } from '../models/get-products-list-response';
 import { GetProductDetailsResponse } from '../models/get-product-details-response';
@@ -14,7 +15,7 @@ import {ErrorResponse} from '../models/error-response'
   providedIn: 'root'
 })
 export class ProductService implements IproductService {
-  _productSource : Product;
+  private _productSource: Product;
   _error : ErrorResponse;
   productMockService: ProductMockService;
   public headers = new HttpHeaders({
@@ -27,13 +28,13 @@ export class ProductService implements IproductService {
     }
 
   }
-  getProductObj():Observable<Product>
+  getProductObj()
   {
-    return of(this._productSource);
+    return this._productSource;
   }
   sendProductObj(product: Product)
   {
-     this._productSource = product;
+     this._productSource=product;
   }
   sendErrorObj(errorresponse: ErrorResponse)
   {
@@ -44,9 +45,12 @@ export class ProductService implements IproductService {
     return of(this._error);
   }
   AddProduct(product: Product): Observable<Product> {
-    if (environment.isMockingEnabled) {
+    if (environment.isMockingEnabled) 
+    {
       return this.productMockService.AddProduct(product);
-    } else {
+    } 
+    else 
+    {
       //this is dummy. This will be removed after login service integration
       product.sellerId = "1";
       return this.http.post<Product>(this.getUrl(environment.productSetting.addProductPath), product, {
@@ -57,15 +61,29 @@ export class ProductService implements IproductService {
 
   GetPreview(product:Product):GetProductDetailsResponse
   {
-    if(environment.isPreviewEnabled)
+    if(product!= null)
     {
-      return this.productMockService.GetPreview(product);
-    }
+      if (environment.isMockingEnabled) 
+      {
+        return this.productMockService.GetMockPreview(product);
+      } 
+      else
+      {
+        return this.GetApiPreview(product);
+      }        
+    }     
     else
-    {
-      
-    }
+      return null;
   }
+
+GetApiPreview(product:Product):GetProductDetailsResponse
+{
+  let sellerObj = new Seller();
+  let productpreviewObj = new GetProductDetailsResponse();
+  productpreviewObj.seller = sellerObj;
+  productpreviewObj.product = product;
+  return productpreviewObj;
+}
 
   getProductsList(
     pageNumber: number,
@@ -103,8 +121,7 @@ export class ProductService implements IproductService {
       errorMessage = `Error: ${error.error.message}`;
     } else {
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    
+    } 
     return throwError(errorMessage);
   }
   private getUrl(path: string): string {

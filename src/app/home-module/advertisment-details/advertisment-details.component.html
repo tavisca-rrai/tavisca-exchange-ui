@@ -3,10 +3,11 @@
   <app-page-not-found></app-page-not-found>
 </div>
 <div class="parent" *ngIf='!noProductResponse'>
+  <div class="post-ad-message" *ngIf='isPreviewEnabled'>
+    <span>Advertisement added Successfully!!   </span>
+    <span>  This is  How Your Advertisement Looks  </span>    
+  </div>
   <div class="product" >
-    <div class="go-back-div">
-      <a href="" [routerLink]="['../../']">Go Back</a>
-    </div>
     <div class="left-sidepanel">
       <div class="product-carousel">
         <ngb-carousel *ngIf="images">
@@ -18,25 +19,22 @@
         </ngb-carousel>
       </div>
       <div class="product-description">
-        <span class="desc-header">Description</span>ce
-        <span>{{productdetails.product.description}}</span>
-        <span>Is Negotiable : {{productdetails.product.price.isNegotiable}}</span>
-        <span>Pickup Address: {{ productdetails.product.pickupAddress.line1 }},
-                              {{ productdetails.product.pickupAddress.line2 }},
-                              {{ productdetails.product.pickupAddress.city }},
-                              {{ productdetails.product.pickupAddress.state }}
-        </span>
-        <span>Pincode: {{ productdetails.product.pickupAddress.pincode }}</span>
+        <span class="desc-header">Description</span>
+        <span>{{productdetails.product.description}}</span>        
       </div>
     </div>
     <div class="right-sidepanel">
       <div class="product-details">
-        <span class="price">
-          {{ productdetails.product.price.money.amount | currency: 'INR' : 'symbol' : '1.0-0'  }}
-          <!-- (Negotiable) -->
-          <!-- <button class="right-corner"><i class="fa fa-share"></i></button>
-              <button class="right-corner"><i class="fa fa-heart"></i></button> -->
-        </span>
+        <div class="prod-details-top-row">
+            <span class="negotiable-property" >{{isPriceNegotiable}}</span>
+            <span class="price">
+                {{ productdetails.product.price.money.amount | currency: 'INR' : 'symbol' : '1.0-0'  }}
+                <!-- (Negotiable) -->
+                <!-- <button class="right-corner"><i class="fa fa-share"></i></button>
+                    <button class="right-corner"><i class="fa fa-heart"></i></button> -->
+            </span>
+
+        </div>      
         <div class="other-info">
           <span class="product-title">{{ productdetails.product.name }}</span>
         </div>
@@ -47,7 +45,7 @@
           </div>
           <div>
             <span class="product-postdate">
-              {{productdetails.product.postDate | date:'dd MMMM yy'}} 
+              {{productdetails.product.postDateTime | date:'dd MMM yy' }} 
             </span>
           </div>
         </div>
@@ -58,7 +56,7 @@
         <div class="sdetails">
           <span class="seller-name">{{ productdetails.seller.name }}</span>
           <!-- <span class="seller-duration">Member since {{productdetails.sellerduartion}}</span> -->
-          <div class="if-preview-is-on" *ngIf='isPreviewOn'>
+          <div class="if-preview-is-on" *ngIf='isPreviewEnabled'>
               <span class="seller-duration">Your ad expires on
                 {{productdetails.product.expirationDate | date:'dd MMM yy'}} 
               </span>
@@ -78,6 +76,25 @@
               <div>** *** ****</div>
               <div class="shownub">Show number</div> -->
         </div>
+      </div>
+      <div class="pick-up-address" *ngIf="isAddressPresent">
+          <span class="address">Pickup Address:</span>
+          <div>
+              {{ productdetails.product.pickupAddress.line1 }},
+              {{ productdetails.product.pickupAddress.line2 }}
+          </div>
+          <div>
+            <span>City:</span>  
+            {{ productdetails.product.pickupAddress.city }}
+          </div>
+          <div>
+            <span>State:</span>  
+            {{ productdetails.product.pickupAddress.state }}
+          </div>
+          <div>
+            <span>Pincode:</span>  
+            {{ productdetails.product.pickupAddress.pincode }}
+          </div>
       </div>
     </div>
   </div>

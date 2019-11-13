@@ -22,6 +22,7 @@ export class AdvertismentDetailsComponent implements OnInit, OnDestroy {
   isPreviewOn: string = 'false';
   isPreviewEnabled: boolean = false;
   images: string[] = [];
+  imageHost: string = ""
   constructor(private productService: ProductService, private router: ActivatedRoute, private routerToProducts: Router) {
   }
 
@@ -51,12 +52,25 @@ export class AdvertismentDetailsComponent implements OnInit, OnDestroy {
           this.isAddressPresent = false;
         else
           this.isAddressPresent = true;
-        this.images.push(environment.imageApiSettings.BaseUrl + this.productdetails.product.heroImage);
-        if (this.productdetails.product.images != null) {
-          for (let productImage in this.productdetails.product.images) {
-            this.images.push(environment.imageApiSettings.BaseUrl + this.productdetails.product.images[productImage]);
+
+        if(environment.isMockingEnabled)
+        {
+          this.images.push(this.productdetails.product.heroImage);
+          if (this.productdetails.product.images != null) {
+            for (let productImage in this.productdetails.product.images) {
+              this.images.push(this.productdetails.product.images[productImage]);
+            }
           }
         }
+        else{
+          this.images.push(environment.imageApiSettings.BaseUrl+ this.productdetails.product.heroImage);
+          if (this.productdetails.product.images != null) {
+            for (let productImage in this.productdetails.product.images) {
+              this.images.push(environment.imageApiSettings.BaseUrl+ this.productdetails.product.images[productImage]);
+            }
+          }
+        }
+        
       }
       else {
         this.noProductResponse = true;

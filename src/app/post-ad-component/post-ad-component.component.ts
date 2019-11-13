@@ -25,6 +25,7 @@ export class PostAdComponentComponent implements OnInit {
   serverUrl=environment.imageApiSettings.BaseUrl; //the root url of the server
 
   atleastOneImage = true;
+  allowSubmit = false;
   invalidImage = false;
   connectionError = false;
   errMsg="";
@@ -51,9 +52,11 @@ export class PostAdComponentComponent implements OnInit {
 
   PostProduct()
   {
+    console.log(this.productModel);
     this.productImages.HeroImageUrl = this.productModel.heroImage;
     this.productImages.ImageUrls = this.productModel.images;
-    this.imageService.storeImages(this.productImages).subscribe();
+    if(!this.isMock)
+      this.imageService.storeImages(this.productImages).subscribe();
     this.productService.AddProduct(this.productModel).subscribe(
       response => {
         this.productService.sendProductObj(response);
@@ -183,6 +186,10 @@ export class PostAdComponentComponent implements OnInit {
     {
       this.imageArray[id].imageURL = environment.imageApiSettings.mockImageUrl;
       this.productModel.images.push(environment.imageApiSettings.mockImageUrl);
+      if(id==0)
+      {
+        this.selectHeroImg(id);
+      }
     }
     
     else if(this.isValidImage(event.target.files[0]))
@@ -210,7 +217,10 @@ export class PostAdComponentComponent implements OnInit {
       this.imageArray.push(image);
     }
     if(this.imageCounter>1)
+    {
       this.atleastOneImage=true;
+      this.allowSubmit = true;
+    }
     
     // If the file enterd was invalid delete the extra image holder created
     if(err)
@@ -246,16 +256,19 @@ export class PostAdComponentComponent implements OnInit {
     }
 
     if(this.imageCounter<=1)
+    {
       this.atleastOneImage=false;
+      this.allowSubmit = false;
+    }
   }
 
   selectHeroImg(id) {
-    for (let index = 0; index < this.imageArray.length; index++) {
-      if (index != id) {
-        this.imageArray[index].pictureContainerStyle = "1px solid lightgrey";
-        this.imageArray[index].heroImage = "none";
-      }
-    }
+    // for (let index = 0; index < this.imageArray.length; index++) {
+    //   if (index != id) {
+    //     this.imageArray[index].pictureContainerStyle = "1px solid lightgrey";
+    //     this.imageArray[index].heroImage = "none";
+    //   }
+    // }
     this.imageArray[id].pictureContainerStyle = "4px solid blue";
     this.productModel.heroImage=this.productModel.images.pop();
   }

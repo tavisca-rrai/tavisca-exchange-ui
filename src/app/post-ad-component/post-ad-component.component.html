@@ -50,7 +50,7 @@
         
         <div class="form-group">
             <label for="dateOfPurchase">Date of purchase</label>
-            <input [(ngModel)]="productModel.purchasedDate" (change)="validateDate($event)" class="form-control" type="date" name="dateOfPurchase" required>
+            <input [(ngModel)]="productModel.purchasedDate" (change)="validateDate($event)" class="form-control" type="date" name="dateOfPurchase">
             <div class="alert alert-danger" [style.display]="purchaseDate">
                 Date must not be greater than todays date.
             </div>
@@ -99,7 +99,7 @@
                         <div class="spinner-border text-primary" role="status" [style.display]="image.imageLoaderProperty">
                             <span class="sr-only">Loading...</span>
                         </div>
-                        <img (click)="selectHeroImg(i)" [src]="image.imageURL" [style.display]="image.imageDisplayValue" />
+                        <img  [src]="image.imageURL" [style.display]="image.imageDisplayValue" />
 
                         <div class="closeButton">
                             <button [style.display]="image.crossBtnValue" (click)="removeImage(i)"><i  class="fa fa-close"></i></button>
@@ -123,7 +123,7 @@
         </div>
 
         <div class="button-container">
-            <button type="submit" class="btn btn-primary" (click)="PostProduct()"  [disabled]="!atleastOneImage || !postAdForm.valid">Submit</button>
+            <button type="submit" class="btn btn-primary" (click)="PostProduct()"  [disabled]="!allowSubmit || !postAdForm.valid">Submit</button>
             <button type="button" routerLink="../" class="btn btn-danger">Cancel</button>
         </div>
     </form>

@@ -12,6 +12,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
+  userId: string;
   userProfile: UserProfile;
   hideMenu: boolean;
   showActiveAds: boolean;
@@ -23,12 +24,11 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
     this.showActiveAds = true;
-    let userId: string;
     this.activatedRouter.params.subscribe((params: Params) => {
-      userId = params['id'];
+      this.userId = params['id'];
     });
 
-    this.userService.getUserProfile(userId).subscribe(
+    this.userService.getUserProfile(this.userId).subscribe(
       (response: GetUserProfileResponse) => {
         this.userProfile = response.userProfile;
       },

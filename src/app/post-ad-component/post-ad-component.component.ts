@@ -3,6 +3,7 @@ import { ImageProperty } from '../models/imageProperty';
 import { DatePipe } from '@angular/common';
 import { Product } from '../models/product';
 import { ProductService } from '../services/product.service';
+import { Router } from '@angular/router';
 import { HttpClient, HttpRequest, HttpEventType, HttpResponse, } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
@@ -36,7 +37,7 @@ export class PostAdComponentComponent implements OnInit {
   addressDisplayValue = "none";
   purchaseDate = "none";
   imageCounter = 1;
-  constructor(private imageService:ImageService, public datepipe: DatePipe,private productService:ProductService, public http:HttpClient,public sanatizer : DomSanitizer){} //use for validation of date 
+    constructor(private imageService: ImageService, private router: Router, public datepipe: DatePipe,private productService:ProductService, public http:HttpClient,public sanatizer : DomSanitizer){} //use for validation of date 
   productModel : Product;
   productImages: ProductImages;
 
@@ -54,13 +55,11 @@ export class PostAdComponentComponent implements OnInit {
     this.imageService.storeImages(this.productImages).subscribe();
     this.productService.AddProduct(this.productModel).subscribe(
       response => {
-        console.log(response);
-        
-        if(response.id!=null && response.id.trim()!=""){
-        alert("Product Added Successfully!!");
+        this.productService.sendProductObj(response);
+        if (response.id != null && response.id.trim() != "") {
+          this.router.navigate(['products/details', response.id],{queryParams:{preview:'true'}});
         }
-        else
-        {
+        else {
           alert("Something went wrong");
         }
       },
@@ -70,40 +69,35 @@ export class PostAdComponentComponent implements OnInit {
       }
     );
   }
-
-  date =  new Date();
+  date = new Date();
   latest_date = this.datepipe.transform(this.date, 'yyyy-MM-dd');
-  validateDate(id)
-  {
+  validateDate(id) {
     var userDate = id.target.value;
-    if(userDate > this.latest_date){
-      this.purchaseDate="block";
-    }else{
-      this.purchaseDate="none";
+    if (userDate > this.latest_date) {
+      this.purchaseDate = "block";
+    } else {
+      this.purchaseDate = "none";
     }
   }
 
-  validateAddress(event)
-  {
-    if(event.target.checked)
-    {
-      this.addressDisplayValue="block";
-      this.isAddressSelected=true;
+  validateAddress(event) {
+    if (event.target.checked) {
+      this.addressDisplayValue = "block";
+      this.isAddressSelected = true;
     }
-    else{
-      this.addressDisplayValue="none"
-      this.isAddressSelected=false;
+    else {
+      this.addressDisplayValue = "none"
+      this.isAddressSelected = false;
     }
   }
 
-  imageLoader(id)
-  {
-    this.imageArray[id].crossBtnValue="none";
-    this.imageArray[id].imageDisplayValue="none";
-    this.imageArray[id].addEditProperty="none";
+  imageLoader(id) {
+    this.imageArray[id].crossBtnValue = "none";
+    this.imageArray[id].imageDisplayValue = "none";
+    this.imageArray[id].addEditProperty = "none";
     this.imageArray[id].pictureContainerStyle = "1px solid lightgrey";
     this.imageArray[id].heroImage = "none";
-    this.imageArray[id].imageLoaderProperty="";
+    this.imageArray[id].imageLoaderProperty = "";
   }
 
   isValidImage(file):boolean{
@@ -210,9 +204,8 @@ export class PostAdComponentComponent implements OnInit {
 
 
     this.imageCounter += 1;
-    if(this.imageCounter <= this.maxNoOfImage)
-    {
-      let image =new ImageProperty();
+    if (this.imageCounter <= this.maxNoOfImage) {
+      let image = new ImageProperty();
       this.imageArray.push(image);
     }
     if(this.imageCounter>1)
@@ -231,7 +224,7 @@ export class PostAdComponentComponent implements OnInit {
     if(this.imageCounter!=0 && this.imageArray[id].pictureContainerStyle =="4px solid blue")
     {
       this.selectHeroImg(0);
-      this.imageArray[0].heroImage="";
+      this.imageArray[0].heroImage = "";
     }
 
     this.imageArray[id].iconOfButton = "plus";
@@ -242,14 +235,12 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray[id].pictureContainerStyle = "1px solid lightgrey";
     this.productModel.Images.splice(id,1);
 
-    if(this.imageCounter>this.minNoOfImage)
-    {
-      this.imageArray.splice(id,1);
+    if (this.imageCounter > this.minNoOfImage) {
+      this.imageArray.splice(id, 1);
       this.imageCounter -= 1;
     }
-    if(this.imageCounter==this.maxNoOfImage)
-    {
-      let image =new ImageProperty();
+    if (this.imageCounter == this.maxNoOfImage) {
+      let image = new ImageProperty();
       this.imageArray.push(image);
     }
 
@@ -257,21 +248,18 @@ export class PostAdComponentComponent implements OnInit {
       this.atleastOneImage=false;
   }
 
-  selectHeroImg(id)
-  {
-    for (let index = 0; index < this.imageArray.length; index++) 
-    {
-      if(index!=id)
-      {
+  selectHeroImg(id) {
+    for (let index = 0; index < this.imageArray.length; index++) {
+      if (index != id) {
         this.imageArray[index].pictureContainerStyle = "1px solid lightgrey";
-        this.imageArray[index].heroImage="none";
-      }      
+        this.imageArray[index].heroImage = "none";
+      }
     }
     this.imageArray[id].pictureContainerStyle = "4px solid blue";
     this.productModel.HeroImage=this.productModel.Images.pop();
   }
 
-  imageClick(id){
+  imageClick(id) {
     document.getElementById(id).click();
   }
 

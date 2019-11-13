@@ -2,7 +2,7 @@
     <form #postAdForm="ngForm">
         <div class="form-group">
             <label>Title*</label>
-            <input type="text" id="title" minlength="2" [(ngModel)]="productModel.Name" name="Name" #title="ngModel" class="form-control" placeholder="Product Title.." required>
+            <input type="text" id="title" minlength="2" [(ngModel)]="productModel.name" name="Name" #title="ngModel" class="form-control" placeholder="Product Title.." required>
             <div class="alert alert-danger" *ngIf="title.touched && !title.valid">
                 <div *ngIf="title.errors.required">Title is required</div>
                 <div *ngIf="title.errors.minlength">Title should be minimum 2 Characters.</div>

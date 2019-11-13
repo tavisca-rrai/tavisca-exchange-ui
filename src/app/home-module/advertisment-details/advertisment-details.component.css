@@ -7,9 +7,9 @@
     border: none;
 }
 
-div {
+/* div {
     border: 1px solid #000000;
-}
+} */
 .go-back-div
 {
     width: 100%;
@@ -53,9 +53,10 @@ div {
     position: relative;
 }
 
-.product-carousel, .product-description {
+.product-carousel, .product-description, .seller-details, .product-details, .pick-up-address{
     /* width: 95%; */
     margin: 0 auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .product-description {
@@ -186,11 +187,47 @@ div {
     {
         border: none;
     }
-.price {
+.price 
+{
     font-weight: bold; 
     font-size: 34px; 
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:sans-serif;
 } 
+.null-response
+{
+    border: none;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+.if-preview-is-on 
+{
+    margin: 0;
+    padding: 0;
+}
+
+.negotiable-property
+{
+    color: gray;
+    padding-top: 15px;
+    font-size: 12px;
+    float: right;
+}
+.pick-up-address div
+{
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+.address 
+{
+    font-weight: bold;
+}
+.seller-description
+{
+    font-weight: bold;
+}
 @media only screen and (min-width: 768px) 
 {
     .product
@@ -251,14 +288,9 @@ div {
         height:100%;
         position: relative;
     }
-    /* .carousel-inner
-    {
-        height:280px;
-    }
-     */
-    .product-carousel, .product-description {
-        /* width: 95%; */
+     .product-carousel, .product-description, .seller-details, .product-details, .pick-up-address{
         margin: 0 auto;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     }
     .product-description {
         border: 1px solid grey;
@@ -283,5 +315,47 @@ div {
         background-image : url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ff0000' viewBox='0 0 8 8'%3E%3Cpath d='M1.5 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
         color: black;
     }
-
+    .null-response div
+    {
+        border: none;
+    }
+ 
+    .negotiable-property
+    {
+        padding-top:10px;
+        color: gray;
+        font-size: 17px;
+        float: right;
+    }
+    .if-preview-is-on 
+    {
+        margin: 0;
+        padding: 0;
+    }
+    .pick-up-address
+    {
+        width: 100%;
+    }
+    .pick-up-address div
+    {
+        border: none;
+        margin: 0;
+        padding: 0;
+        
+    }
+    .address 
+    {
+        font-weight: bold;
+    }
+    .seller-description
+    {
+        font-weight: bold;
+    }
+    .post-ad-message
+    {
+        text-align: center;
+        justify-content: center;
+        font-weight: bold;
+        color:lightgreen;
+    }
 }

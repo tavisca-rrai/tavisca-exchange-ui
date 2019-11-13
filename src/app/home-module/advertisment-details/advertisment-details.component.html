@@ -78,14 +78,20 @@
         </div>
       </div>
       <div class="pick-up-address" *ngIf="isAddressPresent">
+          <span class="address">Pickup Address:</span>
           <div>
-              <span>Pickup Address:</span> 
               {{ productdetails.product.pickupAddress.line1 }},
-              {{ productdetails.product.pickupAddress.line2 }},
-              {{ productdetails.product.pickupAddress.city }},
-              {{ productdetails.product.pickupAddress.state }}
+              {{ productdetails.product.pickupAddress.line2 }}
           </div>
-          <div class="pincode">
+          <div>
+            <span>City:</span>  
+            {{ productdetails.product.pickupAddress.city }}
+          </div>
+          <div>
+            <span>State:</span>  
+            {{ productdetails.product.pickupAddress.state }}
+          </div>
+          <div>
             <span>Pincode:</span>  
             {{ productdetails.product.pickupAddress.pincode }}
           </div>

@@ -48,9 +48,9 @@ export class AdvertismentDetailsComponent implements OnInit,OnDestroy {
       {
         this.productdetails = this.productService.GetPreview(product);
         if(this.productdetails.product.price.isNegotiable)
-          this.isPriceNegotiable = "(Negotiable)";
+          this.isPriceNegotiable = "Negotiable";
         else
-          this.isPriceNegotiable = "(Non-Negotiable)";
+          this.isPriceNegotiable = "Non-Negotiable";
         if(this.productdetails.product.pickupAddress.city == null)
           this.isAddressPresent=false;
         else
@@ -93,9 +93,9 @@ export class AdvertismentDetailsComponent implements OnInit,OnDestroy {
             this.productdetails.product = response.product;
             this.productdetails.seller = response.seller;
             if(this.productdetails.product.price.isNegotiable)
-              this.isPriceNegotiable = "(Negotiable)";
+              this.isPriceNegotiable = "Negotiable";
             else
-              this.isPriceNegotiable = "(Non-Negotiable)";
+              this.isPriceNegotiable = "Non-Negotiable";
               if(this.productdetails.product.pickupAddress.city == null)
                 this.isAddressPresent=false;
               else

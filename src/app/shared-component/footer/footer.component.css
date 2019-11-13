@@ -16,7 +16,9 @@ footer .contents{
 {
     color: #5383d3;
 }
-
+.contents .about{
+    text-align: right;
+}
 .logo{
     flex: 1;
     text-align: right;

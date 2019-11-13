@@ -38,7 +38,7 @@ app-left-nav-bar{
         margin-left: 0%!important;
     }
     .left-side-bar{
-        display: none;
+        display: block;
     }
 }
 

@@ -41,7 +41,7 @@
 }
 
 .navbar-items {
-    padding: 5px 11px 5px 20px;
+    padding: 5px 11px 5px 10px;
     width: inherit;
     margin:0px;
 }
@@ -78,3 +78,4 @@
         display: none;
     }
 }
+

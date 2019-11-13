@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { GetProductsListResponse } from 'src/app/models/get-products-list-response';
 import { Product } from 'src/app/models/product';
+<<<<<<< HEAD
 import {ErrorResponse} from '../../models/error-response';
+=======
+>>>>>>> 5d81c83fc6915e08bbfb9031d662c0fbc90b4cbd
 import { ProductSort } from '../../models/product-sort';
 import { ProductSortService } from 'src/app/services/product-sort.service';
 
@@ -15,11 +18,14 @@ import { ProductSortService } from 'src/app/services/product-sort.service';
 export class ProductsListComponent implements OnInit {
 
   adsList: Product[];
+<<<<<<< HEAD
   error = new ErrorResponse;
   advertiseId : string;
   pageNumber : number = 1;
   pageSize : number = 100;
 
+=======
+>>>>>>> 5d81c83fc6915e08bbfb9031d662c0fbc90b4cbd
   productSortOptions:ProductSort;
   monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"

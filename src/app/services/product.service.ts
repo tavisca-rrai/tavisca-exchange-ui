@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { IproductService } from '../models/iproduct-service';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+<<<<<<< HEAD
 import { Seller } from './../models/seller';
 import { Observable, of ,throwError,BehaviorSubject} from 'rxjs';
 import { ProductMockService } from './product-mock.service';
@@ -12,6 +13,13 @@ import {ErrorResponse} from '../models/error-response'
 import { Product } from './../models/product'
 
 
+=======
+import { Product } from './../models/product'
+import { Observable, of, BehaviorSubject } from 'rxjs';
+import { ProductMockService } from './product-mock.service';
+import { GetProductsListResponse } from '../models/get-products-list-response';
+import { GetProductDetailsResponse } from '../models/get-product-details-response';
+>>>>>>> 5d81c83fc6915e08bbfb9031d662c0fbc90b4cbd
 import { ProductSort } from '../models/product-sort';
 
 @Injectable({
@@ -119,6 +127,7 @@ GetApiPreview(product:Product):GetProductDetailsResponse
       }).pipe(retry(1),catchError(this.errorHandler));
     }
   }
+<<<<<<< HEAD
   errorHandler(error : HttpErrorResponse)
   {
     let errorMessage = '';
@@ -129,6 +138,9 @@ GetApiPreview(product:Product):GetProductDetailsResponse
     } 
     return throwError(errorMessage);
   }
+=======
+
+>>>>>>> 5d81c83fc6915e08bbfb9031d662c0fbc90b4cbd
   setProductSortOptions(productSortOptions:ProductSort){
     this._productSortOptions = productSortOptions;
     this._productSortOptionsObservable.next(this._productSortOptions);

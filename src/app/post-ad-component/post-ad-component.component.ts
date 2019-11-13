@@ -4,7 +4,7 @@ import { DatePipe } from '@angular/common';
 import { Product } from '../models/product';
 import { ProductService } from '../services/product.service';
 import { CategoryService } from '../services/category-service/category.service'
-import { Category } from '../models/category';
+
 import { GetCategoryResponse } from '../models/get-category-response';
 
 @Component({
@@ -18,8 +18,8 @@ export class PostAdComponentComponent implements OnInit {
   maxNoOfImage = 5;
   isAddressSelected: boolean = false;
   imageArray: ImageProperty[] = [];
-  categories: Category[] = [];
-  //categories = ["Home", "Electronics", "Car", "Bike"]; // this is provided by categories api
+  //categories: Category[] = [];
+  categories = []; // this is provided by categories api
   //
   states = ["Andra Pradesh", "Go", "Gujarat", "Haryana", "Himachal Pradesh", "Jammu and Kashmir", "Jharkhand", "Karnataka",
     "Kerala", "Madya Pradesh", "Maharashtra", "Punjab", "Rajasthan"]
@@ -47,7 +47,7 @@ export class PostAdComponentComponent implements OnInit {
       response => {
         response: GetCategoryResponse
         console.log(response);
-        this.categories = response.categories;
+        this.categories = response.listOfCategory;
       },
       err => {
         console.log(err.error);

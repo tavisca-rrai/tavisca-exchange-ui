@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ICategoryService } from 'src/app/models/icategory-service';
-import { Category } from 'src/app/models/category';
+
 import { GetCategoryResponse } from 'src/app/models/get-category-response';
 import { Observable, of } from 'rxjs';
 
@@ -11,8 +11,9 @@ export class CategoryMockService implements ICategoryService {
 
   constructor() { }
 
-  getDummyCategoryList(): Category[] {
+  getDummyCategoryList(): string[] {
 
+    /*
     let category1 = new Category();
     category1.Id = 12344;
     category1.Name = "Books";
@@ -37,14 +38,15 @@ export class CategoryMockService implements ICategoryService {
     category6.Id = 47282;
     category6.Name = "vehicle";
 
-    let listofcategory: Category[] = [category1, category2, category3, category4, category5, category6];
+    */
+    let listofcategory: string[] = ["vehicle", "furniture","Assoseries", "Household", "Electronics", "Books"];
 
     return listofcategory;
   }
 
   getCategories(): Observable<GetCategoryResponse> {
     var getCategoryResponse = new GetCategoryResponse();
-    getCategoryResponse.categories = this.getDummyCategoryList();
+    getCategoryResponse.listOfCategory = this.getDummyCategoryList();
     return of(getCategoryResponse);
 
   }

@@ -13,6 +13,6 @@ export const environment = {
     addProductPath: "/product",
     adDetailsPath: "",
     adsListPath: "/products",
-    getCategoriesPath: "/category"
+    getCategoriesPath: "/categories"
   }
 };

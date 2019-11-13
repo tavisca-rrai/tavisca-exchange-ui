@@ -20,14 +20,8 @@ export class ProductMockService implements IproductService {
     // set other details coming from web
     return of(product);
   }
-  GetPreview(product: Product): GetProductDetailsResponse 
+  GetMockPreview(product: Product): GetProductDetailsResponse 
   {   
-    if (!product) 
-    {
-      return null;
-    }
-    else
-    {
       let sellerObj = new Seller();
       sellerObj.id = "1";
       sellerObj.name = "Nikita Narkhede";
@@ -35,7 +29,6 @@ export class ProductMockService implements IproductService {
       productpreviewObj.seller = sellerObj;
       productpreviewObj.product = product;
       return productpreviewObj;
-    }
   }
 
   getDummyProductList(): Product[] {

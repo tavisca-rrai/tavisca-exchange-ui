@@ -1,4 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Ng5SliderModule } from 'ng5-slider';
 import { NgModule } from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from "@angular/forms";
@@ -34,6 +36,8 @@ import { AdvertismentDetailsComponent } from './home-module/advertisment-details
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    Ng5SliderModule,
     FormsModule,
     CustomFormsModule,
     AppRoutingModule,

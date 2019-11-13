@@ -3,7 +3,9 @@
 .user-profile a {
     color: #fff;
 }
-
+.fa.fa-bars{
+    cursor: pointer;
+}
 .header-icon {
     margin-right: 20px;
 }

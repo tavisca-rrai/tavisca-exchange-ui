@@ -4,13 +4,12 @@
 }
 
 .left-side-bar {
-    width: 200px;
+    width: 350px;
     background-color: #fff;
-    height: 91%;
     box-sizing: border-box;
-    position: fixed;
-    overflow-y: scroll;
+    overflow-y: hidden;
     overflow-x: hidden;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 app-left-nav-bar{
     width: 200px;
@@ -39,6 +38,10 @@ app-left-nav-bar{
     }
     .left-side-bar{
         display: block;
+        position: fixed;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        height: 90%;
     }
 }
 
@@ -46,4 +49,5 @@ app-left-nav-bar{
     app-advertisments-list {
         grid-template-columns: 33.33% 33.33% 33.33%;
     }
+
 }

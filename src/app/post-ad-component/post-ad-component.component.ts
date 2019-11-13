@@ -31,6 +31,7 @@ export class PostAdComponentComponent implements OnInit {
   productModel: Product;
 
   ngOnInit() {
+    window.scroll(0,0);
     let image = new ImageProperty();
     this.imageArray.push(image);
     this.productModel = new Product();

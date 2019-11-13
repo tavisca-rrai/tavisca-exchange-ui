@@ -3,10 +3,10 @@
     <div class="left-side-bar" [@openClose]="hideMenu ? 'open' : 'closed'">
         <app-left-nav-bar></app-left-nav-bar>
     </div>
-    <div class="content" [@openClose]="hideMenu ? 'contentOpen' : 'contentClosed'">
+    <div class="content" >
         <router-outlet></router-outlet>
     </div>
 </div>
-<div class="footer" [@openClose]="hideMenu ? 'contentOpen' : 'contentClosed'">
+<div class="footer">
     <app-footer></app-footer>
 </div>

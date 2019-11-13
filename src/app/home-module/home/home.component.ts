@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, OnInit, DoCheck, HostListener } from '@angular/core';
 import {  trigger,  state,  style,  animate,  transition } from '@angular/animations';
 import { Router } from '@angular/router';
 @Component({
@@ -11,25 +11,26 @@ import { Router } from '@angular/router';
         width:'0px'
       })),
       state('closed', style({
-        width:'200px'
+        width:'250px'
       })),
       state('contentOpen', style({
         marginLeft:'0px'
       })),
       state('contentClosed', style({
-        marginLeft:'200px'
+        marginLeft:'250px'
       })),
       transition('open <=> closed', [
-        animate('0.5s')
+        animate('0.3s')
       ]),
       transition('contentOpen <=> contentClosed', [
-        animate('0.5s')
+        animate('0.3s')
       ])
     ]),
   ],
 })
 export class HomeComponent implements OnInit , DoCheck{
   hideMenu:boolean;
+  isMobile:boolean = false;
   constructor(private router: Router) { }
   
   ngDoCheck(): void {
@@ -38,6 +39,19 @@ export class HomeComponent implements OnInit , DoCheck{
    }
   }
   ngOnInit() {
+    if(window.innerWidth < 768){
+      this.isMobile = true;  
+    }else{
+      this.isMobile = false;
+    }
+  }
+  @HostListener('window:resize',['$event.target'])
+  onScreenSize(event){
+    if(event.innerWidth < 768) {
+      this.isMobile = true;
+    }else{
+      this.isMobile = false;
+    }
   }
   toggleMenuEvent(hideMenu:boolean){
     this.hideMenu = hideMenu;

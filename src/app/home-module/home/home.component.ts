@@ -30,6 +30,7 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit , DoCheck{
   hideMenu:boolean;
+  userId: string;
   isMobile:boolean = false;
   constructor(private router: Router) { }
   
@@ -53,7 +54,8 @@ export class HomeComponent implements OnInit , DoCheck{
       this.isMobile = false;
     }
   }
-  toggleMenuEvent(hideMenu:boolean){
+
+  toggleMenuEvent(hideMenu: boolean) {
     this.hideMenu = hideMenu;
   }
 }

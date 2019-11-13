@@ -67,11 +67,13 @@ export class ProductsListComponent implements OnInit {
     this.productSortService.getSortedProductsList(1,2,this.productSortOptions).subscribe(
       (response: GetProductsListResponse) => {
         this.adsList = response.products;
+        console.log(response.products);
       },
       err => {
         // TBA - error msg on ui
         console.log(err.error);
       }
     );
+    console.log(this.productSortOptions);
   }
 }

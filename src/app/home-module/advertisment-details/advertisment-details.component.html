@@ -4,8 +4,11 @@
 </div>
 <div class="parent" *ngIf='!noProductResponse'>
   <div class="post-ad-message" *ngIf='isPreviewEnabled'>
-    <span>Advertisement added Successfully!!   </span>
-    <span>  This is  How Your Advertisement Looks  </span>    
+    <span>Advertisement is added Successfully!! </span>
+    <span> This is How Your Advertisement Looks </span>
+  </div>
+  <div class="go-back-div" *ngIf="!isPreviewEnabled">
+    <a href="" [routerLink]="['../../']">Go Back</a>
   </div>
   <div class="product" >
     <div class="left-sidepanel">
@@ -20,21 +23,21 @@
       </div>
       <div class="product-description">
         <span class="desc-header">Description</span>
-        <span>{{productdetails.product.description}}</span>        
+        <span>{{productdetails.product.description}}</span>
       </div>
     </div>
     <div class="right-sidepanel">
       <div class="product-details">
         <div class="prod-details-top-row">
-            <span class="negotiable-property" >{{isPriceNegotiable}}</span>
-            <span class="price">
-                {{ productdetails.product.price.money.amount | currency: 'INR' : 'symbol' : '1.0-0'  }}
-                <!-- (Negotiable) -->
-                <!-- <button class="right-corner"><i class="fa fa-share"></i></button>
+          <span class="negotiable-property">{{isPriceNegotiable}}</span>
+          <span class="price">
+            {{ productdetails.product.price.money.amount | currency: 'INR' : 'symbol' : '1.0-0'  }}
+            <!-- (Negotiable) -->
+            <!-- <button class="right-corner"><i class="fa fa-share"></i></button>
                     <button class="right-corner"><i class="fa fa-heart"></i></button> -->
-            </span>
+          </span>
 
-        </div>      
+        </div>
         <div class="other-info">
           <span class="product-title">{{ productdetails.product.name }}</span>
         </div>
@@ -45,7 +48,7 @@
           </div>
           <div>
             <span class="product-postdate">
-              {{productdetails.product.postDateTime | date:'dd MMM yy' }} 
+              {{productdetails.product.postDateTime | date:'dd MMM yy' }}
             </span>
           </div>
         </div>
@@ -57,20 +60,20 @@
           <span class="seller-name">{{ productdetails.seller.name }}</span>
           <!-- <span class="seller-duration">Member since {{productdetails.sellerduartion}}</span> -->
           <div class="if-preview-is-on" *ngIf='isPreviewEnabled'>
-              <span class="seller-duration">Your ad expires on
-                {{productdetails.product.expirationDate | date:'dd MMM yy'}} 
-              </span>
-              <div> 
-                <button>edit</button>
-                <button>delete</button>
-              </div>
+            <span class="seller-duration">Your ad expires on
+              {{productdetails.product.expirationDate | date:'dd MMM yy'}}
+            </span>
+            <div>
+              <button>edit</button>
+              <button>delete</button>
+            </div>
           </div>
         </div>
         <!-- <div *ngIf='!isPreviewOn'>
             <button>Chat with Seller</button> 
         </div> -->
-        
-        
+
+
         <div class="seller-contact">
           <!-- <span><i class="fa fa-phone"></i></span>
               <div>** *** ****</div>
@@ -78,23 +81,23 @@
         </div>
       </div>
       <div class="pick-up-address" *ngIf="isAddressPresent">
-          <span class="address">Pickup Address:</span>
-          <div>
-              {{ productdetails.product.pickupAddress.line1 }},
-              {{ productdetails.product.pickupAddress.line2 }}
-          </div>
-          <div>
-            <span>City:</span>  
-            {{ productdetails.product.pickupAddress.city }}
-          </div>
-          <div>
-            <span>State:</span>  
-            {{ productdetails.product.pickupAddress.state }}
-          </div>
-          <div>
-            <span>Pincode:</span>  
-            {{ productdetails.product.pickupAddress.pincode }}
-          </div>
+        <span class="address">Pickup Address:</span>
+        <div>
+          {{ productdetails.product.pickupAddress.line1 }},
+          {{ productdetails.product.pickupAddress.line2 }}
+        </div>
+        <div>
+          <span>City:</span>
+          {{ productdetails.product.pickupAddress.city }}
+        </div>
+        <div>
+          <span>State:</span>
+          {{ productdetails.product.pickupAddress.state }}
+        </div>
+        <div>
+          <span>Pincode:</span>
+          {{ productdetails.product.pickupAddress.pincode }}
+        </div>
       </div>
     </div>
   </div>

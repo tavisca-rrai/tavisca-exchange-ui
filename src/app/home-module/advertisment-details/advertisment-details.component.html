@@ -7,7 +7,10 @@
     <span>Advertisement is added Successfully!! </span>
     <span> This is How Your Advertisement Looks </span>
   </div>
-  <div class="product">
+  <div class="go-back-div" *ngIf="!isPreviewEnabled">
+    <a href="" [routerLink]="['../../']">Go Back</a>
+  </div>
+  <div class="product" >
     <div class="left-sidepanel">
       <div class="product-carousel">
         <ngb-carousel *ngIf="images">

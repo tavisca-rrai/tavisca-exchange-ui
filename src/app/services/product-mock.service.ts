@@ -1,17 +1,17 @@
 import { Product } from './../models/product';
 import { Seller } from './../models/seller';
-import { IproductService } from '../models/iproduct-service';
+import { IProductService } from '../models/i-product-service';
 import { Observable, of } from 'rxjs';
 import { GetProductDetailsResponse } from '../models/get-product-details-response';
 import { GetProductsListResponse } from '../models/get-products-list-response';
 
-export class ProductMockService implements IproductService {
+export class ProductMockService implements IProductService {
 
   constructor() { }
 
   AddProduct(product: Product): Observable<Product> {
     product.id = "P123";
-    product.status = "Active"; 
+    product.status = "Active";
 
     product.postDateTime = new Date("2018-06-06T00:00:00");
     product.expirationDate = new Date("2019-09-01");
@@ -20,15 +20,14 @@ export class ProductMockService implements IproductService {
     // set other details coming from web
     return of(product);
   }
-  GetMockPreview(product: Product): GetProductDetailsResponse 
-  {   
-      let sellerObj = new Seller();
-      sellerObj.id = "1";
-      sellerObj.name = "Nikita Narkhede";
-      let productpreviewObj = new GetProductDetailsResponse();
-      productpreviewObj.seller = sellerObj;
-      productpreviewObj.product = product;
-      return productpreviewObj;
+  GetMockPreview(product: Product): GetProductDetailsResponse {
+    let sellerObj = new Seller();
+    sellerObj.id = "1";
+    sellerObj.name = "Nikita Narkhede";
+    let productpreviewObj = new GetProductDetailsResponse();
+    productpreviewObj.seller = sellerObj;
+    productpreviewObj.product = product;
+    return productpreviewObj;
   }
 
   getDummyProductList(): Product[] {
@@ -239,13 +238,11 @@ export class ProductMockService implements IproductService {
   getDummyProductDetails(productId): GetProductDetailsResponse {
     let productObj = new Product();
     productObj = this.searchProduct(productId);
-  
-    if (!productObj) 
-    {
+
+    if (!productObj) {
       return null;
     }
-    else
-    {
+    else {
       let sellerObj = new Seller();
       sellerObj.id = "1";
       sellerObj.name = "Nikita Narkhede";
@@ -254,7 +251,7 @@ export class ProductMockService implements IproductService {
       productDetailsObj.product = productObj;
       return productDetailsObj;
     }
-    
+
   }
 
   searchProduct(productId: string): Product {

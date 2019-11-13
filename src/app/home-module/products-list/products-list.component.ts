@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../../services/product.service';
-import { GetProductsListResponse } from 'src/app/models/get-products-list-response';
+import { Component, OnInit, Input } from '@angular/core';
 import { Product } from 'src/app/models/product';
-import {ErrorResponse} from '../../models/error-response';
+import { UserService } from 'src/app/services/user/user.service';
+import { ProductService } from 'src/app/services/product.service';
+import { Router } from '@angular/router';
+import { GetProductsListResponse } from 'src/app/models/get-products-list-response';
+import { ErrorResponse } from '../../models/error-response';
 
 @Component({
   selector: 'app-products-list',
@@ -11,35 +13,46 @@ import {ErrorResponse} from '../../models/error-response';
 })
 
 export class ProductsListComponent implements OnInit {
+  @Input() adsList: Product[];
 
-  adsList: Product[];
+  noProductResponse: boolean = false;
+  pageNumber: number = 1;
+  pageSize: number = 100;
   error = new ErrorResponse;
-  advertiseId : string;
-  pageNumber : number = 1;
-  pageSize : number = 100;
+  advertiseId: string;
 
-  constructor(private productService: ProductService) { }
+  constructor(
+    private productService: ProductService,
+    private userService: UserService,
+    private router: Router
+  ) { }
+
   ngOnInit() {
-    this.productService.getProductsList(this.pageNumber, this.pageSize).subscribe(
-      (response: GetProductsListResponse) => {
-        let noProductResponse : boolean = false;
-        if(response == null)
-        {
+    if (this.router.url.includes("/products")) {
+      this.productService.getProductsList(3, 15).subscribe(
+        (response: GetProductsListResponse) => {
+          let noProductResponse: boolean = false;
+          if (response == null) {
             noProductResponse = true;
-            this.error.code=null;
-            this.error.message="No Products Found..";
-            this.productService.sendErrorObj(this.error); 
+            this.error.code = null;
+            this.error.message = "No Products Found..";
+            this.productService.sendErrorObj(this.error);
+          }
+          !response ? this.noProductResponse = true : this.adsList = response.products;
+        }, err => {
+          // TBA - error msg on ui
+          console.log(err.error);
+        });
+    } else if (this.router.url.includes("/profile")) {
+      this.userService.userAdsList.subscribe(
+        (response: Product[]) => {
+          this.adsList = response;
+        },
+        err => {
+          // TBA - error msg on ui
+          console.log(err.error);
         }
-        else
-        {
-          this.adsList = response.products;
-        }
-       
-      },
-      err => {
-        // TBA - error msg on ui
-        console.log(err.error);
-      }
-    );
+      );
+    }
   }
 }

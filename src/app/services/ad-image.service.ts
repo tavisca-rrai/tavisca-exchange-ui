@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { ProductImages } from '../models/ProductImages';
 
 @Injectable({
   providedIn: 'root'
@@ -24,9 +25,16 @@ export class ImageService {
 
   deleteImage(id):Observable<object>
   {
-    let url = this.serverUrl + environment.imageApiSettings.uploadImagePath + id;
-    console.log(url);
-    return this.http.delete(url);
+    let deleteUrl = this.serverUrl + environment.imageApiSettings.uploadImagePath + id;
+    console.log("Deleting: "+deleteUrl);
+    return this.http.delete(deleteUrl);
+  }
+
+  storeImages(productImages:ProductImages):Observable<object>
+  {
+    let storeUrl = this.serverUrl+environment.imageApiSettings.storeImagePath;
+    console.log("Moving: "+productImages);
+    return this.http.post(storeUrl,productImages);
   }
 
 }

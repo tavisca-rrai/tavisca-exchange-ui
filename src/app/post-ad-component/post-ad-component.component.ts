@@ -7,6 +7,7 @@ import { HttpClient, HttpRequest, HttpEventType, HttpResponse, } from '@angular/
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
 import { ImageService } from '../services/ad-image.service';
+import { ProductImages } from '../models/ProductImages';
 
 @Component({
   selector: 'app-post-ad-component',
@@ -37,20 +38,20 @@ export class PostAdComponentComponent implements OnInit {
   imageCounter = 1;
   constructor(private imageService:ImageService, public datepipe: DatePipe,private productService:ProductService, public http:HttpClient,public sanatizer : DomSanitizer){} //use for validation of date 
   productModel : Product;
-  
+  productImages: ProductImages;
+
   ngOnInit() {
     let image =new ImageProperty();
     this.imageArray.push(image);
     this.productModel=new Product();
+    this.productImages = new ProductImages();
   } 
-
-  submitted = false;
-  onSubmit() { 
-    this.submitted = true;
-  }
 
   PostProduct()
   {
+    this.productImages.HeroImageUrl = this.productModel.HeroImage;
+    this.productImages.ImageUrls = this.productModel.Images;
+    this.imageService.storeImages(this.productImages).subscribe();
     this.productService.AddProduct(this.productModel).subscribe(
       response => {
         console.log(response);
@@ -130,7 +131,7 @@ export class PostAdComponentComponent implements OnInit {
     let safeUrl;    
     console.log('File is completely uploaded!');
     imageUrl = this.serverUrl+event.body.imageUrl;
-    console.log(imageUrl);
+    console.log("recieved image url: "+imageUrl);
     safeUrl = this.sanatizer.bypassSecurityTrustUrl(imageUrl);  // to bypass sanatization of local url
     return safeUrl;
   }
@@ -147,8 +148,13 @@ export class PostAdComponentComponent implements OnInit {
             else if (event instanceof HttpResponse)
             {
               this.imageArray[id].imageURL = this.getImageUrl(event);
-              this.productModel.imageUrls.push(event.body.imageUrl.split("/")[1]); //storing only the name of the file not the url as it may change on the server side
+              this.productModel.Images.push(event.body.imageUrl); //storing only the name of the file not the url as it may change on the server side
               this.imageArray[id].ProgressBarDispProp="none";
+              if(id==0)
+              {
+                this.selectHeroImg(id);
+                this.imageArray[0].heroImage="";
+              }
             }
         },   
         error=>{
@@ -181,7 +187,7 @@ export class PostAdComponentComponent implements OnInit {
     if(this.isMock)
     {
       this.imageArray[id].imageURL = environment.imageApiSettings.mockImageUrl;
-      this.productModel.imageUrls.push(environment.imageApiSettings.mockImageUrl);
+      this.productModel.Images.push(environment.imageApiSettings.mockImageUrl);
     }
     
     else if(this.isValidImage(event.target.files[0]))
@@ -201,11 +207,7 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray[id].buttonName ="";
     this.imageArray[id].iconOfButton = "edit";
     this.imageArray[id].imageLoaderProperty="none";
-    if(id==0)
-    {
-      this.selectHeroImg(id);
-      this.imageArray[0].heroImage="";
-    }
+
 
     this.imageCounter += 1;
     if(this.imageCounter <= this.maxNoOfImage)
@@ -224,7 +226,7 @@ export class PostAdComponentComponent implements OnInit {
   removeImage(id)
   {
     //send the DELETE request and then remove from local
-    this.imageService.deleteImage(this.productModel.imageUrls[id]).subscribe();
+    this.imageService.deleteImage(this.productModel.Images[id]).subscribe();
 
     if(this.imageCounter!=0 && this.imageArray[id].pictureContainerStyle =="4px solid blue")
     {
@@ -238,7 +240,7 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray[id].buttonName = "Add";
     this.imageArray[id].iconOfButton = "plus";
     this.imageArray[id].pictureContainerStyle = "1px solid lightgrey";
-    this.productModel.imageUrls.splice(id,1);
+    this.productModel.Images.splice(id,1);
 
     if(this.imageCounter>this.minNoOfImage)
     {
@@ -266,7 +268,7 @@ export class PostAdComponentComponent implements OnInit {
       }      
     }
     this.imageArray[id].pictureContainerStyle = "4px solid blue";
-    this.productModel.heroImageUrl=this.productModel.imageUrls[id];
+    this.productModel.HeroImage=this.productModel.Images.pop();
   }
 
   imageClick(id){

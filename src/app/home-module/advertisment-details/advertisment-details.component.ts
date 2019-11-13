@@ -25,10 +25,10 @@ export class AdvertismentDetailsComponent implements OnInit {
     this.productService.getProductDetails(id).subscribe(
       (response: GetProductDetailsResponse) => {
         this.productdetails = response.productDetails;
-        this.images.push(this.productdetails.product.heroImageUrl);
-        for (let productImage in this.productdetails.product.imageUrls)
+        this.images.push(this.productdetails.product.HeroImage);
+        for (let productImage in this.productdetails.product.Images)
         {
-          this.images.push(this.productdetails.product.imageUrls[productImage]);
+          this.images.push(this.productdetails.product.Images[productImage]);
         }
       },
       err => {

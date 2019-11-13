@@ -1,22 +1,23 @@
 #post-ad-container {
     margin: 0 auto;
-    max-width: 500px;
+    max-width: 40%;
     border-radius: 5px;
     padding: 20px;
     font-family: sans-serif;
     font-weight: lighter;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-
+ 
 .button-container {
     margin: 0 auto;
-    width: 50%;
-}
-
-#post-ad-container .btn {
     width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+ 
+#post-ad-container .button-container .btn {
+    width: 40%;
     border-radius: 15px;
-    margin: 0px;
 }
 
 #uploadImage {
@@ -104,4 +105,36 @@
 
 .img-error{
     font-size: 12px;
+}
+
+
+/*DataPicker code - see below- >*/
+ 
+input[type="date"] {
+    position: relative;
+}
+ 
+input[type="date"]:after {
+    content: "\25BC";
+    color: #555;
+    padding: 0 5px;
+}
+ 
+input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    height: auto;
+    color: transparent;
+    background: transparent;
+}
+ 
+@media only screen and (max-width: 700px) {
+    #post-ad-container {
+        margin: 10px auto;
+        max-width: 100%;
+    }
 }

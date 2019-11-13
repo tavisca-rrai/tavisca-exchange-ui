@@ -1,5 +1,5 @@
 <div id="post-ad-container">
-    <form #postAdForm="ngForm" (ngSubmit)="onSubmit()">
+    <form #postAdForm="ngForm">
         <div class="form-group">
             <label>Title*</label>
             <input type="text" id="title" minlength="2" [(ngModel)]="productModel.Name" name="Name" #title="ngModel" class="form-control" placeholder="Product Title.." required>
@@ -17,6 +17,16 @@
         </div>
 
         <div class="form-group">
+            <label for="discription ">Description*</label>
+            <textarea [(ngModel)]="productModel.description" id="discription" minlength="4" name="discription" #discription="ngModel" class="form-control" type="text" placeholder="Product name.." required></textarea>
+            <div class="alert alert-danger" *ngIf="discription.touched && !discription.valid">
+                <div *ngIf="discription.errors.required">Description is required</div>
+                <div *ngIf="discription.errors.minlength">Description should be minimum 4 Characters.</div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
             <label for="price">Price*</label>
             <div class="input-group">
                 <span class="input-group-text">₹</span>
@@ -29,11 +39,12 @@
         </div>
 
         <div class="form-group">
-            <label for="discription ">Description*</label>
-            <textarea [(ngModel)]="productModel.description" id="discription" minlength="4" name="discription" #discription="ngModel" class="form-control" type="text" placeholder="Product name.." required></textarea>
-            <div class="alert alert-danger" *ngIf="discription.touched && !discription.valid">
-                <div *ngIf="discription.errors.required">Description is required</div>
-                <div *ngIf="discription.errors.minlength">Description should be minimum 4 Characters.</div>
+            <label for="negotiable">Negotiable</label>
+            <div class="radio">
+                <label><input type="radio" [(ngModel)]="productModel.price.isNegotiable"  name="isNegotiable" [value]="true">Yes</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio"  [(ngModel)]="productModel.price.isNegotiable"  name="isNegotiable" [value]="false">No</label>
             </div>
         </div>
         
@@ -44,43 +55,33 @@
                 Date must not be greater than todays date.
             </div>
         </div>
-        
-        <div class="form-group">
-            <label for="negotiable">Negotiable</label>
-            <div class="radio">
-                <label><input type="radio" [(ngModel)]="productModel.price.isNegotiable"  name="isNegotiable" [value]="true">Yes</label>
-            </div>
-            <div class="radio">
-                <label><input type="radio"  [(ngModel)]="productModel.price.isNegotiable"  name="isNegotiable" [value]="false">No</label>
-            </div>
-        </div>
 
         <div class="form-group">
             <label style="margin-right: 20px;"> Address </label>
             <input type="checkbox" (click)="validateAddress($event)" [value]='isAddressSelected'>
             <div class="addresss" [style.display]="addressDisplayValue">
                 <label>Line 1</label>
-                <input [(ngModel)]="productModel.pickupAddress.line1" name="line1" [required]="isAddressSelected" #line1="ngModel" class="form-control" type="text">
+                <input [(ngModel)]="productModel.pickupAddress.line1" name="line1" minlength="2" [required]="isAddressSelected" #line1="ngModel" class="form-control" type="text">
                 <div class="alert alert-danger" *ngIf="line1.touched && !line1.valid">
-                    <div *ngIf="line1.errors.required">Title is required</div>
-                    <div *ngIf="line1.errors.minlength">Title should be minimum 2 Characters.</div>
+                    <div *ngIf="line1.errors.required">Line 1 is required</div>
+                    <div *ngIf="line1.errors.minlength">Line 1 should be minimum 2 Characters.</div>
                 </div>
 
                 <label>Line 2</label>
                 <input [(ngModel)]="productModel.pickupAddress.line2" name="line2" class="form-control" type="text">
 
                 <label>City</label>
-                <input id="city" [(ngModel)]="productModel.pickupAddress.city" name="city" [required]="isAddressSelected" #city="ngModel" class="form-control" type="text">
+                <input id="city" [(ngModel)]="productModel.pickupAddress.city" minlength="2" name="city" [required]="isAddressSelected" #city="ngModel" class="form-control" type="text">
                 <div class="alert alert-danger" *ngIf="city.touched && !city.valid">
                     <div *ngIf="city.errors.required">City is required</div>
                     <div *ngIf="city.errors.minlength">City should be minimum 2 Characters.</div>
                 </div>
 
                 <label>Pincode</label>
-                <input id="pincode" [(ngModel)]="productModel.pickupAddress.pincode" minlength="6" pattern=".{6,6}" [required]="isAddressSelected" name="pincode" #pincode="ngModel" class="form-control" type="number">
+                <input id="pincode" [(ngModel)]="productModel.pickupAddress.pincode" minlength="6"  [required]="isAddressSelected" name="pincode" #pincode="ngModel" class="form-control" type="number">
                 <div class="alert alert-danger" *ngIf="pincode.touched && !pincode.valid">
                     <div *ngIf="pincode.errors.required">Pincode is required</div>
-                    <div *ngIf="pincode.errors.minlength">Pincode should be minimum 2 Characters.</div>
+                    <div *ngIf="pincode.errors.minlength">Pincode must be 6 Digit.</div>
                 </div>
 
                 <label>State</label>
@@ -123,6 +124,7 @@
 
         <div class="button-container">
             <button type="submit" class="btn btn-primary" (click)="PostProduct()"  [disabled]="!atleastOneImage || !postAdForm.valid">Submit</button>
+            <button type="button" routerLink="../products" class="btn btn-danger">Cancel</button>
         </div>
     </form>
 </div>

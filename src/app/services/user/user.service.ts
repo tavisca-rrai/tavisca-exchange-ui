@@ -12,7 +12,7 @@ import { Product } from 'src/app/models/product';
   providedIn: 'root'
 })
 export class UserService implements IUserService {
-
+  userId: string;
   userMockService: UserMockService;
   userAdsList: BehaviorSubject<Product[]> = new BehaviorSubject([]);
 
@@ -24,6 +24,7 @@ export class UserService implements IUserService {
     if (environment.isMockingEnabled) {
       this.userMockService = new UserMockService();
     }
+    this.userId = environment.userSetting.userId;
   }
 
   getUserProfile(

@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
-import { ActivatedRoute, Params } from '@angular/router';
 import { GetUserProfileResponse } from 'src/app/models/user/get-user-profile-response';
 import { UserProfile } from 'src/app/models/user/user-profile';
 import { GetProductsListResponse } from 'src/app/models/get-products-list-response';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-profile-component',
@@ -18,15 +16,12 @@ export class UserProfileComponent implements OnInit {
   showActiveAds: boolean;
 
   constructor(
-    private userService: UserService,
-    private activatedRouter: ActivatedRoute
+    private userService: UserService
   ) { }
 
   ngOnInit() {
     this.showActiveAds = true;
-    this.activatedRouter.params.subscribe((params: Params) => {
-      this.userId = params['id'];
-    });
+    this.userId = this.userService.userId;
 
     this.userService.getUserProfile(this.userId).subscribe(
       (response: GetUserProfileResponse) => {
@@ -43,7 +38,7 @@ export class UserProfileComponent implements OnInit {
 
   getActiveAds() {
     this.showActiveAds = true;
-    this.userService.getActiveUserProducts(environment.userSetting.userId).subscribe(
+    this.userService.getActiveUserProducts(this.userId).subscribe(
       (response: GetProductsListResponse) => {
         this.userService.userAdsList.next(response.products);
       },
@@ -56,7 +51,7 @@ export class UserProfileComponent implements OnInit {
 
   getInactiveAds() {
     this.showActiveAds = false;
-    this.userService.getInactiveUserProducts(environment.userSetting.userId).subscribe(
+    this.userService.getInactiveUserProducts(this.userId).subscribe(
       (response: GetProductsListResponse) => {
         this.userService.userAdsList.next(response.products);
       },

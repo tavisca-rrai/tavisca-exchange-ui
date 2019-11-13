@@ -5,12 +5,13 @@
     </div>
     <h3> Sort By</h3>
     <div class="sort-by">
-        <select name="sort">
-            <option value="latest">Latest</option>
-            <option value="oldest">Oldest</option>
-            <option value="priceLowToHigh">Price : Low to High </option>
-            <option value="priceHighToLow">Price : High to Low </option>
+        <select name="sort" [(ngModel)]="selectedSort" (change)="onSelect()">
+            <option value="DateDSC" checked>Latest</option>
+            <option value="DateASC">Oldest</option>
+            <option value="PriceASC">Price : Low to High </option>
+            <option value="PriceDSC">Price : High to Low </option>
         </select>
+        <button class="btn btn-primary btn-sm" (click)="applySort()">apply</button>
     </div>
     <h3>Categories</h3>
     <p class="navbar-items" *ngFor="let category of categories">

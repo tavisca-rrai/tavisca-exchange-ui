@@ -33,7 +33,7 @@ export class CategoryService implements ICategoryService {
   }
 
   private getUrl(path: string): string {
-    var apiUrl = environment.productSetting.BaseUrl + path;
+    var apiUrl = environment.productSetting.BaseUrl +environment.version + environment.applicationName + path;
     return apiUrl;
   }
 }

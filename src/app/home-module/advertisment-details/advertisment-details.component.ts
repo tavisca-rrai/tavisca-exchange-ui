@@ -3,6 +3,7 @@ import { ProductService } from '../../services/product.service';
 import { GetProductDetailsResponse } from 'src/app/models/get-product-details-response';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Product } from '../../models/product';
+import {Seller}  from "../../models/seller";
 import { Router } from '@angular/router';
 import { ErrorResponse } from '../../models/error-response';
 import { filter } from 'rxjs/operators';
@@ -25,7 +26,10 @@ export class AdvertismentDetailsComponent implements OnInit, OnDestroy {
   imageHost: string = ""
   constructor(private productService: ProductService, private router: ActivatedRoute, private routerToProducts: Router) {
   }
-
+  SellerProfile()
+  {
+    this.routerToProducts.navigate(['/profile',this.productdetails.seller.id]);
+  }
   goToProductList() {
     this.routerToProducts.navigate(['/products/details']);
   }
@@ -87,7 +91,7 @@ export class AdvertismentDetailsComponent implements OnInit, OnDestroy {
       });
       this.productService.getProductDetails(id).subscribe(
         (response: GetProductDetailsResponse) => {
-          if (response == null || response.product == null || response.seller == null) {
+          if (response == null || response.product == null) {
             this.noProductResponse = true;
             this.error.code = 404;
             this.error.message = "Page Not Found";

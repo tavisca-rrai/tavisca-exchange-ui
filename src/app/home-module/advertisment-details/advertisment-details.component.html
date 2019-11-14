@@ -63,7 +63,7 @@
       <div class="seller-details">
         <div class="seller-description">Seller description</div>
         <div class="sdetails">
-          <span class="seller-name">{{ productdetails.seller.name }}</span>
+          <a class="seller-name" (click)="SellerProfile()">{{ productdetails.seller.name }}</a>
           <!-- <span class="seller-duration">Member since {{productdetails.sellerduartion}}</span> -->
           <div class="if-preview-is-on" *ngIf='isPreviewEnabled'>
             <span class="seller-duration">Your ad expires on

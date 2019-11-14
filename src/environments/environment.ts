@@ -18,8 +18,7 @@ export const environment = {
     baseUrl: "http://localhost:62914/api",
     profile: "/profile",
     activeAds: "/active",
-    inactiveAds: "/inactive",
-    userId: "777888666",
+    inactiveAds: "/inactive"
   },
 
   imageApiSettings: {

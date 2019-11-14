@@ -11,24 +11,22 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  userId: string;
   userProfile: UserProfile;
+  userId: string;
   hideMenu: boolean;
   showActiveAds: boolean;
 
   constructor(
-    private userService: UserService
-    , private cookieService: CookieService) { }
+    private userService: UserService) {
+    this.userId = userService.getUserFromStorage().id;
+  }
 
   ngOnInit() {
     this.showActiveAds = true;
-    this.userId = this.cookieService.get("userId");
 
     this.userService.getUserProfile(this.userId).subscribe(
       (response: GetUserProfileResponse) => {
         this.userProfile = response.userProfile;
-        console.log(response);
-        console.log(this.userProfile);
       },
       err => {
         // TBA - error msg on ui

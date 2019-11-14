@@ -54,7 +54,6 @@ export class PostAdComponentComponent implements OnInit {
     console.log(this.productModel);
     this.productImages.HeroImageUrl = this.productModel.heroImage;
     this.productImages.ImageUrls = this.productModel.images;
-
     this.productService.AddProduct(this.productModel).subscribe(
       response => {
         this.productService.sendProductObj(response);

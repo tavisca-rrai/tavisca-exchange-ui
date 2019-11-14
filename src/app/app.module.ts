@@ -23,6 +23,9 @@ import { UserProfileComponent } from './user-module/user-profile/user-profile.co
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CookieService } from 'ngx-cookie-service';
 import { ImageService } from './services/ad-image.service'
+import {NgxPaginationModule} from 'ngx-pagination';
+
+import {ImageService} from './services/ad-image.service'
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +52,8 @@ import { ImageService } from './services/ad-image.service'
     FormsModule,
     LoginModule,
     NgbModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgxPaginationModule
   ],
   providers: [DatePipe, ImageService, CookieService],
   bootstrap: [AppComponent]

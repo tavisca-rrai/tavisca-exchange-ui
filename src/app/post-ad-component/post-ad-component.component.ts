@@ -54,13 +54,14 @@ export class PostAdComponentComponent implements OnInit {
     console.log(this.productModel);
     this.productImages.HeroImageUrl = this.productModel.heroImage;
     this.productImages.ImageUrls = this.productModel.images;
-    if (!this.isMock)
-      this.imageService.storeImages(this.productImages).subscribe();
+
     this.productService.AddProduct(this.productModel).subscribe(
       response => {
         this.productService.sendProductObj(response);
         if (response.id != null && response.id.trim() != "") {
           this.router.navigate(['products/details', response.id], { queryParams: { preview: 'true' } });
+          if (!this.isMock)
+            this.imageService.storeImages(this.productImages).subscribe();
         }
         else {
           alert("Something went wrong");

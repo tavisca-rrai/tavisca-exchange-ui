@@ -2,13 +2,14 @@ import { LoginService } from "../../services/login-services/login.service";
 import { Component, OnInit } from "@angular/core";
 import { UserSignInDetails } from "../models/user-signin-details";
 import { Router } from "@angular/router";
+import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.css"]
 })
 export class LoginComponent implements OnInit {
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private loginService: LoginService, private router: Router, private cookieService: CookieService) { }
   userDetails: UserSignInDetails;
   errorMessage: string = "";
   ngOnInit() {
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
   }
   tryLogin() {
     this.loginService.verifyUserCredentials(this.userDetails).subscribe(
-      () => {
+      (data) => {
+        this.cookieService.set('userId', JSON.parse(JSON.stringify(data))["userId"]); // To Set Cookie
         this.router.navigateByUrl("/products");
       },
       err => {

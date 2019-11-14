@@ -21,8 +21,8 @@ import { HomeComponent } from './home-module/home/home.component';
 import { AdvertismentDetailsComponent } from './home-module/advertisment-details/advertisment-details.component';
 import { UserProfileComponent } from './user-module/user-profile/user-profile.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-
-import {ImageService} from './services/ad-image.service'
+import { CookieService } from 'ngx-cookie-service';
+import { ImageService } from './services/ad-image.service'
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +51,7 @@ import {ImageService} from './services/ad-image.service'
     NgbModule,
     AppRoutingModule
   ],
-  providers: [DatePipe,ImageService],
+  providers: [DatePipe, ImageService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

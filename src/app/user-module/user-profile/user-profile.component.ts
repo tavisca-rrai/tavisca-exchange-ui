@@ -3,6 +3,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { GetUserProfileResponse } from 'src/app/models/user/get-user-profile-response';
 import { UserProfile } from 'src/app/models/user/user-profile';
 import { GetProductsListResponse } from 'src/app/models/get-products-list-response';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-user-profile-component',
@@ -17,15 +18,17 @@ export class UserProfileComponent implements OnInit {
 
   constructor(
     private userService: UserService
-  ) { }
+    , private cookieService: CookieService) { }
 
   ngOnInit() {
     this.showActiveAds = true;
-    this.userId = this.userService.userId;
+    this.userId = this.cookieService.get("userId");
 
     this.userService.getUserProfile(this.userId).subscribe(
       (response: GetUserProfileResponse) => {
         this.userProfile = response.userProfile;
+        console.log(response);
+        console.log(this.userProfile);
       },
       err => {
         // TBA - error msg on ui

@@ -33,7 +33,7 @@ export class UserService implements IUserService {
     if (environment.isMockingEnabled) {
       return this.userMockService.getUserProfile(userId);
     } else {
-      let getProductListUrl: string = this.getUrl(environment.userSetting.profile) + userId;
+      let getProductListUrl: string = this.getUrl(environment.userSetting.profile) + "/" + userId;
       return this.http.get<GetUserProfileResponse>(getProductListUrl, {
         headers: this.headers
       });
@@ -67,8 +67,7 @@ export class UserService implements IUserService {
   }
 
   private getUrl(path: string): string {
-    return
-    environment.userSetting.baseUrl +
+    return environment.userSetting.baseUrl +
       environment.version +
       environment.applicationName +
       path;

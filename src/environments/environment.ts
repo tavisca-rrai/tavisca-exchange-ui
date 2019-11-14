@@ -2,10 +2,10 @@ export const environment = {
   production: false,
   version: "/v1.0",
   applicationName: "/OnlineRetailPortal",
-  isMockingEnabled: true,
-  isPreviewEnabled:false,
+  isMockingEnabled: false,
+  isPreviewEnabled: false,
   loginSetting: {
-    BaseUrl: "https://localhost:44357/api",
+    BaseUrl: "http://localhost:62914/api",
     signInPath: "/signin"
   },
   productSetting: {
@@ -15,14 +15,14 @@ export const environment = {
     adsListPath: "/products"
   },
   userSetting: {
-    baseUrl: "https://localhost:44340/api",
+    baseUrl: "http://localhost:62914/api",
     profile: "/profile",
     activeAds: "/active",
     inactiveAds: "/inactive",
     userId: "777888666",
   },
-  
-  imageApiSettings:{
+
+  imageApiSettings: {
     BaseUrl: "https://localhost:44357/",
     uploadImagePath: "api/v1.0/OnlineRetailPortal/image/",
     storeImagePath: "api/v1.0/OnlineRetailPortal/image/store",

@@ -53,8 +53,7 @@ export class AdvertismentDetailsComponent implements OnInit, OnDestroy {
         else
           this.isAddressPresent = true;
 
-        if(environment.isMockingEnabled)
-        {
+        if (environment.isMockingEnabled) {
           this.images.push(this.productdetails.product.heroImage);
           if (this.productdetails.product.images != null) {
             for (let productImage in this.productdetails.product.images) {
@@ -62,15 +61,15 @@ export class AdvertismentDetailsComponent implements OnInit, OnDestroy {
             }
           }
         }
-        else{
-          this.images.push(environment.imageApiSettings.BaseUrl+ this.productdetails.product.heroImage);
+        else {
+          this.images.push(environment.imageApiSettings.BaseUrl + this.productdetails.product.heroImage);
           if (this.productdetails.product.images != null) {
             for (let productImage in this.productdetails.product.images) {
-              this.images.push(environment.imageApiSettings.BaseUrl+ this.productdetails.product.images[productImage]);
+              this.images.push(environment.imageApiSettings.BaseUrl + this.productdetails.product.images[productImage]);
             }
           }
         }
-        
+
       }
       else {
         this.noProductResponse = true;
@@ -86,7 +85,7 @@ export class AdvertismentDetailsComponent implements OnInit, OnDestroy {
       });
       this.productService.getProductDetails(id).subscribe(
         (response: GetProductDetailsResponse) => {
-          if (response == null || response.product == null || response.seller == null) {
+          if (response == null || response.product == null) {
             this.noProductResponse = true;
             this.error.code = 404;
             this.error.message = "Page Not Found";
@@ -103,10 +102,10 @@ export class AdvertismentDetailsComponent implements OnInit, OnDestroy {
               this.isAddressPresent = false;
             else
               this.isAddressPresent = true;
-            this.images.push(this.productdetails.product.heroImage);
+            this.images.push(environment.imageApiSettings.BaseUrl + this.productdetails.product.heroImage);
             if (this.productdetails.product.images != null) {
               for (let productImage in this.productdetails.product.images) {
-                this.images.push(this.productdetails.product.images[productImage]);
+                this.images.push(environment.imageApiSettings.BaseUrl + this.productdetails.product.images[productImage]);
               }
             }
           }

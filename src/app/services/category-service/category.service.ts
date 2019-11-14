@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, from } from 'rxjs';
-
 import { GetCategoryResponse } from 'src/app/models/get-category-response';
 import { ICategoryService } from 'src/app/models/icategory-service';
 import { CategoryMockService } from './category-mock.service';
@@ -13,7 +12,6 @@ import { CategoryMockService } from './category-mock.service';
 export class CategoryService implements ICategoryService {
 
   categoryMockService: CategoryMockService;
-
 
   constructor(private Http: HttpClient) {
     if (environment.isMockingEnabled) {

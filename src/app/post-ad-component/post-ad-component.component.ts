@@ -32,7 +32,7 @@ export class PostAdComponentComponent implements OnInit {
   connectionError = false;
   errMsg="";
 
-  categories = ["Property","Car","Furniture","Mobile","Bike","Book","Fashion","Electronic","Other"]; // this is provided by categories api
+  categories = []; // this is provided by categories api
   states = ["Andra Pradesh","Go","Gujarat","Haryana","Himachal Pradesh","Jammu and Kashmir","Jharkhand","Karnataka",
   "Kerala","Madya Pradesh","Maharashtra","Punjab","Rajasthan"]
   
@@ -55,7 +55,7 @@ export class PostAdComponentComponent implements OnInit {
       response => {
         response: GetCategoryResponse
         console.log(response);
-        this.categories = response.listOfCategory;
+        this.categories = response.categories;
       },
       err => {
         console.log(err.error);

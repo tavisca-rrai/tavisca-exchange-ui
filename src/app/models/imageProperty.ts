@@ -9,7 +9,8 @@ export class ImageProperty
   pictureContainerStyle = "1px solid lightgrey";
   heroImage="none";
   imageLoaderProperty = "none";
-
+  uploadedPercent=0;
+  ProgressBarDispProp="none";
   //store url of image return by upload image api
   imageURL="";
   constructor(){}

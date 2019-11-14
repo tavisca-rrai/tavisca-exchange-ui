@@ -2,19 +2,17 @@ import { Price } from './price';
 import { Address } from './address';
 
 export class Product {
-
+  public sellerId : string;
   public id: string;
-  public title: string;
+  public name: string;
   public category: string;
   public description: string;
-  public dateOfPurchase: Date;
-  public heroImageUrl: string;
-  public imageUrl:string[]=[];
+  public heroImage: string;
+  public images:string[]=[];
   public price=new Price();
-  public address = new Address();
+  public pickupAddress = new Address();
   public status: string;
-  public postDate: string;
-  public expirationDate: string;
-  public purchaseDate: string;
-
+  public postDateTime: Date;
+  public expirationDate: Date;
+  public purchasedDate: Date;
 }

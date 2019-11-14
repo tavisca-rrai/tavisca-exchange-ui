@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-header',
@@ -6,23 +7,28 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  userId: string;
+  constructor(
+    private userService: UserService
+  ) {
+    this.userId = this.userService.userId;
+  }
 
-  constructor() { }
-  @Input() hideMobileMenu:boolean = true;
-  @Input() hideMenu:boolean = true;
+  @Input() hideMobileMenu: boolean = true;
+  @Input() hideMenu: boolean = true;
   @Output() toggleMenuEvent = new EventEmitter<boolean>();
-  toggleMobileMenu():void{
-    if(this.hideMobileMenu){
+  toggleMobileMenu(): void {
+    if (this.hideMobileMenu) {
       this.hideMobileMenu = false;
-    }else{
+    } else {
       this.hideMobileMenu = true;
     }
   }
-  toggleMenu():void{
-    if(this.hideMenu){
+  toggleMenu(): void {
+    if (this.hideMenu) {
       this.hideMenu = false;
     }
-    else{
+    else {
       this.hideMenu = true;
     }
     this.toggleMenuEvent.emit(this.hideMenu);

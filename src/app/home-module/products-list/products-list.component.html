@@ -1,17 +1,20 @@
-<div class="adv-list-container">
-    <div *ngFor="let ad of adsList" class="adv-card">
-        <img src="{{ad.heroImageUrl}}" alt="Advertisment Image for {{ad.title}}">
+<div class="adv-list-container" *ngIf='!noProductResponse'>
+    <div *ngFor="let ad of adsList" class="adv-card" (click)="goToProductDetails" [routerLink]="['details',ad.id]">
+        <div class="img-container">
+            <img src="{{ad.heroImage}}" alt="Advertisment Image for {{ad.name}}">
+        </div>
         <div class="adv-details">
-            <p class="adv-price">₹ {{ad.price.amount}}</p>
-            <p class="adv-title">{{ad.title}}</p>
+            <p class="adv-price">₹ {{ad.price.money.amount}}</p>
+            <p class="adv-title">{{ad.name}}</p>
             <div class="adv-bottom-section">
-                <p class="adv-posting-area">{{ad.address.city}}, {{ad.address.state}}</p>
+                <p class="adv-posting-area" *ngIf="ad.pickupAddress != null">{{ad.pickupAddress.city}}, {{ad.pickupAddress.state}}</p>
                 <p class="adv-posting-date">
-                    {{ad.dateOfPurchase.getDate()}}/
-                    {{ad.dateOfPurchase.getMonth()}}/
-                    {{ad.dateOfPurchase.getYear()}}
+                    {{ad.postDateTime | date :'dd MMM yy'}}
                 </p>
             </div>
         </div>
     </div>
+</div>
+<div class="null-response" *ngIf='noProductResponse'>
+    <span>No Products Available</span> 
 </div>

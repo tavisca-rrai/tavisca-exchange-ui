@@ -1,8 +1,8 @@
 <div id="post-ad-container">
-    <form #postAdForm="ngForm" (ngSubmit)="onSubmit()">
+    <form #postAdForm="ngForm">
         <div class="form-group">
             <label>Title*</label>
-            <input type="text" id="title" minlength="2" [(ngModel)]="productModel.title" name="title" #title="ngModel" class="form-control" placeholder="Product Title.." required>
+            <input type="text" id="title" minlength="2" [(ngModel)]="productModel.name" name="Name" #title="ngModel" class="form-control" placeholder="Product Title.." required>
             <div class="alert alert-danger" *ngIf="title.touched && !title.valid">
                 <div *ngIf="title.errors.required">Title is required</div>
                 <div *ngIf="title.errors.minlength">Title should be minimum 2 Characters.</div>
@@ -17,10 +17,20 @@
         </div>
 
         <div class="form-group">
+            <label for="discription ">Description*</label>
+            <textarea [(ngModel)]="productModel.description" id="discription" minlength="4" name="discription" #discription="ngModel" class="form-control" type="text" placeholder="Product name.." required></textarea>
+            <div class="alert alert-danger" *ngIf="discription.touched && !discription.valid">
+                <div *ngIf="discription.errors.required">Description is required</div>
+                <div *ngIf="discription.errors.minlength">Description should be minimum 4 Characters.</div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
             <label for="price">Price*</label>
             <div class="input-group">
                 <span class="input-group-text">₹</span>
-                <input [(ngModel)]="productModel.price.amount" id="price" name="price" #price="ngModel" class="form-control" type="number" placeholder="Product price.." required [min]="1">
+                <input [(ngModel)]="productModel.price.money.amount" id="price" name="price" #price="ngModel" class="form-control" type="number" placeholder="Product price.." required [min]="1">
             </div>
             <div class="alert alert-danger" *ngIf="price.touched && !price.valid">
                 <div *ngIf="price.errors.required"> Price is required.</div>
@@ -29,29 +39,20 @@
         </div>
 
         <div class="form-group">
-            <label for="discription ">Description*</label>
-            <textarea [(ngModel)]="productModel.discription" id="discription" minlength="4" name="discription" #discription="ngModel" class="form-control" type="text" placeholder="Product name.." required></textarea>
-            <div class="alert alert-danger" *ngIf="discription.touched && !discription.valid">
-                <div *ngIf="discription.errors.required">Description is required</div>
-                <div *ngIf="discription.errors.minlength">Description should be minimum 4 Characters.</div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="dateOfPurchase">Date of purchase</label>
-            <input [(ngModel)]="productModel.dateOfPurchase" (change)="validateDate($event)" class="form-control" type="date" name="dateOfPurchase" required>
-            <div class="alert alert-danger" [style.display]="purchaseDate">
-                Date must not be greater than todays date.
-            </div>
-        </div>
-
-        <div class="form-group">
             <label for="negotiable">Negotiable</label>
             <div class="radio">
-                <label><input type="radio" [(ngModel)]="productModel.price.isNegotiable"  name="isNegotiable" value=true>Yes</label>
+                <label><input type="radio" [(ngModel)]="productModel.price.isNegotiable"  name="isNegotiable" [value]="true">Yes</label>
             </div>
             <div class="radio">
-                <label><input type="radio"  [(ngModel)]="productModel.price.isNegotiable"  name="isNegotiable" value=false>No</label>
+                <label><input type="radio"  [(ngModel)]="productModel.price.isNegotiable"  name="isNegotiable" [value]="false">No</label>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="dateOfPurchase">Date of purchase</label>
+            <input [(ngModel)]="productModel.purchasedDate" (change)="validateDate($event)" class="form-control" type="date" name="dateOfPurchase">
+            <div class="alert alert-danger" [style.display]="purchaseDate">
+                Date must not be greater than todays date.
             </div>
         </div>
 
@@ -60,31 +61,31 @@
             <input type="checkbox" (click)="validateAddress($event)" [value]='isAddressSelected'>
             <div class="addresss" [style.display]="addressDisplayValue">
                 <label>Line 1</label>
-                <input [(ngModel)]="productModel.address.line1" name="line1" [required]="isAddressSelected" #line1="ngModel" class="form-control" type="text">
+                <input [(ngModel)]="productModel.pickupAddress.line1" name="line1" minlength="2" [required]="isAddressSelected" #line1="ngModel" class="form-control" type="text">
                 <div class="alert alert-danger" *ngIf="line1.touched && !line1.valid">
-                    <div *ngIf="line1.errors.required">Title is required</div>
-                    <div *ngIf="line1.errors.minlength">Title should be minimum 2 Characters.</div>
+                    <div *ngIf="line1.errors.required">Line 1 is required</div>
+                    <div *ngIf="line1.errors.minlength">Line 1 should be minimum 2 Characters.</div>
                 </div>
 
                 <label>Line 2</label>
-                <input [(ngModel)]="productModel.address.line2" name="line2" class="form-control" type="text">
+                <input [(ngModel)]="productModel.pickupAddress.line2" name="line2" class="form-control" type="text">
 
                 <label>City</label>
-                <input id="city" [(ngModel)]="productModel.address.city" name="city" [required]="isAddressSelected" #city="ngModel" class="form-control" type="text">
+                <input id="city" [(ngModel)]="productModel.pickupAddress.city" minlength="2" name="city" [required]="isAddressSelected" #city="ngModel" class="form-control" type="text">
                 <div class="alert alert-danger" *ngIf="city.touched && !city.valid">
                     <div *ngIf="city.errors.required">City is required</div>
                     <div *ngIf="city.errors.minlength">City should be minimum 2 Characters.</div>
                 </div>
 
                 <label>Pincode</label>
-                <input id="pincode" [(ngModel)]="productModel.address.pincode" minlength="6" pattern=".{6,6}" [required]="isAddressSelected" name="pincode" #pincode="ngModel" class="form-control" type="number">
+                <input id="pincode" [(ngModel)]="productModel.pickupAddress.pincode" minlength="6"  [required]="isAddressSelected" name="pincode" #pincode="ngModel" class="form-control" type="number">
                 <div class="alert alert-danger" *ngIf="pincode.touched && !pincode.valid">
                     <div *ngIf="pincode.errors.required">Pincode is required</div>
-                    <div *ngIf="pincode.errors.minlength">Pincode should be minimum 2 Characters.</div>
+                    <div *ngIf="pincode.errors.minlength">Pincode must be 6 Digit.</div>
                 </div>
 
                 <label>State</label>
-                <select [(ngModel)]="productModel.address.state" #state="ngModel" class="form-control" name="state">
+                <select [(ngModel)]="productModel.pickupAddress.state" #state="ngModel" class="form-control" name="state">
                 <option *ngFor="let state of states">{{ state }}</option>
                 </select>
             </div>
@@ -98,7 +99,7 @@
                         <div class="spinner-border text-primary" role="status" [style.display]="image.imageLoaderProperty">
                             <span class="sr-only">Loading...</span>
                         </div>
-                        <img (click)="selectHeroImg(i)" [src]="image.imageURL" [style.display]="image.imageDisplayValue" />
+                        <img  [src]="image.imageURL" [style.display]="image.imageDisplayValue" />
 
                         <div class="closeButton">
                             <button [style.display]="image.crossBtnValue" (click)="removeImage(i)"><i  class="fa fa-close"></i></button>
@@ -108,16 +109,22 @@
                             <button class="btn" (click)="imageClick(i);" [style.display]="image.addEditProperty"><i class="fa fa-{{ image.iconOfButton }}"></i>{{ image.buttonName }}</button>
                             <input type="file" id="{{i}}" (change)="addImage(i,$event)" accept='image/*' style="display: none">
                         </div>
+                        <div>
+                            <progress class="progressBar" [value]="image.uploadedPercent" max = 100 [style.display]="image.ProgressBarDispProp"></progress>
+                        </div>
                     </div>
                 </ng-container>
             </div>
-            <div class="alert alert-danger" *ngIf="imageArray.touched">
-                <div *ngIf="imageArray.length">Title is required</div>
+            <div class="alert alert-danger" *ngIf="!atleastOneImage || invalidImage || connectionError">
+                <div class="img-error" *ngIf="!atleastOneImage">Please select atleast one image..!</div>
+                <div class="img-error" *ngIf="invalidImage">{{errMsg}}</div>
+                <div class="img-error" *ngIf="connectionError">{{errMsg}}</div>
             </div>
         </div>
 
         <div class="button-container">
-            <button type="submit" class="btn btn-primary" (click)="PostProduct()" [disabled]="!postAdForm.valid">Submit</button>
+            <button type="submit" class="btn btn-primary" (click)="PostProduct()"  [disabled]="!allowSubmit || !postAdForm.valid">Submit</button>
+            <button type="button" routerLink="../" class="btn btn-danger">Cancel</button>
         </div>
     </form>
 </div>

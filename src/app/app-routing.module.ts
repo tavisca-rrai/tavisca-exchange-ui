@@ -6,19 +6,56 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from "./login-module/login-component/login.component";
 import { HomeComponent } from './home-module/home/home.component';
 import { ProductsListComponent } from 'src/app/home-module/products-list/products-list.component';
+import { AdvertismentDetailsComponent } from './home-module/advertisment-details/advertisment-details.component';
+import { UserProfileComponent } from './user-module/user-profile/user-profile.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
 
 const routes: Routes = [
-  { path: "", component: LoginComponent },
   {
-    path: "products", component: HomeComponent,
+    path: "",
+    component: LoginComponent
+  },
+  {
+    path: "products",
+    component: HomeComponent,
     children: [
-      { path: '', component: ProductsListComponent },
-      { path: 'postad', component: PostAdComponentComponent },
+      {
+        path: "postad",
+        component: PostAdComponentComponent
+      },
+      {
+        path: "",
+        component: ProductsListComponent
+      },
+      {
+        path: "details/:id",
+        component: AdvertismentDetailsComponent
+      }
     ]
   },
-
+  {
+    path: "profile/:id",
+    component: UserProfileComponent,
+    children: [
+      {
+        path: "",
+        component: ProductsListComponent
+      },
+      {
+        path: "details/:id",
+        component: AdvertismentDetailsComponent
+      }
+    ]
+  },
+  {
+    path: '404',
+    component: AdvertismentDetailsComponent
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent
+  }
 ]
-
 
 @NgModule({
   declarations: [],

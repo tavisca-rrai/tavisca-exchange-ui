@@ -3,9 +3,12 @@
   <app-page-not-found></app-page-not-found>
 </div>
 <div class="parent" *ngIf='!noProductResponse'>
-  <div class="post-ad-message" *ngIf='isPreviewEnabled'>
+  <!-- <div class="post-ad-message" *ngIf='isPreviewEnabled'>
     <span>Advertisement is added Successfully!! </span>
     <span> This is How Your Advertisement Looks </span>
+  </div> -->
+  <div class="alert alert-primary" role="alert" *ngIf="isPreviewEnabled">
+      Advertisement is added Successfully!!   This is how your advertisement looks 
   </div>
   <div class="go-back-div" *ngIf="!isPreviewEnabled">
     <a href="" [routerLink]="['../../']">Go Back</a>
@@ -17,6 +20,9 @@
           <ng-template ngbSlide *ngFor="let item of images; index as i">
             <div class="picsum-img-wrapper">
               <img class="product-images" [src]="images[i]" alt="Product Image">
+            </div>
+            <div class="preview-tag" *ngIf="isPreviewEnabled">
+              PREVIEW
             </div>
           </ng-template>
         </ngb-carousel>

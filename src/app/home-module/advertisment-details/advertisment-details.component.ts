@@ -32,6 +32,7 @@ export class AdvertismentDetailsComponent implements OnInit, OnDestroy {
     this.isPreviewOn = 'false';
   }
   ngOnInit() {
+    window.scroll(0,0);
     let id: string;
     this.router.queryParams.pipe(filter(params => params.preview))
       .subscribe(params => {

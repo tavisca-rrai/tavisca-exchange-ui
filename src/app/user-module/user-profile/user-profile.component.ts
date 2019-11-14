@@ -3,6 +3,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { GetUserProfileResponse } from 'src/app/models/user/get-user-profile-response';
 import { UserProfile } from 'src/app/models/user/user-profile';
 import { GetProductsListResponse } from 'src/app/models/get-products-list-response';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-user-profile-component',
@@ -10,18 +11,18 @@ import { GetProductsListResponse } from 'src/app/models/get-products-list-respon
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  userId: string;
   userProfile: UserProfile;
+  userId: string;
   hideMenu: boolean;
   showActiveAds: boolean;
 
   constructor(
-    private userService: UserService
-  ) { }
+    private userService: UserService) {
+    this.userId = userService.getUserFromStorage().id;
+  }
 
   ngOnInit() {
     this.showActiveAds = true;
-    this.userId = this.userService.userId;
 
     this.userService.getUserProfile(this.userId).subscribe(
       (response: GetUserProfileResponse) => {

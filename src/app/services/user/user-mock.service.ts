@@ -11,8 +11,11 @@ import { UserProfile } from 'src/app/models/user/user-profile';
   providedIn: 'root'
 })
 export class UserMockService implements IUserService {
-
-  constructor() { }
+  private userProfile: UserProfile;
+  constructor() {
+    this.userProfile = new UserProfile();
+    this.userProfile.id = "777888666";
+  }
 
   getDummyUserProfile(userId): UserProfile {
     let userProfileObj = new UserProfile();
@@ -97,9 +100,6 @@ export class UserMockService implements IUserService {
   getUserProfile(
     userId: string
   ): Observable<GetUserProfileResponse> {
-    if (userId != environment.userSetting.userId) {
-      return null;
-    }
     let getUserProfileResponse = new GetUserProfileResponse();
     getUserProfileResponse.userProfile = this.getDummyUserProfile(userId);
     return of(getUserProfileResponse);
@@ -108,9 +108,6 @@ export class UserMockService implements IUserService {
   getActiveUserProducts(
     userId: string
   ): Observable<GetProductsListResponse> {
-    if (userId != environment.userSetting.userId) {
-      return null;
-    }
     var getProductsListResponse = new GetProductsListResponse();
     getProductsListResponse.products = this.getDummyActiveUserProducts();
     return of(getProductsListResponse);
@@ -119,9 +116,6 @@ export class UserMockService implements IUserService {
   getInactiveUserProducts(
     userId: string
   ): Observable<GetProductsListResponse> {
-    if (userId != environment.userSetting.userId) {
-      return null;
-    }
     var getProductsListResponse = new GetProductsListResponse();
     getProductsListResponse.products = this.getDummyInactiveUserProducts();
     return of(getProductsListResponse);

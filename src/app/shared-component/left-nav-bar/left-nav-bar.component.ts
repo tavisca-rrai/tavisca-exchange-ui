@@ -37,7 +37,7 @@ export class LeftNavBarComponent implements OnInit {
     private productService: ProductService,
     private userService: UserService
   ) {
-    this.userId = this.userService.userId;
+    this.userId = this.userService.getUserFromStorage().id;
   }
   onSelect() {
     this.setProductSortOptions();

@@ -1,3 +1,4 @@
+import { UserProfile } from './../../models/user/user-profile';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -12,10 +13,9 @@ import { Product } from 'src/app/models/product';
   providedIn: 'root'
 })
 export class UserService implements IUserService {
-  userId: string;
-  userMockService: UserMockService;
+  private userProfile: UserProfile;
+  private userMockService: UserMockService;
   userAdsList: BehaviorSubject<Product[]> = new BehaviorSubject([]);
-
   public headers = new HttpHeaders({
     "Content-Type": "application/json"
   });
@@ -24,7 +24,7 @@ export class UserService implements IUserService {
     if (environment.isMockingEnabled) {
       this.userMockService = new UserMockService();
     }
-    this.userId = environment.userSetting.userId;
+
   }
 
   getUserProfile(
@@ -33,7 +33,7 @@ export class UserService implements IUserService {
     if (environment.isMockingEnabled) {
       return this.userMockService.getUserProfile(userId);
     } else {
-      let getProductListUrl: string = this.getUrl(environment.userSetting.profile) + userId;
+      let getProductListUrl: string = this.getUrl(environment.userSetting.profile) + "/" + userId;
       return this.http.get<GetUserProfileResponse>(getProductListUrl, {
         headers: this.headers
       });
@@ -43,32 +43,43 @@ export class UserService implements IUserService {
   getActiveUserProducts(
     userId: string
   ): Observable<GetProductsListResponse> {
-    if (environment.isMockingEnabled) {
-      return this.userMockService.getActiveUserProducts(userId);
-    } else {
-      let getProductListUrl: string = this.getUrl(environment.userSetting.profile) + userId + environment.userSetting.activeAds;
-      return this.http.get<GetProductsListResponse>(getProductListUrl, {
-        headers: this.headers
-      });
-    }
+    // if (environment.isMockingEnabled) {
+    //   return this.userMockService.getActiveUserProducts(userId);
+    // } else {
+    //   let getProductListUrl: string = this.getUrl(environment.userSetting.profile) + userId + environment.userSetting.activeAds;
+    //   return this.http.get<GetProductsListResponse>(getProductListUrl, {
+    //     headers: this.headers
+    //   });
+    // }
+
+    return new UserMockService().getActiveUserProducts(userId);
   }
 
   getInactiveUserProducts(
     userId: string
   ): Observable<GetProductsListResponse> {
-    if (environment.isMockingEnabled) {
-      return this.userMockService.getInactiveUserProducts(userId);
-    } else {
-      let getProductListUrl: string = this.getUrl(environment.userSetting.inactiveAds) + userId + environment.userSetting.inactiveAds;
-      return this.http.get<GetProductsListResponse>(getProductListUrl, {
-        headers: this.headers
-      });
-    }
+    // if (environment.isMockingEnabled) {
+    //   return this.userMockService.getInactiveUserProducts(userId);
+    // } else {
+    //   let getProductListUrl: string = this.getUrl(environment.userSetting.inactiveAds) + userId + environment.userSetting.inactiveAds;
+    //   return this.http.get<GetProductsListResponse>(getProductListUrl, {
+    //     headers: this.headers
+    //   });
+    // }
+    return new UserMockService().getInactiveUserProducts(userId);
+  }
+  saveUserToStorage(userId: string) {
+    this.userProfile = new UserProfile();
+    this.userProfile.id = userId;
   }
 
+  getUserFromStorage(): UserProfile {
+    return this.userProfile;
+  }
+
+
   private getUrl(path: string): string {
-    return
-    environment.userSetting.baseUrl +
+    return environment.userSetting.baseUrl +
       environment.version +
       environment.applicationName +
       path;

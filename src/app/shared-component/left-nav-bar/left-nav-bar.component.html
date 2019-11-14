@@ -1,6 +1,30 @@
 <div class="left-nav hidden-xs hidden-sm" [class.fixed]="fixed">
+    <h3>Price</h3>
+    <div class="custom-slider">
+        <ng5-slider class="navbar-items" [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ng5-slider>
+    </div>
+    <h3> Sort By</h3>
+    <div class="sort-by">
+        <select name="sort" [(ngModel)]="selectedSort" (change)="onSelect()">
+            <option value="DateDSC" checked>Latest</option>
+            <option value="DateASC">Oldest</option>
+            <option value="PriceASC">Price : Low to High </option>
+            <option value="PriceDSC">Price : High to Low </option>
+        </select>
+        <button class="btn btn-primary btn-sm applyBtn" (click)="applySort()">Apply</button>
+    </div>
     <h3>Categories</h3>
-    <p class="navbar-items" *ngFor="let category of content">
+    <p class="navbar-items" *ngFor="let category of categories">
         <input type="checkbox" name="{{category}}" > {{category}}
     </p>
+    <p class="navbar-items" *ngFor="let category of categories">
+        <input type="checkbox" name="{{category}}" > {{category}}
+    </p>
+    <div class="mobile-view">
+        <h3 class="nav-title"> Settings </h3>
+        <div class="links">
+            <p><a [routerLink]="['/profile/',userId]" class="header-icon"><i class="fa fa-user"></i> User Profile</a></p>
+            <p><a routerLink="/" class="header-icon"><i class="fa fa-sign-out"></i> Sign out </a></p>
+        </div>
+    </div>
 </div>

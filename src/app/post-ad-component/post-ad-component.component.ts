@@ -167,8 +167,18 @@ export class PostAdComponentComponent implements OnInit {
       );
   }
 
+  onDroppedFiles(i,dropedFilesEvent){
+    this.addImage(i,dropedFilesEvent);
+  }
+
 
   addImage(id, event) {
+    var eventFiles;    
+    if(event.type == "drop"){
+      eventFiles = event.dataTransfer.files;
+    }else if(event.type == "change"){
+      eventFiles = event.target.files;
+    }
     var err = false;
     this.imageLoader(id);
     this.invalidImage = false;
@@ -182,7 +192,7 @@ export class PostAdComponentComponent implements OnInit {
       }
     }
 
-    else if (this.isValidImage(event.target.files[0])) {
+    else if (this.isValidImage(eventFiles[0])) {
       this.uploadImage(event, id);
     }
     else // if UI stops a non-image file upload
@@ -261,5 +271,4 @@ export class PostAdComponentComponent implements OnInit {
   imageClick(id) {
     document.getElementById(id).click();
   }
-
 }

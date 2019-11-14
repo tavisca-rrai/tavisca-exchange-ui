@@ -95,7 +95,7 @@
             <label for="image">Image</label>
             <div id="uploadImage">
                 <ng-container *ngFor='let image of imageArray;index as i'>
-                    <div class="picture-container" [style.border]="image.pictureContainerStyle">
+                    <div class="picture-container" appDragAndDrop (dropedFilesEvent)="onDroppedFiles(i,$event)" [style.border]="image.pictureContainerStyle">
                         <div class="spinner-border text-primary" role="status" [style.display]="image.imageLoaderProperty">
                             <span class="sr-only">Loading...</span>
                         </div>
@@ -105,7 +105,7 @@
                             <button [style.display]="image.crossBtnValue" (click)="removeImage(i)"><i  class="fa fa-close"></i></button>
                         </div>
 
-                        <div class="addEditButton">
+                        <div class="addEditButton" >
                             <button class="btn" (click)="imageClick(i);" [style.display]="image.addEditProperty"><i class="fa fa-{{ image.iconOfButton }}"></i>{{ image.buttonName }}</button>
                             <input type="file" id="{{i}}" (change)="addImage(i,$event)" accept='image/*' style="display: none">
                         </div>

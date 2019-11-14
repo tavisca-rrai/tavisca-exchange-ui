@@ -7,12 +7,16 @@ import { Router } from '@angular/router';
 import { ErrorResponse } from '../../models/error-response';
 import { filter } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { UserService } from 'src/app/services/user/user.service';
+
 @Component({
   selector: 'app-advertisment-details',
   templateUrl: './advertisment-details.component.html',
   styleUrls: ['./advertisment-details.component.css']
 })
+
 export class AdvertismentDetailsComponent implements OnInit, OnDestroy {
+  userId: string;
   noProductResponse: boolean = false;
   isPriceNegotiable: string;
   isAddressPresent: boolean = false;
@@ -23,22 +27,23 @@ export class AdvertismentDetailsComponent implements OnInit, OnDestroy {
   isPreviewEnabled: boolean = false;
   images: string[] = [];
   imageHost: string = ""
-  constructor(private productService: ProductService, private router: ActivatedRoute, private routerToProducts: Router) {
-  }
 
-  goToProductList() {
-    this.routerToProducts.navigate(['/products/details']);
-  }
-  ngOnDestroy() {
-    this.isPreviewEnabled = false;
-    this.isPreviewOn = 'false';
-  }
+  constructor(
+    private productService: ProductService,
+    private router: ActivatedRoute,
+    private routerToProducts: Router,
+    private userService: UserService
+  ) { }
+
   ngOnInit() {
+    this.userId = this.routerToProducts.url.includes("/profile") ? this.userService.userId : null;
+
     let id: string;
     this.router.queryParams.pipe(filter(params => params.preview))
       .subscribe(params => {
         this.isPreviewOn = params.preview;
-      })
+      });
+
     if (this.isPreviewOn == 'true') {
       this.isPreviewEnabled = true;
       var product = this.productService.getProductObj();
@@ -53,8 +58,7 @@ export class AdvertismentDetailsComponent implements OnInit, OnDestroy {
         else
           this.isAddressPresent = true;
 
-        if(environment.isMockingEnabled)
-        {
+        if (environment.isMockingEnabled) {
           this.images.push(this.productdetails.product.heroImage);
           if (this.productdetails.product.images != null) {
             for (let productImage in this.productdetails.product.images) {
@@ -62,15 +66,14 @@ export class AdvertismentDetailsComponent implements OnInit, OnDestroy {
             }
           }
         }
-        else{
-          this.images.push(environment.imageApiSettings.BaseUrl+ this.productdetails.product.heroImage);
+        else {
+          this.images.push(environment.imageApiSettings.BaseUrl + this.productdetails.product.heroImage);
           if (this.productdetails.product.images != null) {
             for (let productImage in this.productdetails.product.images) {
-              this.images.push(environment.imageApiSettings.BaseUrl+ this.productdetails.product.images[productImage]);
+              this.images.push(environment.imageApiSettings.BaseUrl + this.productdetails.product.images[productImage]);
             }
           }
         }
-        
       }
       else {
         this.noProductResponse = true;
@@ -121,5 +124,14 @@ export class AdvertismentDetailsComponent implements OnInit, OnDestroy {
       );
     }
   }
-}
 
+  updateAd() {
+    this.routerToProducts.navigate([`/products/update-ad/${this.productdetails.product.id}`]);
+  }
+
+  ngOnDestroy() {
+    this.isPreviewEnabled = false;
+    this.isPreviewOn = 'false';
+  }
+
+}

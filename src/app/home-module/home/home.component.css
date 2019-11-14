@@ -11,14 +11,9 @@
     overflow-x: hidden;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-app-left-nav-bar{
-    width: 200px;
-}
 
-.content {
-    width: 100%;
-    padding: 2%;
-    min-height: 474px;
+app-left-nav-bar {
+    width: 200px;
 }
 
 @media only screen and (min-width: 768px) {
@@ -36,7 +31,7 @@ app-left-nav-bar{
         padding: 2%;
         margin-left: 0%!important;
     }
-    .left-side-bar{
+    .left-side-bar {
         display: block;
         position: fixed;
         overflow-y: scroll;
@@ -49,5 +44,4 @@ app-left-nav-bar{
     app-advertisments-list {
         grid-template-columns: 33.33% 33.33% 33.33%;
     }
-
 }

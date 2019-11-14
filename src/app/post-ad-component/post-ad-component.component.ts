@@ -3,7 +3,7 @@ import { ImageProperty } from '../models/imageProperty';
 import { DatePipe } from '@angular/common';
 import { Product } from '../models/product';
 import { ProductService } from '../services/product.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpEventType, HttpResponse, } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
@@ -32,15 +32,26 @@ export class PostAdComponentComponent implements OnInit {
 
   categories = ["Property", "Car", "Furniture", "Mobile", "Bike", "Book", "Fashion", "Electronic", "Other"]; // this is provided by categories api
   states = ["Andra Pradesh", "Go", "Gujarat", "Haryana", "Himachal Pradesh", "Jammu and Kashmir", "Jharkhand", "Karnataka",
-    "Kerala", "Madya Pradesh", "Maharashtra", "Punjab", "Rajasthan"]
+    "Kerala", "Madya Pradesh", "Maharashtra", "Punjab", "Rajasthan"];
 
   //properties of html element 
   addressDisplayValue = "none";
   purchaseDate = "none";
   imageCounter = 1;
-  constructor(private imageService: ImageService, private router: Router, public datepipe: DatePipe, private productService: ProductService, public http: HttpClient, public sanatizer: DomSanitizer) { } //use for validation of date 
   productModel: Product;
   productImages: ProductImages;
+  date = new Date();
+  latest_date = this.datepipe.transform(this.date, 'yyyy-MM-dd');
+
+  constructor(
+    private imageService: ImageService,
+    private router: Router,
+    public datepipe: DatePipe,
+    private productService: ProductService,
+    public http: HttpClient,
+    public sanatizer: DomSanitizer,
+    private activatedRoute: ActivatedRoute
+  ) { } //use for validation of date 
 
   ngOnInit() {
     window.scroll(0, 0);
@@ -48,6 +59,25 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray.push(image);
     this.productModel = new Product();
     this.productImages = new ProductImages();
+
+    if (this.router.url.includes("/update-ad")) {
+      let productId;
+
+      this.activatedRoute.params.subscribe(params => {
+        productId = params['id'];
+      });
+
+      this.productService.getProductDetails(productId).subscribe(
+        response => {
+          this.productModel = response.product;
+        }
+      );
+
+      if (this.productModel.pickupAddress.line1) {
+        this.isAddressSelected = true;
+        this.addressDisplayValue = "block";
+      }
+    }
   }
 
   PostProduct() {
@@ -72,8 +102,7 @@ export class PostAdComponentComponent implements OnInit {
       }
     );
   }
-  date = new Date();
-  latest_date = this.datepipe.transform(this.date, 'yyyy-MM-dd');
+
   validateDate(id) {
     var userDate = id.target.value;
     if (userDate > this.latest_date) {

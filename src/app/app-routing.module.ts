@@ -20,16 +20,20 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       {
-        path: "postad",
-        component: PostAdComponentComponent
-      },
-      {
         path: "",
         component: ProductsListComponent
       },
       {
         path: "details/:id",
         component: AdvertismentDetailsComponent
+      },
+      {
+        path: "postad",
+        component: PostAdComponentComponent
+      },
+      {
+        path: "update-ad/:id",
+        component: PostAdComponentComponent
       }
     ]
   },
@@ -46,10 +50,6 @@ const routes: Routes = [
         component: AdvertismentDetailsComponent
       }
     ]
-  },
-  {
-    path: '404',
-    component: AdvertismentDetailsComponent
   },
   {
     path: '**',

@@ -23,8 +23,8 @@
     <div class="mobile-view">
         <h3 class="nav-title"> Settings </h3>
         <div class="links">
-            <p><a href="#" class="header-icon"><i class="fa fa-user"></i> User Profile</a></p>
-            <p><a href="#" class="header-icon"><i class="fa fa-sign-out"></i> Sign out </a></p>
+            <p><a [routerLink]="['/profile/',userId]" class="header-icon"><i class="fa fa-user"></i> User Profile</a></p>
+            <p><a routerLink="/" class="header-icon"><i class="fa fa-sign-out"></i> Sign out </a></p>
         </div>
     </div>
 </div>

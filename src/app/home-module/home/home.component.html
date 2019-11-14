@@ -1,6 +1,6 @@
 <app-header (toggleMenuEvent)="toggleMenuEvent($event)" [showToggleButton]="true"></app-header>
 <div class="flex-container">
-    <div class="left-side-bar" [@openClose]="hideMenu ? 'open' : 'closed'">
+    <div class="left-side-bar" [@.disabled]="disableAnimation" [@openClose]="hideMenu ? 'open' : 'closed'">
         <app-left-nav-bar></app-left-nav-bar>
     </div>
     <div class="content">

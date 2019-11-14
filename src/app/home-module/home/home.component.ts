@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit, DoCheck {
   hideMenu: boolean;
   isMobile: boolean = false;
   userId: string;
-
+  disableAnimation: boolean = false;
   constructor(
     private router: Router
   ) { }
@@ -40,6 +40,9 @@ export class HomeComponent implements OnInit, DoCheck {
   ngDoCheck(): void {
     if (this.router.url != "/products") {
       this.hideMenu = true;
+      this.disableAnimation = true;
+    } else {
+      this.disableAnimation = false;
     }
   }
 

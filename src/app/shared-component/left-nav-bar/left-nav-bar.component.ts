@@ -3,6 +3,7 @@ import { Options, LabelType } from 'ng5-slider';
 import { ProductSort } from '../../models/product-sort';
 import { SortOptions } from "../../models/sort-options";
 import { ProductService } from '../../services/product.service';
+import { UserService } from 'src/app/services/user/user.service';
 @Component({
   selector: 'app-left-nav-bar',
   templateUrl: './left-nav-bar.component.html',
@@ -12,10 +13,11 @@ import { ProductService } from '../../services/product.service';
 export class LeftNavBarComponent implements OnInit {
   minValue: number = 0;
   maxValue: number = 50000;
-  selectedSort:string = "DateDSC";
-  productSortOptions:ProductSort;
-  sortOptions:SortOptions;
-  categories = ["Property","Car","Furniture","Mobile","Bike","Book","Fashion","Electronic","Other"];
+  selectedSort: string = "DateDSC";
+  productSortOptions: ProductSort;
+  sortOptions: SortOptions;
+  userId: string;
+  categories = ["Property", "Car", "Furniture", "Mobile", "Bike", "Book", "Fashion", "Electronic", "Other"];
   options: Options = {
     floor: 0,
     ceil: 50000,
@@ -30,23 +32,28 @@ export class LeftNavBarComponent implements OnInit {
       }
     }
   };
-  
-  constructor(private productService:ProductService) { }
-  onSelect(){
+
+  constructor(
+    private productService: ProductService,
+    private userService: UserService
+  ) {
+    this.userId = this.userService.userId;
+  }
+  onSelect() {
     this.setProductSortOptions();
   }
 
   ngOnInit() {
     this.productSortOptions = new ProductSort();
-    this.sortOptions  =new SortOptions();
+    this.sortOptions = new SortOptions();
     this.setProductSortOptions();
   }
-  setProductSortOptions(){
-    this.sortOptions.sortBy = this.selectedSort.slice(0,this.selectedSort.length-3);
-    this.sortOptions.order = this.selectedSort.slice(this.selectedSort.length-3,this.selectedSort.length);
+  setProductSortOptions() {
+    this.sortOptions.sortBy = this.selectedSort.slice(0, this.selectedSort.length - 3);
+    this.sortOptions.order = this.selectedSort.slice(this.selectedSort.length - 3, this.selectedSort.length);
     this.productSortOptions.ProductSort = this.sortOptions;
   }
-  applySort(){
+  applySort() {
     this.productService.setProductSortOptions(this.productSortOptions);
   }
 }

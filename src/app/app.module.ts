@@ -20,6 +20,7 @@ import { AdvertismentDetailsComponent } from './home-module/advertisment-details
 import { UserProfileComponent } from './user-module/user-profile/user-profile.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
+import {ImageService} from './services/ad-image.service'
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +47,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     NgbModule,
     AppRoutingModule
   ],
-  providers: [DatePipe],
+  providers: [DatePipe,ImageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

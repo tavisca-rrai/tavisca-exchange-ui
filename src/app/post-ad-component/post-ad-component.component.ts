@@ -2,9 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ImageProperty } from '../models/imageProperty';
 import { DatePipe } from '@angular/common';
 import { Product } from '../models/product';
-import { environment } from 'src/environments/environment';
 import { ProductService } from '../services/product.service';
 import { Router } from '@angular/router';
+import { HttpClient, HttpRequest, HttpEventType, HttpResponse, } from '@angular/common/http';
+import { DomSanitizer } from '@angular/platform-browser';
+import { environment } from '../../environments/environment';
+import { ImageService } from '../services/ad-image.service';
+import { ProductImages } from '../models/ProductImages';
 
 @Component({
   selector: 'app-post-ad-component',
@@ -13,36 +17,46 @@ import { Router } from '@angular/router';
 })
 
 export class PostAdComponentComponent implements OnInit {
-  minNoOfImage = 1;
-  maxNoOfImage = 5;
-  isAddressSelected: boolean = false;
-  imageArray: ImageProperty[] = [];
+  isMock= environment.isMockingEnabled;
+  minNoOfImage=1;
+  maxNoOfImage=5;
+  isAddressSelected:boolean=false;
+  imageArray:ImageProperty[] =[];
+  serverUrl=environment.imageApiSettings.BaseUrl; //the root url of the server
 
-  categories = ["Home", "Electronics", "Car", "Bike"]; // this is provided by categories api
-  states = ["Andra Pradesh", "Go", "Gujarat", "Haryana", "Himachal Pradesh", "Jammu and Kashmir", "Jharkhand", "Karnataka",
-    "Kerala", "Madya Pradesh", "Maharashtra", "Punjab", "Rajasthan"]
+  atleastOneImage = true;
+  allowSubmit = false;
+  invalidImage = false;
+  connectionError = false;
+  errMsg="";
 
+  categories = ["Property","Car","Furniture","Mobile","Bike","Book","Fashion","Electronic","Other"]; // this is provided by categories api
+  states = ["Andra Pradesh","Go","Gujarat","Haryana","Himachal Pradesh","Jammu and Kashmir","Jharkhand","Karnataka",
+  "Kerala","Madya Pradesh","Maharashtra","Punjab","Rajasthan"]
+  
   //properties of html element 
   addressDisplayValue = "none";
   purchaseDate = "none";
   imageCounter = 1;
-
-  constructor(public datepipe: DatePipe, private productService: ProductService, private router: Router) { } //use for validation of date 
-  productModel: Product;
+    constructor(private imageService: ImageService, private router: Router, public datepipe: DatePipe,private productService:ProductService, public http:HttpClient,public sanatizer : DomSanitizer){} //use for validation of date 
+  productModel : Product;
+  productImages: ProductImages;
 
   ngOnInit() {
-    let image = new ImageProperty();
+    window.scroll(0,0);
+    let image =new ImageProperty();
     this.imageArray.push(image);
-    this.productModel = new Product();
-  }
+    this.productModel=new Product();
+    this.productImages = new ProductImages();
+  } 
 
-  submitted = false;
-  onSubmit() {
-    this.submitted = true;
-  }
-
-  PostProduct() {
-    let isPreviewEnabled = true;
+  PostProduct()
+  {
+    console.log(this.productModel);
+    this.productImages.HeroImageUrl = this.productModel.heroImage;
+    this.productImages.ImageUrls = this.productModel.images;
+    if(!this.isMock)
+      this.imageService.storeImages(this.productImages).subscribe();
     this.productService.AddProduct(this.productModel).subscribe(
       response => {
         this.productService.sendProductObj(response);
@@ -90,31 +104,136 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray[id].imageLoaderProperty = "";
   }
 
-  addImage(id, event) {
+  isValidImage(file):boolean{
+    var validFormats = ['jpg','jpeg','png'];
+    let  fName = file.name;
+    var ext = fName.substr(fName.lastIndexOf('.')+1);
+    if(ext=='') 
+      return false;
+    if(validFormats.indexOf(ext) == -1){
+        return false;
+    }
+    return true;
+  }
+
+  incrementProgressBar(id,event):void{
+    const percentDone = Math.round(100 * event.loaded / event.total);
+    this.imageArray[id].ProgressBarDispProp="";
+    console.log(`File is ${percentDone}% uploaded.`);
+    this.imageArray[id].uploadedPercent=percentDone;
+  }
+
+  getImageUrl(event):string
+  {
+    let imageUrl = "";
+    let safeUrl;    
+    console.log('File is completely uploaded!');
+    imageUrl = this.serverUrl+event.body.imageUrl;
+    console.log("recieved image url: "+imageUrl);
+    safeUrl = this.sanatizer.bypassSecurityTrustUrl(imageUrl);  // to bypass sanatization of local url
+    return safeUrl;
+  }
+
+  uploadImage(event,id)
+  {
+    this.imageService.uploadImage(event.target.files[0])
+      .subscribe(
+        event => {
+            if (event.type === HttpEventType.UploadProgress) 
+            {
+              this.incrementProgressBar(id,event);
+            } 
+            else if (event instanceof HttpResponse)
+            {
+              this.imageArray[id].imageURL = this.getImageUrl(event);
+              this.productModel.images.push(event.body.imageUrl); //storing only the name of the file not the url as it may change on the server side
+              this.imageArray[id].ProgressBarDispProp="none";
+              if(id==0)
+              {
+                this.selectHeroImg(id);
+                this.imageArray[0].heroImage="";
+              }
+            }
+        },   
+        error=>{
+          this.removeImage(id);
+          this.errMsg = "Server Unreachable or Encountered an Error, Please try later.";
+          this.connectionError = true;
+          if(error.error !=null && error.error.Message != undefined && error.error.Message != undefined)
+            {
+              this.errMsg = error.error.Message;
+              this.connectionError = false;
+              if(error.error.Code==415)
+              {
+                this.invalidImage = true;
+                this.errMsg= "Invalid File Format. Please Upload Images(jpg, jpeg, png) only.";
+              }
+            }
+            
+          console.log("Upload Failed\n Error: "+ this.errMsg);
+        }
+      );
+  }
+
+  
+  addImage(id,event){
+    var err =false;    
     this.imageLoader(id);
-    this.imageArray[id].addEditProperty = "";
-    this.imageArray[id].crossBtnValue = "";
-    this.imageArray[id].imageDisplayValue = "";
-    this.imageArray[id].imageURL = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
-    this.imageArray[id].buttonName = "Change";
+    this.invalidImage = false;
+    this.connectionError = false;
+
+    if(this.isMock)
+    {
+      this.imageArray[id].imageURL = environment.imageApiSettings.mockImageUrl;
+      this.productModel.images.push(environment.imageApiSettings.mockImageUrl);
+      if(id==0)
+      {
+        this.selectHeroImg(id);
+      }
+    }
+    
+    else if(this.isValidImage(event.target.files[0]))
+    { 
+      this.uploadImage(event,id);
+    } 
+    else // if UI stops a non-image file upload
+    {
+      err = true;
+      this.invalidImage=true;
+      this.errMsg="Invalid File Format. Please Upload Images(jpg, jpeg, png) only.";
+    }
+
+    this.imageArray[id].addEditProperty="";
+    this.imageArray[id].crossBtnValue="";
+    this.imageArray[id].imageDisplayValue="";
+    this.imageArray[id].buttonName ="";
     this.imageArray[id].iconOfButton = "edit";
     this.imageArray[id].imageLoaderProperty="none";
-    this.productModel.images.push("https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
 
-    if (id == 0) {
-      this.selectHeroImg(id);
-      this.imageArray[0].heroImage = "";
-    }
 
     this.imageCounter += 1;
     if (this.imageCounter <= this.maxNoOfImage) {
       let image = new ImageProperty();
       this.imageArray.push(image);
     }
+    if(this.imageCounter>1)
+    {
+      this.atleastOneImage=true;
+      this.allowSubmit = true;
+    }
+    
+    // If the file enterd was invalid delete the extra image holder created
+    if(err)
+      this.removeImage(id);
   }
+ 
+  removeImage(id)
+  {
+    //send the DELETE request and then remove from local
+    this.imageService.deleteImage(this.productModel.images[id]).subscribe();
 
-  removeImage(id) {
-    if (this.imageCounter != 0 && this.imageArray[id].pictureContainerStyle == "4px solid blue") {
+    if(this.imageCounter!=0 && this.imageArray[id].pictureContainerStyle =="4px solid blue")
+    {
       this.selectHeroImg(0);
       this.imageArray[0].heroImage = "";
     }
@@ -135,22 +254,27 @@ export class PostAdComponentComponent implements OnInit {
       let image = new ImageProperty();
       this.imageArray.push(image);
     }
+
+    if(this.imageCounter<=1)
+    {
+      this.atleastOneImage=false;
+      this.allowSubmit = false;
+    }
   }
 
   selectHeroImg(id) {
-    for (let index = 0; index < this.imageArray.length; index++) {
-      if (index != id) {
-        this.imageArray[index].pictureContainerStyle = "1px solid lightgrey";
-        this.imageArray[index].heroImage = "none";
-      }
-    }
+    // for (let index = 0; index < this.imageArray.length; index++) {
+    //   if (index != id) {
+    //     this.imageArray[index].pictureContainerStyle = "1px solid lightgrey";
+    //     this.imageArray[index].heroImage = "none";
+    //   }
+    // }
     this.imageArray[id].pictureContainerStyle = "4px solid blue";
-    this.productModel.heroImage=this.productModel.images[id];
+    this.productModel.heroImage=this.productModel.images.pop();
   }
 
   imageClick(id) {
     document.getElementById(id).click();
   }
-
 
 }

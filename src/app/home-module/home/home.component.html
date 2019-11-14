@@ -1,10 +1,12 @@
-<app-header (toggleMenuEvent)="toggleMenuEvent($event)"></app-header>
+<app-header (toggleMenuEvent)="toggleMenuEvent($event)" [showToggleButton]="true"></app-header>
 <div class="flex-container">
-    <div class="left-side-bar">
-        <app-left-nav-bar [hideMenu]="hideMenu"></app-left-nav-bar>
+    <div class="left-side-bar" [@.disabled]="disableAnimation" [@openClose]="hideMenu ? 'open' : 'closed'">
+        <app-left-nav-bar></app-left-nav-bar>
     </div>
     <div class="content">
         <router-outlet></router-outlet>
     </div>
 </div>
-<app-footer></app-footer>
+<div class="footer">
+    <app-footer></app-footer>
+</div>

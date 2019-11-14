@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from 'src/app/models/product';
+import { ProductSort } from '../../models/product-sort';
+import { ProductSortService } from 'src/app/services/product-sort.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { ProductService } from 'src/app/services/product.service';
 import { Router } from '@angular/router';
@@ -20,11 +22,16 @@ export class ProductsListComponent implements OnInit {
   pageSize: number = 100;
   error = new ErrorResponse;
   advertiseId: string;
+  productSortOptions: ProductSort;
+  monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
+  ];
 
   constructor(
     private productService: ProductService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private productSortService: ProductSortService
   ) { }
 
   ngOnInit() {
@@ -51,8 +58,31 @@ export class ProductsListComponent implements OnInit {
         err => {
           // TBA - error msg on ui
           console.log(err.error);
-        }
-      );
+        });
     }
+    this.getSortOptions();
+  }
+
+  getSortOptions() {
+    this.productService.getProductSortOptions().subscribe(
+      (response) => {
+        this.productSortOptions = new ProductSort();
+        this.productSortOptions = response;
+        this.applySort();
+      },
+      err => { console.log(err.error); }
+    );
+  }
+
+  applySort() {
+    this.productSortService.getSortedProductsList(1, 2, this.productSortOptions).subscribe(
+      (response: GetProductsListResponse) => {
+        this.adsList = response.products;
+      },
+      err => {
+        // TBA - error msg on ui
+        console.log(err.error);
+      }
+    );
   }
 }

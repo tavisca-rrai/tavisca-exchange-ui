@@ -4,7 +4,7 @@ import { DatePipe } from '@angular/common';
 import { Product } from '../models/product';
 import { ProductService } from '../services/product.service';
 import { Router } from '@angular/router';
-import { HttpClient, HttpRequest, HttpEventType, HttpResponse, } from '@angular/common/http';
+import { HttpClient, HttpEventType, HttpResponse, } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
 import { ImageService } from '../services/ad-image.service';
@@ -17,50 +17,50 @@ import { ProductImages } from '../models/ProductImages';
 })
 
 export class PostAdComponentComponent implements OnInit {
-  isMock= environment.isMockingEnabled;
-  minNoOfImage=1;
-  maxNoOfImage=5;
-  isAddressSelected:boolean=false;
-  imageArray:ImageProperty[] =[];
-  serverUrl=environment.imageApiSettings.BaseUrl; //the root url of the server
+  isMock = environment.isMockingEnabled;
+  minNoOfImage = 1;
+  maxNoOfImage = 5;
+  isAddressSelected: boolean = false;
+  imageArray: ImageProperty[] = [];
+  serverUrl = environment.imageApiSettings.BaseUrl; //the root url of the server
 
   atleastOneImage = true;
   allowSubmit = false;
   invalidImage = false;
   connectionError = false;
-  errMsg="";
+  errMsg = "";
 
-  categories = ["Property","Car","Furniture","Mobile","Bike","Book","Fashion","Electronic","Other"]; // this is provided by categories api
-  states = ["Andra Pradesh","Go","Gujarat","Haryana","Himachal Pradesh","Jammu and Kashmir","Jharkhand","Karnataka",
-  "Kerala","Madya Pradesh","Maharashtra","Punjab","Rajasthan"]
-  
+  categories = ["Property", "Car", "Furniture", "Mobile", "Bike", "Book", "Fashion", "Electronic", "Other"]; // this is provided by categories api
+  states = ["Andra Pradesh", "Go", "Gujarat", "Haryana", "Himachal Pradesh", "Jammu and Kashmir", "Jharkhand", "Karnataka",
+    "Kerala", "Madya Pradesh", "Maharashtra", "Punjab", "Rajasthan"]
+
   //properties of html element 
   addressDisplayValue = "none";
   purchaseDate = "none";
   imageCounter = 1;
-    constructor(private imageService: ImageService, private router: Router, public datepipe: DatePipe,private productService:ProductService, public http:HttpClient,public sanatizer : DomSanitizer){} //use for validation of date 
-  productModel : Product;
+  constructor(private imageService: ImageService, private router: Router, public datepipe: DatePipe, private productService: ProductService, public http: HttpClient, public sanatizer: DomSanitizer) { } //use for validation of date 
+  productModel: Product;
   productImages: ProductImages;
 
   ngOnInit() {
-    window.scroll(0,0);
-    let image =new ImageProperty();
+    window.scroll(0, 0);
+    let image = new ImageProperty();
     this.imageArray.push(image);
-    this.productModel=new Product();
+    this.productModel = new Product();
     this.productImages = new ProductImages();
-  } 
+  }
 
   PostProduct()
   {
     this.productImages.HeroImageUrl = this.productModel.heroImage;
     this.productImages.ImageUrls = this.productModel.images;
-    if(!this.isMock)
+    if (!this.isMock)
       this.imageService.storeImages(this.productImages).subscribe();
     this.productService.AddProduct(this.productModel).subscribe(
       response => {
         this.productService.sendProductObj(response);
         if (response.id != null && response.id.trim() != "") {
-          this.router.navigate(['products/details', response.id],{queryParams:{preview:'true'}});
+          this.router.navigate(['products/details', response.id], { queryParams: { preview: 'true' } });
         }
         else {
           alert("Something went wrong");
@@ -103,111 +103,101 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray[id].imageLoaderProperty = "";
   }
 
-  isValidImage(file):boolean{
-    var validFormats = ['jpg','jpeg','png'];
-    let  fName = file.name;
-    var ext = fName.substr(fName.lastIndexOf('.')+1);
-    if(ext=='') 
+  isValidImage(file): boolean {
+    var validFormats = ['jpg', 'jpeg', 'png'];
+    let fName = file.name;
+    var ext = fName.substr(fName.lastIndexOf('.') + 1);
+    if (ext == '')
       return false;
-    if(validFormats.indexOf(ext) == -1){
-        return false;
+    if (validFormats.indexOf(ext) == -1) {
+      return false;
     }
     return true;
   }
 
-  incrementProgressBar(id,event):void{
+  incrementProgressBar(id, event): void {
     const percentDone = Math.round(100 * event.loaded / event.total);
-    this.imageArray[id].ProgressBarDispProp="";
+    this.imageArray[id].ProgressBarDispProp = "";
     console.log(`File is ${percentDone}% uploaded.`);
-    this.imageArray[id].uploadedPercent=percentDone;
+    this.imageArray[id].uploadedPercent = percentDone;
   }
 
-  getImageUrl(event):string
-  {
+  getImageUrl(event): string {
     let imageUrl = "";
-    let safeUrl;    
+    let safeUrl;
     console.log('File is completely uploaded!');
-    imageUrl = this.serverUrl+event.body.imageUrl;
-    console.log("recieved image url: "+imageUrl);
+    imageUrl = this.serverUrl + event.body.imageUrl;
+    console.log("recieved image url: " + imageUrl);
     safeUrl = this.sanatizer.bypassSecurityTrustUrl(imageUrl);  // to bypass sanatization of local url
     return safeUrl;
   }
 
-  uploadImage(event,id)
-  {
+  uploadImage(event, id) {
     this.imageService.uploadImage(event.target.files[0])
       .subscribe(
         event => {
-            if (event.type === HttpEventType.UploadProgress) 
-            {
-              this.incrementProgressBar(id,event);
-            } 
-            else if (event instanceof HttpResponse)
-            {
-              this.imageArray[id].imageURL = this.getImageUrl(event);
-              this.productModel.images.push(event.body.imageUrl); //storing only the name of the file not the url as it may change on the server side
-              this.imageArray[id].ProgressBarDispProp="none";
-              if(id==0)
-              {
-                this.selectHeroImg(id);
-                this.imageArray[0].heroImage="";
-              }
+          if (event.type === HttpEventType.UploadProgress) {
+            this.incrementProgressBar(id, event);
+          }
+          else if (event instanceof HttpResponse) {
+            this.imageArray[id].imageURL = this.getImageUrl(event);
+            this.productModel.images.push(event.body.imageUrl); //storing only the name of the file not the url as it may change on the server side
+            this.imageArray[id].ProgressBarDispProp = "none";
+            if (id == 0) {
+              this.selectHeroImg(id);
+              this.imageArray[0].heroImage = "";
             }
-        },   
-        error=>{
+          }
+        },
+        error => {
           this.removeImage(id);
           this.errMsg = "Server Unreachable or Encountered an Error, Please try later.";
           this.connectionError = true;
-          if(error.error !=null && error.error.Message != undefined && error.error.Message != undefined)
-            {
-              this.errMsg = error.error.Message;
-              this.connectionError = false;
-              if(error.error.Code==415)
-              {
-                this.invalidImage = true;
-                this.errMsg= "Invalid File Format. Please Upload Images(jpg, jpeg, png) only.";
-              }
+          if (error.error != null && error.error.Message != undefined && error.error.Message != undefined) {
+            this.errMsg = error.error.Message;
+            this.connectionError = false;
+            if (error.error.Code == 415) {
+              this.invalidImage = true;
+              this.errMsg = "Invalid File Format. Please Upload Images(jpg, jpeg, png) only.";
             }
-            
-          console.log("Upload Failed\n Error: "+ this.errMsg);
+          }
+
+          console.log("Upload Failed\n Error: " + this.errMsg);
         }
       );
   }
 
-  
-  addImage(id,event){
-    var err =false;    
+
+  addImage(id, event) {
+    var err = false;
     this.imageLoader(id);
     this.invalidImage = false;
     this.connectionError = false;
 
-    if(this.isMock)
-    {
+    if (this.isMock) {
       this.imageArray[id].imageURL = environment.imageApiSettings.mockImageUrl;
       this.productModel.images.push(environment.imageApiSettings.mockImageUrl);
-      if(id==0)
-      {
+      if (id == 0) {
         this.selectHeroImg(id);
       }
     }
-    
-    else if(this.isValidImage(event.target.files[0]))
-    { 
-      this.uploadImage(event,id);
-    } 
+
+    else if (this.isValidImage(event.target.files[0])) {
+      this.uploadImage(event, id);
+    }
     else // if UI stops a non-image file upload
     {
       err = true;
-      this.invalidImage=true;
-      this.errMsg="Invalid File Format. Please Upload Images(jpg, jpeg, png) only.";
+      this.invalidImage = true;
+      this.errMsg = "Invalid File Format. Please Upload Images(jpg, jpeg, png) only.";
     }
 
-    this.imageArray[id].addEditProperty="";
-    this.imageArray[id].crossBtnValue="";
-    this.imageArray[id].imageDisplayValue="";
-    this.imageArray[id].buttonName ="";
+    this.imageArray[id].addEditProperty = "";
+    this.imageArray[id].crossBtnValue = "";
+    this.imageArray[id].imageDisplayValue = "";
+    this.imageArray[id].buttonName = "";
     this.imageArray[id].iconOfButton = "edit";
-    this.imageArray[id].imageLoaderProperty="none";
+    this.imageArray[id].imageLoaderProperty = "none";
 
 
     this.imageCounter += 1;
@@ -215,24 +205,21 @@ export class PostAdComponentComponent implements OnInit {
       let image = new ImageProperty();
       this.imageArray.push(image);
     }
-    if(this.imageCounter>1)
-    {
-      this.atleastOneImage=true;
+    if (this.imageCounter > 1) {
+      this.atleastOneImage = true;
       this.allowSubmit = true;
     }
-    
+
     // If the file enterd was invalid delete the extra image holder created
-    if(err)
+    if (err)
       this.removeImage(id);
   }
- 
-  removeImage(id)
-  {
+
+  removeImage(id) {
     //send the DELETE request and then remove from local
     this.imageService.deleteImage(this.productModel.images[id]).subscribe();
 
-    if(this.imageCounter!=0 && this.imageArray[id].pictureContainerStyle =="4px solid blue")
-    {
+    if (this.imageCounter != 0 && this.imageArray[id].pictureContainerStyle == "4px solid blue") {
       this.selectHeroImg(0);
       this.imageArray[0].heroImage = "";
     }
@@ -243,7 +230,7 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray[id].buttonName = "Add";
     this.imageArray[id].iconOfButton = "plus";
     this.imageArray[id].pictureContainerStyle = "1px solid lightgrey";
-    this.productModel.images.splice(id,1);
+    this.productModel.images.splice(id, 1);
 
     if (this.imageCounter > this.minNoOfImage) {
       this.imageArray.splice(id, 1);
@@ -254,9 +241,8 @@ export class PostAdComponentComponent implements OnInit {
       this.imageArray.push(image);
     }
 
-    if(this.imageCounter<=1)
-    {
-      this.atleastOneImage=false;
+    if (this.imageCounter <= 1) {
+      this.atleastOneImage = false;
       this.allowSubmit = false;
     }
   }
@@ -269,7 +255,7 @@ export class PostAdComponentComponent implements OnInit {
     //   }
     // }
     this.imageArray[id].pictureContainerStyle = "4px solid blue";
-    this.productModel.heroImage=this.productModel.images.pop();
+    this.productModel.heroImage = this.productModel.images.pop();
   }
 
   imageClick(id) {

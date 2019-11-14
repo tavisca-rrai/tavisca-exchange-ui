@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, DoCheck } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -6,24 +7,29 @@ import { UserService } from 'src/app/services/user/user.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, DoCheck {
   userId: string;
+
   constructor(
+    private router: Router,
     private userService: UserService
   ) {
     this.userId = this.userService.userId;
   }
 
-  @Input() hideMobileMenu: boolean = true;
-  @Input() hideMenu: boolean = true;
-  @Output() toggleMenuEvent = new EventEmitter<boolean>();
-  toggleMobileMenu(): void {
-    if (this.hideMobileMenu) {
-      this.hideMobileMenu = false;
-    } else {
-      this.hideMobileMenu = true;
+  ngDoCheck(): void {
+    if (this.router.url != "/products") {
+      this.showToggleButton = false;
+    }
+    else {
+      this.showToggleButton = true;
     }
   }
+
+  @Input() hideMenu: boolean = true;
+  @Input() showToggleButton: boolean = false;
+  @Output() toggleMenuEvent = new EventEmitter<boolean>();
+
   toggleMenu(): void {
     if (this.hideMenu) {
       this.hideMenu = false;
@@ -33,6 +39,7 @@ export class HeaderComponent implements OnInit {
     }
     this.toggleMenuEvent.emit(this.hideMenu);
   }
+
   ngOnInit() {
     this.toggleMenuEvent.emit(this.hideMenu);
   }

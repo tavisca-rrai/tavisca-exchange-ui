@@ -30,7 +30,7 @@
 }
 
 .left-sidepanel div {
-    border: 1px solid rgb(190, 187, 187);
+    /* border: 1px solid rgb(190, 187, 187); */
     margin-bottom: 5px;
 }
 
@@ -57,7 +57,7 @@
 }
 
 .product-description {
-    border: 1px solid grey;
+    /* border: 1px solid grey; */
     padding: 2%;
 }
 
@@ -70,7 +70,7 @@
 }
 
 .right-sidepanel div {
-    border: 1px solid rgb(190, 187, 187);
+    /* border: 1px solid rgb(190, 187, 187); */
     margin-bottom: 5px;
     padding: 2%;
 }
@@ -195,15 +195,6 @@
     font-size: 34px;
     font-family: sans-serif;
 }
-
-.null-response {
-    border: none;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center
-}
-
 .if-preview-is-on {
     margin: 0;
     padding: 0;

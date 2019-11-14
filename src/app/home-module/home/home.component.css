@@ -1,16 +1,19 @@
 .flex-container {
     display: flex;
     width: 100%;
+    min-height: 547px !important;
 }
 
 .left-side-bar {
-    width: 20%;
-    padding-top: 20px;
+    width: 350px;
     background-color: #fff;
-    height: 74%;
     box-sizing: border-box;
-    position: fixed;
-    overflow-y: scroll;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+app-left-nav-bar{
+    width: 200px;
 }
 
 .content {
@@ -35,7 +38,11 @@
         margin-left: 0%!important;
     }
     .left-side-bar{
-        display: none;
+        display: block;
+        position: fixed;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        height: 90%;
     }
 }
 
@@ -43,4 +50,5 @@
     app-advertisments-list {
         grid-template-columns: 33.33% 33.33% 33.33%;
     }
+
 }

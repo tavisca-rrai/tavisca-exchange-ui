@@ -9,6 +9,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
 import { ImageService } from '../services/ad-image.service';
 import { ProductImages } from '../models/ProductImages';
+import { GetCategoryResponse } from '../models/get-category-response';
+import { CategoryService } from '../services/category-service/category.service';
 
 @Component({
   selector: 'app-post-ad-component',
@@ -38,7 +40,7 @@ export class PostAdComponentComponent implements OnInit {
   addressDisplayValue = "none";
   purchaseDate = "none";
   imageCounter = 1;
-    constructor(private imageService: ImageService, private router: Router, public datepipe: DatePipe,private productService:ProductService, public http:HttpClient,public sanatizer : DomSanitizer){} //use for validation of date 
+    constructor(private imageService: ImageService,private categoryService: CategoryService, private router: Router, public datepipe: DatePipe,private productService:ProductService, public http:HttpClient,public sanatizer : DomSanitizer){} //use for validation of date 
   productModel : Product;
   productImages: ProductImages;
 
@@ -48,6 +50,17 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray.push(image);
     this.productModel=new Product();
     this.productImages = new ProductImages();
+
+    this.categoryService.getCategories().subscribe(
+      response => {
+        response: GetCategoryResponse
+        console.log(response);
+        this.categories = response.listOfCategory;
+      },
+      err => {
+        console.log(err.error);
+      }
+    );
   } 
 
   PostProduct()

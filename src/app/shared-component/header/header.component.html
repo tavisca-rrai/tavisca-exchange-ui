@@ -1,5 +1,4 @@
 <div class="header">
-    <!-- <span class="mobile-menu ml-3 mr-3" (click)="toggleMobileMenu()"><i class="fa fa-bars"></i></span> -->
     <span *ngIf="showToggleButton" class="menu ml-3 mr-3" (click)="toggleMenu()"><i class="fa fa-bars"></i></span>
     <div class="brand">
         <h1><a routerLink="/products">Tav<span>Ex</span></a></h1>
@@ -9,11 +8,16 @@
     </div>
     <div class="link-box">
         <div class="user-profile">
-            <a routerLink="/products/postad" class="btn btn-primary mr-3 sell"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i> Sell </a>
-            <a routerLink="/products/postad/#" class="header-icon"><i class="fa fa-user"></i></a>
-            <a routerLink="/products/postad/#" class="header-icon"><i class="fa fa-bell"></i></a>
-            <a routerLink="/" class="header-icon"><i class="fa fa-sign-out"></i></a>
+            <a [routerLink]="['/products/postad']" class="btn btn-primary mr-3 sell">
+                <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+                Sell
+            </a>
+            <a [routerLink]="['/profile/',userId]" class="header-icon">
+                <i class="fa fa-user"></i>
+            </a>
+            <a routerLink="/" class="header-icon">
+                <i class="fa fa-sign-out"></i>
+            </a>
         </div>
     </div>
 </div>
-<!-- <app-mobile-left-nav-bar [hideMobileMenu]="hideMobileMenu"></app-mobile-left-nav-bar> -->

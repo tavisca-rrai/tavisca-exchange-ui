@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { IProductService } from '../models/i-product-service';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Product } from './../models/product';
 import { Seller } from './../models/seller';
 import { Observable, of, throwError, BehaviorSubject } from 'rxjs';
 import { ProductMockService } from './product-mock.service';
@@ -10,6 +9,8 @@ import { GetProductsListResponse } from '../models/get-products-list-response';
 import { GetProductDetailsResponse } from '../models/get-product-details-response';
 import { catchError, retry } from 'rxjs/operators';
 import { ErrorResponse } from '../models/error-response'
+import { Product } from './../models/product'
+import { ProductSort } from '../models/product-sort';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,8 @@ export class ProductService implements IProductService {
   private _productSource: Product;
   _error: ErrorResponse;
   productMockService: ProductMockService;
+  private _productSortOptions: ProductSort;
+  private _productSortOptionsObservable = new BehaviorSubject(null);
   public headers = new HttpHeaders({
     "Content-Type": "application/json"
   });
@@ -110,6 +113,13 @@ export class ProductService implements IProductService {
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
     return throwError(errorMessage);
+  }
+  setProductSortOptions(productSortOptions: ProductSort) {
+    this._productSortOptions = productSortOptions;
+    this._productSortOptionsObservable.next(this._productSortOptions);
+  }
+  getProductSortOptions(): Observable<ProductSort> {
+    return this._productSortOptionsObservable;
   }
   private getUrl(path: string): string {
     return environment.productSetting.BaseUrl +

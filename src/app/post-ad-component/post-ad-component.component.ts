@@ -52,7 +52,6 @@ export class PostAdComponentComponent implements OnInit {
 
   PostProduct()
   {
-    console.log(this.productModel);
     this.productImages.HeroImageUrl = this.productModel.heroImage;
     this.productImages.ImageUrls = this.productModel.images;
     if(!this.isMock)

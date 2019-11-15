@@ -23,17 +23,14 @@ export class PostAdComponentComponent implements OnInit {
   isAddressSelected: boolean = false;
   imageArray: ImageProperty[] = [];
   serverUrl = environment.imageApiSettings.BaseUrl; //the root url of the server
-
   atleastOneImage = true;
   allowSubmit = false;
   invalidImage = false;
   connectionError = false;
   errMsg = "";
-
   categories = ["Property", "Car", "Furniture", "Mobile", "Bike", "Book", "Fashion", "Electronic", "Other"]; // this is provided by categories api
   states = ["Andra Pradesh", "Go", "Gujarat", "Haryana", "Himachal Pradesh", "Jammu and Kashmir", "Jharkhand", "Karnataka",
     "Kerala", "Madya Pradesh", "Maharashtra", "Punjab", "Rajasthan"];
-
   //properties of html element 
   addressDisplayValue = "none";
   purchaseDate = "none";
@@ -42,6 +39,8 @@ export class PostAdComponentComponent implements OnInit {
   productImages: ProductImages;
   date = new Date();
   latest_date = this.datepipe.transform(this.date, 'yyyy-MM-dd');
+  productId: string;
+  btnDispText: string;
 
   constructor(
     private imageService: ImageService,
@@ -61,13 +60,11 @@ export class PostAdComponentComponent implements OnInit {
     this.productImages = new ProductImages();
 
     if (this.router.url.includes("/update-ad")) {
-      let productId;
-
       this.activatedRoute.params.subscribe(params => {
-        productId = params['id'];
+        this.productId = params['id'];
       });
 
-      this.productService.getProductDetails(productId).subscribe(
+      this.productService.getProductDetails(this.productId).subscribe(
         response => {
           this.productModel = response.product;
         }
@@ -76,12 +73,15 @@ export class PostAdComponentComponent implements OnInit {
       if (this.productModel.pickupAddress.line1) {
         this.isAddressSelected = true;
         this.addressDisplayValue = "block";
+        this.btnDispText = "Update";
       }
+    } else {
+      this.productId = null;
+      this.btnDispText = "Submit";
     }
   }
 
   PostProduct() {
-    console.log(this.productModel);
     this.productImages.HeroImageUrl = this.productModel.heroImage;
     this.productImages.ImageUrls = this.productModel.images;
     if (!this.isMock)
@@ -95,6 +95,18 @@ export class PostAdComponentComponent implements OnInit {
         else {
           alert("Something went wrong");
         }
+      },
+      err => {
+        alert("Oops, something went wrong, Please try again later.");
+        console.log(err.error);
+      }
+    );
+  }
+
+  updateProduct() {
+    this.productService.updateProduct(this.productModel).subscribe(
+      response => {
+
       },
       err => {
         alert("Oops, something went wrong, Please try again later.");
@@ -196,7 +208,6 @@ export class PostAdComponentComponent implements OnInit {
       );
   }
 
-
   addImage(id, event) {
     var err = false;
     this.imageLoader(id);
@@ -289,6 +300,10 @@ export class PostAdComponentComponent implements OnInit {
 
   imageClick(id) {
     document.getElementById(id).click();
+  }
+
+  adActionBtn() {
+    this.productId ? this.updateProduct() : this.PostProduct();
   }
 
 }

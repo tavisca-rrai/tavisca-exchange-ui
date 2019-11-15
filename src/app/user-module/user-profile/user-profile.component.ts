@@ -3,6 +3,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { GetUserProfileResponse } from 'src/app/models/user/get-user-profile-response';
 import { UserProfile } from 'src/app/models/user/user-profile';
 import { GetProductsListResponse } from 'src/app/models/get-products-list-response';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-user-profile-component',
@@ -16,7 +17,8 @@ export class UserProfileComponent implements OnInit {
   showActiveAds: boolean;
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private productService: ProductService
   ) { }
 
   ngOnInit() {
@@ -38,7 +40,7 @@ export class UserProfileComponent implements OnInit {
 
   getActiveAds() {
     this.showActiveAds = true;
-    this.userService.getActiveUserProducts(this.userId).subscribe(
+    this.productService.getActiveUserProducts(this.userId).subscribe(
       (response: GetProductsListResponse) => {
         this.userService.userAdsList.next(response.products);
       },
@@ -51,7 +53,7 @@ export class UserProfileComponent implements OnInit {
 
   getInactiveAds() {
     this.showActiveAds = false;
-    this.userService.getInactiveUserProducts(this.userId).subscribe(
+    this.productService.getInactiveUserProducts(this.userId).subscribe(
       (response: GetProductsListResponse) => {
         this.userService.userAdsList.next(response.products);
       },

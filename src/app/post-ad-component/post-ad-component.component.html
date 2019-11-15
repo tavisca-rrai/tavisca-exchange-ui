@@ -13,7 +13,7 @@
         <div class="form-group">
             <label>Category*</label>
             <select [(ngModel)]="productModel.category" id="category" class="form-control" name="category" required>
-                <option *ngFor="let category of categories">{{ category }}</option>
+                <option *ngFor="let category of categories" [(ngValue)]="category">{{ category }}</option>
             </select>
         </div>
 
@@ -65,7 +65,8 @@
 
         <div class="form-group">
             <label style="margin-right: 20px;"> Address </label>
-            <input type="checkbox" (click)="validateAddress($event)" [value]='isAddressSelected'>
+            <input type="checkbox" (click)="validateAddress($event)" [checked]="isAddressSelected"
+                [value]='isAddressSelected'>
             <div class="addresss" [style.display]="addressDisplayValue">
                 <label>Line 1</label>
                 <input [(ngModel)]="productModel.pickupAddress.line1" name="line1" minlength="2"
@@ -139,9 +140,11 @@
         </div>
 
         <div class="button-container">
-            <button type="submit" class="btn btn-primary" (click)="PostProduct()"
-                [disabled]="!allowSubmit || !postAdForm.valid">Submit</button>
-            <button type="button" routerLink="../" class="btn btn-danger">Cancel</button>
+            <button type="submit" class="btn btn-primary ad-action-btn" (click)="adActionBtn()"
+                [disabled]="!allowSubmit || !postAdForm.valid">
+                {{btnDispText}}
+            </button>
+            <button type="button" routerLink="/products" class="btn btn-danger ad-action-btn">Cancel</button>
         </div>
     </form>
 </div>

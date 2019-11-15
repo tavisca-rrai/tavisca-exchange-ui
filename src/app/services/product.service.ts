@@ -11,6 +11,7 @@ import { catchError, retry } from 'rxjs/operators';
 import { ErrorResponse } from '../models/error-response'
 import { Product } from './../models/product'
 import { ProductSort } from '../models/product-sort';
+import { UserService } from './user/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ import { ProductSort } from '../models/product-sort';
 export class ProductService implements IProductService {
   private _productSource: Product;
   _error: ErrorResponse;
+  userService: UserService;
   productMockService: ProductMockService;
   private _productSortOptions: ProductSort;
   private _productSortOptionsObservable = new BehaviorSubject(null);
@@ -56,6 +58,19 @@ export class ProductService implements IProductService {
       //this is dummy. This will be removed after login service integration
       product.sellerId = "1";
       return this.http.post<Product>(this.getUrl(environment.productSetting.addProductPath), product, {
+        headers: this.headers
+      });
+    }
+  }
+
+  updateProduct(product: Product): Observable<Product> {
+    if (environment.isMockingEnabled) {
+      return this.productMockService.updateProduct(product);
+    }
+    else {
+      //this is dummy. This will be removed after login service integration
+      product.sellerId = product.id;
+      return this.http.post<Product>(this.getUrl(environment.productSetting.updateProductPath), product, {
         headers: this.headers
       });
     }
@@ -129,6 +144,32 @@ export class ProductService implements IProductService {
 
   getProductSortOptions(): Observable<ProductSort> {
     return this._productSortOptionsObservable;
+  }
+
+  getActiveUserProducts(
+    userId: string
+  ): Observable<GetProductsListResponse> {
+    if (environment.isMockingEnabled) {
+      return this.productMockService.getActiveUserProducts(userId);
+    } else {
+      let getProductListUrl: string = this.userService.getUrl(environment.userSetting.profile) + userId + environment.userSetting.activeAds;
+      return this.http.get<GetProductsListResponse>(getProductListUrl, {
+        headers: this.headers
+      });
+    }
+  }
+
+  getInactiveUserProducts(
+    userId: string
+  ): Observable<GetProductsListResponse> {
+    if (environment.isMockingEnabled) {
+      return this.productMockService.getInactiveUserProducts(userId);
+    } else {
+      let getProductListUrl: string = this.userService.getUrl(environment.userSetting.inactiveAds) + userId + environment.userSetting.inactiveAds;
+      return this.http.get<GetProductsListResponse>(getProductListUrl, {
+        headers: this.headers
+      });
+    }
   }
 
   private getUrl(path: string): string {

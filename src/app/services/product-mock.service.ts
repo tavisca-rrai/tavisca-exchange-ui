@@ -4,10 +4,8 @@ import { IProductService } from '../models/i-product-service';
 import { Observable, of } from 'rxjs';
 import { GetProductDetailsResponse } from '../models/get-product-details-response';
 import { GetProductsListResponse } from '../models/get-products-list-response';
-import { environment } from 'src/environments/environment';
 
 export class ProductMockService implements IProductService {
-
   productsList: Product[];
 
   constructor() {
@@ -378,7 +376,7 @@ export class ProductMockService implements IProductService {
   getActiveUserProducts(
     userId: string
   ): Observable<GetProductsListResponse> {
-    if (userId != environment.userSetting.userId) {
+    if (userId != "777888666") {
       return null;
     }
     var getProductsListResponse = new GetProductsListResponse();
@@ -389,12 +387,11 @@ export class ProductMockService implements IProductService {
   getInactiveUserProducts(
     userId: string
   ): Observable<GetProductsListResponse> {
-    if (userId != environment.userSetting.userId) {
+    if (userId != "777888666") {
       return null;
     }
     var getProductsListResponse = new GetProductsListResponse();
     getProductsListResponse.products = this.getDummyInactiveUserProducts();
     return of(getProductsListResponse);
   }
-
 }

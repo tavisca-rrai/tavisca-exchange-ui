@@ -38,6 +38,7 @@ export class AdvertismentDetailsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userId = this.routerToProducts.url.includes("/profile") ? this.userService.userId : null;
 
+    window.scroll(0, 0);
     let id: string;
     this.router.queryParams.pipe(filter(params => params.preview))
       .subscribe(params => {
@@ -89,7 +90,7 @@ export class AdvertismentDetailsComponent implements OnInit, OnDestroy {
       });
       this.productService.getProductDetails(id).subscribe(
         (response: GetProductDetailsResponse) => {
-          if (response == null || response.product == null || response.seller == null) {
+          if (response == null || response.product == null) {
             this.noProductResponse = true;
             this.error.code = 404;
             this.error.message = "Page Not Found";
@@ -106,10 +107,10 @@ export class AdvertismentDetailsComponent implements OnInit, OnDestroy {
               this.isAddressPresent = false;
             else
               this.isAddressPresent = true;
-            this.images.push(this.productdetails.product.heroImage);
+            this.images.push(environment.imageApiSettings.BaseUrl + this.productdetails.product.heroImage);
             if (this.productdetails.product.images != null) {
               for (let productImage in this.productdetails.product.images) {
-                this.images.push(this.productdetails.product.images[productImage]);
+                this.images.push(environment.imageApiSettings.BaseUrl + this.productdetails.product.images[productImage]);
               }
             }
           }
@@ -133,5 +134,4 @@ export class AdvertismentDetailsComponent implements OnInit, OnDestroy {
     this.isPreviewEnabled = false;
     this.isPreviewOn = 'false';
   }
-
 }

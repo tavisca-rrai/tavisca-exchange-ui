@@ -11,19 +11,20 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  userId: string;
   userProfile: UserProfile;
+  userId: string;
   hideMenu: boolean;
   showActiveAds: boolean;
 
   constructor(
     private userService: UserService,
     private productService: ProductService
-  ) { }
+  ) {
+    this.userId = this.userService.getUserFromStorage().id;
+  }
 
   ngOnInit() {
     this.showActiveAds = true;
-    this.userId = this.userService.userId;
 
     this.userService.getUserProfile(this.userId).subscribe(
       (response: GetUserProfileResponse) => {

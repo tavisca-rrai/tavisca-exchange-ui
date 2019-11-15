@@ -12,6 +12,7 @@ import { ErrorResponse } from '../models/error-response'
 import { Product } from './../models/product'
 import { ProductSort } from '../models/product-sort';
 import { UserService } from './user/user.service';
+import { UserProfile } from '../models/user/user-profile';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,8 @@ import { UserService } from './user/user.service';
 
 export class ProductService implements IProductService {
   private _productSource: Product;
+  private userProfile: UserProfile;
   _error: ErrorResponse;
-  userService: UserService;
   productMockService: ProductMockService;
   private _productSortOptions: ProductSort;
   private _productSortOptionsObservable = new BehaviorSubject(null);
@@ -28,10 +29,11 @@ export class ProductService implements IProductService {
     "Content-Type": "application/json"
   });
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private userService: UserService) {
     if (environment.isMockingEnabled) {
       this.productMockService = new ProductMockService();
     }
+    this.userProfile = userService.getUserFromStorage();
   }
 
   getProductObj() {
@@ -55,8 +57,7 @@ export class ProductService implements IProductService {
       return this.productMockService.AddProduct(product);
     }
     else {
-      //this is dummy. This will be removed after login service integration
-      product.sellerId = "1";
+      product.sellerId = this.userProfile.id;
       return this.http.post<Product>(this.getUrl(environment.productSetting.addProductPath), product, {
         headers: this.headers
       });
@@ -104,8 +105,14 @@ export class ProductService implements IProductService {
     if (environment.isMockingEnabled) {
       return this.productMockService.getProductsList(pageNumber, pageSize);
     } else {
+      var body = {
+        "ProductSort": {
+          "Type": null,
+          "Order": null
+        }
+      };
       let getProductListUrl: string = this.getUrl(environment.productSetting.adsListPath) + "?pageNumber=" + pageNumber + "&pagesize=" + pageSize;
-      return this.http.get<GetProductsListResponse>(getProductListUrl, {
+      return this.http.post<GetProductsListResponse>(getProductListUrl, JSON.stringify(body), {
         headers: this.headers
       }).pipe(
         retry(1),

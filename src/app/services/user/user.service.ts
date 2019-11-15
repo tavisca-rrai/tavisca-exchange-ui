@@ -1,3 +1,4 @@
+import { UserProfile } from './../../models/user/user-profile';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -13,9 +14,9 @@ import { Product } from 'src/app/models/product';
 
 export class UserService implements IUserService {
   userId: string;
-  userMockService: UserMockService;
+  private userProfile: UserProfile;
+  private userMockService: UserMockService;
   userAdsList: BehaviorSubject<Product[]> = new BehaviorSubject([]);
-
   public headers = new HttpHeaders({
     "Content-Type": "application/json"
   });
@@ -24,7 +25,7 @@ export class UserService implements IUserService {
     if (environment.isMockingEnabled) {
       this.userMockService = new UserMockService();
     }
-    this.userId = environment.userSetting.userId;
+    this.userId = "777888666";
   }
 
   getUserProfile(
@@ -33,16 +34,31 @@ export class UserService implements IUserService {
     if (environment.isMockingEnabled) {
       return this.userMockService.getUserProfile(userId);
     } else {
-      let getProductListUrl: string = this.getUrl(environment.userSetting.profile) + userId;
+      let getProductListUrl: string = this.getUrl(environment.userSetting.profile) + "/" + userId;
       return this.http.get<GetUserProfileResponse>(getProductListUrl, {
         headers: this.headers
       });
     }
   }
 
+  saveUserToStorage(userId: string) {
+    this.userProfile = new UserProfile();
+    this.userProfile.id = userId;
+  }
+
+  getUserFromStorage(): UserProfile {
+    if (environment.isMockingEnabled) {
+      this.userProfile = new UserProfile();
+      this.userProfile.id = "777888666";
+      return this.userProfile;
+    }
+    else {
+      return this.userProfile;
+    }
+  }
+
   getUrl(path: string): string {
-    return
-    environment.userSetting.baseUrl +
+    return environment.userSetting.baseUrl +
       environment.version +
       environment.applicationName +
       path;

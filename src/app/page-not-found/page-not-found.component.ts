@@ -14,19 +14,20 @@ export class PageNotFoundComponent implements OnInit {
 
   ngOnInit() 
   {
-      this.productService.getErrorObj()
-      .subscribe(
-        errorresponse =>
-        {
-          this.errordetails.code = errorresponse.code;
-          this.errordetails.message = errorresponse.message;
-          console.log(this.errordetails);
-        },
-        error => 
-        {
-          console.error('Oops:', error.message);
-        },
-      );
+    window.scroll(0,0);
+    this.productService.getErrorObj()
+    .subscribe(
+      errorresponse =>
+      {
+        this.errordetails.code = errorresponse.code;
+        this.errordetails.message = errorresponse.message;
+        console.log(this.errordetails);
+      },
+      error => 
+      {
+        console.error('Oops:', error.message);
+      },
+    );
   }
 
 }

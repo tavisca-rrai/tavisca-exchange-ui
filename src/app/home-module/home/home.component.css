@@ -1,6 +1,7 @@
 .flex-container {
     display: flex;
     width: 100%;
+    min-height: 547px !important;
 }
 
 .left-side-bar {
@@ -18,7 +19,7 @@ app-left-nav-bar{
 .content {
     width: 100%;
     padding: 2%;
-    min-height: 474px;
+    min-height: 515px;
 }
 
 @media only screen and (min-width: 768px) {

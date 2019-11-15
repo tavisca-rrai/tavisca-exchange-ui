@@ -25,6 +25,6 @@ export const environment = {
     BaseUrl: "https://localhost:44357/",
     uploadImagePath: "api/v1.0/OnlineRetailPortal/image/",
     storeImagePath: "api/v1.0/OnlineRetailPortal/image/store",
-    mockImageUrl: "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+    mockImageUrl: "https://cmsimages-alt.kbb.com/content/dam/kbb-editorial/make/rolls-royce/cullinan/2019-rolls-royce-cullinan-side.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg"
   }
 };

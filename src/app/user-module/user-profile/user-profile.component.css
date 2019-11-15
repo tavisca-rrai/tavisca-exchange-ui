@@ -1,59 +1,67 @@
 .user-profile-container {
-    margin: auto;
+  margin: auto;
+  min-height: 82vh;
 }
 
-.profile-section {
+/* .profile-section {
     margin: 40px 0px;
     display: grid;
     grid-template-columns: 40% 60%;
     width: 100%;
+} */
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
-
 .img-container {
-    width: 100%;
-    text-align: center;
+  width: 100%;
+  text-align: center;
 }
 
 .user-info {
-    width: 100%;
+  width: 100%;
 }
 
-.img-container>img {
-    border-radius: 50%;
-    max-width: 150px;
-    max-height: 150px;
+.img-container > img {
+  border-radius: 50%;
+  max-width: 150px;
+  max-height: 150px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .ad-list-section {
-    width: 100%;
+  width: 100%;
 }
 
-.user-info>h1 {
-    font-weight: 300;
+.user-info > h1 {
+  font-weight: 300;
 }
 
-.user-info>.user-contact-details {
-    padding: 0px;
+.user-info > .user-contact-details {
+  padding: 0px;
 }
 
-.user-info>.user-contact-details>li {
-    display: inline;
-    padding-right: 12px;
-    color: grey;
-    font-size: 16px;
+.user-info > .user-contact-details > li {
+  display: inline;
+  padding-right: 12px;
+  color: grey;
+  font-size: 16px;
 }
 
 .btn-separator {
-    text-align: center;
+  text-align: center;
 }
 
-.btn-separator>button {
-    border: none;
-    padding: 10px;
-    margin: 15px 0px 15px;
+.btn-separator > button {
+  border: none;
+  padding: 10px;
+  margin: 15px 0px 15px;
 }
 
-.btn-separator>.button-active {
-    background-color: #1976d2;
-    color: #fff;
+.btn-separator > .button-active {
+  background-color: #1976d2;
+  color: #fff;
 }

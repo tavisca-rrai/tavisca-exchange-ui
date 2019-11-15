@@ -36,7 +36,7 @@ export class ProductsListComponent implements OnInit {
 
   ngOnInit() {
     if (this.router.url.includes("/products")) {
-      this.productService.getProductsList(3, 15).subscribe(
+      this.productService.getProductsList(1, 200).subscribe(
         (response: GetProductsListResponse) => {
           let noProductResponse: boolean = false;
           if (response == null) {
@@ -53,6 +53,7 @@ export class ProductsListComponent implements OnInit {
     } else if (this.router.url.includes("/profile")) {
       this.userService.userAdsList.subscribe(
         (response: Product[]) => {
+          console.log(response);
           this.adsList = response;
         },
         err => {

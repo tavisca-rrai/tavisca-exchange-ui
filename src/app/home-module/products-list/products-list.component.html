@@ -7,7 +7,8 @@
             <p class="adv-price">₹ {{ad.price.money.amount}}</p>
             <p class="adv-title">{{ad.name}}</p>
             <div class="adv-bottom-section">
-                <p class="adv-posting-area" *ngIf="ad.pickupAddress != null">{{ad.pickupAddress.city}}, {{ad.pickupAddress.state}}</p>
+                <p class="adv-posting-area" *ngIf="ad.pickupAddress != null">{{ad.pickupAddress.city}},
+                    {{ad.pickupAddress.state}}</p>
                 <p class="adv-posting-date">
                     {{ad.postDateTime | date :'dd MMM yy'}}
                 </p>
@@ -16,5 +17,5 @@
     </div>
 </div>
 <div class="null-response" *ngIf='noProductResponse'>
-    <span>No Products Available</span> 
+    <span>No Products Available</span>
 </div>

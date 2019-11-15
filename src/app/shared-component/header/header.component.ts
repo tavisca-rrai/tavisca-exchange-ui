@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit, DoCheck {
     private router: Router,
     private userService: UserService
   ) {
-    this.userId = this.userService.userId;
+    this.userId = this.userService.getUserFromStorage().id;
   }
 
   ngDoCheck(): void {

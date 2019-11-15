@@ -50,7 +50,11 @@
     position: relative;
 }
 
-.product-carousel, .product-description, .seller-details, .product-details, .pick-up-address {
+.product-carousel,
+.product-description,
+.seller-details,
+.product-details,
+.pick-up-address {
     /* width: 95%; */
     margin: 0 auto;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -195,6 +199,7 @@
     font-size: 34px;
     font-family: sans-serif;
 }
+
 .if-preview-is-on {
     margin: 0;
     padding: 0;
@@ -203,7 +208,7 @@
 .negotiable-property {
     color: gray;
     padding-top: 15px;
-    font-size: 12px;
+    font-size: 2px;
     float: right;
 }
 
@@ -221,21 +226,21 @@
     font-weight: bold;
 }
 
-.preview-tag
-{
-    all:initial;
+.preview-tag {
+    all: initial;
     position: absolute;
     top: 30px;
     left: 5px;
     margin: 0;
-    padding:0;
-    border:solid red 5px !important;
+    padding: 0;
+    border: solid red 5px !important;
     padding: 2px;
     transform: rotate(-45deg);
-    color:red;
-    font-size:14px;
+    color: red;
+    font-size: 14px;
     font-weight: bold;
 }
+
 @media only screen and (min-width: 768px) {
     .product {
         display: flex;
@@ -288,7 +293,11 @@
         height: 100%;
         position: relative;
     }
-    .product-carousel, .product-description, .seller-details, .product-details, .pick-up-address {
+    .product-carousel,
+    .product-description,
+    .seller-details,
+    .product-details,
+    .pick-up-address {
         margin: 0 auto;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     }
@@ -346,26 +355,24 @@
         font-weight: bold;
         color: lightgreen;
     }
-    .preview-tag
-    {
-        all:initial;
+    .preview-tag {
+        all: initial;
         position: absolute;
         top: 30px;
         left: 5px;
         margin: 0;
-        padding:0;
-        border:solid red 5px !important;
+        padding: 0;
+        border: solid red 5px !important;
         padding: 2px;
         transform: rotate(-45deg);
-        color:red;
-        font-size:20px;
+        color: red;
+        font-size: 20px;
         font-weight: bold;
     }
 }
-@media only screen and (min-width: 968px)
-{
-    .negotiable-property 
-    {
+
+@media only screen and (min-width: 968px) {
+    .negotiable-property {
         padding-top: 10px;
         color: gray;
         font-size: 20px;

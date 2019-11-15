@@ -3,7 +3,6 @@ import { UserService } from 'src/app/services/user/user.service';
 import { GetUserProfileResponse } from 'src/app/models/user/get-user-profile-response';
 import { UserProfile } from 'src/app/models/user/user-profile';
 import { GetProductsListResponse } from 'src/app/models/get-products-list-response';
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-user-profile-component',
@@ -18,7 +17,7 @@ export class UserProfileComponent implements OnInit {
 
   constructor(
     private userService: UserService) {
-    this.userId = userService.getUserFromStorage().id;
+    this.userId = userService.getUserFromStorage()["userId"];
   }
 
   ngOnInit() {

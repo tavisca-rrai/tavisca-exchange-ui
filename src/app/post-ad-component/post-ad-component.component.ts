@@ -31,7 +31,7 @@ export class PostAdComponentComponent implements OnInit {
   errMsg = "";
 
   categories = ["Property", "Car", "Furniture", "Mobile", "Bike", "Book", "Fashion", "Electronic", "Other"]; // this is provided by categories api
-  states = ["Andra Pradesh", "Go", "Gujarat", "Haryana", "Himachal Pradesh", "Jammu and Kashmir", "Jharkhand", "Karnataka",
+  states = ["Andra Pradesh", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jammu and Kashmir", "Jharkhand", "Karnataka",
     "Kerala", "Madya Pradesh", "Maharashtra", "Punjab", "Rajasthan"]
 
   //properties of html element 
@@ -48,6 +48,7 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray.push(image);
     this.productModel = new Product();
     this.productImages = new ProductImages();
+    this.productModel.category = this.categories[0];
   }
 
   PostProduct()

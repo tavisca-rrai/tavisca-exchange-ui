@@ -23,6 +23,7 @@ import { UserProfileComponent } from './user-module/user-profile/user-profile.co
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CookieService } from 'ngx-cookie-service';
 import { ImageService } from './services/ad-image.service'
+import { DragAndDropDirective } from './drag-and-drop.directive'
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +37,8 @@ import { ImageService } from './services/ad-image.service'
     HomeComponent,
     AdvertismentDetailsComponent,
     UserProfileComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    DragAndDropDirective
   ],
   imports: [
     BrowserModule,

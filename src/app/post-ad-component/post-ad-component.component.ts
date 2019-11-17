@@ -23,6 +23,8 @@ export class PostAdComponentComponent implements OnInit {
   isAddressSelected: boolean = false;
   imageArray: ImageProperty[] = [];
   serverUrl = environment.imageApiSettings.BaseUrl; //the root url of the server
+  dragDropIndex =0;
+
 
   atleastOneImage = true;
   allowSubmit = false;
@@ -48,20 +50,20 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray.push(image);
     this.productModel = new Product();
     this.productImages = new ProductImages();
-    this.productModel.category = this.categories[0];
+    this.productModel.price.isNegotiable=false;
   }
 
-  PostProduct()
-  {
+  PostProduct() {
+    console.log(this.productModel);
     this.productImages.HeroImageUrl = this.productModel.heroImage;
     this.productImages.ImageUrls = this.productModel.images;
+    if (!this.isMock)
+      this.imageService.storeImages(this.productImages).subscribe();
     this.productService.AddProduct(this.productModel).subscribe(
       response => {
         this.productService.sendProductObj(response);
         if (response.id != null && response.id.trim() != "") {
           this.router.navigate(['products/details', response.id], { queryParams: { preview: 'true' } });
-          if (!this.isMock)
-            this.imageService.storeImages(this.productImages).subscribe();
         }
         else {
           alert("Something went wrong");
@@ -167,9 +169,21 @@ export class PostAdComponentComponent implements OnInit {
         }
       );
   }
+  
+  onDroppedFiles(dropedFilesEvent){
+    console.log(this.dragDropIndex);
+    this.addImage(this.dragDropIndex,dropedFilesEvent);
+    this.dragDropIndex++;
+  }
 
 
   addImage(id, event) {
+    var eventFiles;    
+    if(event.type == "drop"){
+      eventFiles = event.dataTransfer.files;
+    }else if(event.type == "change"){
+      eventFiles = event.target.files;
+    }
     var err = false;
     this.imageLoader(id);
     this.invalidImage = false;
@@ -183,7 +197,7 @@ export class PostAdComponentComponent implements OnInit {
       }
     }
 
-    else if (this.isValidImage(event.target.files[0])) {
+    else if (this.isValidImage(eventFiles[0])) {
       this.uploadImage(event, id);
     }
     else // if UI stops a non-image file upload
@@ -218,6 +232,7 @@ export class PostAdComponentComponent implements OnInit {
 
   removeImage(id) {
     //send the DELETE request and then remove from local
+    this.dragDropIndex--;
     this.imageService.deleteImage(this.productModel.images[id]).subscribe();
 
     if (this.imageCounter != 0 && this.imageArray[id].pictureContainerStyle == "4px solid blue") {
@@ -262,5 +277,4 @@ export class PostAdComponentComponent implements OnInit {
   imageClick(id) {
     document.getElementById(id).click();
   }
-
 }

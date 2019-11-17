@@ -40,6 +40,7 @@
         </div>
     </div>
     <div id="post-ad-container">
+        <label class="title">POST YOUR AD</label>
         <form #postAdForm="ngForm">
             <div class="form-row">
                 <div class="form-group">
@@ -105,8 +106,8 @@
 
             <div class="form-group">
                 <div class="check">
-                    <label style="margin-right: 20px;"> Pickup Address </label>
-                    <input type="checkbox" (click)="validateAddress($event)" [value]='isAddressSelected'>
+                    <input type="checkbox" (click)="validateAddress($event)" [value]='isAddressSelected' name='address' id='address'>
+                    <label class="checkbox" style="padding-left: 40px;" for="address">Pickup Address</label>
                 </div>
                 <div class="addresss" [style.display]="addressDisplayValue">
                     <div class="form-row">

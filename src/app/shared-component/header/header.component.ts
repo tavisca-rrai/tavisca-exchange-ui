@@ -1,3 +1,4 @@
+import { UserProfile } from './../../models/user/user-profile';
 import { Component, OnInit, Input, Output, EventEmitter, DoCheck } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
@@ -8,13 +9,11 @@ import { UserService } from 'src/app/services/user/user.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, DoCheck {
-  userId: string;
-
+  userInfo: UserProfile = new UserProfile();
   constructor(
     private router: Router,
     private userService: UserService
   ) {
-    this.userId = this.userService.getUserFromStorage().id;
   }
 
   ngDoCheck(): void {
@@ -41,7 +40,15 @@ export class HeaderComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() {
+    this.userInfo.id = this.userService.getUserFromStorage().id;
     this.toggleMenuEvent.emit(this.hideMenu);
+    this.userService.getUserProfile(this.userInfo.id).subscribe(
+      (data) => {
+        this.userInfo = data.userProfile;
+      },
+      err => {
+      }
+    );
   }
 
 }

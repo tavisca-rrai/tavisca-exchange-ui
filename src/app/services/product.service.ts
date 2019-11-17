@@ -32,6 +32,7 @@ export class ProductService implements IProductService {
     if (environment.isMockingEnabled) {
       this.productMockService = new ProductMockService();
     }
+    alert("service instanstiateed");
     this.userProfile = userService.getUserFromStorage();
   }
   getProductObj() {
@@ -51,6 +52,7 @@ export class ProductService implements IProductService {
       return this.productMockService.AddProduct(product);
     }
     else {
+      this.userProfile = this.userService.getUserFromStorage();
       product.sellerId = this.userProfile.id;
       return this.http.post<Product>(this.getUrl(environment.productSetting.addProductPath), product, {
         headers: this.headers

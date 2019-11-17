@@ -68,7 +68,7 @@ export class UserService implements IUserService {
     // }
     return new UserMockService().getInactiveUserProducts(userId);
   }
-  saveUserToStorage(userData: SignInResponse) {
+  saveUserToStorage(userData: UserProfile) {
     localStorage.setItem("userInfo", JSON.stringify(userData));
   }
 

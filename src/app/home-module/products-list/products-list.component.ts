@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { ProductSort } from '../../models/product-sort';
@@ -26,7 +27,7 @@ export class ProductsListComponent implements OnInit {
   monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
   ];
-
+  imageServer: string = environment.imageApiSettings.BaseUrl;
   constructor(
     private productService: ProductService,
     private userService: UserService,

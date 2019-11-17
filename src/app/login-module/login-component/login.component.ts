@@ -14,12 +14,15 @@ export class LoginComponent implements OnInit {
   userDetails: UserSignInDetails;
   errorMessage: string = "";
   ngOnInit() {
+    localStorage.clear();
     this.userDetails = new UserSignInDetails();
   }
   tryLogin() {
     this.loginService.verifyUserCredentials(this.userDetails).subscribe(
       (data) => {
-        this.userService.saveUserToStorage(data);
+        let userProfile = new UserProfile();
+        userProfile.id = data.userId;
+        this.userService.saveUserToStorage(userProfile);
         this.router.navigateByUrl("/products");
       },
       err => {

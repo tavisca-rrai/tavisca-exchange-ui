@@ -23,7 +23,8 @@ export class ProductMockService implements IProductService {
   GetMockPreview(product: Product): GetProductDetailsResponse {
     let sellerObj = new Seller();
     sellerObj.id = "1";
-    sellerObj.name = "Nikita Narkhede";
+    sellerObj.firstName = "Nikita";
+    sellerObj.lastName = "Narkhede"
     let productpreviewObj = new GetProductDetailsResponse();
     productpreviewObj.seller = sellerObj;
     productpreviewObj.product = product;
@@ -245,7 +246,8 @@ export class ProductMockService implements IProductService {
     else {
       let sellerObj = new Seller();
       sellerObj.id = "1";
-      sellerObj.name = "Nikita Narkhede";
+      sellerObj.firstName = "Nikita";
+      sellerObj.lastName = "Narkhede";
       let productDetailsObj = new GetProductDetailsResponse();
       productDetailsObj.seller = sellerObj;
       productDetailsObj.product = productObj;

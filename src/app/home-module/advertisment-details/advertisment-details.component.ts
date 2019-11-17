@@ -93,6 +93,12 @@ export class AdvertismentDetailsComponent implements OnInit, OnDestroy {
       var product = this.productService.getProductObj();
       if (product != null) {
         this.productdetails = this.productService.GetPreview(product);
+        this.userService.getUserProfile(product.sellerId).subscribe(
+          data => {
+            this.productdetails.seller = data.userProfile
+          },
+          err => { }
+        );
         this.SetProductProp();
       }
       else {

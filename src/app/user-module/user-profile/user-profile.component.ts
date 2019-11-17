@@ -17,11 +17,12 @@ export class UserProfileComponent implements OnInit {
 
   constructor(
     private userService: UserService) {
-    this.userId = userService.getUserFromStorage()["userId"];
+    this.userId = userService.getUserFromStorage().id;
   }
 
   ngOnInit() {
     this.showActiveAds = true;
+    console.log(this.userId);
 
     this.userService.getUserProfile(this.userId).subscribe(
       (response: GetUserProfileResponse) => {

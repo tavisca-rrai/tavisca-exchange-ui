@@ -49,7 +49,7 @@ export class ProductsListComponent implements OnInit {
           else{
             this.adsList = response.products;
             this.pagingInfo = response.pagingInfo;
-            this.totalItem = (environment.isMockingEnabled) ? this.pagingInfo.totalPages * this.pageSize : 13;
+            this.totalItem = (environment.isMockingEnabled) ? 13 : this.pagingInfo.totalPages * this.pageSize;
             console.log(this.totalItem);
           }
         }, err => {

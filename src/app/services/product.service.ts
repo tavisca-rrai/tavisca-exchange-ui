@@ -92,7 +92,7 @@ export class ProductService implements IProductService {
           "Order": null
         }
       };
-      let getProductListUrl: string = this.getUrl(environment.productSetting.adsListPath) + "?pageNumber=" + pageNumber + "&pagesize=" + pageSize;
+      let getProductListUrl: string = this.getUrl(environment.productSetting.adsListPath) + "?pageNo=" + pageNumber + "&pagesize=" + pageSize;
       return this.http.post<GetProductsListResponse>(getProductListUrl, JSON.stringify(body), {
         headers: this.headers
       }).pipe(

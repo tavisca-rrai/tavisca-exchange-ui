@@ -25,7 +25,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { ImageService } from './services/ad-image.service'
 import {NgxPaginationModule} from 'ngx-pagination';
 
-import {ImageService} from './services/ad-image.service'
 @NgModule({
   declarations: [
     AppComponent,

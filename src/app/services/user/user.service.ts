@@ -80,6 +80,8 @@ export class UserService implements IUserService {
       return this.userProfile;
     }
     else {
+      this.userProfile = new UserProfile();
+      this.userProfile.id = "777888666";
       return this.userProfile;
     }
   }

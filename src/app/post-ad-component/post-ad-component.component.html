@@ -1,5 +1,6 @@
 <div id="container">
     <div class="form-container">
+        <!-- <label for="image" class="required">Image</label> -->
         <div id="post-ad-image-container">
             <div appDragAndDrop (dropedFilesEvent)="onDroppedFiles($event)" class="drag-drop-container">
                 <div class="drag-drop-image">
@@ -10,7 +11,6 @@
             <div class="insert-image">
                 <div class="form-group">
                     <div id="uploadImage">
-                        <!-- <label for="image" class="required">Image</label> -->
                         <ng-container *ngFor='let image of imageArray;index as i'>
                             <div class="picture-container" [style.border]="image.pictureContainerStyle">
                                 <div class="spinner-border text-primary" role="status" [style.display]="image.imageLoaderProperty">
@@ -111,23 +111,22 @@
                         <label class="checkbox" style="padding-left: 40px;" for="address">Pickup Address</label>
                     </div>
                     <div class="addresss" [style.display]="addressDisplayValue">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="required">Line 1</label>
-                                <input [(ngModel)]="productModel.pickupAddress.line1" name="line1" minlength="2" [required]="isAddressSelected" #line1="ngModel" class="form-control" type="text">
-                                <div class="alert alert-danger" *ngIf="line1.touched && !line1.valid">
-                                    <div *ngIf="line1.errors.required">Line 1 is required</div>
-                                    <div *ngIf="line1.errors.minlength">Line 1 should be minimum 2 Characters.</div>
-                                </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label>Line 2</label>
-                                <input [(ngModel)]="productModel.pickupAddress.line2" name="line2" class="form-control" type="text">
+                        <div class="form-group">
+                            <label class="required">Line 1</label>
+                            <input [(ngModel)]="productModel.pickupAddress.line1" name="line1" minlength="2" [required]="isAddressSelected" #line1="ngModel" class="form-control" type="text">
+                            <div class="alert alert-danger" *ngIf="line1.touched && !line1.valid">
+                                <div *ngIf="line1.errors.required">Line 1 is required</div>
+                                <div *ngIf="line1.errors.minlength">Line 1 should be minimum 2 Characters.</div>
                             </div>
                         </div>
 
                         <div class="form-row">
+                            <div class="form-group">
+                                <label>Line 2</label>
+                                <input [(ngModel)]="productModel.pickupAddress.line2" name="line2" class="form-control" type="text">
+                            </div>
+
                             <div class="form-group">
                                 <label class="required">City</label>
                                 <input id="city" [(ngModel)]="productModel.pickupAddress.city" minlength="2" name="city" [required]="isAddressSelected" #city="ngModel" class="form-control" type="text">
@@ -136,7 +135,9 @@
                                     <div *ngIf="city.errors.minlength">City should be minimum 2 Characters.</div>
                                 </div>
                             </div>
+                        </div>
 
+                        <div class="form-row">
                             <div class="form-group">
                                 <label class="required">State</label>
                                 <select [(ngModel)]="productModel.pickupAddress.state" #state="ngModel" class="form-control" name="state">
@@ -144,14 +145,15 @@
                             <option *ngFor="let state of states">{{ state }}</option>
                         </select>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="required">Pincode</label>
-                            <input id="pincode" [(ngModel)]="productModel.pickupAddress.pincode" minlength="6" [required]="isAddressSelected" name="pincode" #pincode="ngModel" class="form-control" type="number">
-                            <div class="alert alert-danger" *ngIf="pincode.touched && !pincode.valid">
-                                <div *ngIf="pincode.errors.required">Pincode is required</div>
-                                <div *ngIf="pincode.errors.minlength">Pincode must be 6 Digit.</div>
+
+                            <div class="form-group">
+                                <label class="required">Pincode</label>
+                                <input id="pincode" [(ngModel)]="productModel.pickupAddress.pincode" minlength="6" [required]="isAddressSelected" name="pincode" #pincode="ngModel" class="form-control" type="number">
+                                <div class="alert alert-danger" *ngIf="pincode.touched && !pincode.valid">
+                                    <div *ngIf="pincode.errors.required">Pincode is required</div>
+                                    <div *ngIf="pincode.errors.minlength">Pincode must be 6 Digit.</div>
+                                </div>
                             </div>
                         </div>
                     </div>

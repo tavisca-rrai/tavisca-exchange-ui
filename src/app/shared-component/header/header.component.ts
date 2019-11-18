@@ -2,6 +2,7 @@ import { UserProfile } from './../../models/user/user-profile';
 import { Component, OnInit, Input, Output, EventEmitter, DoCheck } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-header',
@@ -10,9 +11,11 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class HeaderComponent implements OnInit, DoCheck {
   userInfo: UserProfile = new UserProfile();
+  searchQuery: string = "";
   constructor(
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private productService: ProductService
   ) {
   }
 
@@ -49,6 +52,9 @@ export class HeaderComponent implements OnInit, DoCheck {
       err => {
       }
     );
+  }
+  Search() {
+    this.productService.setSearchQuery(this.searchQuery);
   }
 
 }

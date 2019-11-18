@@ -25,6 +25,8 @@ export class ProductService implements IProductService {
   productMockService: ProductMockService;
   private _productSortOptions: ProductSort;
   private _productSortOptionsObservable = new BehaviorSubject(null);
+  private searchQuery: string;
+  private searchQueryObservable = new BehaviorSubject(null);
   public headers = new HttpHeaders({
     "Content-Type": "application/json"
   });
@@ -126,6 +128,13 @@ export class ProductService implements IProductService {
   }
   getProductSortOptions(): Observable<ProductSort> {
     return this._productSortOptionsObservable;
+  }
+  setSearchQuery(query: string) {
+    this.searchQuery = query;
+    this.searchQueryObservable.next(this.searchQuery);
+  }
+  getSearchQuery(): Observable<string> {
+    return this.searchQueryObservable;
   }
   private getUrl(path: string): string {
     return environment.productSetting.BaseUrl +

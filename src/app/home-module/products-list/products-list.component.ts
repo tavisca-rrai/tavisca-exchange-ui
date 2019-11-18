@@ -27,6 +27,7 @@ export class ProductsListComponent implements OnInit {
   productSortOptions: ProductSort;
   totalItem : number = 0;
   pagingInfo: PagingInfo;
+  imageServer:string=environment.imageApiSettings.BaseUrl;
 
   constructor(
     private productService: ProductService,

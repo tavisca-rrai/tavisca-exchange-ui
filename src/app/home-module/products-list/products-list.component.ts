@@ -49,7 +49,7 @@ export class ProductsListComponent implements OnInit {
       data.ProductSort.Order = "Desc";
       data.ProductSort.Type = "Date";
 
-      this.productService.getProductsList(1, 200, data).subscribe(
+      this.productService.getProductsList(this.pageNumber, this.pageSize, data).subscribe(
         (response: GetProductsListResponse) => {
           let noProductResponse: boolean = false;
           if (response == null) {
@@ -62,7 +62,6 @@ export class ProductsListComponent implements OnInit {
             this.adsList = response.products;
             this.pagingInfo = response.pagingInfo;
             this.totalItem = (environment.isMockingEnabled) ? 13 : this.pagingInfo.totalPages * this.pageSize;
-            console.log(this.totalItem);
           }
         }, err => {
           // TBA - error msg on ui
@@ -176,7 +175,6 @@ export class ProductsListComponent implements OnInit {
 
   pageChanged($event): any {
     this.getProductsByPageNumber($event, this.pageSize);
-    console.log($event);
     localStorage.StoreCurrentPage = $event;
     window.scrollTo(0, 0);
     return $event;

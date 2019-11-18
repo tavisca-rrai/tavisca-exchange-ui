@@ -126,7 +126,6 @@ export class LeftNavBarComponent implements OnInit,DoCheck {
     this.priceFilter.Max = this.maxValue;
   }
   applySort() {
-    console.log(this.data);
     this.setFilterOptions();
     this.productService.setProductSortOptions(this.productSortOptions);
   }

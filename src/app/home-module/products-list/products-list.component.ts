@@ -53,6 +53,7 @@ export class ProductsListComponent implements OnInit {
     } else if (this.router.url.includes("/profile")) {
       this.userService.userAdsList.subscribe(
         (response: Product[]) => {
+          console.log(response);
           this.adsList = response;
         },
         err => {

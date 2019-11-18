@@ -1,6 +1,7 @@
 .flex-container {
     display: flex;
     width: 100%;
+    min-height: 547px !important;
 }
 
 .left-side-bar {

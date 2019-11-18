@@ -29,8 +29,9 @@ export class PostAdComponentComponent implements OnInit {
   connectionError = false;
   errMsg = "";
   categories = ["Property", "Car", "Furniture", "Mobile", "Bike", "Book", "Fashion", "Electronic", "Other"]; // this is provided by categories api
-  states = ["Andra Pradesh", "Go", "Gujarat", "Haryana", "Himachal Pradesh", "Jammu and Kashmir", "Jharkhand", "Karnataka",
-    "Kerala", "Madya Pradesh", "Maharashtra", "Punjab", "Rajasthan"];
+  states = ["Andra Pradesh", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jammu and Kashmir", "Jharkhand", "Karnataka",
+    "Kerala", "Madya Pradesh", "Maharashtra", "Punjab", "Rajasthan"]
+
   //properties of html element 
   addressDisplayValue = "none";
   purchaseDate = "none";

@@ -19,7 +19,11 @@
 .custom-slider .ng5-slider .ng5-slider-selection {
     background: #5383d3 !important;
 }
-
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 .applyBtn
 {
     margin: 0 auto;

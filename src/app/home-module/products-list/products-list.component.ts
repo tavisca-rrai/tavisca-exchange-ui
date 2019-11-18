@@ -1,3 +1,5 @@
+import { Data, SearchFilter, SortOptions, Filter } from './../../models/sort-options';
+import { environment } from './../../../environments/environment';
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { ProductSort } from '../../models/product-sort';
@@ -26,7 +28,8 @@ export class ProductsListComponent implements OnInit {
   monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
   ];
-
+  searchedQuery: string = "";
+  imageServer: string = environment.imageApiSettings.BaseUrl;
   constructor(
     private productService: ProductService,
     private userService: UserService,
@@ -36,7 +39,13 @@ export class ProductsListComponent implements OnInit {
 
   ngOnInit() {
     if (this.router.url.includes("/products")) {
-      this.productService.getProductsList(1, 200).subscribe(
+      let data = new Data();
+      data.ProductSort = new SortOptions();
+      data.Filters = new Array<Filter>();
+      data.ProductSort.Order = "Desc";
+      data.ProductSort.Type = "Date";
+
+      this.productService.getProductsList(1, 200, data).subscribe(
         (response: GetProductsListResponse) => {
           let noProductResponse: boolean = false;
           if (response == null) {
@@ -62,6 +71,7 @@ export class ProductsListComponent implements OnInit {
         });
     }
     this.getSortOptions();
+    this.getSearchQuery();
   }
 
   getSortOptions() {
@@ -75,15 +85,54 @@ export class ProductsListComponent implements OnInit {
     );
   }
 
-  applySort() {
-    this.productSortService.getSortedProductsList(1, 2, this.productSortOptions).subscribe(
-      (response: GetProductsListResponse) => {
-        this.adsList = response.products;
+  getSearchQuery() {
+    this.productService.getSearchQuery().subscribe(
+      (query) => {
+        if (query != undefined) {
+          this.searchedQuery = query;
+          let data = new Data();
+          data.ProductSort = new SortOptions();
+          data.Filters = new Array<Filter>();
+          data.ProductSort.Order = "Desc";
+          data.ProductSort.Type = "Date";
+          if (query.trim().length > 0) {
+            let search = new SearchFilter();
+            search.SearchQuery = query;
+            data.Filters.push(search);
+          }
+          this.productService.getProductsList(1, 200, data).subscribe(
+            (response) => {
+              this.adsList = response.products;
+            }
+            ,
+            err => { console.log(err.error); }
+          );
+        }
       },
-      err => {
-        // TBA - error msg on ui
-        console.log(err.error);
-      }
+      err => { console.log(err.error); }
     );
+  }
+
+  applySort() {
+
+    let data = new Data();
+    if (this.productSortOptions != null) {
+      data.ProductSort = this.productSortOptions.ProductSort;
+      data.Filters = new Array<Filter>();
+      if (this.searchedQuery.length > 0) {
+        let search = new SearchFilter();
+        search.SearchQuery = this.searchedQuery;
+        data.Filters.push(search);
+      }
+      this.productService.getProductsList(1, 200, data).subscribe(
+        (response: GetProductsListResponse) => {
+          this.adsList = response.products;
+        },
+        err => {
+          // TBA - error msg on ui
+          console.log(err.error);
+        }
+      );
+    }
   }
 }

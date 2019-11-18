@@ -1,7 +1,10 @@
+<div class="alert alert-primary" role="alert" *ngIf="searchedQuery.trim().length>0">
+    Results for : {{searchedQuery}}
+</div>
 <div class="adv-list-container" *ngIf='!noProductResponse'>
     <div *ngFor="let ad of adsList" class="adv-card" (click)="goToProductDetails" [routerLink]="['details',ad.id]">
         <div class="img-container">
-            <img src="{{ad.heroImage}}" alt="Advertisment Image for {{ad.name}}">
+            <img src="{{imageServer+ad.heroImage}}" alt="Advertisment Image for {{ad.name}}">
         </div>
         <div class="adv-details">
             <p class="adv-price">₹ {{ad.price.money.amount}}</p>

@@ -73,6 +73,11 @@ export class LeftNavBarComponent implements OnInit,DoCheck {
       this.maxValue = this.maxPriceRange;
     }
   }
+  ngDoCheck(): void {
+    if(this.maxValue > this.maxPriceRange){
+      this.maxValue = this.maxPriceRange;
+    }
+  }
   ngOnInit() {
     this.productSortOptions = new ProductSort();
     this.priceFilter = new PriceFilter();

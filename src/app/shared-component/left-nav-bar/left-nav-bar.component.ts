@@ -88,19 +88,19 @@ export class LeftNavBarComponent implements OnInit,DoCheck {
     this.setProductSortOptions();
   }
   setSortValueForFilter(){
-    if(this.sortOptions.sortBy=="Date" ){
-      if(this.sortOptions.order=="ASC"){
+    if(this.sortOptions.Type=="Date" ){
+      if(this.sortOptions.Order=="ASC"){
         this.sortValueForFilter = "Oldest";
       }
-      else if(this.sortOptions.order=="DSC"){
+      else if(this.sortOptions.Order=="DSC"){
         this.sortValueForFilter = "Latest";
       }
     }
-    else if(this.sortOptions.sortBy=="Price"){
-      if(this.sortOptions.order=="ASC"){
+    else if(this.sortOptions.Type=="Price"){
+      if(this.sortOptions.Order=="ASC"){
         this.sortValueForFilter = "Low to High";
       }
-      else if(this.sortOptions.order=="DSC"){
+      else if(this.sortOptions.Order=="DSC"){
         this.sortValueForFilter = "High to Low";
       }
     }

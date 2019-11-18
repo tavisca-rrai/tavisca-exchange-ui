@@ -16,7 +16,8 @@
 
 .title {
     font-size: 20px;
-    margin-left: 35%;
+    width: 100%;
+    text-align: center;
 }
 
 #post-ad-image-container {
@@ -30,7 +31,7 @@
 .drag-drop-container {
     height: 250px;
     width: 100%;
-    border: 2px dotted #1da0f2;
+    border: 2px dotted #5383d3;
     align-content: center;
 }
 
@@ -236,9 +237,9 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .form-radio input:checked+label {
-    background-color: #1da0f2;
+    background-color: #5383d3;
     color: #fff;
-    border-color: #1da0f2;
+    border-color: #5383d3;
     z-index: 1
 }
 
@@ -247,9 +248,9 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .form-radio input:hover {
-    background-color: #1da0f2;
+    background-color: #5383d3;
     color: #fff;
-    border-color: #1da0f2;
+    border-color: #5383d3;
 }
 
 input[type="radio"] {
@@ -294,7 +295,7 @@ input[type="radio"] {
 }
 
 #submit {
-    background: #1da0f2;
+    background: #5383d3;
     color: #fff;
     margin-right: 25px;
 }

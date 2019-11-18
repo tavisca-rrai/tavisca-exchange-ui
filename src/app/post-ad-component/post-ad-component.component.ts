@@ -171,6 +171,8 @@ export class PostAdComponentComponent implements OnInit {
   }
   
   onDroppedFiles(dropedFilesEvent){
+    if(dropedFilesEvent==null)
+      return;
     console.log(this.dragDropIndex);
     this.addImage(this.dragDropIndex,dropedFilesEvent);
     this.dragDropIndex++;

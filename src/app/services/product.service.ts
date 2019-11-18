@@ -1,3 +1,4 @@
+import { Data } from './../models/sort-options';
 import { Injectable } from '@angular/core';
 import { IProductService } from '../models/i-product-service';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
@@ -32,7 +33,6 @@ export class ProductService implements IProductService {
     if (environment.isMockingEnabled) {
       this.productMockService = new ProductMockService();
     }
-    alert("service instanstiateed");
     this.userProfile = userService.getUserFromStorage();
   }
   getProductObj() {
@@ -83,19 +83,14 @@ export class ProductService implements IProductService {
 
   getProductsList(
     pageNumber: number,
-    pageSize: number
+    pageSize: number,
+    data: Data
   ): Observable<GetProductsListResponse> {
     if (environment.isMockingEnabled) {
       return this.productMockService.getProductsList(pageNumber, pageSize);
     } else {
-      var body = {
-        "ProductSort": {
-          "Type": null,
-          "Order": null
-        }
-      };
       let getProductListUrl: string = this.getUrl(environment.productSetting.adsListPath) + "?pageNumber=" + pageNumber + "&pagesize=" + pageSize;
-      return this.http.post<GetProductsListResponse>(getProductListUrl, JSON.stringify(body), {
+      return this.http.post<GetProductsListResponse>(getProductListUrl, JSON.stringify(data), {
         headers: this.headers
       }).pipe(
         retry(1),

@@ -1,3 +1,4 @@
+import { Data, SearchFilter, SortOptions, Filter } from './../../models/sort-options';
 import { environment } from './../../../environments/environment';
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from 'src/app/models/product';
@@ -37,7 +38,13 @@ export class ProductsListComponent implements OnInit {
 
   ngOnInit() {
     if (this.router.url.includes("/products")) {
-      this.productService.getProductsList(1, 200).subscribe(
+      let data = new Data();
+      data.ProductSort = new SortOptions();
+      data.Filters = new Array<Filter>();
+      data.ProductSort.Order = "Desc";
+      data.ProductSort.Type = "Date";
+
+      this.productService.getProductsList(1, 200, data).subscribe(
         (response: GetProductsListResponse) => {
           let noProductResponse: boolean = false;
           if (response == null) {

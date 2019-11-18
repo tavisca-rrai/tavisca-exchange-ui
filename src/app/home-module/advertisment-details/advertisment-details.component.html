@@ -3,13 +3,13 @@
     <app-page-not-found></app-page-not-found>
 </div>
 <div class="parent" *ngIf='!noProductResponse'>
-    <div class="alert alert-primary" role="alert" *ngIf="isPreviewEnabled">
-        Advertisement is added Successfully ! This is how your advertisement looks.
-    </div>
     <div class="go-back-div" *ngIf="!isPreviewEnabled">
         <a [routerLink]="['../../']">Go Back</a>
     </div>
     <div class="product">
+        <div class="alert alert-primary" role="alert" *ngIf="isPreviewEnabled">
+            Advertisement is added Successfully ! This is how your advertisement looks.
+        </div>
         <div class="left-sidepanel">
             <div class="product-carousel">
                 <ngb-carousel *ngIf="images">

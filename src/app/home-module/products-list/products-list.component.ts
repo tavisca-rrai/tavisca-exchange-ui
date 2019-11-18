@@ -9,6 +9,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { Router } from '@angular/router';
 import { GetProductsListResponse } from 'src/app/models/get-products-list-response';
 import { ErrorResponse } from '../../models/error-response';
+import { PagingInfo } from 'src/app/models/paging-info';
 
 @Component({
   selector: 'app-products-list',
@@ -21,7 +22,7 @@ export class ProductsListComponent implements OnInit {
 
   noProductResponse: boolean = false;
   pageNumber: number = 1;
-  pageSize: number = 100;
+  pageSize: number = 9;
   error = new ErrorResponse;
   advertiseId: string;
   productSortOptions: ProductSort;
@@ -30,6 +31,9 @@ export class ProductsListComponent implements OnInit {
   ];
   searchedQuery: string = "";
   imageServer: string = environment.imageApiSettings.BaseUrl;
+  totalItem : number = 0;
+  pagingInfo: PagingInfo;
+
   constructor(
     private productService: ProductService,
     private userService: UserService,
@@ -45,7 +49,7 @@ export class ProductsListComponent implements OnInit {
       data.ProductSort.Order = "Desc";
       data.ProductSort.Type = "Date";
 
-      this.productService.getProductsList(1, 200, data).subscribe(
+      this.productService.getProductsList(this.pageNumber, this.pageSize, data).subscribe(
         (response: GetProductsListResponse) => {
           let noProductResponse: boolean = false;
           if (response == null) {
@@ -54,7 +58,11 @@ export class ProductsListComponent implements OnInit {
             this.error.message = "No Products Found..";
             this.productService.sendErrorObj(this.error);
           }
-          !response ? this.noProductResponse = true : this.adsList = response.products;
+          else{
+            this.adsList = response.products;
+            this.pagingInfo = response.pagingInfo;
+            this.totalItem = (environment.isMockingEnabled) ? 13 : this.pagingInfo.totalPages * this.pageSize;
+          }
         }, err => {
           // TBA - error msg on ui
           console.log(err.error);
@@ -72,6 +80,10 @@ export class ProductsListComponent implements OnInit {
     }
     this.getSortOptions();
     this.getSearchQuery();
+    
+    if (localStorage.StoreCurrentPage != null) {
+      this.pageNumber = this.pageChanged(localStorage.StoreCurrentPage);
+    }
   }
 
   getSortOptions() {
@@ -134,5 +146,37 @@ export class ProductsListComponent implements OnInit {
         }
       );
     }
+  }
+  getProductsByPageNumber(pageNumber, pageSize) {
+    let data = new Data();
+    data.ProductSort = new SortOptions();
+    data.Filters = new Array<Filter>();
+    data.ProductSort.Order = "Desc";
+    data.ProductSort.Type = "Date";
+    this.productService.getProductsList(pageNumber, pageSize,data).subscribe(
+      (response: GetProductsListResponse) => {
+        let noProductResponse: boolean = false;
+        if (response == null) {
+          noProductResponse = true;
+        }
+        else {
+          this.adsList = response.products;
+          this.pagingInfo = response.pagingInfo;
+          this.totalItem = this.pagingInfo.totalPages * this.pageSize;
+        }
+
+      },
+      err => {
+        // TBA - error msg on ui
+        console.log(err.error);
+      }
+    );
+  }
+
+  pageChanged($event): any {
+    this.getProductsByPageNumber($event, this.pageSize);
+    localStorage.StoreCurrentPage = $event;
+    window.scrollTo(0, 0);
+    return $event;
   }
 }

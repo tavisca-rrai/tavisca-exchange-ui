@@ -91,7 +91,7 @@ export class ProductService implements IProductService {
     if (environment.isMockingEnabled) {
       return this.productMockService.getProductsList(pageNumber, pageSize);
     } else {
-      let getProductListUrl: string = this.getUrl(environment.productSetting.adsListPath) + "?pageNumber=" + pageNumber + "&pagesize=" + pageSize;
+      let getProductListUrl: string = this.getUrl(environment.productSetting.adsListPath) + "?pageNo=" + pageNumber + "&pagesize=" + pageSize;
       return this.http.post<GetProductsListResponse>(getProductListUrl, JSON.stringify(data), {
         headers: this.headers
       }).pipe(

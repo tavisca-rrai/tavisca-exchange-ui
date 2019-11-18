@@ -23,6 +23,8 @@ import { UserProfileComponent } from './user-module/user-profile/user-profile.co
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ImageService } from './services/ad-image.service'
 import { DragAndDropDirective } from './drag-and-drop.directive'
+import {NgxPaginationModule} from 'ngx-pagination';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +52,8 @@ import { DragAndDropDirective } from './drag-and-drop.directive'
     FormsModule,
     LoginModule,
     NgbModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgxPaginationModule
   ],
   providers: [DatePipe, ImageService],
   bootstrap: [AppComponent]

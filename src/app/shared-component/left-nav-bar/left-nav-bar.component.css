@@ -22,7 +22,8 @@
 
 .applyBtn
 {
-    margin: 5%;
+    margin: 0 auto;
+    display: block;
 }
 .sort-by{
     padding: 5px 20px 5px 10px;
@@ -67,7 +68,35 @@
     padding-top: 10px;
     text-decoration: underline;
 }
-
+.filter-box{
+    display: inline-block;
+}
+.filter-box p{
+    font-size: 12px;
+    background-color: #e0e0e0;
+    box-shadow: 0 2px 4px 0 hsla(0,0%,100%,.5);
+    border-radius: 3px;
+    margin: 2px 4px;
+    max-width: 200px;
+    padding: 8px;
+    padding: 5px 10px 5px 10px;
+}
+.list-of-filters-applied{
+    padding: 0px 20px 5px 10px;
+    position: relative;
+    font-size: 13px;
+    overflow: hidden;
+}
+.min-max-inputs {
+    display: flex;
+}
+.min-max-inputs input{
+    width: 70px;
+    padding: 0px 6px;
+}
+.min-max-inputs span{
+    padding: 2px;
+}
 @media (max-width: 768px) {
     .left-nav {
         display: block;

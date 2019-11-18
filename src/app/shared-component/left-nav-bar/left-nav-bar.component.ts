@@ -49,8 +49,8 @@ export class LeftNavBarComponent implements OnInit {
     this.setProductSortOptions();
   }
   setProductSortOptions() {
-    this.sortOptions.sortBy = this.selectedSort.slice(0, this.selectedSort.length - 3);
-    this.sortOptions.order = this.selectedSort.slice(this.selectedSort.length - 3, this.selectedSort.length);
+    this.sortOptions.Type = this.selectedSort.slice(0, this.selectedSort.length - 3);
+    this.sortOptions.Order = this.selectedSort.slice(this.selectedSort.length - 3, this.selectedSort.length);
     this.productSortOptions.ProductSort = this.sortOptions;
   }
   applySort() {

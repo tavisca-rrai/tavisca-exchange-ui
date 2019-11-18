@@ -8,12 +8,12 @@ import { Observable, of, BehaviorSubject, } from 'rxjs';
 import { IUserService } from 'src/app/models/i-user-service';
 import { GetProductsListResponse } from 'src/app/models/get-products-list-response';
 import { Product } from 'src/app/models/product';
+import { SignInResponse } from 'src/app/login-module/models/sign-in-response';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService implements IUserService {
-  private userProfile: UserProfile;
   private userMockService: UserMockService;
   userAdsList: BehaviorSubject<Product[]> = new BehaviorSubject([]);
   public headers = new HttpHeaders({
@@ -68,21 +68,22 @@ export class UserService implements IUserService {
     // }
     return new UserMockService().getInactiveUserProducts(userId);
   }
-  saveUserToStorage(userId: string) {
-    this.userProfile = new UserProfile();
-    this.userProfile.id = userId;
+  saveUserToStorage(userData: UserProfile) {
+    localStorage.setItem("userInfo", JSON.stringify(userData));
   }
 
   getUserFromStorage(): UserProfile {
     if (environment.isMockingEnabled) {
-      this.userProfile = new UserProfile();
-      this.userProfile.id = "777888666";
-      return this.userProfile;
+      let userProfile = new UserProfile();
+      userProfile.id = "777888666";
+      return userProfile;
     }
     else {
-      this.userProfile = new UserProfile();
-      this.userProfile.id = "777888666";
-      return this.userProfile;
+      //as cognito is not configured on most of the laptop, we are hardcoding this value for now
+      let userProfile = new UserProfile();
+      userProfile.id = "777888666";
+      return userProfile;
+      //return JSON.parse(localStorage.getItem("userInfo"));
     }
   }
 

@@ -34,11 +34,11 @@
                 <div class="prod-details-top-row">
                     <span class="negotiable-property">{{isPriceNegotiable}}</span>
                     <span class="price">
-            {{ productdetails.product.price.money.amount | currency: 'INR' : 'symbol' : '1.0-0'  }}
-            <!-- (Negotiable) -->
-            <!-- <button class="right-corner"><i class="fa fa-share"></i></button>
+                        {{ productdetails.product.price.money.amount | currency: 'INR' : 'symbol' : '1.0-0'  }}
+                        <!-- (Negotiable) -->
+                        <!-- <button class="right-corner"><i class="fa fa-share"></i></button>
                     <button class="right-corner"><i class="fa fa-heart"></i></button> -->
-          </span>
+                    </span>
 
                 </div>
                 <div class="other-info">
@@ -51,8 +51,8 @@
                     </div>
                     <div>
                         <span class="product-postdate">
-              {{productdetails.product.postDateTime | date:'dd MMM yy' }}
-            </span>
+                            {{productdetails.product.postDateTime | date:'dd MMM yy' }}
+                        </span>
                     </div>
                 </div>
 
@@ -60,17 +60,18 @@
             <div class="seller-details">
                 <div class="seller-description">Seller description</div>
                 <div class="sdetails">
-                    <a class="seller-name" (click)="SellerProfile()">{{ productdetails.seller.name }}</a>
-                    <!-- <span class="seller-duration">Member since {{productdetails.sellerduartion}}</span> -->
-                    <div class="if-preview-is-on" *ngIf='isPreviewEnabled'>
-                        <span class="seller-duration">Your ad expires on
-              {{productdetails.product.expirationDate | date:'dd MMM yy'}}
-            </span>
-                        <div>
-                            <button>edit</button>
-                            <button>delete</button>
-                        </div>
+                    <div class='seller-img-div'>
+                        <img class="seller-img" [src]="productdetails.seller.profileImageUrl" alt='Seller' />
                     </div>
+                    <div class="seller-details-div">
+                        <a class="seller-name" (click)="SellerProfile()">{{ productdetails.seller.firstName }}
+                            {{productdetails.seller.lastName}}</a>
+                        <span class="seller-name">{{ productdetails.seller.contactNumber }}</span>
+                        <span class="seller-name">{{ productdetails.seller.emailId }}</span>
+                    </div>
+
+                    <!-- <span class="seller-duration">Member since {{productdetails.sellerduartion}}</span> -->
+
                 </div>
                 <!-- <div *ngIf='!isPreviewOn'>
             <button>Chat with Seller</button> 
@@ -96,6 +97,15 @@
                 </div>
                 <div>
                     <span>Pincode:</span> {{ productdetails.product.pickupAddress.pincode }}
+                </div>
+            </div>
+            <div class="if-preview-is-on seller-details" *ngIf='isPreviewEnabled'>
+                <span class="seller-duration">Your ad expires on
+                    {{productdetails.product.expirationDate | date:'dd MMM yy'}}
+                </span>
+                <div>
+                    <button>edit</button>
+                    <button>delete</button>
                 </div>
             </div>
         </div>

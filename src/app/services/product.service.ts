@@ -1,3 +1,4 @@
+import { Data } from './../models/sort-options';
 import { Injectable } from '@angular/core';
 import { IProductService } from '../models/i-product-service';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
@@ -24,6 +25,8 @@ export class ProductService implements IProductService {
   productMockService: ProductMockService;
   private _productSortOptions: ProductSort;
   private _productSortOptionsObservable = new BehaviorSubject(null);
+  private searchQuery: string;
+  private searchQueryObservable = new BehaviorSubject(null);
   public headers = new HttpHeaders({
     "Content-Type": "application/json"
   });
@@ -51,6 +54,7 @@ export class ProductService implements IProductService {
       return this.productMockService.AddProduct(product);
     }
     else {
+      this.userProfile = this.userService.getUserFromStorage();
       product.sellerId = this.userProfile.id;
       return this.http.post<Product>(this.getUrl(environment.productSetting.addProductPath), product, {
         headers: this.headers
@@ -81,19 +85,14 @@ export class ProductService implements IProductService {
 
   getProductsList(
     pageNumber: number,
-    pageSize: number
+    pageSize: number,
+    data: Data
   ): Observable<GetProductsListResponse> {
     if (environment.isMockingEnabled) {
       return this.productMockService.getProductsList(pageNumber, pageSize);
     } else {
-      var body = {
-        "ProductSort": {
-          "Type": null,
-          "Order": null
-        }
-      };
       let getProductListUrl: string = this.getUrl(environment.productSetting.adsListPath) + "?pageNumber=" + pageNumber + "&pagesize=" + pageSize;
-      return this.http.post<GetProductsListResponse>(getProductListUrl, JSON.stringify(body), {
+      return this.http.post<GetProductsListResponse>(getProductListUrl, JSON.stringify(data), {
         headers: this.headers
       }).pipe(
         retry(1),
@@ -129,6 +128,13 @@ export class ProductService implements IProductService {
   }
   getProductSortOptions(): Observable<ProductSort> {
     return this._productSortOptionsObservable;
+  }
+  setSearchQuery(query: string) {
+    this.searchQuery = query;
+    this.searchQueryObservable.next(this.searchQuery);
+  }
+  getSearchQuery(): Observable<string> {
+    return this.searchQueryObservable;
   }
   private getUrl(path: string): string {
     return environment.productSetting.BaseUrl +

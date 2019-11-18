@@ -79,7 +79,11 @@ export class UserService implements IUserService {
       return userProfile;
     }
     else {
-      return JSON.parse(localStorage.getItem("userInfo"));
+      //as cognito is not configured on most of the laptop, we are hardcoding this value for now
+      let userProfile = new UserProfile();
+      userProfile.id = "777888666";
+      return userProfile;
+      //return JSON.parse(localStorage.getItem("userInfo"));
     }
   }
 

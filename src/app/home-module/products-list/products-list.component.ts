@@ -119,6 +119,11 @@ export class ProductsListComponent implements OnInit {
     if (this.productSortOptions != null) {
       data.ProductSort = this.productSortOptions.ProductSort;
       data.Filters = new Array<Filter>();
+      if (this.searchedQuery.length > 0) {
+        let search = new SearchFilter();
+        search.SearchQuery = this.searchedQuery;
+        data.Filters.push(search);
+      }
       this.productService.getProductsList(1, 200, data).subscribe(
         (response: GetProductsListResponse) => {
           this.adsList = response.products;

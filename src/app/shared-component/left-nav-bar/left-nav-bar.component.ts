@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation, DoCheck } from '@angular/core';
 import { Options, LabelType } from 'ng5-slider';
 import { ProductSort } from '../../models/product-sort';
 import { SortOptions } from "../../models/sort-options";
@@ -14,9 +14,10 @@ import { ProductFilter } from 'src/app/models/product-filter';
   styleUrls: ['./left-nav-bar.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class LeftNavBarComponent implements OnInit {
+export class LeftNavBarComponent implements OnInit,DoCheck {
+  maxPriceRange:number = 500000;
   minValue: number = 0;
-  maxValue: number = 500000;
+  maxValue: number = this.maxPriceRange;
   selectedSort: string = "DateDSC";
   productSortOptions: ProductSort;
   sortOptions: SortOptions;
@@ -31,14 +32,17 @@ export class LeftNavBarComponent implements OnInit {
   filters: any[] = [];
   categories = ["Property", "Car", "Furniture", "Mobile", "Bike", "Book", "Fashion", "Electronic", "Other"];
   options: Options = {
-    floor: 0,
-    ceil: 500000,
+    floor: this.minValue,
+    ceil: this.maxValue,
     translate: (value: number, label: LabelType): string => {
       switch (label) {
         case LabelType.Low:
           return '₹' + value.toString();
         case LabelType.High:
-          return '₹' + value.toString();
+          if(value < this.maxPriceRange)
+            return '₹' + value.toString();
+          else
+            return '₹' + value.toString()+"+";
         default:
           return '₹' + value;
       }
@@ -66,6 +70,11 @@ export class LeftNavBarComponent implements OnInit {
       }  
     }
     this.categoryFilter.category = this.categoryFilterOptions;
+  }
+  ngDoCheck(): void {
+    if(this.maxValue > this.maxPriceRange){
+      this.maxValue = this.maxPriceRange;
+    }
   }
   ngOnInit() {
     this.productSortOptions = new ProductSort();

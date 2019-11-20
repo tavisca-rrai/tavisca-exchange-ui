@@ -39,8 +39,7 @@ export class UserMockService implements IUserService {
     product1.description = "Just A Photo";
     product1.postDateTime = new Date();
     product1.heroImage = "http://i.imgur.com/REM4kQUg.jpg";
-    product1.price.money.amount = 730000;
-    product1.price.money.currency = "INR";
+    product1.price.amount = 730000;
     product1.price.isNegotiable = true;
     product1.images.push('http://i.imgur.com/REM4kQUg.jpg');
 
@@ -54,8 +53,7 @@ export class UserMockService implements IUserService {
     product2.description = "Maruti Suzuki India Limited, formerly known as Maruti Udyog Limited, is an automobile manufacturer in India. It is a 56.21% owned subsidiary of the Japanese car and motorcycle manufacturer Suzuki Motor Corporation. As of July 2018, it had a market share of 53% of the Indian passenger car market.";
     product2.postDateTime = new Date();
     product2.heroImage = "https://i.ytimg.com/vi/dsWxMoh3_50/maxresdefault.jpg";
-    product2.price.money.amount = 6800000;
-    product2.price.money.currency = "INR";
+    product2.price.amount = 6800000;
     product2.price.isNegotiable = true;
     product2.images.push('https://i.ytimg.com/vi/dsWxMoh3_50/maxresdefault.jpg');
 
@@ -74,8 +72,7 @@ export class UserMockService implements IUserService {
     product1.description = "Most Beautiful Car in The World";
     product1.postDateTime = new Date();
     product1.heroImage = "https://image.shutterstock.com/image-photo/big-small-ripe-red-strawberry-260nw-642144988.jpg";
-    product1.price.money.amount = 460000;
-    product1.price.money.currency = "INR";
+    product1.price.amount = 460000;
     product1.price.isNegotiable = true;
     product1.images.push('https://image.shutterstock.com/image-photo/big-small-ripe-red-strawberry-260nw-642144988.jpg');
 
@@ -89,8 +86,7 @@ export class UserMockService implements IUserService {
     product2.description = "New Car";
     product2.postDateTime = new Date();
     product2.heroImage = "https://cdn.vox-cdn.com/thumbor/qW3lRejqR7xJAG_FTdRyxjfbalA=/0x0:2040x1360/1200x800/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/65408496/tesla_model_3_0638.0.jpg";
-    product2.price.money.amount = 8600000;
-    product2.price.money.currency = "INR";
+    product2.price.amount = 8600000;
     product2.price.isNegotiable = true;
     product2.images.push('https://cdn.vox-cdn.com/thumbor/qW3lRejqR7xJAG_FTdRyxjfbalA=/0x0:2040x1360/1200x800/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/65408496/tesla_model_3_0638.0.jpg');
 

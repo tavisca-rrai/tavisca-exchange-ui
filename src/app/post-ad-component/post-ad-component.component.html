@@ -67,7 +67,7 @@
                         <label for="price" class="required">Price</label>
                         <div class="input-group">
                             <span class="input-group-text">₹</span>
-                            <input [(ngModel)]="productModel.price.money.amount" id="price" name="price" #price="ngModel" class="form-control" type="number" placeholder="Product price.." required [min]="1">
+                            <input [(ngModel)]="productModel.price.amount" id="price" name="price" #price="ngModel" class="form-control" type="number" placeholder="Product price.." required [min]="1">
                         </div>
                         <div class="alert alert-danger" *ngIf="price.touched && !price.valid">
                             <div *ngIf="price.errors.required"> Price is required.</div>

@@ -9,7 +9,6 @@ import { IUserService } from 'src/app/models/i-user-service';
 import { Product } from 'src/app/models/product';
 import { SignInResponse } from 'src/app/login-module/models/sign-in-response';
 import { GetProductsListResponse } from 'src/app/models/get-products-list-response';
-import { ProductService } from '../product.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,9 +24,8 @@ export class UserService implements IUserService {
   });
 
   constructor(
-    private http: HttpClient,
-    private productService: ProductService
-  ) {
+    private http: HttpClient
+    ) {
     if (environment.isMockingEnabled) {
       this.userMockService = new UserMockService();
     }
@@ -51,7 +49,7 @@ export class UserService implements IUserService {
     userId: string
   ): Observable<GetProductsListResponse> {
     if (environment.isMockingEnabled) {
-      return this.productService.getActiveUserProducts(userId);
+      return this.userMockService.getActiveUserProducts(userId);
     } else {
       let getProductListUrl: string = this.getUrl(environment.userSetting.profile) + userId + environment.userSetting.activeAds;
       return this.http.get<GetProductsListResponse>(getProductListUrl, {
@@ -66,7 +64,7 @@ export class UserService implements IUserService {
     userId: string
   ): Observable<GetProductsListResponse> {
     if (environment.isMockingEnabled) {
-      return this.productService.getInactiveUserProducts(userId);
+      return this.userMockService.getInactiveUserProducts(userId);
     } else {
       let getProductListUrl: string = this.getUrl(environment.userSetting.inactiveAds) + userId + environment.userSetting.inactiveAds;
       return this.http.get<GetProductsListResponse>(getProductListUrl, {

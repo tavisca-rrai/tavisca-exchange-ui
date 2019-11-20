@@ -156,7 +156,7 @@ export class ProductService implements IProductService {
     userId: string
   ): Observable<GetProductsListResponse> {
     if (environment.isMockingEnabled) {
-      return this.productMockService.getActiveUserProducts(userId);
+      return this.userService.getActiveUserProducts(userId);
     } else {
       let getProductListUrl: string = this.userService.getUrl(environment.userSetting.profile) + userId + environment.userSetting.activeAds;
       return this.http.get<GetProductsListResponse>(getProductListUrl, {
@@ -169,7 +169,7 @@ export class ProductService implements IProductService {
     userId: string
   ): Observable<GetProductsListResponse> {
     if (environment.isMockingEnabled) {
-      return this.productMockService.getInactiveUserProducts(userId);
+      return this.userService.getInactiveUserProducts(userId);
     } else {
       let getProductListUrl: string = this.userService.getUrl(environment.userSetting.inactiveAds) + userId + environment.userSetting.inactiveAds;
       return this.http.get<GetProductsListResponse>(getProductListUrl, {

@@ -71,3 +71,11 @@
 .adv-posting-date {
     float: right;
 }
+
+.pagination{
+    margin-left: 20%;
+}
+
+.pagination /deep/ .ngx-pagination .current{
+    background : #1976d2;
+   }

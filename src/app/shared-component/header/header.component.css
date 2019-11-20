@@ -1,96 +1,98 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 .user-profile a {
-    color: #fff;
+  color: #fff;
 }
-.fa.fa-bars{
-    cursor: pointer;
+.fa.fa-bars {
+  cursor: pointer;
 }
 .header-icon {
-    margin-right: 20px;
+  margin-right: 20px;
 }
 
 .search-box input {
-    border-radius: 25px;
+  border-radius: 25px;
 }
 
 .header {
-    top: 0px;
-    width: 100%;
-    margin: 0px;
-    height: 60px;
-    display: flex;
-    color: white;
-    position: sticky;
-    font-weight: 600;
-    align-items: center;
-    background-color: #292c2f;
-    box-shadow: 0 1px 1px #ccc;
-    z-index: 9999;
+  top: 0px;
+  width: 100%;
+  margin: 0px;
+  height: 60px;
+  display: flex;
+  color: white;
+  position: sticky;
+  font-weight: 600;
+  align-items: center;
+  background-color: #292c2f;
+  box-shadow: 0 1px 1px #ccc;
+  z-index: 9999;
 }
 
 .brand {
-    width: 100%;
+  width: 100%;
 }
 
 .brand h1 {
-    margin: 0px;
-    padding: 10px;
-    font-size: 24px;
+  margin: 0px;
+  padding: 10px;
+  font-size: 24px;
 }
-.brand h1 span
-{
-    color: #5383d3;
+.brand h1 span {
+  color: #5383d3;
 }
 
 .brand a {
-    text-decoration: none;
-    color: #fff;
+  text-decoration: none;
+  color: #fff;
 }
 
 .link-box {
-    width: 100%;
-    padding: 12px;
-    text-align: right;
+  width: 100%;
+  padding: 12px;
+  text-align: right;
 }
 
 .link {
-    padding: 10px;
-    color: white;
-    text-decoration-line: none;
+  padding: 10px;
+  color: white;
+  text-decoration-line: none;
 }
-.sell
-{
-    background-color: #5383d3;
+.sell {
+  background-color: #5383d3;
 }
 
 .link:hover {
-    color: #dad8d8;
-    text-decoration-line: none;
+  color: #dad8d8;
+  text-decoration-line: none;
 }
 
 app-mobile-left-nav-bar {
-    display: none;
+  display: none;
 }
 
 .search-box {
-    width: 100%;
+  width: 100%;
 }
 
 @media (min-width: 768px) {
-    .mobile-menu{
-        display: none;
-    }
+  .mobile-menu {
+    display: none;
+  }
 }
 
 @media (max-width: 768px) {
-    .brand h1 {
-        font-size: 20px;
-    }
-    .header-icon {
-        display: none;
-    }
-    app-mobile-left-nav-bar {
-        display: block;
-    }
+  .brand h1 {
+    font-size: 20px;
+  }
+  .header-icon {
+    display: none;
+  }
+  app-mobile-left-nav-bar {
+    display: block;
+  }
+}
+
+.user-name {
+  margin-right: 1%;
 }

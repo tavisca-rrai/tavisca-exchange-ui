@@ -1,9 +1,11 @@
+import { IdFilter } from './../../models/sort-options';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
 import { GetUserProfileResponse } from 'src/app/models/user/get-user-profile-response';
 import { UserProfile } from 'src/app/models/user/user-profile';
 import { GetProductsListResponse } from 'src/app/models/get-products-list-response';
 import { ProductService } from 'src/app/services/product.service';
+import { Data, SortOptions, Filter, StatusFilter } from 'src/app/models/sort-options';
 
 @Component({
   selector: 'app-user-profile-component',
@@ -25,6 +27,7 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
     this.showActiveAds = true;
+    console.log(this.userId);
 
     this.userService.getUserProfile(this.userId).subscribe(
       (response: GetUserProfileResponse) => {

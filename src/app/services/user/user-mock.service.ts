@@ -17,7 +17,8 @@ export class UserMockService implements IUserService {
   getDummyUserProfile(userId): UserProfile {
     let userProfileObj = new UserProfile();
     userProfileObj.id = userId;
-    userProfileObj.name = "Nikita Narkhede";
+    userProfileObj.firstName = "Nikita";
+    userProfileObj.lastName = "Narkhede";
     userProfileObj.contactNumber = "8485733995";
     userProfileObj.emailId = "demo@something.com";
     userProfileObj.profileImageUrl = "https://scontent-frx5-1.cdninstagram.com/vp/b8ce57551b48edfec3b1e644e9a47f9b/5E4F1F60/t51.2885-19/11821175_1046879962002756_496959586_a.jpg?_nc_ht=scontent-frx5-1.cdninstagram.com";

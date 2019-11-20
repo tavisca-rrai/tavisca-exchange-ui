@@ -2,7 +2,7 @@ export const environment = {
   production: false,
   version: "/v1.0",
   applicationName: "/OnlineRetailPortal",
-  isMockingEnabled: true,
+  isMockingEnabled: false,
   isPreviewEnabled: false,
   loginSetting: {
     BaseUrl: "http://localhost:62914/api",

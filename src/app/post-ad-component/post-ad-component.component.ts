@@ -23,6 +23,8 @@ export class PostAdComponentComponent implements OnInit {
   isAddressSelected: boolean = false;
   imageArray: ImageProperty[] = [];
   serverUrl = environment.imageApiSettings.BaseUrl; //the root url of the server
+  dragDropIndex = 0;
+  previousId = -1;
   atleastOneImage = true;
   allowSubmit = false;
   invalidImage = false;
@@ -89,9 +91,11 @@ export class PostAdComponentComponent implements OnInit {
       response => {
         this.productService.sendProductObj(response);
         if (response.id != null && response.id.trim() != "") {
-          this.router.navigate(['products/details', response.id], { queryParams: { preview: 'true' } });
+          this.productImages.HeroImageUrl = this.productModel.heroImage;
+          this.productImages.ImageUrls = this.productModel.images;
           if (!this.isMock)
             this.imageService.storeImages(this.productImages).subscribe();
+          this.router.navigate(['products/details', response.id], { queryParams: { preview: 'true' } });
         }
         else {
           alert("Something went wrong");
@@ -136,15 +140,6 @@ export class PostAdComponentComponent implements OnInit {
     }
   }
 
-  imageLoader(id) {
-    this.imageArray[id].crossBtnValue = "none";
-    this.imageArray[id].imageDisplayValue = "none";
-    this.imageArray[id].addEditProperty = "none";
-    this.imageArray[id].pictureContainerStyle = "1px solid lightgrey";
-    this.imageArray[id].heroImage = "none";
-    this.imageArray[id].imageLoaderProperty = "";
-  }
-
   isValidImage(file): boolean {
     var validFormats = ['jpg', 'jpeg', 'png'];
     let fName = file.name;
@@ -175,7 +170,14 @@ export class PostAdComponentComponent implements OnInit {
   }
 
   uploadImage(event, id) {
-    this.imageService.uploadImage(event.target.files[0])
+    var eventFiles;
+    if (event.type == "drop") {
+      eventFiles = event.dataTransfer.files;
+    } else if (event.type == "change") {
+      eventFiles = event.target.files;
+    }
+
+    this.imageService.uploadImage(eventFiles[0])
       .subscribe(
         event => {
           if (event.type === HttpEventType.UploadProgress) {
@@ -203,15 +205,28 @@ export class PostAdComponentComponent implements OnInit {
               this.errMsg = "Invalid File Format. Please Upload Images(jpg, jpeg, png) only.";
             }
           }
-
           console.log("Upload Failed\n Error: " + this.errMsg);
         }
       );
   }
 
+  onDroppedFiles(dropedFilesEvent) {
+    if (dropedFilesEvent.dataTransfer.files.length == 0)
+      return;
+    if (this.imageCounter <= this.maxNoOfImage) {
+      this.addImage(this.dragDropIndex, dropedFilesEvent);
+    }
+    return;
+  }
+
   addImage(id, event) {
+    var eventFiles;
+    if (event.type == "drop") {
+      eventFiles = event.dataTransfer.files;
+    } else if (event.type == "change") {
+      eventFiles = event.target.files;
+    }
     var err = false;
-    this.imageLoader(id);
     this.invalidImage = false;
     this.connectionError = false;
 
@@ -222,8 +237,7 @@ export class PostAdComponentComponent implements OnInit {
         this.selectHeroImg(id);
       }
     }
-
-    else if (this.isValidImage(event.target.files[0])) {
+    else if (this.isValidImage(eventFiles[0])) {
       this.uploadImage(event, id);
     }
     else // if UI stops a non-image file upload
@@ -231,6 +245,7 @@ export class PostAdComponentComponent implements OnInit {
       err = true;
       this.invalidImage = true;
       this.errMsg = "Invalid File Format. Please Upload Images(jpg, jpeg, png) only.";
+      return;
     }
 
     this.imageArray[id].addEditProperty = "";
@@ -239,13 +254,18 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray[id].buttonName = "";
     this.imageArray[id].iconOfButton = "edit";
     this.imageArray[id].imageLoaderProperty = "none";
-
-
     this.imageCounter += 1;
-    if (this.imageCounter <= this.maxNoOfImage) {
+
+    if (this.imageCounter <= this.maxNoOfImage && id >= this.imageArray.length - 1) {
+      this.dragDropIndex++;
       let image = new ImageProperty();
       this.imageArray.push(image);
     }
+    else {
+      this.dragDropIndex++;
+    }
+
+    this.previousId = id;
     if (this.imageCounter > 1) {
       this.atleastOneImage = true;
       this.allowSubmit = true;
@@ -258,6 +278,7 @@ export class PostAdComponentComponent implements OnInit {
 
   removeImage(id) {
     //send the DELETE request and then remove from local
+    this.dragDropIndex--;
     this.imageService.deleteImage(this.productModel.images[id]).subscribe();
 
     if (this.imageCounter != 0 && this.imageArray[id].pictureContainerStyle == "4px solid blue") {
@@ -272,6 +293,7 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray[id].iconOfButton = "plus";
     this.imageArray[id].pictureContainerStyle = "1px solid lightgrey";
     this.productModel.images.splice(id, 1);
+    this.previousId = -1;
 
     if (this.imageCounter > this.minNoOfImage) {
       this.imageArray.splice(id, 1);
@@ -281,7 +303,6 @@ export class PostAdComponentComponent implements OnInit {
       let image = new ImageProperty();
       this.imageArray.push(image);
     }
-
     if (this.imageCounter <= 1) {
       this.atleastOneImage = false;
       this.allowSubmit = false;

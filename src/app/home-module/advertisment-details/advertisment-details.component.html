@@ -3,9 +3,6 @@
   <app-page-not-found></app-page-not-found>
 </div>
 <div class="parent" *ngIf='!noProductResponse'>
-  <div class="alert alert-primary" role="alert" *ngIf="isPreviewEnabled">
-    Advertisement is added Successfully ! This is how your advertisement looks.
-  </div>
   <div class="go-back-div" *ngIf="!isPreviewEnabled">
     <div class="btn-container">
       <span *ngIf="userId" (click)="updateAd();">Edit</span>
@@ -13,6 +10,9 @@
     </div>
   </div>
   <div class="product">
+    <div class="alert alert-primary" role="alert" *ngIf="isPreviewEnabled">
+      Advertisement is added Successfully ! This is how your advertisement looks.
+    </div>
     <div class="left-sidepanel">
       <div class="product-carousel">
         <ngb-carousel *ngIf="images">
@@ -101,6 +101,17 @@
           <span>Pincode:</span> {{ productdetails.product.pickupAddress.pincode }}
         </div>
       </div>
+      <div class="if-preview-is-on seller-details" *ngIf='isPreviewEnabled'>
+        <span class="seller-duration">Your ad expires on
+          {{productdetails.product.expirationDate | date:'dd MMM yy'}}
+        </span>
+        <div>
+          <button>edit</button>
+          <button>delete</button>
+        </div>
+      </div>
     </div>
   </div>
+</div>
+</div>
 </div>

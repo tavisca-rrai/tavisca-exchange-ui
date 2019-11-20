@@ -15,15 +15,13 @@
     </div>
     <h3>Categories</h3>
     <p class="navbar-items" *ngFor="let category of categories">
-        <input type="checkbox" name="{{category}}" > {{category}}
-    </p>
-    <p class="navbar-items" *ngFor="let category of categories">
-        <input type="checkbox" name="{{category}}" > {{category}}
+        <input type="checkbox" name="{{category}}"> {{category}}
     </p>
     <div class="mobile-view">
         <h3 class="nav-title"> Settings </h3>
         <div class="links">
-            <p><a [routerLink]="['/profile/',userId]" class="header-icon"><i class="fa fa-user"></i> User Profile</a></p>
+            <p><a [routerLink]="['/profile/',userId]" class="header-icon"><i class="fa fa-user"></i> User Profile</a>
+            </p>
             <p><a routerLink="/" class="header-icon"><i class="fa fa-sign-out"></i> Sign out </a></p>
         </div>
     </div>

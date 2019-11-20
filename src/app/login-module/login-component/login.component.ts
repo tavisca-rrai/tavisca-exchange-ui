@@ -3,7 +3,6 @@ import { Component, OnInit } from "@angular/core";
 import { UserSignInDetails } from "../models/user-signin-details";
 import { Router } from "@angular/router";
 import { UserService } from 'src/app/services/user/user.service';
-import { CookieService } from 'ngx-cookie-service';
 import { UserProfile } from 'src/app/models/user/user-profile';
 @Component({
   selector: "app-login",
@@ -11,19 +10,19 @@ import { UserProfile } from 'src/app/models/user/user-profile';
   styleUrls: ["./login.component.css"]
 })
 export class LoginComponent implements OnInit {
-  constructor(private loginService: LoginService, private router: Router, private userService: UserService, private cookieService: CookieService) { }
+  constructor(private loginService: LoginService, private router: Router, private userService: UserService) { }
   userDetails: UserSignInDetails;
   errorMessage: string = "";
   ngOnInit() {
+    localStorage.clear();
     this.userDetails = new UserSignInDetails();
   }
   tryLogin() {
     this.loginService.verifyUserCredentials(this.userDetails).subscribe(
       (data) => {
-        let userData: UserProfile = JSON.parse(JSON.stringify(data));
-        this.userService.saveUserToStorage(userData["userId"]);
-        this.cookieService.set('refreshToken', userData["refreshToken"]);
-        this.cookieService.set('accessToken', userData["accessToken"]);
+        let userProfile = new UserProfile();
+        userProfile.id = data.userId;
+        this.userService.saveUserToStorage(userProfile);
         this.router.navigateByUrl("/products");
       },
       err => {

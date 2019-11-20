@@ -27,7 +27,7 @@ export class AdvertismentDetailsComponent implements OnInit, OnDestroy {
   isPreviewOn: string = 'false';
   isPreviewEnabled: boolean = false;
   images: string[] = [];
-  imageHost: string = ""
+  imageHost: string = "";
 
   constructor(
     private productService: ProductService,
@@ -94,6 +94,12 @@ export class AdvertismentDetailsComponent implements OnInit, OnDestroy {
       var product = this.productService.getProductObj();
       if (product != null) {
         this.productdetails = this.productService.GetPreview(product);
+        this.userService.getUserProfile(product.sellerId).subscribe(
+          data => {
+            this.productdetails.seller = data.userProfile
+          },
+          err => { }
+        );
         this.SetProductProp();
       }
       else {
@@ -110,6 +116,10 @@ export class AdvertismentDetailsComponent implements OnInit, OnDestroy {
             this.SendErrorResponse();
           }
           else {
+            this.userService.getUserProfile(response.product.sellerId).subscribe(
+              (data) => {
+                this.productdetails.seller = data.userProfile;
+              });
             this.productdetails.product = response.product;
             this.productdetails.seller = response.seller;
             this.SetProductProp();

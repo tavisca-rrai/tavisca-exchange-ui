@@ -14,7 +14,7 @@
     display: none;
 }
 .custom-slider{
-    padding: 0px 20px 5px 10px;
+    padding: 0px 20px 5px 30px;
 }
 .custom-slider .ng5-slider .ng5-slider-selection {
     background: #5383d3 !important;
@@ -28,9 +28,10 @@ input[type="number"]::-webkit-inner-spin-button {
 {
     margin: 0 auto;
     display: block;
+    width: 76px;
 }
 .sort-by{
-    padding: 5px 20px 5px 10px;
+    padding: 5px 20px 5px 30px;
     text-align: center;
 }
 .sort-by label{
@@ -46,7 +47,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .navbar-items {
-    padding: 5px 11px 5px 10px;
+    padding: 5px 11px 5px 30px;
     width: inherit;
     margin:0px;
 }
@@ -69,8 +70,7 @@ input[type="number"]::-webkit-inner-spin-button {
     color: #1976d2;
     text-align: center;
     font-size: 19px;
-    padding-top: 10px;
-    text-decoration: underline;
+    padding-top: 15px;
 }
 .filter-box{
     display: inline-block;
@@ -86,7 +86,8 @@ input[type="number"]::-webkit-inner-spin-button {
     padding: 5px 10px 5px 10px;
 }
 .list-of-filters-applied{
-    padding: 0px 20px 5px 10px;
+    padding: 0px 20px 10px 30px;
+    width: 240px;
     position: relative;
     font-size: 13px;
     overflow: hidden;
@@ -97,6 +98,10 @@ input[type="number"]::-webkit-inner-spin-button {
 .min-max-inputs input{
     width: 70px;
     padding: 0px 6px;
+}
+.min-max-inputs .items{
+    flex: 1;
+    text-align: center;
 }
 .min-max-inputs span{
     padding: 2px;

@@ -1,12 +1,11 @@
 import { Component, OnInit, Input, ViewEncapsulation, DoCheck } from '@angular/core';
 import { Options, LabelType } from 'ng5-slider';
 import { ProductSort } from '../../models/product-sort';
-import { SortOptions } from "../../models/sort-options";
+import { SortOptions,PriceFilter,Data } from "../../models/sort-options";
 import { ProductService } from '../../services/product.service';
 import { UserService } from 'src/app/services/user/user.service';
-import { PriceFilter,PriceOptions } from 'src/app/models/price-filter';
 import { SearchFilter } from 'src/app/models/search-filter';
-import { CategoryFilter,CategoryFilterOptions } from 'src/app/models/category-filter';
+import { CategoryFilter } from 'src/app/models/category-filter';
 import { ProductFilter } from 'src/app/models/product-filter';
 @Component({
   selector: 'app-left-nav-bar',
@@ -23,11 +22,10 @@ export class LeftNavBarComponent implements OnInit,DoCheck {
   sortOptions: SortOptions;
   userId: string;
   sortValueForFilter:string;
-  priceFilterOptions:PriceFilter;
-  priceOptions:PriceOptions;
+  priceFilter:PriceFilter;
+  data:Data;
   searchFilterOptions:SearchFilter;
   categoryFilter:CategoryFilter;
-  categoryFilterOptions:CategoryFilterOptions;
   productFilter:ProductFilter;
   filters: any[] = [];
   categories = ["Property", "Car", "Furniture", "Mobile", "Bike", "Book", "Fashion", "Electronic", "Other"];
@@ -61,15 +59,14 @@ export class LeftNavBarComponent implements OnInit,DoCheck {
   onSelectCheckbox(category:string,isChecked:boolean){
     if(isChecked){
       // this.categoryFilter.category.list.push(category);
-      this.categoryFilterOptions.list.push(category);
+      this.categoryFilter.List.push(category);
     }
     else{
-      const index: number = this.categoryFilterOptions.list.indexOf(category);
+      const index: number = this.categoryFilter.List.indexOf(category);
       if (index !== -1) {
-        this.categoryFilterOptions.list.splice(index, 1);
+        this.categoryFilter.List.splice(index, 1);
       }  
     }
-    this.categoryFilter.category = this.categoryFilterOptions;
   }
   ngDoCheck(): void {
     if(this.maxValue > this.maxPriceRange){
@@ -78,13 +75,12 @@ export class LeftNavBarComponent implements OnInit,DoCheck {
   }
   ngOnInit() {
     this.productSortOptions = new ProductSort();
-    this.priceFilterOptions = new PriceFilter();
+    this.priceFilter = new PriceFilter();
+    this.data = new Data();
     this.searchFilterOptions = new SearchFilter();
     this.categoryFilter = new CategoryFilter();
-    this.categoryFilterOptions = new CategoryFilterOptions();
-    this.categoryFilterOptions.list = [];
+    this.categoryFilter.List = [];
     this.sortOptions = new SortOptions();
-    this.priceOptions = new PriceOptions();
     this.setProductSortOptions();
   }
   setSortValueForFilter(){
@@ -114,20 +110,23 @@ export class LeftNavBarComponent implements OnInit,DoCheck {
   setFilterOptions(){
     this.productFilter = new ProductFilter();
     this.productFilter.Filters = [];
+    this.data.Filters = [];
     this.setPriceFilterOptions();
     this.setProductSortOptions();
-    this.filters.push(this.priceFilterOptions);
+    this.filters.push(this.priceFilter);
     this.filters.push(this.categoryFilter);
     this.productFilter.ProductSort = this.sortOptions;
-    this.productFilter.Filters.push(this.priceFilterOptions);
     this.productFilter.Filters.push(this.categoryFilter);
+    this.data.ProductSort = this.sortOptions;
+    this.data.Filters.push(this.priceFilter);
+    this.data.Filters.push(this.categoryFilter);
   }
   setPriceFilterOptions(){
-    this.priceOptions.min = this.minValue;
-    this.priceOptions.max = this.maxValue;
-    this.priceFilterOptions.price = this.priceOptions;
+    this.priceFilter.Min = this.minValue;
+    this.priceFilter.Max = this.maxValue;
   }
   applySort() {
+    console.log(this.data);
     this.setFilterOptions();
     this.productService.setProductSortOptions(this.productSortOptions);
   }

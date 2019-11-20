@@ -5,7 +5,7 @@
 }
 
 .left-side-bar {
-    width: 350px;
+    width: 300px;
     background-color: #fff;
     box-sizing: border-box;
     overflow-y: hidden;
@@ -31,6 +31,9 @@ app-left-nav-bar{
 @media only screen and (max-width: 768px) {
     app-advertisments-list {
         margin: 15px 5px;
+    }
+    app-left-nav-bar{
+        width: 300px;
     }
     .content {
         width: 100%;

@@ -7,7 +7,7 @@
         <div class="filter-box">
             <p> {{minValue}} - {{maxValue}} </p>
         </div>
-        <div class="filter-box" *ngFor="let category of categoryFilterOptions.list">
+        <div class="filter-box" *ngFor="let category of categoryFilter.List">
             <p> {{category}} </p>
         </div>
     </div>
@@ -16,9 +16,9 @@
     <div class="custom-slider">
         <ng5-slider class="navbar-items" [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ng5-slider>
         <div class="min-max-inputs">
-            <input type="number" value="minValue" [(ngModel)]="minValue">
-            <span> to </span>
-            <input type="number" value="maxValue" [(ngModel)]="maxValue">
+            <input  class="items" type="number" value="minValue" [(ngModel)]="minValue">
+            <span class="items" > to </span>
+            <input  class="items" type="number" value="maxValue" [(ngModel)]="maxValue">
         </div>
     </div>
     <h3> Sort By</h3>

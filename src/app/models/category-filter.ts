@@ -1,6 +1,5 @@
-export class CategoryFilter {
-   public category:CategoryFilterOptions;
-}
-export class CategoryFilterOptions{
-  public list:string[];
+import { Filter } from './sort-options';
+
+export class CategoryFilter implements Filter{
+  public List:Array<string>;
 }

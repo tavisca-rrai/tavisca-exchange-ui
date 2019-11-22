@@ -42,6 +42,16 @@ export class ProductsListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getProducts();
+    this.getSortOptions();
+    this.getSearchQuery();
+
+    if (localStorage.StoreCurrentPage != null) {
+      this.pageNumber = this.pageChanged(localStorage.StoreCurrentPage);
+    }
+  }
+
+  getProducts(pageNumber = null, pageSize = null) {
     if (this.router.url.includes("/products")) {
       let data = new Data();
       data.ProductSort = new SortOptions();
@@ -85,13 +95,6 @@ export class ProductsListComponent implements OnInit {
           // TBA - error msg on ui
           console.log(err.error);
         });
-    }
-
-    this.getSortOptions();
-    this.getSearchQuery();
-
-    if (localStorage.StoreCurrentPage != null) {
-      this.pageNumber = this.pageChanged(localStorage.StoreCurrentPage);
     }
   }
 
@@ -156,34 +159,8 @@ export class ProductsListComponent implements OnInit {
     }
   }
 
-  getProductsByPageNumber(pageNumber, pageSize) {
-    let data = new Data();
-    data.ProductSort = new SortOptions();
-    data.Filters = new Array<Filter>();
-    data.ProductSort.Order = "Desc";
-    data.ProductSort.Type = "Date";
-    this.productService.getProductsList(pageNumber, pageSize, data).subscribe(
-      (response: GetProductsListResponse) => {
-        let noProductResponse: boolean = false;
-        if (response == null) {
-          noProductResponse = true;
-        }
-        else {
-          // this.adsList = response.products;
-          this.pagingInfo = response.pagingInfo;
-          this.totalItem = this.pagingInfo.totalPages * this.pageSize;
-        }
-
-      },
-      err => {
-        // TBA - error msg on ui
-        console.log(err.error);
-      }
-    );
-  }
-
   pageChanged($event): any {
-    this.getProductsByPageNumber($event, this.pageSize);
+    this.getProducts($event, this.pageSize);
     localStorage.StoreCurrentPage = $event;
     window.scrollTo(0, 0);
     return $event;

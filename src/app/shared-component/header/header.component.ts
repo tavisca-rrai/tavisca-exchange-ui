@@ -12,11 +12,14 @@ import { ProductService } from 'src/app/services/product.service';
 export class HeaderComponent implements OnInit, DoCheck {
   userInfo: UserProfile = new UserProfile();
   searchQuery: string = "";
+  userId: string;
+
   constructor(
     private router: Router,
     private userService: UserService,
     private productService: ProductService
   ) {
+    this.userId = this.userService.getUserFromStorage().id;
   }
 
   ngDoCheck(): void {

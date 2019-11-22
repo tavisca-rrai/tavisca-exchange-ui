@@ -42,11 +42,19 @@ const routes: Routes = [
     component: UserProfileComponent,
     children: [
       {
-        path: "",
+        path: "active",
         component: ProductsListComponent
       },
       {
-        path: "details/:id",
+        path: "inactive",
+        component: ProductsListComponent
+      },
+      {
+        path: "active/details/:id",
+        component: AdvertismentDetailsComponent
+      },
+      {
+        path: "inactive/details/:id",
         component: AdvertismentDetailsComponent
       }
     ]

@@ -13,7 +13,6 @@ import { ErrorResponse } from '../models/error-response'
 import { Product } from './../models/product'
 import { ProductSort } from '../models/product-sort';
 import { UserService } from './user/user.service';
-import { UserProfile } from '../models/user/user-profile';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +20,6 @@ import { UserProfile } from '../models/user/user-profile';
 
 export class ProductService implements IProductService {
   private _productSource: Product;
-  private userProfile: UserProfile;
   _error: ErrorResponse;
   productMockService: ProductMockService;
   private _productSortOptions: ProductSort;
@@ -31,12 +29,15 @@ export class ProductService implements IProductService {
   public headers = new HttpHeaders({
     "Content-Type": "application/json"
   });
+  userAdsList: BehaviorSubject<Product[]> = new BehaviorSubject([]);
 
-  constructor(private http: HttpClient, private userService: UserService) {
+  constructor(
+    private http: HttpClient,
+    private userService: UserService
+  ) {
     if (environment.isMockingEnabled) {
       this.productMockService = new ProductMockService();
     }
-    this.userProfile = userService.getUserFromStorage();
   }
 
   getProductObj() {
@@ -60,8 +61,7 @@ export class ProductService implements IProductService {
       return this.productMockService.AddProduct(product);
     }
     else {
-      this.userProfile = this.userService.getUserFromStorage();
-      product.sellerId = this.userProfile.id;
+      product.sellerId = this.userService.getUserFromStorage().id;
       return this.http.post<Product>(this.getUrl(environment.productSetting.addProductPath), product, {
         headers: this.headers
       });
@@ -156,7 +156,7 @@ export class ProductService implements IProductService {
     userId: string
   ): Observable<GetProductsListResponse> {
     if (environment.isMockingEnabled) {
-      return this.userService.getActiveUserProducts(userId);
+      return this.productMockService.getActiveUserProducts(userId);
     } else {
       let getProductListUrl: string = this.userService.getUrl(environment.userSetting.profile) + userId + environment.userSetting.activeAds;
       return this.http.get<GetProductsListResponse>(getProductListUrl, {
@@ -169,7 +169,7 @@ export class ProductService implements IProductService {
     userId: string
   ): Observable<GetProductsListResponse> {
     if (environment.isMockingEnabled) {
-      return this.userService.getInactiveUserProducts(userId);
+      return this.productMockService.getInactiveUserProducts(userId);
     } else {
       let getProductListUrl: string = this.userService.getUrl(environment.userSetting.inactiveAds) + userId + environment.userSetting.inactiveAds;
       return this.http.get<GetProductsListResponse>(getProductListUrl, {
@@ -182,9 +182,11 @@ export class ProductService implements IProductService {
     this.searchQuery = query;
     this.searchQueryObservable.next(this.searchQuery);
   }
+
   getSearchQuery(): Observable<string> {
     return this.searchQueryObservable;
   }
+
   private getUrl(path: string): string {
     return environment.productSetting.BaseUrl +
       environment.version +

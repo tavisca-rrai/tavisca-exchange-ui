@@ -1,11 +1,8 @@
-import { IdFilter } from './../../models/sort-options';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
 import { GetUserProfileResponse } from 'src/app/models/user/get-user-profile-response';
 import { UserProfile } from 'src/app/models/user/user-profile';
-import { GetProductsListResponse } from 'src/app/models/get-products-list-response';
-import { ProductService } from 'src/app/services/product.service';
-import { Data, SortOptions, Filter, StatusFilter } from 'src/app/models/sort-options';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile-component',
@@ -20,15 +17,12 @@ export class UserProfileComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private productService: ProductService
+    private router: Router
   ) {
     this.userId = this.userService.getUserFromStorage().id;
   }
 
   ngOnInit() {
-    this.showActiveAds = true;
-    console.log(this.userId);
-
     this.userService.getUserProfile(this.userId).subscribe(
       (response: GetUserProfileResponse) => {
         this.userProfile = response.userProfile;
@@ -38,34 +32,14 @@ export class UserProfileComponent implements OnInit {
         console.log(err.error);
       }
     );
-
-    this.getActiveAds();
+    if (this.router.url.includes("/active")) {
+      this.showActiveAds = true;
+    } else {
+      this.showActiveAds = false;
+    }
   }
 
-  getActiveAds() {
-    this.showActiveAds = true;
-    this.productService.getActiveUserProducts(this.userId).subscribe(
-      (response: GetProductsListResponse) => {
-        this.userService.userAdsList.next(response.products);
-      },
-      err => {
-        // TBA - error msg on ui
-        console.log(err.error);
-      }
-    );
+  toggleAdsTabHighlighting() {
+    this.showActiveAds = this.showActiveAds ? false : true;
   }
-
-  getInactiveAds() {
-    this.showActiveAds = false;
-    this.productService.getInactiveUserProducts(this.userId).subscribe(
-      (response: GetProductsListResponse) => {
-        this.userService.userAdsList.next(response.products);
-      },
-      err => {
-        // TBA - error msg on ui
-        console.log(err.error);
-      }
-    );
-  }
-
 }

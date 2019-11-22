@@ -3,7 +3,6 @@ import { environment } from './../../../environments/environment';
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { ProductSort } from '../../models/product-sort';
-import { ProductSortService } from 'src/app/services/product-sort.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { ProductService } from 'src/app/services/product.service';
 import { Router } from '@angular/router';
@@ -18,8 +17,8 @@ import { PagingInfo } from 'src/app/models/paging-info';
 })
 
 export class ProductsListComponent implements OnInit {
-  @Input() adsList: Product[];
-
+  userId: string;
+  adsList: Product[];
   noProductResponse: boolean = false;
   pageNumber: number = 1;
   pageSize: number = 9;
@@ -31,15 +30,16 @@ export class ProductsListComponent implements OnInit {
   ];
   searchedQuery: string = "";
   imageServer: string = environment.imageApiSettings.BaseUrl;
-  totalItem : number = 0;
+  totalItem: number = 0;
   pagingInfo: PagingInfo;
 
   constructor(
     private productService: ProductService,
-    private userService: UserService,
     private router: Router,
-    private productSortService: ProductSortService
-  ) { }
+    private userService: UserService,
+  ) {
+    this.userId = this.userService.getUserFromStorage().id;
+  }
 
   ngOnInit() {
     if (this.router.url.includes("/products")) {
@@ -58,7 +58,7 @@ export class ProductsListComponent implements OnInit {
             this.error.message = "No Products Found..";
             this.productService.sendErrorObj(this.error);
           }
-          else{
+          else {
             this.adsList = response.products;
             this.pagingInfo = response.pagingInfo;
             this.totalItem = (environment.isMockingEnabled) ? 13 : this.pagingInfo.totalPages * this.pageSize;
@@ -67,20 +67,29 @@ export class ProductsListComponent implements OnInit {
           // TBA - error msg on ui
           console.log(err.error);
         });
-    } else if (this.router.url.includes("/profile")) {
-      this.userService.userAdsList.subscribe(
-        (response: Product[]) => {
-          console.log(response);
-          this.adsList = response;
+    } else if (this.router.url.includes("/active")) {
+      this.productService.getActiveUserProducts(this.userId).subscribe(
+        (response) => {
+          this.adsList = response.products;
+        },
+        err => {
+          // TBA - error msg on ui
+          console.log(err.error);
+        });
+    } else if (this.router.url.includes("/inactive")) {
+      this.productService.getInactiveUserProducts(this.userId).subscribe(
+        (response) => {
+          this.adsList = response.products;
         },
         err => {
           // TBA - error msg on ui
           console.log(err.error);
         });
     }
+
     this.getSortOptions();
     this.getSearchQuery();
-    
+
     if (localStorage.StoreCurrentPage != null) {
       this.pageNumber = this.pageChanged(localStorage.StoreCurrentPage);
     }
@@ -126,7 +135,6 @@ export class ProductsListComponent implements OnInit {
   }
 
   applySort() {
-
     let data = new Data();
     if (this.productSortOptions != null) {
       data.ProductSort = this.productSortOptions.ProductSort;
@@ -147,20 +155,21 @@ export class ProductsListComponent implements OnInit {
       );
     }
   }
+
   getProductsByPageNumber(pageNumber, pageSize) {
     let data = new Data();
     data.ProductSort = new SortOptions();
     data.Filters = new Array<Filter>();
     data.ProductSort.Order = "Desc";
     data.ProductSort.Type = "Date";
-    this.productService.getProductsList(pageNumber, pageSize,data).subscribe(
+    this.productService.getProductsList(pageNumber, pageSize, data).subscribe(
       (response: GetProductsListResponse) => {
         let noProductResponse: boolean = false;
         if (response == null) {
           noProductResponse = true;
         }
         else {
-          this.adsList = response.products;
+          // this.adsList = response.products;
           this.pagingInfo = response.pagingInfo;
           this.totalItem = this.pagingInfo.totalPages * this.pageSize;
         }

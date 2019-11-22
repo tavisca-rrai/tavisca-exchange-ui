@@ -11,6 +11,7 @@ export const environment = {
   productSetting: {
     BaseUrl: "https://localhost:44357/api",
     addProductPath: "/products/add",
+    updateProductPath: "/products/update",
     adDetailsPath: "/details",
     adsListPath: "/products"
   },

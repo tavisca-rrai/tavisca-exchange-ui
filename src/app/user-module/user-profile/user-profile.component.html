@@ -16,12 +16,12 @@
         </div>
     </div>
     <div class="btn-separator">
-        <button [ngClass]="{'button-active': showActiveAds}" type="button" (click)="getActiveAds();"
-            [routerLink]="['../../profile',userId]">
+        <button [ngClass]="{'button-active': showActiveAds}" type="button" (click)="toggleAdsTabHighlighting();"
+            [routerLink]="['active']">
             Active
         </button>
-        <button [ngClass]="{'button-active': !showActiveAds}" type="button" (click)="getInactiveAds();"
-            [routerLink]="['../../profile',userId]">
+        <button [ngClass]="{'button-active': !showActiveAds}" type="button" (click)="toggleAdsTabHighlighting();"
+            [routerLink]="['inactive']">
             Inactive
         </button>
     </div>

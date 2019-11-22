@@ -1,4 +1,3 @@
-import { UserService } from 'src/app/services/user/user.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { GetProductDetailsResponse } from 'src/app/models/get-product-details-response';
@@ -9,12 +8,16 @@ import { Router } from '@angular/router';
 import { ErrorResponse } from '../../models/error-response';
 import { filter } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { UserService } from 'src/app/services/user/user.service';
+
 @Component({
   selector: 'app-advertisment-details',
   templateUrl: './advertisment-details.component.html',
   styleUrls: ['./advertisment-details.component.css']
 })
+
 export class AdvertismentDetailsComponent implements OnInit, OnDestroy {
+  userId: string;
   noProductResponse: boolean = false;
   isPriceNegotiable: string = "Non-Negotiable";
   isAddressPresent: boolean = false;
@@ -24,12 +27,14 @@ export class AdvertismentDetailsComponent implements OnInit, OnDestroy {
   isPreviewOn: string = 'false';
   isPreviewEnabled: boolean = false;
   images: string[] = [];
-  imageHost: string = ""
+  imageHost: string = "";
 
   constructor(
     private productService: ProductService,
     private router: ActivatedRoute,
-    private routerToProducts: Router, private userService: UserService) { }
+    private routerToProducts: Router,
+    private userService: UserService
+  ) { }
 
   //Add Images From Mock Database In Array 
   CreateImageArrayforMock() {
@@ -76,12 +81,8 @@ export class AdvertismentDetailsComponent implements OnInit, OnDestroy {
     this.routerToProducts.navigate(['/profile', this.productdetails.seller.id]);
   }
 
-  ngOnDestroy() {
-    this.isPreviewEnabled = false;
-    this.isPreviewOn = 'false';
-  }
-
   ngOnInit() {
+    this.userId = this.routerToProducts.url.includes("/profile") ? this.userService.userId : null;
     window.scroll(0, 0);
     let id: string;
     this.router.queryParams.pipe(filter(params => params.preview))
@@ -127,5 +128,13 @@ export class AdvertismentDetailsComponent implements OnInit, OnDestroy {
       );
     }
   }
-}
 
+  updateAd() {
+    this.routerToProducts.navigate([`/products/update-ad/${this.productdetails.product.id}`]);
+  }
+
+  ngOnDestroy() {
+    this.isPreviewEnabled = false;
+    this.isPreviewOn = 'false';
+  }
+}

@@ -13,8 +13,21 @@
     padding-right: 1%;
 }
 
-.go-back-div a {
+.go-back-div>.btn-container {
     float: right;
+}
+
+.go-back-div>.btn-container>span {
+    margin: 5px;
+    color: #1976d2;
+}
+
+.go-back-div>.btn-container>span:hover {
+    cursor: pointer;
+}
+
+.go-back-div span:hover {
+    cursor: pointer;
 }
 
 .product-images {

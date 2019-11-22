@@ -3,7 +3,7 @@ import { ImageProperty } from '../models/imageProperty';
 import { DatePipe } from '@angular/common';
 import { Product } from '../models/product';
 import { ProductService } from '../services/product.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpEventType, HttpResponse, } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
@@ -25,14 +25,11 @@ export class PostAdComponentComponent implements OnInit {
   serverUrl = environment.imageApiSettings.BaseUrl; //the root url of the server
   dragDropIndex = 0;
   previousId = -1;
-
-
   atleastOneImage = true;
   allowSubmit = false;
   invalidImage = false;
   connectionError = false;
   errMsg = "";
-
   categories = ["Property", "Car", "Furniture", "Mobile", "Bike", "Book", "Fashion", "Electronic", "Other"]; // this is provided by categories api
   states = ["Andra Pradesh", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jammu and Kashmir", "Jharkhand", "Karnataka",
     "Kerala", "Madya Pradesh", "Maharashtra", "Punjab", "Rajasthan"]
@@ -41,9 +38,22 @@ export class PostAdComponentComponent implements OnInit {
   addressDisplayValue = "none";
   purchaseDate = "none";
   imageCounter = 1;
-  constructor(private imageService: ImageService, private router: Router, public datepipe: DatePipe, private productService: ProductService, public http: HttpClient, public sanatizer: DomSanitizer) { } //use for validation of date 
   productModel: Product;
   productImages: ProductImages;
+  date = new Date();
+  latest_date = this.datepipe.transform(this.date, 'yyyy-MM-dd');
+  productId: string;
+  btnDispText: string;
+
+  constructor(
+    private imageService: ImageService,
+    private router: Router,
+    public datepipe: DatePipe,
+    private productService: ProductService,
+    public http: HttpClient,
+    public sanatizer: DomSanitizer,
+    private activatedRoute: ActivatedRoute
+  ) { } //use for validation of date 
 
   ngOnInit() {
     window.scroll(0, 0);
@@ -51,10 +61,32 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray.push(image);
     this.productModel = new Product();
     this.productImages = new ProductImages();
-    this.productModel.price.isNegotiable=false;
+
+    if (this.router.url.includes("/update-ad")) {
+      this.activatedRoute.params.subscribe(params => {
+        this.productId = params['id'];
+      });
+
+      this.productService.getProductDetails(this.productId).subscribe(
+        response => {
+          this.productModel = response.product;
+        }
+      );
+
+      if (this.productModel.pickupAddress.line1) {
+        this.isAddressSelected = true;
+        this.addressDisplayValue = "block";
+        this.btnDispText = "Update";
+      }
+    } else {
+      this.productId = null;
+      this.btnDispText = "Submit";
+    }
   }
 
-  PostProduct() {   
+  PostProduct() {
+    this.productImages.HeroImageUrl = this.productModel.heroImage;
+    this.productImages.ImageUrls = this.productModel.images;
     this.productService.AddProduct(this.productModel).subscribe(
       response => {
         this.productService.sendProductObj(response);
@@ -75,8 +107,19 @@ export class PostAdComponentComponent implements OnInit {
       }
     );
   }
-  date = new Date();
-  latest_date = this.datepipe.transform(this.date, 'yyyy-MM-dd');
+
+  updateProduct() {
+    this.productService.updateProduct(this.productModel).subscribe(
+      response => {
+
+      },
+      err => {
+        alert("Oops, something went wrong, Please try again later.");
+        console.log(err.error);
+      }
+    );
+  }
+
   validateDate(id) {
     var userDate = id.target.value;
     if (userDate > this.latest_date) {
@@ -127,10 +170,10 @@ export class PostAdComponentComponent implements OnInit {
   }
 
   uploadImage(event, id) {
-    var eventFiles;    
-    if(event.type == "drop"){
+    var eventFiles;
+    if (event.type == "drop") {
       eventFiles = event.dataTransfer.files;
-    }else if(event.type == "change"){
+    } else if (event.type == "change") {
       eventFiles = event.target.files;
     }
 
@@ -166,22 +209,21 @@ export class PostAdComponentComponent implements OnInit {
         }
       );
   }
-  
-  onDroppedFiles(dropedFilesEvent){
-    if(dropedFilesEvent.dataTransfer.files.length==0)
+
+  onDroppedFiles(dropedFilesEvent) {
+    if (dropedFilesEvent.dataTransfer.files.length == 0)
       return;
-    if(this.imageCounter <= this.maxNoOfImage)
-    {  
-      this.addImage(this.dragDropIndex,dropedFilesEvent);
+    if (this.imageCounter <= this.maxNoOfImage) {
+      this.addImage(this.dragDropIndex, dropedFilesEvent);
     }
     return;
   }
 
   addImage(id, event) {
-    var eventFiles;    
-    if(event.type == "drop"){
+    var eventFiles;
+    if (event.type == "drop") {
       eventFiles = event.dataTransfer.files;
-    }else if(event.type == "change"){
+    } else if (event.type == "change") {
       eventFiles = event.target.files;
     }
     var err = false;
@@ -213,13 +255,13 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray[id].iconOfButton = "edit";
     this.imageArray[id].imageLoaderProperty = "none";
     this.imageCounter += 1;
-    
-    if (this.imageCounter <= this.maxNoOfImage && id>=this.imageArray.length-1) {
+
+    if (this.imageCounter <= this.maxNoOfImage && id >= this.imageArray.length - 1) {
       this.dragDropIndex++;
       let image = new ImageProperty();
       this.imageArray.push(image);
     }
-    else{
+    else {
       this.dragDropIndex++;
     }
 
@@ -251,8 +293,8 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray[id].iconOfButton = "plus";
     this.imageArray[id].pictureContainerStyle = "1px solid lightgrey";
     this.productModel.images.splice(id, 1);
-    this.previousId=-1;
-    
+    this.previousId = -1;
+
     if (this.imageCounter > this.minNoOfImage) {
       this.imageArray.splice(id, 1);
       this.imageCounter -= 1;
@@ -281,4 +323,9 @@ export class PostAdComponentComponent implements OnInit {
   imageClick(id) {
     document.getElementById(id).click();
   }
+
+  adActionBtn() {
+    this.productId ? this.updateProduct() : this.PostProduct();
+  }
+
 }

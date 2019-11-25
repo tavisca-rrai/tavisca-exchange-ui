@@ -7,7 +7,7 @@
             <img src="{{imageServer+ad.heroImage}}" alt="Advertisment Image for {{ad.name}}">
         </div>
         <div class="adv-details">
-            <p class="adv-price">₹ {{ad.price.money.amount}}</p>
+            <p class="adv-price">₹ {{ad.price.amount}}</p>
             <p class="adv-title">{{ad.name}}</p>
             <div class="adv-bottom-section">
                 <p class="adv-posting-area" *ngIf="ad.pickupAddress != null">{{ad.pickupAddress.city}}, {{ad.pickupAddress.state}}

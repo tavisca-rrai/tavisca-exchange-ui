@@ -11,13 +11,13 @@ import { Router } from '@angular/router';
         width: '0px'
       })),
       state('closed', style({
-        width: '250px'
+        width: '300px'
       })),
       state('contentOpen', style({
         marginLeft: '0px'
       })),
       state('contentClosed', style({
-        marginLeft: '250px'
+        marginLeft: '300px'
       })),
       transition('open <=> closed', [
         animate('0.3s')

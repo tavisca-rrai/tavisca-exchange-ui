@@ -62,8 +62,7 @@ export class ProductMockService implements IProductService {
     product1.description = "lorem ipsum";
     product1.postDateTime = new Date("2027-11-08T18:57:53.5594401+05:30");
     product1.heroImage = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
-    product1.price.money.amount = 3200000;
-    product1.price.money.currency = "INR";
+    product1.price.amount = 3200000;
     product1.price.isNegotiable = false;
     product1.images.push('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTMt-5WaWAB5O048K8MS92uXbFpNmUvro38bH1lgoDmsRmo0hEJ');
     product1.images.push('https://cmsimages-alt.kbb.com/content/dam/kbb-editorial/make/rolls-royce/cullinan/2019-rolls-royce-cullinan-side.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg');
@@ -79,8 +78,7 @@ export class ProductMockService implements IProductService {
     product2.description = "one of the best options in its segmant with all safety features like airbags abs steering control adjustable steering keyless entry push button start company provided music system with navigation and bluetooth conectivity";
     product2.postDateTime = new Date("2018-06-06T00:00:00");
     product2.heroImage = "https://cmsimages-alt.kbb.com/content/dam/kbb-editorial/make/rolls-royce/cullinan/2019-rolls-royce-cullinan-side.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg";
-    product2.price.money.amount = 3200000;
-    product2.price.money.currency = "INR";
+    product2.price.amount = 3200000;
     product2.price.isNegotiable = true;
     product2.images.push('https://cmsimages-alt.kbb.com/content/dam/kbb-editorial/make/rolls-royce/cullinan/2019-rolls-royce-cullinan-side.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg');
 
@@ -94,8 +92,7 @@ export class ProductMockService implements IProductService {
     product3.description = "Just A Photo";
     product3.postDateTime = new Date("2018-06-06T00:00:00");
     product3.heroImage = "http://i.imgur.com/REM4kQUg.jpg";
-    product3.price.money.amount = 3200000;
-    product3.price.money.currency = "INR";
+    product3.price.amount = 3200000;
     product3.price.isNegotiable = true;
     product3.images.push('http://i.imgur.com/REM4kQUg.jpg');
 
@@ -109,8 +106,7 @@ export class ProductMockService implements IProductService {
     product4.description = "Maruti Suzuki India Limited, formerly known as Maruti Udyog Limited, is an automobile manufacturer in India. It is a 56.21% owned subsidiary of the Japanese car and motorcycle manufacturer Suzuki Motor Corporation. As of July 2018, it had a market share of 53% of the Indian passenger car market.";
     product4.postDateTime = new Date("2018-06-06T00:00:00");
     product4.heroImage = "https://i.ytimg.com/vi/dsWxMoh3_50/maxresdefault.jpg";
-    product4.price.money.amount = 3200000;
-    product4.price.money.currency = "INR";
+    product4.price.amount = 3200000;
     product4.price.isNegotiable = true;
     product4.images.push('https://i.ytimg.com/vi/dsWxMoh3_50/maxresdefault.jpg');
 
@@ -124,8 +120,7 @@ export class ProductMockService implements IProductService {
     product5.description = "Most Beautiful Car in The World";
     product5.postDateTime = new Date("2018-06-06T00:00:00");
     product5.heroImage = "https://image.shutterstock.com/image-photo/big-small-ripe-red-strawberry-260nw-642144988.jpg";
-    product5.price.money.amount = 3200000;
-    product5.price.money.currency = "INR";
+    product5.price.amount = 3200000;
     product5.price.isNegotiable = true;
     product5.images.push('https://image.shutterstock.com/image-photo/big-small-ripe-red-strawberry-260nw-642144988.jpg');
 
@@ -139,8 +134,7 @@ export class ProductMockService implements IProductService {
     product6.description = "New Car";
     product6.postDateTime = new Date("2018-06-06T00:00:00");
     product6.heroImage = "https://cdn.vox-cdn.com/thumbor/qW3lRejqR7xJAG_FTdRyxjfbalA=/0x0:2040x1360/1200x800/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/65408496/tesla_model_3_0638.0.jpg";
-    product6.price.money.amount = 3200000;
-    product6.price.money.currency = "INR";
+    product6.price.amount = 3200000;
     product6.price.isNegotiable = true;
     product6.images.push('https://cdn.vox-cdn.com/thumbor/qW3lRejqR7xJAG_FTdRyxjfbalA=/0x0:2040x1360/1200x800/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/65408496/tesla_model_3_0638.0.jpg');
 
@@ -154,8 +148,7 @@ export class ProductMockService implements IProductService {
     product7.description = "lorem ipsum";
     product7.postDateTime = new Date("2018-06-06T00:00:00");
     product7.heroImage = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
-    product7.price.money.amount = 3200000;
-    product7.price.money.currency = "INR";
+    product7.price.amount = 3200000;
     product7.price.isNegotiable = true;
     product7.images.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
@@ -169,8 +162,7 @@ export class ProductMockService implements IProductService {
     product8.description = "lorem ipsum";
     product8.postDateTime = new Date("2018-06-06T00:00:00");
     product8.heroImage = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
-    product8.price.money.amount = 3200000;
-    product8.price.money.currency = "INR";
+    product8.price.amount = 3200000;
     product8.price.isNegotiable = true;
     product8.images.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
@@ -184,8 +176,7 @@ export class ProductMockService implements IProductService {
     product9.description = "lorem ipsum";
     product9.postDateTime = new Date("2018-06-06T00:00:00");
     product9.heroImage = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
-    product9.price.money.amount = 3200000;
-    product9.price.money.currency = "INR";
+    product9.price.amount = 3200000;
     product9.price.isNegotiable = true;
     product9.images.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
@@ -199,8 +190,7 @@ export class ProductMockService implements IProductService {
     product10.description = "lorem ipsum";
     product10.postDateTime = new Date("2018-06-06T00:00:00");
     product10.heroImage = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
-    product10.price.money.amount = 3200000;
-    product10.price.money.currency = "INR";
+    product10.price.amount = 3200000;
     product10.price.isNegotiable = true;
     product10.images.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
@@ -214,8 +204,7 @@ export class ProductMockService implements IProductService {
     product11.description = "lorem ipsum";
     product11.postDateTime = new Date("2018-06-06T00:00:00");
     product11.heroImage = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
-    product11.price.money.amount = 3200000;
-    product11.price.money.currency = "INR";
+    product11.price.amount = 3200000;
     product11.price.isNegotiable = true;
     product11.images.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
@@ -229,8 +218,7 @@ export class ProductMockService implements IProductService {
     product12.description = "lorem ipsum";
     product12.postDateTime = new Date("2018-06-06T00:00:00");
     product12.heroImage = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
-    product12.price.money.amount = 3200000;
-    product12.price.money.currency = "INR";
+    product12.price.amount = 3200000;
     product12.price.isNegotiable = true;
     product12.images.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
@@ -244,8 +232,7 @@ export class ProductMockService implements IProductService {
     product13.description = "lorem ipsum";
     product13.postDateTime = new Date("2018-06-06T00:00:00");
     product13.heroImage = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260";
-    product13.price.money.amount = 3200000;
-    product13.price.money.currency = "INR";
+    product13.price.amount = 3200000;
     product13.price.isNegotiable = true;
     product13.images.push('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 
@@ -301,8 +288,7 @@ export class ProductMockService implements IProductService {
     product1.description = "Just A Photo";
     product1.postDateTime = new Date();
     product1.heroImage = "http://i.imgur.com/REM4kQUg.jpg";
-    product1.price.money.amount = 730000;
-    product1.price.money.currency = "INR";
+    product1.price.amount = 730000;
     product1.price.isNegotiable = true;
     product1.images.push('http://i.imgur.com/REM4kQUg.jpg');
 
@@ -316,8 +302,7 @@ export class ProductMockService implements IProductService {
     product2.description = "Maruti Suzuki India Limited, formerly known as Maruti Udyog Limited, is an automobile manufacturer in India. It is a 56.21% owned subsidiary of the Japanese car and motorcycle manufacturer Suzuki Motor Corporation. As of July 2018, it had a market share of 53% of the Indian passenger car market.";
     product2.postDateTime = new Date();
     product2.heroImage = "https://i.ytimg.com/vi/dsWxMoh3_50/maxresdefault.jpg";
-    product2.price.money.amount = 6800000;
-    product2.price.money.currency = "INR";
+    product2.price.amount = 6800000;
     product2.price.isNegotiable = true;
     product2.images.push('https://i.ytimg.com/vi/dsWxMoh3_50/maxresdefault.jpg');
 
@@ -335,8 +320,7 @@ export class ProductMockService implements IProductService {
     product1.description = "Most Beautiful Car in The World";
     product1.postDateTime = new Date();
     product1.heroImage = "https://image.shutterstock.com/image-photo/big-small-ripe-red-strawberry-260nw-642144988.jpg";
-    product1.price.money.amount = 460000;
-    product1.price.money.currency = "INR";
+    product1.price.amount = 460000;
     product1.price.isNegotiable = true;
     product1.images.push('https://image.shutterstock.com/image-photo/big-small-ripe-red-strawberry-260nw-642144988.jpg');
 
@@ -350,8 +334,7 @@ export class ProductMockService implements IProductService {
     product2.description = "New Car";
     product2.postDateTime = new Date();
     product2.heroImage = "https://cdn.vox-cdn.com/thumbor/qW3lRejqR7xJAG_FTdRyxjfbalA=/0x0:2040x1360/1200x800/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/65408496/tesla_model_3_0638.0.jpg";
-    product2.price.money.amount = 8600000;
-    product2.price.money.currency = "INR";
+    product2.price.amount = 8600000;
     product2.price.isNegotiable = true;
     product2.images.push('https://cdn.vox-cdn.com/thumbor/qW3lRejqR7xJAG_FTdRyxjfbalA=/0x0:2040x1360/1200x800/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/65408496/tesla_model_3_0638.0.jpg');
 

@@ -37,7 +37,7 @@
         <div class="prod-details-top-row">
           <span class="negotiable-property">{{isPriceNegotiable}}</span>
           <span class="price">
-            {{ productdetails.product.price.money.amount | currency: 'INR' : 'symbol' : '1.0-0'  }}
+            {{ productdetails.product.price.amount | currency: 'INR' : 'symbol' : '1.0-0'  }}
             <!-- (Negotiable) -->
             <!-- <button class="right-corner"><i class="fa fa-share"></i></button>
                     <button class="right-corner"><i class="fa fa-heart"></i></button> -->

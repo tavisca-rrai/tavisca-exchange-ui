@@ -4,12 +4,12 @@ import { ProductSort } from '../models/product-sort';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Filter } from '../models/sort-options';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductSortService {
-  
   public headers = new HttpHeaders({
     "Content-Type": "application/json"
   });
@@ -36,3 +36,5 @@ export class ProductSortService {
       path;
   }
 }
+
+ 

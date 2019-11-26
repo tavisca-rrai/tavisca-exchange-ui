@@ -5,7 +5,6 @@ import { SortOptions,PriceFilter,Data } from "../../models/sort-options";
 import { ProductService } from '../../services/product.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { CategoryFilter } from 'src/app/models/category-filter';
-import { ProductFilter } from 'src/app/models/product-filter';
 @Component({
   selector: 'app-left-nav-bar',
   templateUrl: './left-nav-bar.component.html',
@@ -22,10 +21,8 @@ export class LeftNavBarComponent implements OnInit,DoCheck {
   userId: string;
   sortValueForFilter:string;
   priceFilter:PriceFilter;
-  data:Data;
   categoryFilter:CategoryFilter;
-  productFilter:ProductFilter;
-  filters: any[] = [];
+  productFilter:Data;
   categories = ["Property", "Car", "Furniture", "Mobile", "Bike", "Book", "Fashion", "Electronic", "Other"];
   options: Options = {
     floor: this.minValue,
@@ -56,12 +53,12 @@ export class LeftNavBarComponent implements OnInit,DoCheck {
   }
   onSelectCheckbox(category:string,isChecked:boolean){
     if(isChecked){
-      this.categoryFilter.List.push(category);
+      this.categoryFilter.Categories.push(category);
     }
     else{
-      const index: number = this.categoryFilter.List.indexOf(category);
+      const index: number = this.categoryFilter.Categories.indexOf(category);
       if (index !== -1) {
-        this.categoryFilter.List.splice(index, 1);
+        this.categoryFilter.Categories.splice(index, 1);
       }  
     }
   }
@@ -73,9 +70,9 @@ export class LeftNavBarComponent implements OnInit,DoCheck {
   ngOnInit() {
     this.productSortOptions = new ProductSort();
     this.priceFilter = new PriceFilter();
-    this.data = new Data();
+    this.productFilter = new Data();
     this.categoryFilter = new CategoryFilter();
-    this.categoryFilter.List = [];
+    this.categoryFilter.Categories = [];
     this.sortOptions = new SortOptions();
     this.setProductSortOptions();
   }
@@ -104,26 +101,20 @@ export class LeftNavBarComponent implements OnInit,DoCheck {
     this.setSortValueForFilter();
   }
   setFilterOptions(){
-    this.productFilter = new ProductFilter();
     this.productFilter.Filters = [];
-    this.data.Filters = [];
     this.setPriceFilterOptions();
-    this.setProductSortOptions();
-    this.filters.push(this.priceFilter);
-    this.filters.push(this.categoryFilter);
     this.productFilter.ProductSort = this.sortOptions;
-    this.productFilter.Filters.push(this.categoryFilter);
-    this.data.ProductSort = this.sortOptions;
-    this.data.Filters.push(this.priceFilter);
-    this.data.Filters.push(this.categoryFilter);
+    this.productFilter.Filters.push(this.productService.assignFilterName("Price",this.priceFilter));
+    if(this.categoryFilter.Categories.length>0)
+    this.productFilter.Filters.push(this.productService.assignFilterName("Category",this.categoryFilter));
   }
   setPriceFilterOptions(){
     this.priceFilter.Min = this.minValue;
     this.priceFilter.Max = this.maxValue;
   }
   applySort() {
-    console.log(this.data);
     this.setFilterOptions();
-    this.productService.setProductSortOptions(this.productSortOptions);
+    this.setProductSortOptions();
+    this.productService.setProductFilterOptions(this.productFilter);
   }
 }

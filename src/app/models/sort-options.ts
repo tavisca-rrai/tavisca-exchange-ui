@@ -8,7 +8,7 @@ export class IdFilter implements Filter {
     public SellerId: string;
 }
 export class SearchFilter implements Filter {
-    public SearchQuery: string;
+    public Query: string;
 }
 export class PriceFilter implements Filter {
     public Min: number;
@@ -20,4 +20,4 @@ export class StatusFilter implements Filter {
 export class Data {
     public ProductSort: SortOptions;
     public Filters: Array<Filter>
-}
+} 

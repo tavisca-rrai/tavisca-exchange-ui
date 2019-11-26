@@ -24,7 +24,7 @@ export class ProductsListComponent implements OnInit {
   pageSize: number = 9;
   error = new ErrorResponse;
   advertiseId: string;
-  productSortOptions: ProductSort;
+  productFilterOptions: Data;
   monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
   ];
@@ -43,7 +43,7 @@ export class ProductsListComponent implements OnInit {
 
   ngOnInit() {
     this.getProducts();
-    this.getSortOptions();
+    this.getFilterOptions();
     this.getSearchQuery();
 
     if (localStorage.StoreCurrentPage != null) {
@@ -98,11 +98,11 @@ export class ProductsListComponent implements OnInit {
     }
   }
 
-  getSortOptions() {
-    this.productService.getProductSortOptions().subscribe(
+  getFilterOptions() {
+    this.productService.getProductFilterOptions().subscribe(
       (response) => {
-        this.productSortOptions = new ProductSort();
-        this.productSortOptions = response;
+        this.productFilterOptions = new Data();
+        this.productFilterOptions = response;
         this.applySort();
       },
       err => { console.log(err.error); }
@@ -121,8 +121,8 @@ export class ProductsListComponent implements OnInit {
           data.ProductSort.Type = "Date";
           if (query.trim().length > 0) {
             let search = new SearchFilter();
-            search.SearchQuery = query;
-            data.Filters.push(search);
+            search.Query = query;
+            data.Filters.push(this.productService.assignFilterName("Search",search));
           }
           this.productService.getProductsList(1, 200, data).subscribe(
             (response) => {
@@ -139,12 +139,12 @@ export class ProductsListComponent implements OnInit {
 
   applySort() {
     let data = new Data();
-    if (this.productSortOptions != null) {
-      data.ProductSort = this.productSortOptions.ProductSort;
-      data.Filters = new Array<Filter>();
+    if (this.productFilterOptions != null) {
+      data.ProductSort = this.productFilterOptions.ProductSort;
+      data.Filters = this.productFilterOptions.Filters;
       if (this.searchedQuery.length > 0) {
         let search = new SearchFilter();
-        search.SearchQuery = this.searchedQuery;
+        search.Query = this.searchedQuery;
         data.Filters.push(search);
       }
       this.productService.getProductsList(1, 200, data).subscribe(

@@ -4,14 +4,12 @@
         <h1><a routerLink="/products">Tav<span>Ex</span></a></h1>
     </div>
     <div class="search-box">
-        <input class="form-control" type="search" [(ngModel)]="searchQuery" placeholder="Search"
-            (keyup.enter)="Search()" aria-label="Search">
+        <input class="form-control" type="search" [(ngModel)]="searchQuery" placeholder="Search" (keyup.enter)="Search()" aria-label="Search">
     </div>
     <div class="link-box">
         <div class="user-profile">
             <a [routerLink]="['/products/postad']" class="btn btn-primary mr-3 sell">
-                <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
-                Sell
+                <i class="fa fa-arrow-circle-up" aria-hidden="true"></i> Sell
             </a>
             <label class='user-name'>Welcome {{userInfo.firstName}}</label>
             <a [routerLink]="['/profile',userId,'active']" class="header-icon">

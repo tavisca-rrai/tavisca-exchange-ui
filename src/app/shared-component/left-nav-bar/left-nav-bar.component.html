@@ -7,7 +7,7 @@
         <div class="filter-box">
             <p> {{minValue}} - {{maxValue}} </p>
         </div>
-        <div class="filter-box" *ngFor="let category of categoryFilter.List">
+        <div class="filter-box" *ngFor="let category of categoryFilter.Categories">
             <p> {{category}} </p>
         </div>
     </div>
@@ -16,9 +16,9 @@
     <div class="custom-slider">
         <ng5-slider class="navbar-items" [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ng5-slider>
         <div class="min-max-inputs">
-            <input  class="items" type="number" value="minValue" [(ngModel)]="minValue">
-            <span class="items" > to </span>
-            <input  class="items" type="number" value="maxValue" [(ngModel)]="maxValue">
+            <input class="items" type="number" value="minValue" [(ngModel)]="minValue">
+            <span class="items"> to </span>
+            <input class="items" type="number" value="maxValue" [(ngModel)]="maxValue">
         </div>
     </div>
     <h3> Sort By</h3>
@@ -32,7 +32,7 @@
     </div>
     <h3>Categories</h3>
     <p class="navbar-items" *ngFor="let category of categories">
-        <input type="checkbox" (change)="onSelectCheckbox(category,$event.target.checked)" name="{{category}}" > {{category}}
+        <input type="checkbox" (change)="onSelectCheckbox(category,$event.target.checked)" name="{{category}}"> {{category}}
     </p>
     <div class="mobile-view">
         <h3 class="nav-title"> Settings </h3>

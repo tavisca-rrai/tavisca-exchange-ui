@@ -1,4 +1,4 @@
-import { Data } from './../models/sort-options';
+import { Data, Filter } from './../models/sort-options';
 import { Injectable } from '@angular/core';
 import { IProductService } from '../models/i-product-service';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
@@ -22,9 +22,9 @@ export class ProductService implements IProductService {
   private _productSource: Product;
   _error: ErrorResponse;
   productMockService: ProductMockService;
-  private _productSortOptions: ProductSort;
-  private _productSortOptionsObservable = new BehaviorSubject(null);
-  private searchQuery: string;
+  private _productFilterOptions: Data;
+  private _productFilterOptionsObservable = new BehaviorSubject(null);
+  private Search: string;
   private searchQueryObservable = new BehaviorSubject(null);
   public headers = new HttpHeaders({
     "Content-Type": "application/json"
@@ -143,13 +143,13 @@ export class ProductService implements IProductService {
     return throwError(errorMessage);
   }
 
-  setProductSortOptions(productSortOptions: ProductSort) {
-    this._productSortOptions = productSortOptions;
-    this._productSortOptionsObservable.next(this._productSortOptions);
+  setProductFilterOptions(productfilterOptions: Data) {
+    this._productFilterOptions = productfilterOptions;
+    this._productFilterOptionsObservable.next(this._productFilterOptions);
   }
 
-  getProductSortOptions(): Observable<ProductSort> {
-    return this._productSortOptionsObservable;
+  getProductFilterOptions(): Observable<Data> {
+    return this._productFilterOptionsObservable;
   }
 
   getActiveUserProducts(
@@ -179,8 +179,8 @@ export class ProductService implements IProductService {
   }
 
   setSearchQuery(query: string) {
-    this.searchQuery = query;
-    this.searchQueryObservable.next(this.searchQuery);
+    this.Search = query;
+    this.searchQueryObservable.next(this.Search);
   }
 
   getSearchQuery(): Observable<string> {
@@ -192,5 +192,11 @@ export class ProductService implements IProductService {
       environment.version +
       environment.applicationName +
       path;
+  }
+
+  assignFilterName(filterName:string,filter:Filter) {
+    var filterType={};
+    filterType[filterName]=filter;
+    return filterType;
   }
 }

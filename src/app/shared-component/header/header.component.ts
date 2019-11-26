@@ -59,5 +59,4 @@ export class HeaderComponent implements OnInit, DoCheck {
   Search() {
     this.productService.setSearchQuery(this.searchQuery);
   }
-
 }

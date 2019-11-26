@@ -1,6 +1,8 @@
+import { UserProfile } from './../../models/user/user-profile';
 import { Component, OnInit, Input, Output, EventEmitter, DoCheck } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-header',
@@ -8,13 +10,16 @@ import { UserService } from 'src/app/services/user/user.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, DoCheck {
+  userInfo: UserProfile = new UserProfile();
+  searchQuery: string = "";
   userId: string;
 
   constructor(
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private productService: ProductService
   ) {
-    this.userId = this.userService.userId;
+    this.userId = this.userService.getUserFromStorage().id;
   }
 
   ngDoCheck(): void {
@@ -41,7 +46,18 @@ export class HeaderComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() {
+    this.userInfo.id = this.userService.getUserFromStorage().id;
     this.toggleMenuEvent.emit(this.hideMenu);
+    this.userService.getUserProfile(this.userInfo.id).subscribe(
+      (data) => {
+        this.userInfo = data.userProfile;
+      },
+      err => {
+      }
+    );
+  }
+  Search() {
+    this.productService.setSearchQuery(this.searchQuery);
   }
 
 }

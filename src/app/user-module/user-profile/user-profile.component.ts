@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
 import { GetUserProfileResponse } from 'src/app/models/user/get-user-profile-response';
 import { UserProfile } from 'src/app/models/user/user-profile';
-import { GetProductsListResponse } from 'src/app/models/get-products-list-response';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile-component',
@@ -10,19 +10,19 @@ import { GetProductsListResponse } from 'src/app/models/get-products-list-respon
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  userId: string;
   userProfile: UserProfile;
+  userId: string;
   hideMenu: boolean;
   showActiveAds: boolean;
 
   constructor(
-    private userService: UserService
-  ) { }
+    private userService: UserService,
+    private router: Router
+  ) {
+    this.userId = this.userService.getUserFromStorage().id;
+  }
 
   ngOnInit() {
-    this.showActiveAds = true;
-    this.userId = this.userService.userId;
-
     this.userService.getUserProfile(this.userId).subscribe(
       (response: GetUserProfileResponse) => {
         this.userProfile = response.userProfile;
@@ -32,34 +32,14 @@ export class UserProfileComponent implements OnInit {
         console.log(err.error);
       }
     );
-
-    this.getActiveAds();
+    if (this.router.url.includes("/active")) {
+      this.showActiveAds = true;
+    } else {
+      this.showActiveAds = false;
+    }
   }
 
-  getActiveAds() {
-    this.showActiveAds = true;
-    this.userService.getActiveUserProducts(this.userId).subscribe(
-      (response: GetProductsListResponse) => {
-        this.userService.userAdsList.next(response.products);
-      },
-      err => {
-        // TBA - error msg on ui
-        console.log(err.error);
-      }
-    );
+  toggleAdsTabHighlighting() {
+    this.showActiveAds = this.showActiveAds ? false : true;
   }
-
-  getInactiveAds() {
-    this.showActiveAds = false;
-    this.userService.getInactiveUserProducts(this.userId).subscribe(
-      (response: GetProductsListResponse) => {
-        this.userService.userAdsList.next(response.products);
-      },
-      err => {
-        // TBA - error msg on ui
-        console.log(err.error);
-      }
-    );
-  }
-
 }

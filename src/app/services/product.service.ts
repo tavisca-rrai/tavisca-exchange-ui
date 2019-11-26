@@ -1,3 +1,4 @@
+import { Data } from './../models/sort-options';
 import { Injectable } from '@angular/core';
 import { IProductService } from '../models/i-product-service';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
@@ -11,45 +12,70 @@ import { catchError, retry } from 'rxjs/operators';
 import { ErrorResponse } from '../models/error-response'
 import { Product } from './../models/product'
 import { ProductSort } from '../models/product-sort';
+import { UserService } from './user/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ProductService implements IProductService {
   private _productSource: Product;
   _error: ErrorResponse;
   productMockService: ProductMockService;
   private _productSortOptions: ProductSort;
   private _productSortOptionsObservable = new BehaviorSubject(null);
+  private searchQuery: string;
+  private searchQueryObservable = new BehaviorSubject(null);
   public headers = new HttpHeaders({
     "Content-Type": "application/json"
   });
+  userAdsList: BehaviorSubject<Product[]> = new BehaviorSubject([]);
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private userService: UserService
+  ) {
     if (environment.isMockingEnabled) {
       this.productMockService = new ProductMockService();
     }
   }
+
   getProductObj() {
     return this._productSource;
   }
+
   sendProductObj(product: Product) {
     this._productSource = product;
   }
+
   sendErrorObj(errorresponse: ErrorResponse) {
     this._error = errorresponse;
   }
+
   getErrorObj(): Observable<ErrorResponse> {
     return of(this._error);
   }
+
   AddProduct(product: Product): Observable<Product> {
     if (environment.isMockingEnabled) {
       return this.productMockService.AddProduct(product);
     }
     else {
-      //this is dummy. This will be removed after login service integration
-      product.sellerId = "1";
+      product.sellerId = this.userService.getUserFromStorage().id;
       return this.http.post<Product>(this.getUrl(environment.productSetting.addProductPath), product, {
+        headers: this.headers
+      });
+    }
+  }
+
+  updateProduct(product: Product): Observable<Product> {
+    if (environment.isMockingEnabled) {
+      return this.productMockService.updateProduct(product);
+    }
+    else {
+      //this is dummy. This will be removed after login service integration
+      product.sellerId = product.id;
+      return this.http.post<Product>(this.getUrl(environment.productSetting.updateProductPath), product, {
         headers: this.headers
       });
     }
@@ -78,13 +104,14 @@ export class ProductService implements IProductService {
 
   getProductsList(
     pageNumber: number,
-    pageSize: number
+    pageSize: number,
+    data: Data
   ): Observable<GetProductsListResponse> {
     if (environment.isMockingEnabled) {
       return this.productMockService.getProductsList(pageNumber, pageSize);
     } else {
-      let getProductListUrl: string = this.getUrl(environment.productSetting.adsListPath) + "?pageNumber=" + pageNumber + "&pagesize=" + pageSize;
-      return this.http.get<GetProductsListResponse>(getProductListUrl, {
+      let getProductListUrl: string = this.getUrl(environment.productSetting.adsListPath) + "?pageNo=" + pageNumber + "&pagesize=" + pageSize;
+      return this.http.post<GetProductsListResponse>(getProductListUrl, JSON.stringify(data), {
         headers: this.headers
       }).pipe(
         retry(1),
@@ -105,6 +132,7 @@ export class ProductService implements IProductService {
       }).pipe(retry(1), catchError(this.errorHandler));
     }
   }
+
   errorHandler(error: HttpErrorResponse) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
@@ -114,13 +142,51 @@ export class ProductService implements IProductService {
     }
     return throwError(errorMessage);
   }
+
   setProductSortOptions(productSortOptions: ProductSort) {
     this._productSortOptions = productSortOptions;
     this._productSortOptionsObservable.next(this._productSortOptions);
   }
+
   getProductSortOptions(): Observable<ProductSort> {
     return this._productSortOptionsObservable;
   }
+
+  getActiveUserProducts(
+    userId: string
+  ): Observable<GetProductsListResponse> {
+    if (environment.isMockingEnabled) {
+      return this.productMockService.getActiveUserProducts(userId);
+    } else {
+      let getProductListUrl: string = this.userService.getUrl(environment.userSetting.profile) + userId + environment.userSetting.activeAds;
+      return this.http.get<GetProductsListResponse>(getProductListUrl, {
+        headers: this.headers
+      });
+    }
+  }
+
+  getInactiveUserProducts(
+    userId: string
+  ): Observable<GetProductsListResponse> {
+    if (environment.isMockingEnabled) {
+      return this.productMockService.getInactiveUserProducts(userId);
+    } else {
+      let getProductListUrl: string = this.userService.getUrl(environment.userSetting.inactiveAds) + userId + environment.userSetting.inactiveAds;
+      return this.http.get<GetProductsListResponse>(getProductListUrl, {
+        headers: this.headers
+      });
+    }
+  }
+
+  setSearchQuery(query: string) {
+    this.searchQuery = query;
+    this.searchQueryObservable.next(this.searchQuery);
+  }
+
+  getSearchQuery(): Observable<string> {
+    return this.searchQueryObservable;
+  }
+
   private getUrl(path: string): string {
     return environment.productSetting.BaseUrl +
       environment.version +

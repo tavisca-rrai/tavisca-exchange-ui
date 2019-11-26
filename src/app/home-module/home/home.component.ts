@@ -11,13 +11,13 @@ import { Router } from '@angular/router';
         width: '0px'
       })),
       state('closed', style({
-        width: '250px'
+        width: '300px'
       })),
       state('contentOpen', style({
         marginLeft: '0px'
       })),
       state('contentClosed', style({
-        marginLeft: '250px'
+        marginLeft: '300px'
       })),
       transition('open <=> closed', [
         animate('0.3s')
@@ -30,6 +30,7 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit, DoCheck {
   hideMenu: boolean;
+  display : string = "block";
   isMobile: boolean = false;
   userId: string;
   disableAnimation: boolean = false;
@@ -41,8 +42,10 @@ export class HomeComponent implements OnInit, DoCheck {
     if (this.router.url != "/products") {
       this.hideMenu = true;
       this.disableAnimation = true;
+      this.display= "none";
     } else {
       this.disableAnimation = false;
+      this.display= "block";
     }
   }
 

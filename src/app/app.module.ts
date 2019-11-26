@@ -21,8 +21,10 @@ import { HomeComponent } from './home-module/home/home.component';
 import { AdvertismentDetailsComponent } from './home-module/advertisment-details/advertisment-details.component';
 import { UserProfileComponent } from './user-module/user-profile/user-profile.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ImageService } from './services/ad-image.service'
+import { DragAndDropDirective } from './drag-and-drop.directive'
+import {NgxPaginationModule} from 'ngx-pagination';
 
-import {ImageService} from './services/ad-image.service'
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +38,8 @@ import {ImageService} from './services/ad-image.service'
     HomeComponent,
     AdvertismentDetailsComponent,
     UserProfileComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    DragAndDropDirective
   ],
   imports: [
     BrowserModule,
@@ -49,9 +52,10 @@ import {ImageService} from './services/ad-image.service'
     FormsModule,
     LoginModule,
     NgbModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgxPaginationModule
   ],
-  providers: [DatePipe,ImageService],
+  providers: [DatePipe, ImageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

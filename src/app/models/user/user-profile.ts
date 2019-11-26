@@ -1,7 +1,8 @@
 export class UserProfile {
-    public id: String;
-    public name: String;
-    public contactNumber: String;
-    public emailId: String;
-    public profileImageUrl: String;
+    public id: string;
+    public firstName: string;
+    public lastName: string;
+    public contactNumber: string;
+    public emailId: string;
+    public profileImageUrl: string;
 }

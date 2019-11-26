@@ -1,13 +1,17 @@
+<div class="alert alert-primary" role="alert" *ngIf="searchedQuery.trim().length>0">
+    Results for : {{searchedQuery}}
+</div>
 <div class="adv-list-container" *ngIf='!noProductResponse'>
-    <div *ngFor="let ad of adsList" class="adv-card" (click)="goToProductDetails" [routerLink]="['details',ad.id]">
+    <div *ngFor="let ad of adsList | paginate: { itemsPerPage: pageSize, currentPage: pageNumber, totalItems: totalItem }" class="adv-card" (click)="goToProductDetails" [routerLink]="['details',ad.id]">
         <div class="img-container">
-            <img src="{{ad.heroImage}}" alt="Advertisment Image for {{ad.name}}">
+            <img src="{{imageServer+ad.heroImage}}" alt="Advertisment Image for {{ad.name}}">
         </div>
         <div class="adv-details">
-            <p class="adv-price">₹ {{ad.price.money.amount}}</p>
+            <p class="adv-price">₹ {{ad.price.amount}}</p>
             <p class="adv-title">{{ad.name}}</p>
             <div class="adv-bottom-section">
-                <p class="adv-posting-area" *ngIf="ad.pickupAddress != null">{{ad.pickupAddress.city}}, {{ad.pickupAddress.state}}</p>
+                <p class="adv-posting-area" *ngIf="ad.pickupAddress != null">{{ad.pickupAddress.city}}, {{ad.pickupAddress.state}}
+                </p>
                 <p class="adv-posting-date">
                     {{ad.postDateTime | date :'dd MMM yy'}}
                 </p>
@@ -15,6 +19,11 @@
         </div>
     </div>
 </div>
+<div>
+    <ul class="pagination">
+        <pagination-controls class="pagination" (pageChange)="pageNumber = pageChanged($event)" responsive="true" autoHide="true"></pagination-controls>
+    </ul>
+</div>
 <div class="null-response" *ngIf='noProductResponse'>
-    <span>No Products Available</span> 
+    <span>No Products Available</span>
 </div>

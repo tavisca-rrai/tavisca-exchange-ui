@@ -3,12 +3,14 @@ import { ImageProperty } from '../models/imageProperty';
 import { DatePipe } from '@angular/common';
 import { Product } from '../models/product';
 import { ProductService } from '../services/product.service';
+import { HttpClient, HttpRequest, HttpEventType, HttpResponse, } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HttpClient, HttpEventType, HttpResponse, } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
 import { ImageService } from '../services/ad-image.service';
 import { ProductImages } from '../models/ProductImages';
+import { CategoryService } from '../services/category-service/category.service';
+import { Category } from '../models/category';
 
 @Component({
   selector: 'app-post-ad-component',
@@ -30,9 +32,12 @@ export class PostAdComponentComponent implements OnInit {
   invalidImage = false;
   connectionError = false;
   errMsg = "";
-  categories = ["Property", "Car", "Furniture", "Mobile", "Bike", "Book", "Fashion", "Electronic", "Other"]; // this is provided by categories api
+  //categories = ["Property", "Car", "Furniture", "Mobile", "Bike", "Book", "Fashion", "Electronic", "Other"]; // this is provided by categories api
+  categories: Category[];
+
   states = ["Andra Pradesh", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jammu and Kashmir", "Jharkhand", "Karnataka",
-    "Kerala", "Madya Pradesh", "Maharashtra", "Punjab", "Rajasthan"]
+    "Kerala", "Madya Pradesh", "Maharashtra", "Punjab", "Rajasthan"];
+
 
   //properties of html element 
   addressDisplayValue = "none";
@@ -48,6 +53,7 @@ export class PostAdComponentComponent implements OnInit {
   constructor(
     private imageService: ImageService,
     private router: Router,
+    private categoryService: CategoryService,
     public datepipe: DatePipe,
     private productService: ProductService,
     public http: HttpClient,
@@ -61,6 +67,16 @@ export class PostAdComponentComponent implements OnInit {
     this.imageArray.push(image);
     this.productModel = new Product();
     this.productImages = new ProductImages();
+
+    this.categoryService.getCategories().subscribe(
+      (response) => {
+        console.log(response);
+        this.categories = response.categories;
+      },
+      err => {
+        console.log(err.error);
+      }
+    );
 
     if (this.router.url.includes("/update-ad")) {
       this.activatedRoute.params.subscribe(params => {
@@ -205,6 +221,7 @@ export class PostAdComponentComponent implements OnInit {
               this.errMsg = "Invalid File Format. Please Upload Images(jpg, jpeg, png) only.";
             }
           }
+
           console.log("Upload Failed\n Error: " + this.errMsg);
         }
       );

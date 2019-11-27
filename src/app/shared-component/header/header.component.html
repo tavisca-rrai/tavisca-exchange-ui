@@ -4,7 +4,10 @@
         <h1><a routerLink="/products">Tav<span>Ex</span></a></h1>
     </div>
     <div class="search-box">
-        <input class="form-control" type="search" [(ngModel)]="searchQuery" placeholder="Search" (keyup.enter)="Search()" aria-label="Search">
+        <input class="form-control" list="suggestion" type="text" [(ngModel)]="searchQuery" placeholder="Search..." (keyup.enter)="Search()" (keyup)="AutoPopulate($event)" aria-label="Search">
+        <datalist id="suggestion">
+            <option *ngFor="let tags of suggestions" (keyup.enter)="Search()"> {{ tags }}</option>
+        </datalist>
     </div>
     <div class="link-box">
         <div class="user-profile">

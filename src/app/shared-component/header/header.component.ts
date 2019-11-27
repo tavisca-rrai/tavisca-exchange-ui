@@ -9,10 +9,15 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
+
 export class HeaderComponent implements OnInit, DoCheck {
   userInfo: UserProfile = new UserProfile();
   searchQuery: string = "";
   userId: string;
+  
+  suggestions = [];
+  categories = ["Property", "Car", "cam", "Mobile", "Bike", "Book", "Fashion", "Electronic", "Other"];
+
 
   constructor(
     private router: Router,
@@ -56,7 +61,25 @@ export class HeaderComponent implements OnInit, DoCheck {
       }
     );
   }
+
   Search() {
+    alert("hi");
     this.productService.setSearchQuery(this.searchQuery);
+  }
+
+  AutoPopulate(event:any)
+  {  
+    this.suggestions = [];
+    console.clear();
+    if(event.target.value.length>0)
+    {
+      for(var i=0; i<this.categories.length;i++)
+      {
+        if(((this.categories[i].toLowerCase()).indexOf(event.target.value.toLowerCase()))>-1)
+        {
+          this.suggestions.push(this.categories[i]);
+        }
+      }
+    }
   }
 }

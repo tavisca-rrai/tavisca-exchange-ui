@@ -42,7 +42,7 @@ export class ProductsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getProducts();
+    this.getProducts(this.pageNumber,this.pageSize);
     this.getFilterOptions();
     this.getSearchQuery();
 
@@ -51,7 +51,7 @@ export class ProductsListComponent implements OnInit {
     }
   }
 
-  getProducts(pageNumber = null, pageSize = null) {
+  getProducts(pageNumber : number, pageSize : number) {
     if (this.router.url.includes("/products")) {
       let data = new Data();
       data.ProductSort = new SortOptions();
@@ -59,7 +59,7 @@ export class ProductsListComponent implements OnInit {
       data.ProductSort.Order = "Desc";
       data.ProductSort.Type = "Date";
 
-      this.productService.getProductsList(this.pageNumber, this.pageSize, data).subscribe(
+      this.productService.getProductsList(pageNumber, pageSize, data).subscribe(
         (response: GetProductsListResponse) => {
           let noProductResponse: boolean = false;
           if (response == null) {

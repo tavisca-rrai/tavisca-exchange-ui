@@ -158,7 +158,7 @@ export class ProductService implements IProductService {
     if (environment.isMockingEnabled) {
       return this.productMockService.getActiveUserProducts(userId);
     } else {
-      let getProductListUrl: string = this.userService.getUrl(environment.userSetting.profile) + userId + environment.userSetting.activeAds;
+      let getProductListUrl: string = this.userService.getUrl(environment.userSetting.profile) + "/" + userId + environment.userSetting.activeAds;
       return this.http.get<GetProductsListResponse>(getProductListUrl, {
         headers: this.headers
       });

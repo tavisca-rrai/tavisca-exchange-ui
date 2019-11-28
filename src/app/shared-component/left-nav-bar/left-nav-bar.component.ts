@@ -5,6 +5,8 @@ import { SortOptions,PriceFilter,Data } from "../../models/sort-options";
 import { ProductService } from '../../services/product.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { CategoryFilter } from 'src/app/models/category-filter';
+import { Category } from 'src/app/models/category';
+import { CategoryService } from 'src/app/services/category-service/category.service';
 @Component({
   selector: 'app-left-nav-bar',
   templateUrl: './left-nav-bar.component.html',
@@ -23,7 +25,7 @@ export class LeftNavBarComponent implements OnInit,DoCheck {
   priceFilter:PriceFilter;
   categoryFilter:CategoryFilter;
   productFilter:Data;
-  categories = ["Property", "Car", "Furniture", "Mobile", "Bike", "Book", "Fashion", "Electronic", "Other"];
+  categories:Category[];
   options: Options = {
     floor: this.minValue,
     ceil: this.maxValue,
@@ -44,7 +46,8 @@ export class LeftNavBarComponent implements OnInit,DoCheck {
 
   constructor(
     private productService: ProductService,
-    private userService: UserService
+    private userService: UserService,
+    private categoryService:CategoryService
   ) {
     this.userId = this.userService.getUserFromStorage().id;
   }
@@ -75,6 +78,18 @@ export class LeftNavBarComponent implements OnInit,DoCheck {
     this.categoryFilter.Categories = [];
     this.sortOptions = new SortOptions();
     this.setProductSortOptions();
+
+    
+    this.categoryService.getCategories().subscribe(
+      (response) => {
+        this.categories = response.categories;
+      },
+      err => {
+        console.log(err.error);
+      }
+    );
+
+
   }
   setSortValueForFilter(){
     if(this.sortOptions.Type=="Date" ){

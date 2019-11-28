@@ -4,9 +4,9 @@
         <h1><a routerLink="/products">Tav<span>Ex</span></a></h1>
     </div>
     <div class="search-box">
-        <input class="form-control" list="suggestion" type="text" [(ngModel)]="searchQuery" placeholder="Search..." (keyup.enter)="Search()" (keyup)="AutoPopulate($event)" aria-label="Search">
+        <input class="form-control" list="suggestion" type="text" [(ngModel)]="searchQuery" placeholder="Search..." (keyup)="AutoPopulate($event)" (change)="Search()" aria-label="Search">
         <datalist id="suggestion">
-            <option *ngFor="let tags of suggestions" (keyup.enter)="Search()"> {{ tags }}</option>
+            <option *ngFor="let tag of suggestions" [ngValue]="tag"> {{ tag }}</option>
         </datalist>
     </div>
     <div class="link-box">
@@ -14,7 +14,7 @@
             <a [routerLink]="['/products/postad']" class="btn btn-primary mr-3 sell">
                 <i class="fa fa-arrow-circle-up" aria-hidden="true"></i> Sell
             </a>
-            <label class='user-name'>Welcome {{userInfo.firstName}}</label>
+            <label class2='user-name'>Welcome {{userInfo.firstName}}</label>
             <a [routerLink]="['/profile',userId,'active']" class="header-icon">
                 <i class="fa fa-user"></i>
             </a>

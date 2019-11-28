@@ -1,4 +1,4 @@
 export class Category {
-    public Name : string;
-    public Tags : string[];
+    public name : string;
+    public tags : string[];
 }

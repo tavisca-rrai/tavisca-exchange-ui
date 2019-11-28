@@ -32,7 +32,6 @@ export class PostAdComponentComponent implements OnInit {
   invalidImage = false;
   connectionError = false;
   errMsg = "";
-  //categories = ["Property", "Car", "Furniture", "Mobile", "Bike", "Book", "Fashion", "Electronic", "Other"]; // this is provided by categories api
   categories: Category[];
 
   states = ["Andra Pradesh", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jammu and Kashmir", "Jharkhand", "Karnataka",
@@ -70,7 +69,6 @@ export class PostAdComponentComponent implements OnInit {
 
     this.categoryService.getCategories().subscribe(
       (response) => {
-        console.log(response);
         this.categories = response.categories;
       },
       err => {

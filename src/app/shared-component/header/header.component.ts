@@ -3,6 +3,8 @@ import { Component, OnInit, Input, Output, EventEmitter, DoCheck } from '@angula
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
 import { ProductService } from 'src/app/services/product.service';
+import { CategoryService } from 'src/app/services/category-service/category.service';
+import { Category } from 'src/app/models/category';
 
 @Component({
   selector: 'app-header',
@@ -14,15 +16,15 @@ export class HeaderComponent implements OnInit, DoCheck {
   userInfo: UserProfile = new UserProfile();
   searchQuery: string = "";
   userId: string;
-  
-  suggestions = [];
-  categories = ["Property", "Car", "cam", "Mobile", "Bike", "Book", "Fashion", "Electronic", "Other"];
 
+  suggestions = [];
+  categories:Category[];
 
   constructor(
     private router: Router,
     private userService: UserService,
-    private productService: ProductService
+    private productService: ProductService,
+    private categoryService:CategoryService
   ) {
     this.userId = this.userService.getUserFromStorage().id;
   }
@@ -60,26 +62,43 @@ export class HeaderComponent implements OnInit, DoCheck {
       err => {
       }
     );
-  }
 
+    this.categoryService.getCategories().subscribe(
+      (response) => {
+        this.categories = response.categories;
+      },
+      err => {
+        console.log(err.error);
+      }
+    );
+  }
   Search() {
-    alert("hi");
     this.productService.setSearchQuery(this.searchQuery);
+    this.searchQuery="";
   }
 
   AutoPopulate(event:any)
-  {  
+  {  let count = 5;
     this.suggestions = [];
-    console.clear();
     if(event.target.value.length>0)
     {
-      for(var i=0; i<this.categories.length;i++)
+      for(let i=0; i<this.categories.length;i++)
       {
-        if(((this.categories[i].toLowerCase()).indexOf(event.target.value.toLowerCase()))>-1)
-        {
-          this.suggestions.push(this.categories[i]);
-        }
+        for(let j=0;j<this.categories[i].tags.length;j++)
+         {
+            if(((this.categories[i].tags[j].toLowerCase()).indexOf(event.target.value.toLowerCase()))>-1)
+            {
+              if(count>0){
+                this.suggestions.push(this.categories[i].tags[j]);
+                count--;
+              }else{
+                break;
+              }
+              
+            }
+         }
       }
     }
+    console.log("hi");
   }
 }

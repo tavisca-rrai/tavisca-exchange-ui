@@ -79,3 +79,7 @@
 .pagination /deep/ .ngx-pagination .current{
     background : #1976d2;
    }
+
+.null-response{
+    text-align: center;
+}

@@ -8,7 +8,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { Router } from '@angular/router';
 import { GetProductsListResponse } from 'src/app/models/get-products-list-response';
 import { ErrorResponse } from '../../models/error-response';
-import { PagingInfo } from 'src/app/models/paging-info';
+import { PagingInfo } from 'src/app/models/paging-info';  
 
 @Component({
   selector: 'app-products-list',
@@ -25,9 +25,6 @@ export class ProductsListComponent implements OnInit {
   error = new ErrorResponse;
   advertiseId: string;
   productSortOptions: ProductSort;
-  monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
-  ];
   searchedQuery: string = "";
   imageServer: string = environment.imageApiSettings.BaseUrl;
   totalItem: number = 0;
@@ -42,7 +39,7 @@ export class ProductsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getProducts();
+    this.getProducts(this.pageNumber,this.pageSize);
     this.getSortOptions();
     this.getSearchQuery();
 
@@ -51,7 +48,7 @@ export class ProductsListComponent implements OnInit {
     }
   }
 
-  getProducts(pageNumber = null, pageSize = null) {
+  getProducts(pageNumber : number, pageSize : number) {
     if (this.router.url.includes("/products")) {
       let data = new Data();
       data.ProductSort = new SortOptions();
@@ -59,11 +56,10 @@ export class ProductsListComponent implements OnInit {
       data.ProductSort.Order = "Desc";
       data.ProductSort.Type = "Date";
 
-      this.productService.getProductsList(this.pageNumber, this.pageSize, data).subscribe(
+      this.productService.getProductsList(pageNumber, pageSize, data).subscribe(
         (response: GetProductsListResponse) => {
-          let noProductResponse: boolean = false;
           if (response == null) {
-            noProductResponse = true;
+            this.noProductResponse = true;
             this.error.code = null;
             this.error.message = "No Products Found..";
             this.productService.sendErrorObj(this.error);
@@ -78,21 +74,27 @@ export class ProductsListComponent implements OnInit {
           console.log(err.error);
         });
     } else if (this.router.url.includes("/active")) {
+      localStorage.clear();
       this.productService.getActiveUserProducts(this.userId).subscribe(
         (response) => {
           this.adsList = response.products;
+          this.pagingInfo = response.pagingInfo;
         },
         err => {
+          this.noProductResponse=true;
           // TBA - error msg on ui
           console.log(err.error);
         });
     } else if (this.router.url.includes("/inactive")) {
+      localStorage.clear();
       this.productService.getInactiveUserProducts(this.userId).subscribe(
         (response) => {
           this.adsList = response.products;
+          this.pagingInfo = response.pagingInfo;
         },
         err => {
           // TBA - error msg on ui
+          this.noProductResponse=true;
           console.log(err.error);
         });
     }

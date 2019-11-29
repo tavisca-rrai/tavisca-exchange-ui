@@ -8,7 +8,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { Router } from '@angular/router';
 import { GetProductsListResponse } from 'src/app/models/get-products-list-response';
 import { ErrorResponse } from '../../models/error-response';
-import { PagingInfo } from 'src/app/models/paging-info';
+import { PagingInfo } from 'src/app/models/paging-info';  
 
 @Component({
   selector: 'app-products-list',
@@ -61,9 +61,8 @@ export class ProductsListComponent implements OnInit {
 
       this.productService.getProductsList(pageNumber, pageSize, data).subscribe(
         (response: GetProductsListResponse) => {
-          let noProductResponse: boolean = false;
           if (response == null) {
-            noProductResponse = true;
+            this.noProductResponse = true;
             this.error.code = null;
             this.error.message = "No Products Found..";
             this.productService.sendErrorObj(this.error);
@@ -78,21 +77,27 @@ export class ProductsListComponent implements OnInit {
           console.log(err.error);
         });
     } else if (this.router.url.includes("/active")) {
+      localStorage.clear();
       this.productService.getActiveUserProducts(this.userId).subscribe(
         (response) => {
           this.adsList = response.products;
+          this.pagingInfo = response.pagingInfo;
         },
         err => {
+          this.noProductResponse=true;
           // TBA - error msg on ui
           console.log(err.error);
         });
     } else if (this.router.url.includes("/inactive")) {
+      localStorage.clear();
       this.productService.getInactiveUserProducts(this.userId).subscribe(
         (response) => {
           this.adsList = response.products;
+          this.pagingInfo = response.pagingInfo;
         },
         err => {
           // TBA - error msg on ui
+          this.noProductResponse=true;
           console.log(err.error);
         });
     }
